@@ -153,6 +153,22 @@
     applyTheme(saved || document.documentElement.dataset.theme || "indigo");
   }
 
+  /* ---- Scroll progress bar + back to top ---- */
+  const prog = document.querySelector(".progress-bar");
+  const toTop = document.querySelector(".to-top");
+  if (prog || toTop) {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+      if (prog) prog.style.width = p + "%";
+      if (toTop) toTop.classList.toggle("show", h.scrollTop > 600);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    if (toTop) toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+  }
+
   /* ---- Diploma lightbox ---- */
   const lb = document.querySelector(".lightbox");
   if (lb) {
