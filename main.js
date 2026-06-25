@@ -182,6 +182,24 @@
     if (toTop) toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   }
 
+  /* ---- Scroll-spy (single-page section indicator) ---- */
+  const secs = [...document.querySelectorAll(".sec[id]")];
+  if (secs.length) {
+    const links = [...document.querySelectorAll('.nav-links a[href^="#"], .dot-nav a[href^="#"]')];
+    const setActive = (id) => links.forEach((a) =>
+      a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+    let current = "";
+    const spy = new IntersectionObserver((entries) => {
+      // pick the entry whose top is closest to the offset line and is intersecting
+      let best = null;
+      entries.forEach((e) => {
+        if (e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio)) best = e;
+      });
+      if (best && best.target.id !== current) { current = best.target.id; setActive(current); }
+    }, { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] });
+    secs.forEach((s) => spy.observe(s));
+  }
+
   /* ---- Diploma lightbox ---- */
   const lb = document.querySelector(".lightbox");
   if (lb) {

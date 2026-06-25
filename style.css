@@ -80,7 +80,8 @@
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; }
+.sec { scroll-margin-top: 84px; }
 body {
   font-family: var(--font);
   color: var(--ink);
@@ -547,6 +548,40 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 .scroll-cue .mouse::after { content: ""; position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; border-radius: 2px;
   background: var(--c2); transform: translateX(-50%); animation: wheel 1.6s var(--ease) infinite; }
 @keyframes wheel { 0% { opacity: 0; transform: translate(-50%, 0); } 40% { opacity: 1; } 80% { opacity: 0; transform: translate(-50%, 9px); } }
+
+/* ---------- Side dot navigation (scroll indicator) ---------- */
+.dot-nav { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 90;
+  display: flex; flex-direction: column; gap: 16px; }
+.dot-nav a { width: 11px; height: 11px; border-radius: 50%; position: relative;
+  border: 2px solid color-mix(in srgb, var(--ink) 32%, transparent); transition: all .3s var(--ease); }
+.dot-nav a:hover { border-color: var(--c2); transform: scale(1.2); }
+.dot-nav a.active { border-color: var(--c2); background: var(--c2);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c2) 16%, transparent); }
+.dot-nav a span {
+  position: absolute; right: 24px; top: 50%; transform: translateY(-50%) translateX(6px);
+  white-space: nowrap; font-size: .76rem; font-weight: 600; color: var(--ink); pointer-events: none;
+  background: var(--pop-bg); border: 1px solid var(--glass-bord); padding: 5px 11px; border-radius: 9px;
+  opacity: 0; transition: opacity .25s var(--ease), transform .25s var(--ease);
+  backdrop-filter: blur(10px); box-shadow: var(--glass-shadow); }
+.dot-nav a:hover span { opacity: 1; transform: translateY(-50%); }
+@media (max-width: 1180px) { .dot-nav { display: none; } }
+
+/* ---------- "Glim" sheen + lift on tags/pills (micro-interaction) ---------- */
+.chip, .skill-tag, .combine-pill { position: relative; overflow: hidden; isolation: isolate; }
+.chip::after, .skill-tag::after, .combine-pill::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(115deg, transparent 36%, color-mix(in srgb, var(--c2) 32%, transparent) 50%, transparent 64%);
+  transform: translateX(-130%); transition: transform .75s var(--ease); }
+.chip:hover::after, .skill-tag:hover::after, .combine-pill:hover::after { transform: translateX(130%); }
+.skill-tag { transition: transform .25s var(--ease), border-color .25s, box-shadow .25s, color .25s; }
+.skill-tag:hover { transform: translateY(-2px); color: var(--ink);
+  border-color: color-mix(in srgb, var(--c2) 55%, transparent);
+  box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--c2) 65%, transparent); }
+.chip:hover { box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--c2) 55%, transparent); }
+
+/* ---------- Variable-font interaction (Fraunces axes) ---------- */
+.em-serif { font-variation-settings: "opsz" 80, "wght" 500; transition: font-variation-settings .5s var(--ease); }
+h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-settings: "opsz" 144, "wght" 600; }
 
 /* ---------- Reveal animation ---------- */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
