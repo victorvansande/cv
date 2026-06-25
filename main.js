@@ -1,5 +1,5 @@
 /* ============================================================
-   Victor Van Sande — CV website  ·  interactions
+   Victor Van Sande - CV website  ·  interactions
    ============================================================ */
 (() => {
   "use strict";
@@ -120,9 +120,9 @@
       const fd = new FormData(form);
       const name = encodeURIComponent(fd.get("name") || "");
       const msg = encodeURIComponent(fd.get("message") || "");
-      const subject = encodeURIComponent(`Bericht via portfolio — ${fd.get("name") || ""}`);
+      const subject = encodeURIComponent(`Bericht via portfolio: ${fd.get("name") || ""}`);
       window.location.href =
-        `mailto:victorvansande@gmail.com?subject=${subject}&body=${msg}%0D%0A%0D%0A— ${name}`;
+        `mailto:victorvansande@gmail.com?subject=${subject}&body=${msg}%0D%0A%0D%0AGroeten,%0D%0A${name}`;
       const btn = form.querySelector("button[type=submit]");
       if (btn) { btn.textContent = "Mailclient geopend ✓"; }
     });
@@ -131,4 +131,37 @@
   /* ---- Footer year ---- */
   const yr = document.querySelector("[data-year]");
   if (yr) yr.textContent = new Date().getFullYear();
+
+  /* ---- Theme switcher ---- */
+  const THEMES = ["indigo", "teal", "emerald", "amber", "rose", "slate", "violet"];
+  const applyTheme = (t) => {
+    if (!THEMES.includes(t)) t = "indigo";
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem("cv-theme", t); } catch (e) {}
+    document.querySelectorAll(".swatch").forEach((s) =>
+      s.classList.toggle("active", s.dataset.theme === t));
+  };
+  const tBtn = document.querySelector(".theme-toggle");
+  const tPop = document.querySelector(".theme-pop");
+  if (tBtn && tPop) {
+    tBtn.addEventListener("click", (e) => { e.stopPropagation(); tPop.classList.toggle("open"); });
+    tPop.addEventListener("click", (e) => e.stopPropagation());
+    document.addEventListener("click", () => tPop.classList.remove("open"));
+    document.querySelectorAll(".swatch").forEach((s) =>
+      s.addEventListener("click", () => { applyTheme(s.dataset.theme); }));
+    const saved = (() => { try { return localStorage.getItem("cv-theme"); } catch (e) { return null; } })();
+    applyTheme(saved || document.documentElement.dataset.theme || "indigo");
+  }
+
+  /* ---- Diploma lightbox ---- */
+  const lb = document.querySelector(".lightbox");
+  if (lb) {
+    const lbImg = lb.querySelector("img");
+    const open = (src, alt) => { lbImg.src = src; lbImg.alt = alt || ""; lb.classList.add("open"); document.body.style.overflow = "hidden"; };
+    const close = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
+    document.querySelectorAll(".diploma-thumb").forEach((t) =>
+      t.addEventListener("click", () => open(t.dataset.full || t.querySelector("img").src, t.querySelector("img").alt)));
+    lb.addEventListener("click", (e) => { if (e.target === lb || e.target.closest(".lightbox-close")) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  }
 })();

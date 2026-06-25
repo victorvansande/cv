@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ervaring — Victor Van Sande</title>
+  <title>Ervaring · Victor Van Sande</title>
   <meta name="description" content="Relevante ervaring, stages en werkervaring van Victor Van Sande." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%233ad6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Arial' font-weight='800' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>(function(){try{var t=localStorage.getItem('cv-theme');document.documentElement.dataset.theme=t||'indigo';}catch(e){document.documentElement.dataset.theme='indigo';}})();</script>
 </head>
 <body>
   <div class="bg-canvas"></div>
@@ -20,7 +21,7 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="index.html" class="brand"><span class="mark">V</span> Victor Van Sande</a>
-      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-right">
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="over.html">Over mij</a>
@@ -28,13 +29,51 @@
         <a href="ervaring.html" class="active">Ervaring</a>
         <a href="contact.html" class="nav-cta">Contact</a>
       </nav>
+      <div class="theme-wrap">
+        <button class="theme-toggle" aria-label="Kleurthema wijzigen" title="Kleurthema"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="1.2" fill="currentColor"/><circle cx="17" cy="11" r="1.2" fill="currentColor"/><circle cx="8" cy="7" r="1.2" fill="currentColor"/><circle cx="6.5" cy="12" r="1.2" fill="currentColor"/><path d="M12 3a9 9 0 1 0 0 18c1 0 1.6-.8 1.6-1.6 0-.5-.2-.9-.5-1.2-.3-.4-.5-.8-.5-1.3 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5c0-3.9-4-7.3-9-7.3z"/></svg></button>
+        <div class="theme-pop">
+          <h4>Kleurthema</h4>
+          <div class="swatches">
+            <button class="swatch" data-theme="indigo" title="Indigo"><span style="background:linear-gradient(135deg,#6366f1,#818cf8)"></span></button>
+            <button class="swatch" data-theme="teal" title="Teal"><span style="background:linear-gradient(135deg,#0ea5e9,#2dd4bf)"></span></button>
+            <button class="swatch" data-theme="emerald" title="Emerald"><span style="background:linear-gradient(135deg,#10b981,#4ade80)"></span></button>
+            <button class="swatch" data-theme="amber" title="Amber"><span style="background:linear-gradient(135deg,#f59e0b,#fb923c)"></span></button>
+            <button class="swatch" data-theme="rose" title="Rosé"><span style="background:linear-gradient(135deg,#f43f5e,#fb7185)"></span></button>
+            <button class="swatch" data-theme="slate" title="Slate"><span style="background:linear-gradient(135deg,#7c8aa8,#9aa7c2)"></span></button>
+            <button class="swatch" data-theme="violet" title="Violet"><span style="background:linear-gradient(135deg,#7c5cff,#3ad6ff)"></span></button>
+          </div>
+        </div>
+      </div>
+      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </header>
 
   <section class="page-hero wrap">
     <span class="eyebrow reveal"><span class="dot"></span> Ervaring</span>
-    <h1 class="h-lg reveal" data-d="1">Van klaslokaal tot<br><span class="grad-text">koffiebar</span></h1>
-    <p class="lead reveal" data-d="2">Een traject dat onderwijs, jeugdwerk en klantgerichtheid combineert — telkens met mensen in het middelpunt.</p>
+    <h1 class="h-lg reveal" data-d="1">Van klaslokaal tot<br><span class="grad-text">communicatie</span></h1>
+    <p class="lead reveal" data-d="2">Een traject dat jeugdwerk, onderwijs en communicatie combineert, telkens met mensen in het middelpunt.</p>
+  </section>
+
+  <!-- CURRENT ROLE: GEKKOO -->
+  <section class="wrap section-pad" style="padding-top:46px;padding-bottom:0">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span> Huidige functie</span>
+      <h2 class="h-lg">Op dit moment bij <span class="grad-text">Gekkoo</span></h2>
+    </div>
+    <div class="glass tilt feature reveal" data-d="1" style="padding:34px">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="exp-ic" style="width:54px;height:54px;font-size:1.1rem">Gk</div>
+          <div>
+            <h3 style="font-size:1.25rem;display:flex;align-items:center;flex-wrap:wrap">Gekkoo <span class="now-badge"><span class="pulse"></span> Sinds mei 2025</span></h3>
+            <p style="color:var(--c2);font-weight:600;font-size:.95rem">Inhoudelijk medewerker, netwerker &amp; communicatiemedewerker</p>
+          </div>
+        </div>
+        <div class="exp-meta" style="text-align:right"><b>mei 2025 – heden</b>Limburgstraat 49-53, 2020 Antwerpen</div>
+      </div>
+      <p style="color:var(--ink-soft)">Bij Gekkoo breng ik mijn achtergrond in communicatie, psychologie en jeugdwerk samen. Ik werk aan de inhoudelijke uitbouw, onderhoud en versterk het netwerk rond de organisatie en sta mee in voor de communicatie naar verschillende doelgroepen. Het is de plek waar mijn passie voor mensen en mijn expertise in heldere, doelgerichte communicatie elkaar dagelijks vinden.</p>
+    </div>
   </section>
 
   <!-- RELEVANT EXPERIENCE -->

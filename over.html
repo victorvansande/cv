@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Over mij — Victor Van Sande</title>
+  <title>Over mij · Victor Van Sande</title>
   <meta name="description" content="Over Victor Van Sande: vaardigheden, talen, interesses en wie ik ben." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%233ad6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Arial' font-weight='800' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>(function(){try{var t=localStorage.getItem('cv-theme');document.documentElement.dataset.theme=t||'indigo';}catch(e){document.documentElement.dataset.theme='indigo';}})();</script>
 </head>
 <body>
   <div class="bg-canvas"></div>
@@ -20,7 +21,7 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="index.html" class="brand"><span class="mark">V</span> Victor Van Sande</a>
-      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-right">
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="over.html" class="active">Over mij</a>
@@ -28,6 +29,23 @@
         <a href="ervaring.html">Ervaring</a>
         <a href="contact.html" class="nav-cta">Contact</a>
       </nav>
+      <div class="theme-wrap">
+        <button class="theme-toggle" aria-label="Kleurthema wijzigen" title="Kleurthema"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="1.2" fill="currentColor"/><circle cx="17" cy="11" r="1.2" fill="currentColor"/><circle cx="8" cy="7" r="1.2" fill="currentColor"/><circle cx="6.5" cy="12" r="1.2" fill="currentColor"/><path d="M12 3a9 9 0 1 0 0 18c1 0 1.6-.8 1.6-1.6 0-.5-.2-.9-.5-1.2-.3-.4-.5-.8-.5-1.3 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5c0-3.9-4-7.3-9-7.3z"/></svg></button>
+        <div class="theme-pop">
+          <h4>Kleurthema</h4>
+          <div class="swatches">
+            <button class="swatch" data-theme="indigo" title="Indigo"><span style="background:linear-gradient(135deg,#6366f1,#818cf8)"></span></button>
+            <button class="swatch" data-theme="teal" title="Teal"><span style="background:linear-gradient(135deg,#0ea5e9,#2dd4bf)"></span></button>
+            <button class="swatch" data-theme="emerald" title="Emerald"><span style="background:linear-gradient(135deg,#10b981,#4ade80)"></span></button>
+            <button class="swatch" data-theme="amber" title="Amber"><span style="background:linear-gradient(135deg,#f59e0b,#fb923c)"></span></button>
+            <button class="swatch" data-theme="rose" title="Rosé"><span style="background:linear-gradient(135deg,#f43f5e,#fb7185)"></span></button>
+            <button class="swatch" data-theme="slate" title="Slate"><span style="background:linear-gradient(135deg,#7c8aa8,#9aa7c2)"></span></button>
+            <button class="swatch" data-theme="violet" title="Violet"><span style="background:linear-gradient(135deg,#7c5cff,#3ad6ff)"></span></button>
+          </div>
+        </div>
+      </div>
+      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </header>
 
@@ -42,7 +60,7 @@
     <div class="wrap grid grid-2" style="align-items:start">
       <div class="glass feature reveal" style="padding:38px">
         <h2 class="h-md" style="margin-bottom:18px">Wie ik ben</h2>
-        <p style="color:var(--ink-soft);margin-bottom:16px">Ik bevind me op het snijvlak van psychologie, educatie en communicatie. Door meer dan 10 jaar ervaring in jeugdwerk — waarvan 7 als hoofdleider — beschik ik over sterke leidinggevende, organisatorische en communicatieve vaardigheden.</p>
+        <p style="color:var(--ink-soft);margin-bottom:16px">Ik bevind me op het snijvlak van psychologie, educatie en communicatie. Door meer dan 10 jaar ervaring in jeugdwerk, waarvan 7 als hoofdleider, beschik ik over sterke leidinggevende, organisatorische en communicatieve vaardigheden.</p>
         <p style="color:var(--ink-soft)">Ik werk graag mensgericht, ongeacht wat ik doe. Ik kijk naar de wereld met een analytische blik die tegelijkertijd de broodnodige warmte, empathie en begrip toepast die ieder van ons dagelijks verdient.</p>
         <div class="chips" style="margin-top:26px">
           <span class="chip">Academische valorisatie</span>
@@ -95,7 +113,7 @@
         <h2 class="h-lg">Wat me <span class="grad-text">drijft</span></h2>
       </div>
       <div class="grid grid-2">
-        <div class="glass tilt feature reveal" data-d="1"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3>Fotografie & film</h3><p>Verhalen vertellen door beeld — van compositie tot montage.</p></div>
+        <div class="glass tilt feature reveal" data-d="1"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3>Fotografie & film</h3><p>Verhalen vertellen door beeld, van compositie tot montage.</p></div>
         <div class="glass tilt feature reveal" data-d="2"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Tech-trends</h3><p>Nieuwe technologieën en hun impact op mens en samenleving.</p></div>
         <div class="glass tilt feature reveal" data-d="3"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div><h3>Hoofdleider KSA Herentals</h3><p>Jeugdwerk met hart, sinds 2017 als hoofdverantwoordelijke.</p></div>
         <div class="glass tilt feature reveal" data-d="4"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2zM9 22h6"/></svg></div><h3>Psychologie</h3><p>Diep inzicht in de menselijke psyche, persoonlijk én professioneel.</p></div>

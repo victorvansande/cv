@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Opleiding — Victor Van Sande</title>
+  <title>Opleiding · Victor Van Sande</title>
   <meta name="description" content="De academische achtergrond van Victor Van Sande: drie diploma's met onderscheiding." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%233ad6ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-size='52' font-family='Arial' font-weight='800' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script>(function(){try{var t=localStorage.getItem('cv-theme');document.documentElement.dataset.theme=t||'indigo';}catch(e){document.documentElement.dataset.theme='indigo';}})();</script>
 </head>
 <body>
   <div class="bg-canvas"></div>
@@ -20,7 +21,7 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="index.html" class="brand"><span class="mark">V</span> Victor Van Sande</a>
-      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-right">
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="over.html">Over mij</a>
@@ -28,13 +29,30 @@
         <a href="ervaring.html">Ervaring</a>
         <a href="contact.html" class="nav-cta">Contact</a>
       </nav>
+      <div class="theme-wrap">
+        <button class="theme-toggle" aria-label="Kleurthema wijzigen" title="Kleurthema"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="1.2" fill="currentColor"/><circle cx="17" cy="11" r="1.2" fill="currentColor"/><circle cx="8" cy="7" r="1.2" fill="currentColor"/><circle cx="6.5" cy="12" r="1.2" fill="currentColor"/><path d="M12 3a9 9 0 1 0 0 18c1 0 1.6-.8 1.6-1.6 0-.5-.2-.9-.5-1.2-.3-.4-.5-.8-.5-1.3 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5c0-3.9-4-7.3-9-7.3z"/></svg></button>
+        <div class="theme-pop">
+          <h4>Kleurthema</h4>
+          <div class="swatches">
+            <button class="swatch" data-theme="indigo" title="Indigo"><span style="background:linear-gradient(135deg,#6366f1,#818cf8)"></span></button>
+            <button class="swatch" data-theme="teal" title="Teal"><span style="background:linear-gradient(135deg,#0ea5e9,#2dd4bf)"></span></button>
+            <button class="swatch" data-theme="emerald" title="Emerald"><span style="background:linear-gradient(135deg,#10b981,#4ade80)"></span></button>
+            <button class="swatch" data-theme="amber" title="Amber"><span style="background:linear-gradient(135deg,#f59e0b,#fb923c)"></span></button>
+            <button class="swatch" data-theme="rose" title="Rosé"><span style="background:linear-gradient(135deg,#f43f5e,#fb7185)"></span></button>
+            <button class="swatch" data-theme="slate" title="Slate"><span style="background:linear-gradient(135deg,#7c8aa8,#9aa7c2)"></span></button>
+            <button class="swatch" data-theme="violet" title="Violet"><span style="background:linear-gradient(135deg,#7c5cff,#3ad6ff)"></span></button>
+          </div>
+        </div>
+      </div>
+      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </header>
 
   <section class="page-hero wrap">
     <span class="eyebrow reveal"><span class="dot"></span> Opleidingen</span>
     <h1 class="h-lg reveal" data-d="1">Drie diploma's,<br>elk <span class="grad-text">met onderscheiding</span></h1>
-    <p class="lead reveal" data-d="2">Psychologie, lerarenopleiding en communicatiewetenschappen — een opbouw die mijn passies stap voor stap aanscherpte.</p>
+    <p class="lead reveal" data-d="2">Psychologie, lerarenopleiding en communicatiewetenschappen: een opbouw die mijn passies stap voor stap aanscherpte.</p>
   </section>
 
   <section class="section-pad" style="padding-top:50px">
@@ -43,27 +61,30 @@
 
         <div class="tl-item reveal">
           <div class="glass tilt tl-card">
-            <div class="tl-head"><h3>Universiteit Antwerpen</h3><span class="tl-date">sep 2023 – jun 2025</span></div>
-            <p class="tl-sub grad-text">Master Communicatiewetenschappen</p>
+            <div class="tl-head"><h3>Universiteit Antwerpen</h3><span class="tl-date">sep 2023 – sep 2025</span></div>
+            <p class="tl-sub grad-text">Master in de communicatiewetenschappen</p>
             <p>Ik verdiepte me in journalistiek, media en nieuwe technologieën en versterkte mijn passie voor de wetenschappelijke methode. Doelgerichte communicatie was de rode draad, met een focus op data-analyse, digitale communicatiestrategieën en gedragsbeïnvloeding.</p>
             <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> Afgestudeerd met onderscheiding</span>
+            <div class="diploma-thumb" data-full="assets/diploma-uantwerpen-master.jpg"><img src="assets/diploma-uantwerpen-master.jpg" alt="Getuigschrift Master in de communicatiewetenschappen, Universiteit Antwerpen" loading="lazy" /></div>
           </div>
         </div>
 
         <div class="tl-item reveal" data-d="1">
           <div class="glass tilt tl-card">
             <div class="tl-head"><h3>Karel de Grote Hogeschool</h3><span class="tl-date">sep 2020 – jun 2023</span></div>
-            <p class="tl-sub grad-text">Leerkracht Secundair Onderwijs</p>
-            <p>Deze opleiding verdiepte mijn interesse in Engels en de natuurwetenschappen. Ik leerde deze materie enthousiast overbrengen aan jongeren, verkende hun leefwereld, versterkte mijn wetenschappelijke kennis en behaalde een C2-niveau Engels.</p>
+            <p class="tl-sub grad-text">Educatieve Bachelor in het secundair onderwijs</p>
+            <p>Onderwijsvakken Engels en Natuurwetenschappen. Ik leerde deze materie enthousiast overbrengen aan jongeren, verkende hun leefwereld, versterkte mijn wetenschappelijke kennis en behaalde een C2-niveau Engels.</p>
             <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> Afgestudeerd met onderscheiding</span>
+            <div class="diploma-thumb" data-full="assets/diploma-kdg-bachelor.jpg"><img src="assets/diploma-kdg-bachelor.jpg" alt="Diploma Educatieve Bachelor secundair onderwijs, Karel de Grote Hogeschool" loading="lazy" /></div>
           </div>
         </div>
 
         <div class="tl-item reveal" data-d="2">
           <div class="glass tilt tl-card">
             <div class="tl-head"><h3>Thomas More Hogeschool</h3><span class="tl-date">sep 2017 – jun 2020</span></div>
-            <p class="tl-sub grad-text">Toegepaste Psychologie</p>
-            <p>Mijn diploma Toegepaste Psychologie leerde me doorzettingsvermogen en zelfstandigheid, en wekte mijn academische interesse. Als psychologisch consulent verwierf ik diepgaand inzicht in de menselijke psyche — scherpe inzichten die direct toepasbaar zijn, zowel persoonlijk als professioneel.</p>
+            <p class="tl-sub grad-text">Bachelor in de Toegepaste Psychologie</p>
+            <p>Afstudeerrichting schoolpsychologie en pedagogische psychologie. Deze opleiding leerde me doorzettingsvermogen en zelfstandigheid, en wekte mijn academische interesse. Als psychologisch consulent verwierf ik diepgaand inzicht in de menselijke psyche, met scherpe inzichten die direct toepasbaar zijn, zowel persoonlijk als professioneel.</p>
+            <div class="diploma-thumb" data-full="assets/diploma-thomasmore-psychologie.jpg"><img src="assets/diploma-thomasmore-psychologie.jpg" alt="Diploma Bachelor Toegepaste Psychologie, Thomas More Hogeschool" loading="lazy" /></div>
           </div>
         </div>
 
@@ -76,15 +97,26 @@
     <div class="section-head reveal">
       <span class="eyebrow"><span class="dot"></span> Certificaten</span>
       <h2 class="h-lg">Aanvullende <span class="grad-text">kwalificaties</span></h2>
+      <p class="lead">Brevetten van het Rode Kruis Vlaanderen, geldig tot januari 2028. Samen vormen ze een deelkwalificatie uit de beroepskwalificatie Eventhulpverlener.</p>
     </div>
     <div class="grid grid-2">
-      <div class="glass tilt exp-item reveal" data-d="1">
-        <div class="exp-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div class="exp-body"><h3>EHBO — Eerste Hulp & Helper</h3><p>Zowel de basis- als de verdiepingscursus EHBO behaald.</p></div>
-        <div class="exp-meta"><b>2024</b></div>
+      <div class="glass tilt feature reveal" data-d="1">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Eerste Hulp (basiscursus)</h3>
+        <p style="margin-bottom:4px">Rode Kruis Vlaanderen · brevet 2023/0469/00 · geldig tot 9/1/2028.</p>
+        <div class="diploma-thumb" data-full="assets/diploma-ehbo-basis.jpg"><img src="assets/diploma-ehbo-basis.jpg" alt="Brevet Eerste Hulp basiscursus, Rode Kruis Vlaanderen" loading="lazy" /></div>
+      </div>
+      <div class="glass tilt feature reveal" data-d="2">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+        <h3>Helper (vervolgcursus)</h3>
+        <p style="margin-bottom:4px">Rode Kruis Vlaanderen · brevet 2023/0063/00 · geldig tot 9/1/2028.</p>
+        <div class="diploma-thumb" data-full="assets/diploma-ehbo-helper.jpg"><img src="assets/diploma-ehbo-helper.jpg" alt="Brevet Helper vervolgcursus, Rode Kruis Vlaanderen" loading="lazy" /></div>
       </div>
     </div>
   </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox"><button class="lightbox-close" aria-label="Sluiten">&times;</button><img src="" alt="" /></div>
 
   <footer class="footer">
     <div class="wrap footer-inner">
