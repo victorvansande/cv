@@ -152,6 +152,20 @@
     applyTheme(saved || document.documentElement.dataset.theme || "indigo");
   }
 
+  /* ---- Light / dark mode ---- */
+  const mBtn = document.querySelector(".mode-toggle");
+  if (mBtn) {
+    const setMode = (m) => {
+      document.documentElement.dataset.mode = m;
+      try { localStorage.setItem("cv-mode", m); } catch (e) {}
+      mBtn.setAttribute("aria-label", m === "light" ? "Schakel naar donkere modus" : "Schakel naar lichte modus");
+    };
+    mBtn.addEventListener("click", () =>
+      setMode(document.documentElement.dataset.mode === "light" ? "dark" : "light"));
+    const savedMode = (() => { try { return localStorage.getItem("cv-mode"); } catch (e) { return null; } })();
+    setMode(savedMode || document.documentElement.dataset.mode || "dark");
+  }
+
   /* ---- Scroll progress bar + back to top ---- */
   const prog = document.querySelector(".progress-bar");
   const toTop = document.querySelector(".to-top");
