@@ -19,15 +19,6 @@
     loop();
   }
 
-  /* ---- Parallax blobs on scroll ---- */
-  const blobs = [...document.querySelectorAll(".blob")];
-  window.addEventListener("scroll", () => {
-    const s = window.scrollY;
-    blobs.forEach((b, i) => {
-      b.style.marginTop = `${s * (0.04 + i * 0.025)}px`;
-    });
-  }, { passive: true });
-
   /* ---- Mobile nav ---- */
   const burger = document.querySelector(".burger");
   const links = document.querySelector(".nav-links");
@@ -83,16 +74,24 @@
   }, { threshold: 0.4 });
   document.querySelectorAll(".bar, .ring").forEach((el) => fillIO.observe(el));
 
-  /* ---- 3D tilt on cards ---- */
+  /* ---- 3D tilt on cards (rAF-throttled for smoothness) ---- */
   if (window.matchMedia("(pointer:fine)").matches) {
     document.querySelectorAll(".tilt").forEach((card) => {
+      let raf = null, nx = 0, ny = 0;
+      const apply = () => {
+        raf = null;
+        card.style.transform = `perspective(900px) rotateY(${nx * 7}deg) rotateX(${-ny * 7}deg) translateY(-4px)`;
+      };
       card.addEventListener("mousemove", (e) => {
         const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = `perspective(900px) rotateY(${px * 7}deg) rotateX(${-py * 7}deg) translateY(-4px)`;
+        nx = (e.clientX - r.left) / r.width - 0.5;
+        ny = (e.clientY - r.top) / r.height - 0.5;
+        if (!raf) raf = requestAnimationFrame(apply);
       });
-      card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+      card.addEventListener("mouseleave", () => {
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+        card.style.transform = "";
+      });
     });
   }
 

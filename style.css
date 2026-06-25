@@ -491,15 +491,16 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .section-pad { padding: 72px 0; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .grid-3 { grid-template-columns: 1fr 1fr; }
   .lang-grid { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .nav-links { position: fixed; inset: 68px 0 auto 0; flex-direction: column; align-items: stretch; gap: 0;
-    background: rgba(8,9,18,.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-bord);
-    padding: 14px 24px 22px; transform: translateY(-130%); transition: transform .4s var(--ease); }
+    background: rgba(8,9,18,.94); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-bord);
+    padding: 10px 22px 18px; transform: translateY(-130%); transition: transform .4s var(--ease); }
   .nav-links.open { transform: none; }
-  .nav-links a { padding: 14px 8px; }
+  .nav-links a { padding: 13px 8px; }
   .nav-links a.active::after { display: none; }
   .burger { display: flex; }
 }
@@ -507,13 +508,48 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
   .thesis-stats { grid-template-columns: repeat(2, 1fr); }
   .thesis-top, .thesis-bottom { padding-left: 26px; padding-right: 26px; }
   .thesis-meta { margin-left: 0; text-align: left; width: 100%; }
+  /* lighter background = smoother scroll on mobile */
+  .blob { filter: blur(52px); opacity: .38; animation: none; }
+  .blob.b3 { display: none; }
 }
-@media (max-width: 560px) {
+@media (max-width: 620px) {
+  body { font-size: 15px; }
+  .wrap { padding: 0 18px; }
+  .section-pad { padding: 46px 0; }
+  .hero { padding: 34px 0 30px; }
+  .page-hero { padding: 40px 0 14px; }
+  .h-xl { font-size: clamp(2.1rem, 11vw, 3rem); margin: 6px 0 16px !important; }
+  .h-lg { font-size: clamp(1.6rem, 7.5vw, 2.2rem); }
+  .h-md { font-size: 1.3rem; }
+  .lead { font-size: .97rem; }
+  .eyebrow { margin-bottom: 16px; font-size: .72rem; padding: 5px 12px; }
   .grid-3, .grid-2, .lang-grid { grid-template-columns: 1fr; }
-  .section-pad { padding: 64px 0; }
-  .cta-banner { padding: 40px 24px; }
-  .exp-item { flex-wrap: wrap; }
+  .grid { gap: 14px; }
+  .feature, .profile-card, .combine { padding: 24px; }
+  .tl-card { padding: 22px 22px; }
+  .role-card { padding: 24px 22px; }
+  .section-head { margin-bottom: 30px; }
+  .hero h1 { margin: 6px 0 16px; }
+  .hero .lead { margin-bottom: 24px; }
+  .hero-cta { gap: 10px; }
+  .btn { padding: 12px 20px; font-size: .92rem; }
+  .hero-stats { gap: 22px; margin-top: 28px; }
+  .stat .num { font-size: 1.85rem; }
+  .scroll-cue { margin-top: 26px; }
+  .cta-banner { padding: 32px 20px; }
+  .combine-grid { gap: 10px; margin-top: 20px; }
+  .combine-pill { padding: 10px 16px; font-size: .88rem; }
+  .exp-item { flex-wrap: wrap; padding: 18px 20px; gap: 14px; }
   .exp-meta { text-align: left; }
+  .timeline { padding-left: 26px; }
+  .diploma-thumb img { height: 165px; }
+  .thesis-top { padding: 26px 22px 22px; }
+  .thesis-bottom { padding: 22px 22px 28px; }
+  .thesis-stat { padding: 18px 12px; }
+  .thesis-stat .n { font-size: 1.5rem; }
+  .to-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
+  .avatar-photo { width: 108px; height: 108px; }
+  .footer { padding: 30px 0; }
 }
 
 /* Reduced motion */
