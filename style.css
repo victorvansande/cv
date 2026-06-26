@@ -293,17 +293,32 @@ section { position: relative; }
 .fx-circuit:hover .fx::after { animation: sweepfx 1.3s var(--ease) .1s; }
 @keyframes sweepfx { to { transform: translateX(100%); } }
 
-/* hoofdleider KSA: fluitje + geluidsgolven */
-.fx-rally .whistle-wrap { position: absolute; right: 14px; bottom: 14px; opacity: 0;
-  transform: scale(.85); transition: opacity .25s var(--ease), transform .3s var(--ease); pointer-events: none; }
-.fx-rally:hover .whistle-wrap { opacity: 1; transform: scale(1); }
-/* wave arcs: stroke-dasharray matches actual path length */
-.fx-rally .wave { stroke: var(--c2); stroke-width: 1.5; fill: none; stroke-linecap: round;
-  stroke-dasharray: 30; stroke-dashoffset: 30; }
-.fx-rally:hover .wave1 { animation: waveIn .45s var(--ease) .05s forwards; }
-.fx-rally:hover .wave2 { animation: waveIn .45s var(--ease) .2s forwards; }
-.fx-rally:hover .wave3 { animation: waveIn .45s var(--ease) .38s forwards; }
-@keyframes waveIn { to { stroke-dashoffset: 0; } }
+/* hoofdleider KSA: natuur — blaadjes dwarrelen over de kaart */
+.fx-rally .fx { background: none; overflow: hidden; }
+.fx-rally .leaf {
+  position: absolute; pointer-events: none;
+  color: color-mix(in srgb, var(--c2) 62%, #86efac 38%);
+  opacity: 0; transform-origin: 50% 80%; }
+/* positie + individuele drift per blaadje */
+.fx-rally .l1 { width: 18px; height: 26px; bottom: 8%;  left: 10%; --dx: 18px;  --rot:  38deg; }
+.fx-rally .l2 { width: 14px; height: 20px; bottom: 18%; left: 38%; --dx:-16px;  --rot: -55deg; }
+.fx-rally .l3 { width: 20px; height: 28px; bottom: 6%;  left: 60%; --dx: 22px;  --rot:  62deg; }
+.fx-rally .l4 { width: 13px; height: 18px; bottom: 22%; left: 78%; --dx:-12px;  --rot: -42deg; }
+.fx-rally .l5 { width: 11px; height: 16px; bottom: 35%; left: 24%; --dx: 10px;  --rot:  28deg; }
+.fx-rally .l6 { width: 15px; height: 22px; bottom: 12%; left: 50%; --dx:-20px;  --rot: -30deg; }
+.fx-rally:hover .leaf { animation: leafdrift 1.55s cubic-bezier(.25,.46,.45,.94) forwards; }
+.fx-rally:hover .l1 { animation-delay: .00s; }
+.fx-rally:hover .l2 { animation-delay: .18s; }
+.fx-rally:hover .l3 { animation-delay: .10s; }
+.fx-rally:hover .l4 { animation-delay: .30s; }
+.fx-rally:hover .l5 { animation-delay: .44s; }
+.fx-rally:hover .l6 { animation-delay: .24s; }
+@keyframes leafdrift {
+  0%   { opacity: 0;   transform: translateY(12px) translateX(0) rotate(-10deg) scale(.55); }
+  16%  { opacity: .78; }
+  75%  { opacity: .45; }
+  100% { opacity: 0;   transform: translateY(-105px) translateX(var(--dx)) rotate(var(--rot)) scale(1); }
+}
 
 /* psychologie: neuronen die elkaar linken */
 .fx-neuro { }
