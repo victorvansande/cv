@@ -235,12 +235,20 @@ section { position: relative; }
 .fx-card .fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 0; }
 .fx-card > *:not(.fx) { position: relative; z-index: 1; }
 
-/* communicatie: highlighter marker sweeps behind the title */
+/* communicatie: marker sweep + bullseye reveals at the end */
 .fx-write h3 { display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone;
   background-image: linear-gradient(color-mix(in srgb, var(--c2) 34%, transparent), color-mix(in srgb, var(--c2) 34%, transparent));
   background-repeat: no-repeat; background-size: 0% 44%; background-position: 0 82%;
   transition: background-size .55s var(--ease); }
 .fx-write:hover h3 { background-size: 100% 44%; }
+.fx-write .bullseye { position: absolute; right: 18px; bottom: 18px; opacity: 0; transform: scale(.4) rotate(-20deg);
+  transition: opacity .3s var(--ease) .45s, transform .4s var(--ease) .45s; pointer-events: none; }
+.fx-write:hover .bullseye { opacity: 1; transform: scale(1) rotate(0deg); }
+.bullseye-svg circle { fill: none; stroke-width: 2; }
+.bullseye-svg .ring1 { stroke: var(--c1); }
+.bullseye-svg .ring2 { stroke: var(--c2); opacity: .6; }
+.bullseye-svg .ring3 { stroke: var(--c3); opacity: .35; }
+.bullseye-svg .dot  { fill: var(--c1); }
 
 /* design: soft gradient-mesh blooms */
 .fx-palette .fx { opacity: 0; transform: scale(1.25); transition: opacity .5s var(--ease), transform .6s var(--ease);
@@ -283,21 +291,42 @@ section { position: relative; }
 .fx-circuit:hover .fx::after { animation: sweepfx 1.3s var(--ease) .1s; }
 @keyframes sweepfx { to { transform: translateX(100%); } }
 
-/* hoofdleider KSA: blauw + oranje sjaal-sweep */
-.fx-rally .fx { transform: translateX(-130%);
-  background: linear-gradient(115deg, transparent 34%, rgba(37,99,235,.38) 45%, rgba(249,115,22,.38) 55%, transparent 66%); }
-.fx-rally:hover .fx { animation: rallyfx 1s var(--ease); }
-@keyframes rallyfx { 0% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+/* hoofdleider KSA: fluitje + geluidsgolven */
+.fx-rally .whistle-wrap { position: absolute; right: 16px; bottom: 16px; opacity: 0;
+  transition: opacity .3s var(--ease); pointer-events: none; }
+.fx-rally:hover .whistle-wrap { opacity: 1; }
+.fx-rally .wave { stroke: var(--c2); stroke-width: 1.8; fill: none; stroke-linecap: round;
+  stroke-dasharray: 22; stroke-dashoffset: 22; }
+.fx-rally:hover .wave1 { animation: waveIn .5s var(--ease) .1s forwards; }
+.fx-rally:hover .wave2 { animation: waveIn .5s var(--ease) .28s forwards; }
+.fx-rally:hover .wave3 { animation: waveIn .5s var(--ease) .46s forwards; }
+@keyframes waveIn { to { stroke-dashoffset: 0; } }
 
-/* psychologie: heldere gedachtegolven vanuit het icoon */
-.fx-ripple .fx::before, .fx-ripple .fx::after { content: ""; position: absolute; left: 49px; top: 52px;
-  width: 34px; height: 34px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--c2) 62%, transparent);
-  transform: translate(-50%, -50%) scale(.3); opacity: 0; }
-.fx-ripple:hover .fx::before { animation: ripplefx 1.9s var(--ease) infinite; }
-.fx-ripple:hover .fx::after { animation: ripplefx 1.9s var(--ease) .63s infinite; }
-.fx-ripple:hover .ic { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c2) 50%, transparent); animation: ripplecore 1.9s var(--ease) 1.26s infinite; }
-@keyframes ripplefx { 0% { transform: translate(-50%, -50%) scale(.3); opacity: .8; } 100% { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
-@keyframes ripplecore { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c2) 45%, transparent); } 100% { box-shadow: 0 0 0 22px transparent; } }
+/* psychologie: neuronen die elkaar linken */
+.fx-neuro { }
+.fx-neuro .neuro-svg { position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; transition: opacity .35s var(--ease); pointer-events: none; overflow: visible; }
+.fx-neuro:hover .neuro-svg { opacity: 1; }
+.neuro-node { fill: color-mix(in srgb, var(--c2) 80%, transparent);
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--c2) 60%, transparent)); }
+.neuro-link { stroke: color-mix(in srgb, var(--c2) 45%, transparent); stroke-width: 1.4; fill: none;
+  stroke-dasharray: 60; stroke-dashoffset: 60; }
+.fx-neuro:hover .neuro-link { animation: dendrite 1s var(--ease) forwards; }
+.fx-neuro:hover .neuro-link:nth-child(2) { animation-delay: .12s; }
+.fx-neuro:hover .neuro-link:nth-child(3) { animation-delay: .22s; }
+.fx-neuro:hover .neuro-link:nth-child(4) { animation-delay: .32s; }
+.fx-neuro:hover .neuro-link:nth-child(5) { animation-delay: .42s; }
+.neuro-node { transform: scale(0); transform-origin: center; }
+.fx-neuro:hover .neuro-node { animation: nodeIn .4s var(--ease) forwards; }
+.fx-neuro:hover .neuro-node:nth-child(6)  { animation-delay: .05s; }
+.fx-neuro:hover .neuro-node:nth-child(7)  { animation-delay: .18s; }
+.fx-neuro:hover .neuro-node:nth-child(8)  { animation-delay: .30s; }
+.fx-neuro:hover .neuro-node:nth-child(9)  { animation-delay: .42s; }
+.fx-neuro:hover .neuro-node:nth-child(10) { animation-delay: .55s; }
+@keyframes dendrite { to { stroke-dashoffset: 0; } }
+@keyframes nodeIn   { to { transform: scale(1); } }
+.neuro-pulse { animation: npulse 2.2s ease-in-out .7s infinite; transform-origin: center; }
+@keyframes npulse { 0%,100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.55); opacity: .3; } }
 
 /* ---------- Headings & text ---------- */
 .eyebrow {
@@ -457,6 +486,32 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
   50% { transform: translate(-28%, 6%) scale(1.12); }
 }
 @media (max-width: 560px) { .contact-final { padding: 40px 22px; } .contact-final-cta .btn { width: 100%; justify-content: center; } }
+
+/* ---------- EHBO: heartbeat + beating heart ---------- */
+.ehbo-card { position: relative; overflow: hidden; }
+.ehbo-card .heart-wrap { position: absolute; top: 18px; right: 18px; pointer-events: none; }
+.ehbo-card .heart-svg { display: block; animation: heartbeat 1.2s ease-in-out infinite; }
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.22); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.16); }
+  56% { transform: scale(1); }
+}
+.ehbo-card .ecg-wrap { position: absolute; bottom: 0; left: 0; right: 0; height: 36px; pointer-events: none; overflow: hidden; }
+.ehbo-card .ecg-line { stroke: var(--c2); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 200; stroke-dashoffset: 200; animation: ecgdraw 1.8s linear infinite; }
+@keyframes ecgdraw { 0% { stroke-dashoffset: 200; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -200; } }
+
+/* ---------- Footer interactive glass prism ---------- */
+.footer-prism { display: flex; justify-content: center; padding: 28px 0 12px; }
+.prism-canvas { cursor: crosshair; display: block; }
+
+/* ---------- Nav avatar ---------- */
+.nav-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--c2) 60%, transparent);
+  object-fit: cover; flex: none; transition: border-color .3s; }
+.brand:hover .nav-avatar { border-color: var(--c2); }
+@media (max-width: 620px) { .nav-avatar { width: 24px; height: 24px; } }
 
 /* ---------- Footer ---------- */
 .footer { border-top: 1px solid var(--glass-bord); padding: 40px 0; margin-top: 40px; }
@@ -719,13 +774,14 @@ main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bott
 .dot-nav a:hover span { opacity: 1; transform: translateY(-50%); }
 @media (max-width: 1180px) { .dot-nav { display: none; } }
 
-/* ---------- "Glim" sheen + lift on tags/pills (micro-interaction) ---------- */
+/* ---------- "Glim" sheen — only fires on mouseenter, not on leave ---------- */
 .chip, .skill-tag, .combine-pill { position: relative; overflow: hidden; isolation: isolate; }
 .chip::after, .skill-tag::after, .combine-pill::after {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
-  background: linear-gradient(115deg, transparent 36%, color-mix(in srgb, var(--c2) 32%, transparent) 50%, transparent 64%);
-  transform: translateX(-130%); transition: transform .75s var(--ease); }
-.chip:hover::after, .skill-tag:hover::after, .combine-pill:hover::after { transform: translateX(130%); }
+  background: linear-gradient(115deg, transparent 36%, color-mix(in srgb, var(--c2) 32%, transparent) 50%, transparent 64%); }
+/* class added/removed by JS on mouseenter only — no CSS :hover so no reverse sweep */
+.chip.glim::after, .skill-tag.glim::after, .combine-pill.glim::after { animation: glimfx .65s var(--ease) forwards; }
+@keyframes glimfx { from { transform: translateX(-130%); } to { transform: translateX(130%); } }
 .skill-tag { transition: transform .25s var(--ease), border-color .25s, box-shadow .25s, color .25s; }
 .skill-tag:hover { transform: translateY(-2px); color: var(--ink);
   border-color: color-mix(in srgb, var(--c2) 55%, transparent);

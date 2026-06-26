@@ -124,6 +124,91 @@
     });
   }
 
+  /* ---- Glim: fire only on mouseenter, not on mouseleave ---- */
+  document.querySelectorAll(".chip, .skill-tag, .combine-pill").forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      el.classList.remove("glim");
+      void el.offsetWidth; // reflow to restart animation
+      el.classList.add("glim");
+    });
+    el.addEventListener("animationend", () => el.classList.remove("glim"), { passive: true });
+  });
+
+  /* ---- Glass prism canvas ---- */
+  const pc = document.getElementById("prismCanvas");
+  if (pc) {
+    const ctx = pc.getContext("2d");
+    const W = pc.width, H = pc.height;
+    let mx = W / 2, my = H / 2, raf2;
+    const colors = ["#f63b46","#ff8b3d","#ffd462","#6ee7b7","#60a5fa","#c084fc"];
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      // glass prism triangle
+      const cx = W / 2, cy = H / 2 - 2;
+      const r = 28;
+      const pts = [
+        [cx, cy - r],
+        [cx - r * 0.87, cy + r * 0.5],
+        [cx + r * 0.87, cy + r * 0.5],
+      ];
+      // prism body
+      ctx.beginPath();
+      ctx.moveTo(...pts[0]); ctx.lineTo(...pts[1]); ctx.lineTo(...pts[2]); ctx.closePath();
+      const gp = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+      gp.addColorStop(0, "rgba(255,255,255,.22)");
+      gp.addColorStop(1, "rgba(255,255,255,.06)");
+      ctx.fillStyle = gp;
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,.45)";
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      // cursor-driven light ray
+      const dx = mx - cx, dy = my - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const nx = dx / dist, ny = dy / dist;
+      const entryX = cx - nx * r * 0.8, entryY = cy - ny * r * 0.8;
+      const exitX  = cx + nx * r * 0.8, exitY  = cy + ny * r * 0.8;
+      // disperse rays
+      colors.forEach((col, i) => {
+        const angle = Math.atan2(ny, nx) + (i - 2.5) * 0.18;
+        const len = 54 + i * 4;
+        ctx.beginPath();
+        ctx.moveTo(exitX, exitY);
+        ctx.lineTo(exitX + Math.cos(angle) * len, exitY + Math.sin(angle) * len);
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 1.5;
+        ctx.globalAlpha = 0.55;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      });
+      // incoming ray
+      ctx.beginPath();
+      ctx.moveTo(mx, my);
+      ctx.lineTo(entryX, entryY);
+      ctx.strokeStyle = "rgba(255,255,255,.55)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // hover dot
+      ctx.beginPath();
+      ctx.arc(mx, my, 3, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,.7)";
+      ctx.fill();
+    };
+    const schedule = () => { if (!raf2) raf2 = requestAnimationFrame(() => { raf2 = null; draw(); }); };
+    pc.addEventListener("mousemove", (e) => {
+      const r2 = pc.getBoundingClientRect();
+      mx = (e.clientX - r2.left) * (W / r2.width);
+      my = (e.clientY - r2.top)  * (H / r2.height);
+      schedule();
+    }, { passive: true });
+    pc.addEventListener("mouseleave", () => {
+      mx = W / 2; my = H / 2; schedule();
+    });
+    draw();
+  }
+
   /* ---- Footer year ---- */
   const yr = document.querySelector("[data-year]");
   if (yr) yr.textContent = new Date().getFullYear();
