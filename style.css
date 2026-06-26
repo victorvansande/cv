@@ -15,9 +15,9 @@
   --grain-op: .04;
 
   /* Accents (default theme: Rood) - overridden per data-theme below */
-  --c1: #c81e1e;   /* diep rood */
-  --c2: #e02424;   /* helder rood */
-  --c3: #f0563a;   /* warm rood-oranje */
+  --c1: #c4172a;   /* diep rood */
+  --c2: #e11d2e;   /* helder rood */
+  --c3: #f63b46;   /* levendig rood */
   --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3));
   --grad-soft: linear-gradient(120deg, var(--c1), var(--c2));
 
@@ -81,7 +81,7 @@
 :root[data-theme="teal"]   { --c1: #0ea5e9; --c2: #2dd4bf; --c3: #38bdf8; }
 :root[data-theme="emerald"]{ --c1: #10b981; --c2: #34d399; --c3: #4ade80; }
 :root[data-theme="amber"]  { --c1: #f59e0b; --c2: #f8b13c; --c3: #fb923c; }
-:root[data-theme="rose"]   { --c1: #c81e1e; --c2: #e02424; --c3: #f0563a; }
+:root[data-theme="rose"]   { --c1: #c4172a; --c2: #e11d2e; --c3: #f63b46; }
 :root[data-theme="slate"]  { --c1: #7c8aa8; --c2: #9aa7c2; --c3: #8b96b4; }
 :root[data-theme="violet"] { --c1: #7c5cff; --c2: #3ad6ff; --c3: #ff6ad5; } /* het originele */
 :root[data-theme="grad"], :root:not([data-theme]) { --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3)); }
@@ -271,7 +271,7 @@ section { position: relative; }
 
 /* hoofdleider KSA: blauw + oranje sjaal-sweep */
 .fx-rally .fx { transform: translateX(-130%);
-  background: linear-gradient(115deg, transparent 32%, rgba(37,99,235,.55) 44%, rgba(249,115,22,.55) 56%, transparent 68%); }
+  background: linear-gradient(115deg, transparent 34%, rgba(37,99,235,.38) 45%, rgba(249,115,22,.38) 55%, transparent 66%); }
 .fx-rally:hover .fx { animation: rallyfx 1s var(--ease); }
 @keyframes rallyfx { 0% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
 
@@ -424,6 +424,23 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 .cta-banner { padding: 58px 48px; text-align: center; }
 .cta-banner h2 { margin-bottom: 16px; }
 .cta-banner p { color: var(--ink-soft); max-width: 50ch; margin: 0 auto 28px; }
+
+/* ---------- Lively contact closer ---------- */
+.contact-final { text-align: center; padding: 56px 44px; position: relative; overflow: hidden; }
+.contact-final .now-badge { margin: 0 0 18px; }
+.contact-final h2 { margin-bottom: 4px; }
+.contact-final-cta { display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; }
+.contact-final::after {
+  content: ""; position: absolute; left: 50%; top: -60%; width: 70%; height: 150%; z-index: 0; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--c2) 24%, transparent), transparent 70%);
+  opacity: .75; animation: contactGlow 9s ease-in-out infinite;
+}
+.contact-final > * { position: relative; z-index: 1; }
+@keyframes contactGlow {
+  0%, 100% { transform: translate(-72%, 0) scale(1); }
+  50% { transform: translate(-28%, 6%) scale(1.12); }
+}
+@media (max-width: 560px) { .contact-final { padding: 40px 22px; } .contact-final-cta .btn { width: 100%; justify-content: center; } }
 
 /* ---------- Footer ---------- */
 .footer { border-top: 1px solid var(--glass-bord); padding: 40px 0; margin-top: 40px; }
