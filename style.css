@@ -235,22 +235,35 @@ section { position: relative; }
 .fx-card .fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 0; }
 .fx-card > *:not(.fx) { position: relative; z-index: 1; }
 
-/* communicatie: marker sweep + bullseye at text-end */
+/* communicatie: marker sweep op h3 + spotlight + focusringen over de kaart */
 .fx-write h3 { display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone;
   background-image: linear-gradient(color-mix(in srgb, var(--c2) 34%, transparent), color-mix(in srgb, var(--c2) 34%, transparent));
   background-repeat: no-repeat; background-size: 0% 44%; background-position: 0 82%;
   transition: background-size .55s var(--ease); }
 .fx-write:hover h3 { background-size: 100% 44%; }
-/* bullseye sits inline right after the text — appears once sweep completes */
-.fx-write .bullseye { display: inline-block; vertical-align: middle; margin-left: 7px;
-  opacity: 0; transform: scale(.3) rotate(-30deg);
-  transition: opacity .28s var(--ease) .5s, transform .35s var(--ease) .5s; pointer-events: none; }
-.fx-write:hover .bullseye { opacity: 1; transform: scale(1) rotate(0deg); }
-.bullseye-svg circle { fill: none; stroke-width: 2; }
-.bullseye-svg .ring1 { stroke: var(--c1); }
-.bullseye-svg .ring2 { stroke: var(--c2); opacity: .6; }
-.bullseye-svg .ring3 { stroke: var(--c3); opacity: .35; }
-.bullseye-svg .dot  { fill: var(--c1); }
+/* spotlight glow over the whole card */
+.fx-write .fx {
+  background: radial-gradient(ellipse 72% 60% at 50% 42%,
+    color-mix(in srgb, var(--c2) 20%, transparent) 0%,
+    transparent 80%);
+  opacity: 0; transition: opacity .5s var(--ease); }
+.fx-write:hover .fx { opacity: 1; }
+/* focus rings pulse outward from center */
+.focus-ring {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  border: 1.2px solid color-mix(in srgb, var(--c2) 55%, transparent);
+  left: 50%; top: 42%;
+  transform: translate(-50%, -50%) scale(0); opacity: 0; }
+.fr1 { width:  56px; height:  56px; }
+.fr2 { width: 104px; height: 104px; border-color: color-mix(in srgb, var(--c2) 35%, transparent); }
+.fr3 { width: 156px; height: 156px; border-color: color-mix(in srgb, var(--c2) 18%, transparent); }
+.fx-write:hover .fr1 { animation: focusring .85s var(--ease) .10s forwards; }
+.fx-write:hover .fr2 { animation: focusring .85s var(--ease) .28s forwards; }
+.fx-write:hover .fr3 { animation: focusring .85s var(--ease) .46s forwards; }
+@keyframes focusring {
+  0%   { transform: translate(-50%,-50%) scale(0); opacity: .85; }
+  65%  { opacity: .4; }
+  100% { transform: translate(-50%,-50%) scale(1); opacity: 0; } }
 
 /* design: soft gradient-mesh blooms */
 .fx-palette .fx { opacity: 0; transform: scale(1.25); transition: opacity .5s var(--ease), transform .6s var(--ease);
