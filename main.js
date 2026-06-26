@@ -139,74 +139,122 @@
   if (pc) {
     const ctx = pc.getContext("2d");
     const W = pc.width, H = pc.height;
-    let mx = W / 2, my = H / 2, raf2;
-    const colors = ["#f63b46","#ff8b3d","#ffd462","#6ee7b7","#60a5fa","#c084fc"];
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-      // glass prism triangle
-      const cx = W / 2, cy = H / 2 - 2;
-      const r = 28;
-      const pts = [
-        [cx, cy - r],
-        [cx - r * 0.87, cy + r * 0.5],
-        [cx + r * 0.87, cy + r * 0.5],
-      ];
-      // prism body
+    const cx = W / 2, cy = H / 2;
+    const R = 30; // prism circumradius
+    // prism vertices (equilateral, pointing up)
+    const verts = [0, 1, 2].map((i) => {
+      const a = -Math.PI / 2 + (i * 2 * Math.PI) / 3;
+      return [cx + R * Math.cos(a), cy + R * Math.sin(a)];
+    });
+
+    let mx = cx - 70, my = cy; // default light source left of prism
+    let hovering = false;
+    let autoAngle = 0;
+    let loopId = null;
+    const colors = ["#f63b46", "#ff8b3d", "#ffd462", "#6ee7b7", "#60a5fa", "#c084fc"];
+
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    const drawPrism = () => {
+      // glass body with inner glow
+      const grad = ctx.createLinearGradient(verts[0][0], verts[0][1], verts[2][0], verts[2][1]);
+      grad.addColorStop(0, "rgba(255,255,255,.18)");
+      grad.addColorStop(0.5, "rgba(255,255,255,.08)");
+      grad.addColorStop(1, "rgba(255,255,255,.14)");
       ctx.beginPath();
-      ctx.moveTo(...pts[0]); ctx.lineTo(...pts[1]); ctx.lineTo(...pts[2]); ctx.closePath();
-      const gp = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
-      gp.addColorStop(0, "rgba(255,255,255,.22)");
-      gp.addColorStop(1, "rgba(255,255,255,.06)");
-      ctx.fillStyle = gp;
+      ctx.moveTo(...verts[0]); ctx.lineTo(...verts[1]); ctx.lineTo(...verts[2]); ctx.closePath();
+      ctx.fillStyle = grad;
       ctx.fill();
-      ctx.strokeStyle = "rgba(255,255,255,.45)";
+      // edge glow
+      ctx.shadowColor = "rgba(255,255,255,.35)";
+      ctx.shadowBlur = 6;
+      ctx.strokeStyle = "rgba(255,255,255,.55)";
       ctx.lineWidth = 1.2;
       ctx.stroke();
+      ctx.shadowBlur = 0;
+    };
 
-      // cursor-driven light ray
-      const dx = mx - cx, dy = my - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      const nx = dx / dist, ny = dy / dist;
-      const entryX = cx - nx * r * 0.8, entryY = cy - ny * r * 0.8;
-      const exitX  = cx + nx * r * 0.8, exitY  = cy + ny * r * 0.8;
-      // disperse rays
-      colors.forEach((col, i) => {
-        const angle = Math.atan2(ny, nx) + (i - 2.5) * 0.18;
-        const len = 54 + i * 4;
-        ctx.beginPath();
-        ctx.moveTo(exitX, exitY);
-        ctx.lineTo(exitX + Math.cos(angle) * len, exitY + Math.sin(angle) * len);
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 1.5;
-        ctx.globalAlpha = 0.55;
-        ctx.stroke();
-        ctx.globalAlpha = 1;
-      });
-      // incoming ray
+    const drawRays = (srcX, srcY) => {
+      // find entry point on left edge (verts[0]→verts[1])
+      const ex = lerp(verts[0][0], verts[1][0], 0.42);
+      const ey = lerp(verts[0][1], verts[1][1], 0.42);
+      // find exit point on right edge (verts[0]→verts[2])
+      const exitX = lerp(verts[0][0], verts[2][0], 0.42);
+      const exitY = lerp(verts[0][1], verts[2][1], 0.42);
+
+      // incoming white ray
       ctx.beginPath();
-      ctx.moveTo(mx, my);
-      ctx.lineTo(entryX, entryY);
-      ctx.strokeStyle = "rgba(255,255,255,.55)";
-      ctx.lineWidth = 1.5;
+      ctx.moveTo(srcX, srcY);
+      ctx.lineTo(ex, ey);
+      ctx.strokeStyle = "rgba(255,255,255,.6)";
+      ctx.lineWidth = 1.4;
+      ctx.globalAlpha = 1;
       ctx.stroke();
 
-      // hover dot
-      ctx.beginPath();
-      ctx.arc(mx, my, 3, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255,255,255,.7)";
-      ctx.fill();
+      // refracted rays fan out from exit point
+      const baseAngle = Math.atan2(exitY - ey, exitX - ex);
+      colors.forEach((col, i) => {
+        const spread = (i - (colors.length - 1) / 2) * 0.13;
+        const angle = baseAngle + spread;
+        const len = 52 + i * 5;
+        const ex2 = exitX + Math.cos(angle) * len;
+        const ey2 = exitY + Math.sin(angle) * len;
+
+        // glow behind the ray
+        ctx.beginPath();
+        ctx.moveTo(exitX, exitY);
+        ctx.lineTo(ex2, ey2);
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 3;
+        ctx.globalAlpha = 0.12;
+        ctx.stroke();
+        // crisp ray
+        ctx.lineWidth = 1.2;
+        ctx.globalAlpha = 0.7;
+        ctx.stroke();
+
+        // dot at tip
+        ctx.beginPath();
+        ctx.arc(ex2, ey2, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = col;
+        ctx.globalAlpha = 0.8;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+
+      // source dot
+      if (hovering) {
+        ctx.beginPath();
+        ctx.arc(srcX, srcY, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,.75)";
+        ctx.fill();
+      }
     };
-    const schedule = () => { if (!raf2) raf2 = requestAnimationFrame(() => { raf2 = null; draw(); }); };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      // auto-orbit when not hovered
+      const lx = hovering ? mx : cx - 70 + Math.cos(autoAngle) * 6;
+      const ly = hovering ? my : cy + Math.sin(autoAngle) * 12;
+      drawPrism();
+      drawRays(lx, ly);
+    };
+
+    // always-on gentle animation loop
+    const loop = () => {
+      autoAngle += 0.012;
+      draw();
+      loopId = requestAnimationFrame(loop);
+    };
+    loop();
+
+    pc.addEventListener("mouseenter", () => { hovering = true; });
     pc.addEventListener("mousemove", (e) => {
       const r2 = pc.getBoundingClientRect();
       mx = (e.clientX - r2.left) * (W / r2.width);
-      my = (e.clientY - r2.top)  * (H / r2.height);
-      schedule();
+      my = (e.clientY - r2.top) * (H / r2.height);
     }, { passive: true });
-    pc.addEventListener("mouseleave", () => {
-      mx = W / 2; my = H / 2; schedule();
-    });
-    draw();
+    pc.addEventListener("mouseleave", () => { hovering = false; });
   }
 
   /* ---- Footer year ---- */
