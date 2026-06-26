@@ -74,24 +74,21 @@
   }, { threshold: 0.4 });
   document.querySelectorAll(".bar, .ring").forEach((el) => fillIO.observe(el));
 
-  /* ---- 3D tilt on cards (rAF-throttled for smoothness) ---- */
+  /* ---- Cursor spotlight on cards (rAF-throttled, GPU-cheap) ---- */
   if (window.matchMedia("(pointer:fine)").matches) {
-    document.querySelectorAll(".tilt").forEach((card) => {
-      let raf = null, nx = 0, ny = 0;
+    document.querySelectorAll(".tilt, .fx-card").forEach((card) => {
+      let raf = null, mx = 50, my = 50;
       const apply = () => {
         raf = null;
-        card.style.transform = `perspective(900px) rotateY(${nx * 7}deg) rotateX(${-ny * 7}deg) translateY(-4px)`;
+        card.style.setProperty("--mx", mx + "%");
+        card.style.setProperty("--my", my + "%");
       };
       card.addEventListener("mousemove", (e) => {
         const r = card.getBoundingClientRect();
-        nx = (e.clientX - r.left) / r.width - 0.5;
-        ny = (e.clientY - r.top) / r.height - 0.5;
+        mx = ((e.clientX - r.left) / r.width) * 100;
+        my = ((e.clientY - r.top) / r.height) * 100;
         if (!raf) raf = requestAnimationFrame(apply);
-      });
-      card.addEventListener("mouseleave", () => {
-        if (raf) { cancelAnimationFrame(raf); raf = null; }
-        card.style.transform = "";
-      });
+      }, { passive: true });
     });
   }
 
@@ -134,7 +131,7 @@
   /* ---- Theme switcher ---- */
   const THEMES = ["indigo", "teal", "emerald", "amber", "rose", "slate", "violet"];
   const applyTheme = (t) => {
-    if (!THEMES.includes(t)) t = "indigo";
+    if (!THEMES.includes(t)) t = "rose";
     document.documentElement.dataset.theme = t;
     try { localStorage.setItem("cv-theme", t); } catch (e) {}
     document.querySelectorAll(".swatch").forEach((s) =>
@@ -149,7 +146,7 @@
     document.querySelectorAll(".swatch").forEach((s) =>
       s.addEventListener("click", () => { applyTheme(s.dataset.theme); }));
     const saved = (() => { try { return localStorage.getItem("cv-theme"); } catch (e) { return null; } })();
-    applyTheme(saved || document.documentElement.dataset.theme || "indigo");
+    applyTheme(saved || document.documentElement.dataset.theme || "rose");
   }
 
   /* ---- Light / dark mode ---- */

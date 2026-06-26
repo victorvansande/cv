@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'indigo';d.dataset.mode=localStorage.getItem('cv-mode')||'dark';}catch(e){d.dataset.theme='indigo';d.dataset.mode='dark';}})();</script>
+  <link rel="stylesheet" href="style.css?v=5" />
+  <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'dark';}catch(e){d.dataset.theme='rose';d.dataset.mode='dark';}})();</script>
 </head>
 <body>
   <div class="bg-canvas"></div>
@@ -43,7 +43,7 @@
             <button class="swatch" data-theme="teal" title="Teal"><span style="background:linear-gradient(135deg,#0ea5e9,#2dd4bf)"></span></button>
             <button class="swatch" data-theme="emerald" title="Emerald"><span style="background:linear-gradient(135deg,#10b981,#4ade80)"></span></button>
             <button class="swatch" data-theme="amber" title="Amber"><span style="background:linear-gradient(135deg,#f59e0b,#fb923c)"></span></button>
-            <button class="swatch" data-theme="rose" title="Rosé"><span style="background:linear-gradient(135deg,#f43f5e,#fb7185)"></span></button>
+            <button class="swatch" data-theme="rose" title="Rood"><span style="background:linear-gradient(135deg,#c81e1e,#f0563a)"></span></button>
             <button class="swatch" data-theme="slate" title="Slate"><span style="background:linear-gradient(135deg,#7c8aa8,#9aa7c2)"></span></button>
             <button class="swatch" data-theme="violet" title="Violet"><span style="background:linear-gradient(135deg,#7c5cff,#3ad6ff)"></span></button>
           </div>
@@ -122,17 +122,18 @@
         </div>
       </div>
       <div class="grid grid-3">
-        <div class="glass tilt feature reveal" data-d="1">
+        <div class="glass fx-card feature reveal fx-write" data-d="1">
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
           <h3>Doelgerichte communicatie</h3>
           <p>Heldere, strategische communicatie is de rode draad doorheen mijn master, met oog voor data, gedrag en het discours in media en politiek.</p>
         </div>
-        <div class="glass tilt feature reveal" data-d="2">
+        <div class="glass fx-card feature reveal fx-palette" data-d="2">
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
           <h3>Design &amp; digitale content</h3>
           <p>Van webdesign en visuele identiteit tot fotografie en film: ik vertaal ideeën naar beeld en interfaces die blijven hangen.</p>
         </div>
-        <div class="glass tilt feature reveal" data-d="3">
+        <div class="glass fx-card feature reveal fx-network" data-d="3">
+          <span class="fx" aria-hidden="true"><svg class="net" viewBox="0 0 150 110"><line x1="30" y1="30" x2="95" y2="20"/><line x1="95" y1="20" x2="120" y2="70"/><line x1="30" y1="30" x2="70" y2="85"/><line x1="70" y1="85" x2="120" y2="70"/><circle cx="30" cy="30" r="5"/><circle cx="95" cy="20" r="5"/><circle cx="120" cy="70" r="5"/><circle cx="70" cy="85" r="5"/></svg></span>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div>
           <h3>Leiderschap &amp; organisatie</h3>
           <p>Jarenlange ervaring in het aansturen van teams en het organiseren van events vertaal ik moeiteloos naar nieuwe projecten en contexten.</p>
@@ -200,18 +201,18 @@
         <span class="eyebrow"><span class="dot"></span> Talen</span>
         <h2 class="h-lg">Meertalig <span class="grad-text">communiceren</span></h2>
       </div>
-      <div class="lang-grid">
-        <div class="glass tilt lang reveal" data-d="1">
-          <div class="ring" data-val="100"><span>100%</span></div>
-          <h4>Nederlands</h4><p>Moedertaal</p>
+      <div class="glass lang-card reveal">
+        <div class="lang-row">
+          <div class="lang-top"><span class="lang-name">Nederlands <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl">Moedertaal</span></div>
+          <div class="bar lang-bar" data-val="100"><i></i></div>
         </div>
-        <div class="glass tilt lang reveal" data-d="2">
-          <div class="ring" data-val="95"><span>C2</span></div>
-          <h4>Engels</h4><p>Volledige beheersing</p>
+        <div class="lang-row">
+          <div class="lang-top"><span class="lang-name">Engels <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl">C2 · volledige beheersing</span></div>
+          <div class="bar lang-bar" data-val="100"><i></i></div>
         </div>
-        <div class="glass tilt lang reveal" data-d="3">
-          <div class="ring" data-val="45"><span>A2</span></div>
-          <h4>Frans</h4><p>Basis secundair onderwijs</p>
+        <div class="lang-row">
+          <div class="lang-top"><span class="lang-name">Frans</span><span class="lang-lvl">A2 · basis secundair onderwijs</span></div>
+          <div class="bar lang-bar" data-val="45"><i></i></div>
         </div>
       </div>
     </div>
@@ -225,10 +226,10 @@
         <h2 class="h-lg">Wat me <span class="grad-text">drijft</span></h2>
       </div>
       <div class="grid grid-2">
-        <div class="glass tilt feature reveal" data-d="1"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3>Fotografie &amp; film</h3><p>Verhalen vertellen door beeld, van compositie tot montage.</p></div>
-        <div class="glass tilt feature reveal" data-d="2"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Tech-trends</h3><p>Nieuwe technologieën en hun impact op mens en samenleving.</p></div>
-        <div class="glass tilt feature reveal" data-d="3"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div><h3>Hoofdleider KSA Herentals</h3><p>Jeugdwerk met hart, sinds 2017 als hoofdverantwoordelijke.</p></div>
-        <div class="glass tilt feature reveal" data-d="4"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2zM9 22h6"/></svg></div><h3>Psychologie</h3><p>Diep inzicht in de menselijke psyche, persoonlijk én professioneel.</p></div>
+        <div class="glass fx-card feature reveal fx-flash" data-d="1"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3>Fotografie &amp; film</h3><p>Verhalen vertellen door beeld, van compositie tot montage.</p></div>
+        <div class="glass fx-card feature reveal fx-circuit" data-d="2"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Tech-trends</h3><p>Nieuwe technologieën en hun impact op mens en samenleving.</p></div>
+        <div class="glass fx-card feature reveal fx-rally" data-d="3"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div><h3>Hoofdleider KSA Herentals</h3><p>Jeugdwerk met hart, sinds 2017 als hoofdverantwoordelijke.</p></div>
+        <div class="glass fx-card feature reveal fx-ripple" data-d="4"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2zM9 22h6"/></svg></div><h3>Psychologie</h3><p>Diep inzicht in de menselijke psyche, persoonlijk én professioneel.</p></div>
       </div>
     </div>
   </section>
@@ -327,20 +328,18 @@
     <div class="section-head reveal">
       <span class="eyebrow"><span class="dot"></span> Certificaten</span>
       <h2 class="h-lg">Aanvullende <span class="grad-text">kwalificaties</span></h2>
-      <p class="lead">Brevetten van het Rode Kruis Vlaanderen, geldig tot januari 2028. Samen vormen ze een deelkwalificatie uit de beroepskwalificatie Eventhulpverlener.</p>
+      <p class="lead">Brevetten van het Rode Kruis Vlaanderen (geldig tot 2028), samen een deelkwalificatie Eventhulpverlener.</p>
     </div>
     <div class="grid grid-2">
-      <div class="glass tilt feature reveal" data-d="1">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <h3>Eerste Hulp (basiscursus)</h3>
-        <p style="margin-bottom:4px">Rode Kruis Vlaanderen · brevet 2023/0469/00 · geldig tot 9/1/2028.</p>
-        <div class="diploma-thumb" data-full="assets/diploma-ehbo-basis.jpg"><img src="assets/diploma-ehbo-basis.jpg" alt="Brevet Eerste Hulp basiscursus, Rode Kruis Vlaanderen" loading="lazy" /></div>
+      <div class="glass tilt feature reveal" data-d="1" style="padding:24px">
+        <h3 style="display:flex;align-items:center;gap:10px;font-size:1.08rem"><span class="ic" style="width:38px;height:38px;margin-bottom:0;border-radius:11px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span> Eerste Hulp (basiscursus)</h3>
+        <p style="margin:8px 0 0;font-size:.88rem">Brevet 2023/0469/00 · geldig tot 9/1/2028.</p>
+        <div class="diploma-thumb compact" data-full="assets/diploma-ehbo-basis.jpg"><img src="assets/diploma-ehbo-basis.jpg" alt="Brevet Eerste Hulp basiscursus, Rode Kruis Vlaanderen" loading="lazy" /></div>
       </div>
-      <div class="glass tilt feature reveal" data-d="2">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
-        <h3>Helper (vervolgcursus)</h3>
-        <p style="margin-bottom:4px">Rode Kruis Vlaanderen · brevet 2023/0063/00 · geldig tot 9/1/2028.</p>
-        <div class="diploma-thumb" data-full="assets/diploma-ehbo-helper.jpg"><img src="assets/diploma-ehbo-helper.jpg" alt="Brevet Helper vervolgcursus, Rode Kruis Vlaanderen" loading="lazy" /></div>
+      <div class="glass tilt feature reveal" data-d="2" style="padding:24px">
+        <h3 style="display:flex;align-items:center;gap:10px;font-size:1.08rem"><span class="ic" style="width:38px;height:38px;margin-bottom:0;border-radius:11px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span> Helper (vervolgcursus)</h3>
+        <p style="margin:8px 0 0;font-size:.88rem">Brevet 2023/0063/00 · geldig tot 9/1/2028.</p>
+        <div class="diploma-thumb compact" data-full="assets/diploma-ehbo-helper.jpg"><img src="assets/diploma-ehbo-helper.jpg" alt="Brevet Helper vervolgcursus, Rode Kruis Vlaanderen" loading="lazy" /></div>
       </div>
     </div>
   </section>
@@ -360,7 +359,7 @@
       <span class="eyebrow"><span class="dot"></span> Huidige functie</span>
       <h2 class="h-lg">Op dit moment bij <span class="grad-text">Gekkoo</span></h2>
     </div>
-    <div class="glass tilt feature reveal" data-d="1" style="padding:34px">
+    <div class="glass tilt feature featured-role reveal" data-d="1" style="padding:32px">
       <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-bottom:16px">
         <div style="display:flex;align-items:center;gap:16px">
           <div class="exp-ic" style="width:54px;height:54px;font-size:1.1rem">Gk</div>
@@ -456,16 +455,6 @@
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="wrap section-pad" style="padding-top:0">
-    <div class="glass cta-banner reveal">
-      <h2 class="h-lg">Benieuwd naar het <span class="grad-text">volledige verhaal</span>?</h2>
-      <p>Ik vertel graag meer over hoe ik psychologie, educatie en communicatie samenbreng in de praktijk.</p>
-      <a href="#contact" class="btn btn-primary">Neem contact op
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
   </div><!-- /#ervaring -->
 
   <!-- ============ CONTACT ============ -->
@@ -541,6 +530,6 @@
 
   <div class="progress-bar"></div>
   <button class="to-top" aria-label="Naar boven"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
-  <script src="main.js"></script>
+  <script src="main.js?v=5"></script>
 </body>
 </html>
