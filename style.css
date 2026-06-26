@@ -320,27 +320,32 @@ section { position: relative; }
   100% { opacity: 0;   transform: translateY(-105px) translateX(var(--dx)) rotate(var(--rot)) scale(1); }
 }
 
-/* psychologie: neuronen die elkaar linken */
-.fx-neuro { }
+/* psychologie: brein + neuronen die elkaar linken */
 .fx-neuro .neuro-svg { position: absolute; inset: 0; width: 100%; height: 100%;
   opacity: 0; transition: opacity .35s var(--ease); pointer-events: none; overflow: visible; }
 .fx-neuro:hover .neuro-svg { opacity: 1; }
+/* brain silhouette — faint, fades in behind the nodes */
+.brain-silhouette { opacity: 0; transition: opacity .55s var(--ease) .05s; }
+.fx-neuro:hover .brain-silhouette { opacity: 1; }
+.brain-outline { fill: color-mix(in srgb, var(--c2) 7%, transparent); stroke: color-mix(in srgb, var(--c2) 28%, transparent); stroke-width: 1.2; stroke-linejoin: round; }
+.brain-groove, .brain-gyrus { fill: none; stroke: color-mix(in srgb, var(--c2) 16%, transparent); stroke-width: .9; stroke-linecap: round; }
+/* neuron nodes & links */
 .neuro-node { fill: color-mix(in srgb, var(--c2) 80%, transparent);
   filter: drop-shadow(0 0 4px color-mix(in srgb, var(--c2) 60%, transparent)); }
 .neuro-link { stroke: color-mix(in srgb, var(--c2) 45%, transparent); stroke-width: 1.4; fill: none;
   stroke-dasharray: 60; stroke-dashoffset: 60; }
 .fx-neuro:hover .neuro-link { animation: dendrite 1s var(--ease) forwards; }
-.fx-neuro:hover .neuro-link:nth-child(2) { animation-delay: .12s; }
-.fx-neuro:hover .neuro-link:nth-child(3) { animation-delay: .22s; }
-.fx-neuro:hover .neuro-link:nth-child(4) { animation-delay: .32s; }
-.fx-neuro:hover .neuro-link:nth-child(5) { animation-delay: .42s; }
+.fx-neuro:hover .neuro-link:nth-child(3) { animation-delay: .12s; }
+.fx-neuro:hover .neuro-link:nth-child(4) { animation-delay: .22s; }
+.fx-neuro:hover .neuro-link:nth-child(5) { animation-delay: .32s; }
+.fx-neuro:hover .neuro-link:nth-child(6) { animation-delay: .42s; }
 .neuro-node { transform: scale(0); transform-origin: center; }
 .fx-neuro:hover .neuro-node { animation: nodeIn .4s var(--ease) forwards; }
-.fx-neuro:hover .neuro-node:nth-child(6)  { animation-delay: .05s; }
-.fx-neuro:hover .neuro-node:nth-child(7)  { animation-delay: .18s; }
-.fx-neuro:hover .neuro-node:nth-child(8)  { animation-delay: .30s; }
-.fx-neuro:hover .neuro-node:nth-child(9)  { animation-delay: .42s; }
-.fx-neuro:hover .neuro-node:nth-child(10) { animation-delay: .55s; }
+.fx-neuro:hover .neuro-node:nth-child(7)  { animation-delay: .05s; }
+.fx-neuro:hover .neuro-node:nth-child(8)  { animation-delay: .18s; }
+.fx-neuro:hover .neuro-node:nth-child(9)  { animation-delay: .30s; }
+.fx-neuro:hover .neuro-node:nth-child(10) { animation-delay: .42s; }
+.fx-neuro:hover .neuro-node:nth-child(11) { animation-delay: .55s; }
 @keyframes dendrite { to { stroke-dashoffset: 0; } }
 @keyframes nodeIn   { to { transform: scale(1); } }
 .neuro-pulse { animation: npulse 2.2s ease-in-out .7s infinite; transform-origin: center; }
@@ -521,9 +526,19 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
   opacity: .55; stroke-dasharray: 200; stroke-dashoffset: 200; animation: ecgdraw 2.4s linear infinite; }
 @keyframes ecgdraw { 0% { stroke-dashoffset: 200; } 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -200; } }
 
-/* ---------- Footer interactive glass prism ---------- */
-.footer-prism { display: flex; justify-content: center; padding: 28px 0 12px; }
-.prism-canvas { cursor: crosshair; display: block; }
+/* ---------- Footer quote rotator ---------- */
+.footer-quote { padding: 48px 24px 20px; text-align: center; }
+.quote-block { margin: 0 auto; max-width: 580px; }
+.quote-text { font-family: var(--font-display); font-style: italic;
+  font-size: clamp(.95rem, 1.5vw, 1.1rem); line-height: 1.65;
+  color: var(--ink-soft); transition: opacity .4s ease, transform .4s ease; }
+.quote-text::before { content: '\201C'; color: var(--c2); opacity: .55; }
+.quote-text::after  { content: '\201D'; color: var(--c2); opacity: .55; }
+.quote-author { display: block; margin-top: 12px; font-size: .72rem;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--c2);
+  opacity: .65; transition: opacity .4s ease, transform .4s ease; }
+.footer-quote.fading .quote-text,
+.footer-quote.fading .quote-author { opacity: 0; transform: translateY(5px); }
 
 /* ---------- Nav avatar ---------- */
 .nav-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--c2) 60%, transparent);

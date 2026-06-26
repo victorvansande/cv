@@ -134,127 +134,74 @@
     el.addEventListener("animationend", () => el.classList.remove("glim"), { passive: true });
   });
 
-  /* ---- Glass prism canvas ---- */
-  const pc = document.getElementById("prismCanvas");
-  if (pc) {
-    const ctx = pc.getContext("2d");
-    const W = pc.width, H = pc.height;
-    const cx = W / 2, cy = H / 2;
-    const R = 30; // prism circumradius
-    // prism vertices (equilateral, pointing up)
-    const verts = [0, 1, 2].map((i) => {
-      const a = -Math.PI / 2 + (i * 2 * Math.PI) / 3;
-      return [cx + R * Math.cos(a), cy + R * Math.sin(a)];
-    });
+  /* ---- Footer quote rotator ---- */
+  const QUOTES = [
+    { q: "The medium is the message.", a: "Marshall McLuhan" },
+    { q: "One cannot not communicate.", a: "Paul Watzlawick" },
+    { q: "Comment is free, but facts are sacred.", a: "C.P. Scott" },
+    { q: "Design is not just what it looks like and feels like. Design is how it works.", a: "Steve Jobs" },
+    { q: "Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.", a: "Albert Einstein" },
+    { q: "Good design is as little design as possible.", a: "Dieter Rams" },
+    { q: "The curious paradox is that when I accept myself just as I am, then I can change.", a: "Carl Rogers" },
+    { q: "In the beginner's mind there are many possibilities, but in the expert's mind there are few.", a: "Shunryu Suzuki" },
+    { q: "The great enemy of clear language is insincerity.", a: "George Orwell" },
+    { q: "Who looks outside, dreams; who looks inside, awakes.", a: "Carl Gustav Jung" },
+    { q: "The trouble with the world is that the stupid are cocksure and the intelligent are full of doubt.", a: "Bertrand Russell" },
+    { q: "We are now a culture whose information, ideas, and epistemology are given form by television, not by the printed word.", a: "Neil Postman" },
+    { q: "There can be no liberty for a community which lacks the information by which to detect lies.", a: "Walter Lippmann" },
+    { q: "In any given moment we have two options: to step forward into growth or to step back into safety.", a: "Abraham Maslow" },
+    { q: "The goal of education is not to increase the amount of knowledge but to create the possibilities for a child to invent and discover.", a: "Jean Piaget" },
+    { q: "We tell ourselves stories in order to live.", a: "Joan Didion" },
+    { q: "Design is the silent ambassador of your brand.", a: "Paul Rand" },
+    { q: "Nothing in life is as important as you think it is, while you are thinking about it.", a: "Daniel Kahneman" },
+    { q: "The reasonable man adapts himself to the world; the unreasonable one persists in trying to adapt the world to himself. Therefore all progress depends on the unreasonable man.", a: "George Bernard Shaw" },
+    { q: "Information is the resolution of uncertainty.", a: "Claude Shannon" },
+    { q: "The privilege of a lifetime is being who you are.", a: "Joseph Campbell" },
+    { q: "The limits of my language mean the limits of my world.", a: "Ludwig Wittgenstein" },
+    { q: "A leader is best when people barely know he exists.", a: "Lao Tzu" },
+    { q: "All of us who professionally use the mass media are the shapers of society. We can vulgarise that society. We can brutalise it. Or we can help lift it onto a higher level.", a: "William Bernbach" },
+    { q: "Leadership and learning are indispensable to each other.", a: "John F. Kennedy" },
+    { q: "Make it simple. Make it memorable. Make it inviting to look at. Make it fun to read.", a: "Leo Burnett" },
+    { q: "Either you repeat the same conventional doctrines everybody is saying, or else you say something true, and it will sound like it's from Neptune.", a: "Noam Chomsky" },
+    { q: "Just because your voice reaches halfway around the world doesn't mean you are wiser than when it reached only to the end of the bar.", a: "Edward R. Murrow" },
+    { q: "Facts do not cease to exist because they are ignored.", a: "Aldous Huxley" },
+    { q: "The greatest obstacle to discovery is not ignorance — it is the illusion of knowledge.", a: "Daniel J. Boorstin" },
+    { q: "The map is not the territory.", a: "Alfred Korzybski" },
+    { q: "Half the money I spend on advertising is wasted; the trouble is I don't know which half.", a: "John Wanamaker" },
+    { q: "There is nothing more deceptive than an obvious fact.", a: "Arthur Conan Doyle" },
+    { q: "Those who cannot remember the past are condemned to repeat it.", a: "George Santayana" },
+    { q: "Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances.", a: "Viktor Frankl" },
+    { q: "Creativity is just connecting things.", a: "Steve Jobs" },
+    { q: "Simplicity is not the goal. It is the by-product of a good idea and modest expectations.", a: "Paul Rand" },
+    { q: "A language is a dialect with an army and a navy.", a: "Max Weinreich" },
+    { q: "In advertising, not to be different is virtually suicidal.", a: "William Bernbach" },
+    { q: "The most powerful element in advertising is the truth.", a: "William Bernbach" },
+    { q: "We shape our tools and thereafter our tools shape us.", a: "John M. Culkin" },
+    { q: "The single biggest problem in communication is the illusion that it has taken place.", a: "George Bernard Shaw" },
+    { q: "Without data, you're just another person with an opinion.", a: "W. Edwards Deming" },
+    { q: "A picture is worth a thousand words, but only if you know the thousand words.", a: "Umberto Eco" },
+    { q: "The function of education is to teach one to think intensively and to think critically. Intelligence plus character — that is the goal of true education.", a: "Martin Luther King Jr." },
+    { q: "The most important thing in communication is hearing what isn't said.", a: "Peter Drucker" },
+    { q: "We do not see things as they are, we see them as we are.", a: "Anaïs Nin" },
+  ];
 
-    let mx = cx - 70, my = cy; // default light source left of prism
-    let hovering = false;
-    let autoAngle = 0;
-    let loopId = null;
-    const colors = ["#f63b46", "#ff8b3d", "#ffd462", "#6ee7b7", "#60a5fa", "#c084fc"];
-
-    const lerp = (a, b, t) => a + (b - a) * t;
-
-    const drawPrism = () => {
-      // glass body with inner glow
-      const grad = ctx.createLinearGradient(verts[0][0], verts[0][1], verts[2][0], verts[2][1]);
-      grad.addColorStop(0, "rgba(255,255,255,.18)");
-      grad.addColorStop(0.5, "rgba(255,255,255,.08)");
-      grad.addColorStop(1, "rgba(255,255,255,.14)");
-      ctx.beginPath();
-      ctx.moveTo(...verts[0]); ctx.lineTo(...verts[1]); ctx.lineTo(...verts[2]); ctx.closePath();
-      ctx.fillStyle = grad;
-      ctx.fill();
-      // edge glow
-      ctx.shadowColor = "rgba(255,255,255,.35)";
-      ctx.shadowBlur = 6;
-      ctx.strokeStyle = "rgba(255,255,255,.55)";
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-      ctx.shadowBlur = 0;
+  const qWrap = document.querySelector(".footer-quote");
+  const qText = document.getElementById("quoteText");
+  const qAuth = document.getElementById("quoteAuthor");
+  if (qWrap && qText && qAuth) {
+    const shuffled = [...QUOTES].sort(() => Math.random() - 0.5);
+    let qi = 0;
+    const show = ({ q, a }) => { qText.textContent = q; qAuth.textContent = "— " + a; };
+    const rotate = () => {
+      qWrap.classList.add("fading");
+      setTimeout(() => {
+        qi = (qi + 1) % shuffled.length;
+        show(shuffled[qi]);
+        qWrap.classList.remove("fading");
+      }, 420);
     };
-
-    const drawRays = (srcX, srcY) => {
-      // find entry point on left edge (verts[0]→verts[1])
-      const ex = lerp(verts[0][0], verts[1][0], 0.42);
-      const ey = lerp(verts[0][1], verts[1][1], 0.42);
-      // find exit point on right edge (verts[0]→verts[2])
-      const exitX = lerp(verts[0][0], verts[2][0], 0.42);
-      const exitY = lerp(verts[0][1], verts[2][1], 0.42);
-
-      // incoming white ray
-      ctx.beginPath();
-      ctx.moveTo(srcX, srcY);
-      ctx.lineTo(ex, ey);
-      ctx.strokeStyle = "rgba(255,255,255,.6)";
-      ctx.lineWidth = 1.4;
-      ctx.globalAlpha = 1;
-      ctx.stroke();
-
-      // refracted rays fan out from exit point
-      const baseAngle = Math.atan2(exitY - ey, exitX - ex);
-      colors.forEach((col, i) => {
-        const spread = (i - (colors.length - 1) / 2) * 0.13;
-        const angle = baseAngle + spread;
-        const len = 52 + i * 5;
-        const ex2 = exitX + Math.cos(angle) * len;
-        const ey2 = exitY + Math.sin(angle) * len;
-
-        // glow behind the ray
-        ctx.beginPath();
-        ctx.moveTo(exitX, exitY);
-        ctx.lineTo(ex2, ey2);
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 3;
-        ctx.globalAlpha = 0.12;
-        ctx.stroke();
-        // crisp ray
-        ctx.lineWidth = 1.2;
-        ctx.globalAlpha = 0.7;
-        ctx.stroke();
-
-        // dot at tip
-        ctx.beginPath();
-        ctx.arc(ex2, ey2, 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = col;
-        ctx.globalAlpha = 0.8;
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-
-      // source dot
-      if (hovering) {
-        ctx.beginPath();
-        ctx.arc(srcX, srcY, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,.75)";
-        ctx.fill();
-      }
-    };
-
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-      // auto-orbit when not hovered
-      const lx = hovering ? mx : cx - 70 + Math.cos(autoAngle) * 6;
-      const ly = hovering ? my : cy + Math.sin(autoAngle) * 12;
-      drawPrism();
-      drawRays(lx, ly);
-    };
-
-    // always-on gentle animation loop
-    const loop = () => {
-      autoAngle += 0.012;
-      draw();
-      loopId = requestAnimationFrame(loop);
-    };
-    loop();
-
-    pc.addEventListener("mouseenter", () => { hovering = true; });
-    pc.addEventListener("mousemove", (e) => {
-      const r2 = pc.getBoundingClientRect();
-      mx = (e.clientX - r2.left) * (W / r2.width);
-      my = (e.clientY - r2.top) * (H / r2.height);
-    }, { passive: true });
-    pc.addEventListener("mouseleave", () => { hovering = false; });
+    show(shuffled[qi]);
+    setInterval(rotate, 3 * 60 * 1000);
   }
 
   /* ---- Footer year ---- */
