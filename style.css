@@ -163,7 +163,14 @@ section { position: relative; }
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   background: var(--nav-bg);
   border-bottom: 1px solid var(--glass-bord);
+  transition: background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
 }
+.nav.scrolled {
+  background: var(--nav-solid);
+  border-bottom-color: var(--glass-bord-hi);
+  box-shadow: 0 4px 28px -8px rgba(0,0,0,.30);
+}
+:root[data-mode="light"] .nav.scrolled { box-shadow: 0 2px 18px -4px rgba(22,27,51,.16); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -0.03em; font-size: 1.02rem; }
 .brand .mark {
@@ -379,7 +386,8 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 .grad-text { background: var(--grad-soft); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
 .muted { color: var(--ink-dim); }
-.section-head { max-width: 64ch; margin-bottom: 38px; }
+.section-head { max-width: 64ch; margin-bottom: 46px; }
+.section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
 
 /* ---------- Hero ---------- */
 .hero { padding: 54px 0 44px; }
@@ -475,8 +483,8 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 .badge-hon { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: .82rem; font-weight: 600; color: #ffd479; }
 
 /* ---------- Experience list ---------- */
-.exp-item { padding: 22px 26px; display: flex; align-items: center; gap: 20px; transition: transform .25s var(--ease), border-color .25s; }
-.exp-item:hover { transform: translateX(6px); border-color: var(--glass-bord-hi); }
+.exp-item { padding: 22px 26px; display: flex; align-items: center; gap: 20px; transition: transform .25s var(--ease), border-color .25s, border-left-color .25s; border-left: 3px solid transparent; }
+.exp-item:hover { transform: translateX(5px); border-color: var(--glass-bord-hi); border-left-color: color-mix(in srgb, var(--c2) 70%, transparent); }
 .exp-ic { width: 48px; height: 48px; flex: none; border-radius: 13px; display: grid; place-items: center; font-weight: 800; color: #fff; background: var(--grad); }
 .exp-body { flex: 1; min-width: 0; }
 .exp-body h3 { font-size: 1.08rem; }
@@ -587,6 +595,12 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 :root[data-mode="light"] .cursor-glow { display: none; }
 :root[data-mode="light"] .glass::before { background: linear-gradient(160deg, rgba(255,255,255,.5), transparent 42%); }
 :root[data-mode="light"] .nav { box-shadow: 0 1px 0 rgba(22,27,51,.04); }
+:root[data-mode="light"] .glass {
+  box-shadow: 0 2px 20px -6px rgba(22,27,51,.13), 0 0 0 1px rgba(22,27,51,.055);
+}
+:root[data-mode="light"] .tilt:hover {
+  box-shadow: 0 8px 32px -10px rgba(22,27,51,.2), 0 0 0 1px rgba(22,27,51,.11);
+}
 :root[data-mode="light"] .avatar-photo::after { border-color: color-mix(in srgb, var(--c1) 35%, transparent); }
 :root[data-mode="light"] .diploma-thumb::after { color: #fff; }
 :root[data-mode="light"] .burger span { background: var(--ink); }
@@ -686,8 +700,16 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 .now-badge .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--c2); animation: pulse 1.8s ease-out infinite; }
 @keyframes pulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3.5); opacity: 0; } }
 .exp-item.featured { border-color: color-mix(in srgb, var(--c2) 30%, var(--glass-bord)); background: color-mix(in srgb, var(--c1) 6%, var(--glass-bg)); }
-.featured-role { border: 1px solid color-mix(in srgb, var(--c2) 40%, transparent);
-  background: color-mix(in srgb, var(--c1) 9%, var(--glass-bg)); }
+.featured-role {
+  border: 1px solid color-mix(in srgb, var(--c2) 40%, transparent);
+  background: color-mix(in srgb, var(--c1) 9%, var(--glass-bg));
+  position: relative;
+}
+.featured-role::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--grad); border-radius: var(--r-lg) var(--r-lg) 0 0;
+  pointer-events: none; z-index: 2;
+}
 .featured-role .exp-ic { box-shadow: 0 8px 22px -8px color-mix(in srgb, var(--c1) 75%, transparent); }
 
 /* ---------- Highlight / combine statement ---------- */

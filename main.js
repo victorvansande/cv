@@ -19,6 +19,14 @@
     loop();
   }
 
+  /* ---- Nav scrolled state ---- */
+  const navEl = document.querySelector(".nav");
+  if (navEl) {
+    const syncNav = () => navEl.classList.toggle("scrolled", window.scrollY > 48);
+    window.addEventListener("scroll", syncNav, { passive: true });
+    syncNav();
+  }
+
   /* ---- Mobile nav ---- */
   const burger = document.querySelector(".burger");
   const links = document.querySelector(".nav-links");
