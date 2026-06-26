@@ -547,6 +547,16 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
   opacity: .55; stroke-dasharray: 200; stroke-dashoffset: 200; animation: ecgdraw 2.4s linear infinite; }
 @keyframes ecgdraw { 0% { stroke-dashoffset: 200; } 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -200; } }
 
+/* ---------- Jobstudent footnote ---------- */
+.jobstudent-note {
+  font-size: .85rem; color: var(--ink-dim); border-top: 1px solid var(--glass-bord);
+  padding-top: 18px; margin-top: 0;
+}
+.jobstudent-label {
+  display: inline-block; font-weight: 700; color: var(--ink-soft);
+  margin-right: 10px; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+}
+
 /* ---------- Footer quote rotator ---------- */
 .footer-quote { padding: 48px 24px 20px; text-align: center; }
 .quote-block { margin: 0 auto; max-width: 580px; }
