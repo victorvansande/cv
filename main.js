@@ -231,6 +231,46 @@
     setMode(savedMode || document.documentElement.dataset.mode || "dark");
   }
 
+  /* ---- Accessibility preferences (reduce motion / high contrast) ---- */
+  const a11yBtn = document.querySelector(".a11y-toggle");
+  const a11yPop = document.querySelector(".a11y-pop");
+  if (a11yBtn && a11yPop) {
+    const motionCb = a11yPop.querySelector(".a11y-motion");
+    const contrastCb = a11yPop.querySelector(".a11y-contrast");
+    const getLS = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    const setLS = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+    const applyMotion = (on) => {
+      if (on) document.documentElement.dataset.motion = "reduce";
+      else document.documentElement.removeAttribute("data-motion");
+      motionCb.checked = on;
+    };
+    const applyContrast = (on) => {
+      if (on) document.documentElement.dataset.contrast = "high";
+      else document.documentElement.removeAttribute("data-contrast");
+      contrastCb.checked = on;
+    };
+    applyMotion(getLS("cv-motion") === "reduce");
+    applyContrast(getLS("cv-contrast") === "high");
+    a11yBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = a11yPop.classList.toggle("open");
+      a11yBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    a11yPop.addEventListener("click", (e) => e.stopPropagation());
+    document.addEventListener("click", () => {
+      a11yPop.classList.remove("open");
+      a11yBtn.setAttribute("aria-expanded", "false");
+    });
+    motionCb.addEventListener("change", () => {
+      applyMotion(motionCb.checked);
+      setLS("cv-motion", motionCb.checked ? "reduce" : "no");
+    });
+    contrastCb.addEventListener("change", () => {
+      applyContrast(contrastCb.checked);
+      setLS("cv-contrast", contrastCb.checked ? "high" : "no");
+    });
+  }
+
   /* ---- Scroll progress bar + back to top ---- */
   const prog = document.querySelector(".progress-bar");
   const toTop = document.querySelector(".to-top");

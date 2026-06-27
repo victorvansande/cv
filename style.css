@@ -641,6 +641,32 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .swatch span { position: absolute; inset: 0; border-radius: inherit; }
 
+/* ---------- Toegankelijkheidstoggle ---------- */
+.a11y-wrap { position: relative; }
+.a11y-toggle {
+  width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-soft);
+  transition: color .25s, border-color .25s, transform .25s, background .25s;
+}
+.a11y-toggle:hover { color: var(--ink); border-color: var(--glass-bord-hi); transform: translateY(-1px); }
+.a11y-pop {
+  position: absolute; right: 0; top: 52px; width: 226px; padding: 14px 16px;
+  border-radius: var(--r-md); z-index: 200;
+  background: var(--pop-bg); border: 1px solid var(--glass-bord);
+  backdrop-filter: blur(20px) saturate(140%); box-shadow: var(--glass-shadow);
+  opacity: 0; visibility: hidden; transform: translateY(-8px) scale(.97); transform-origin: top right;
+  transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
+}
+.a11y-pop.open { opacity: 1; visibility: visible; transform: none; }
+.a11y-pop h4 { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 12px; font-weight: 700; }
+.a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; cursor: pointer; font-size: .9rem; color: var(--ink-soft); }
+.a11y-row input { position: absolute; opacity: 0; width: 0; height: 0; }
+.a11y-row .sw { flex: none; width: 38px; height: 22px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 16%, transparent); border: 1px solid var(--glass-bord); position: relative; transition: background .25s var(--ease); }
+.a11y-row .sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .25s var(--ease); }
+.a11y-row input:checked ~ .sw { background: var(--grad); border-color: transparent; }
+.a11y-row input:checked ~ .sw::after { transform: translateX(16px); }
+.a11y-row:hover { color: var(--ink); }
+
 
 /* ---------- Diploma thumbnail + lightbox ---------- */
 .diploma-thumb {
@@ -942,4 +968,16 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
   .reveal .badge-hon svg, .reveal .lang-star { opacity: 1 !important; }
+}
+/* ---------- Toegankelijkheid: door gebruiker geforceerd ---------- */
+:root[data-motion="reduce"] *, :root[data-motion="reduce"] *::before, :root[data-motion="reduce"] *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
+:root[data-motion="reduce"] .reveal { opacity: 1; transform: none; }
+:root[data-motion="reduce"] .reveal .badge-hon svg, :root[data-motion="reduce"] .reveal .lang-star { opacity: 1 !important; }
+:root[data-contrast="high"] {
+  --ink-soft: var(--ink);
+  --ink-dim: color-mix(in srgb, var(--ink) 80%, transparent);
+  --glass-bord: color-mix(in srgb, var(--ink) 40%, transparent);
+  --glass-bord-hi: color-mix(in srgb, var(--ink) 58%, transparent);
 }
