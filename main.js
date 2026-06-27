@@ -133,7 +133,7 @@
   }
 
   /* ---- Glim: fire only on mouseenter, not on mouseleave ---- */
-  document.querySelectorAll(".chip, .skill-tag, .combine-pill").forEach((el) => {
+  document.querySelectorAll(".chip, .skill-tag").forEach((el) => {
     el.addEventListener("mouseenter", () => {
       el.classList.remove("glim");
       void el.offsetWidth; // reflow to restart animation
