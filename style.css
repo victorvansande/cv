@@ -10,7 +10,7 @@
   --panel: rgba(255,255,255,.022); /* faint alternating section tint */
   --ink: #ecedf6;
   --ink-soft: #b2b7cc;
-  --ink-dim: #787e98;
+  --ink-dim: #8b92ac;
   --blob-op: .5;
   --grain-op: .04;
 
@@ -52,7 +52,7 @@
   --panel: rgba(22, 27, 51, .028);
   --ink: #161a2b;
   --ink-soft: #474d63;
-  --ink-dim: #767c93;
+  --ink-dim: #5e6379;
   --blob-op: .06;
   --grain-op: .015;
 
@@ -242,13 +242,7 @@ section { position: relative; }
 .fx-card .fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 0; }
 .fx-card > *:not(.fx) { position: relative; z-index: 1; }
 
-/* communicatie: marker sweep op h3 + boodschap die van zender naar ontvanger vliegt */
-.fx-write h3 { display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone;
-  background-image: linear-gradient(color-mix(in srgb, var(--c2) 34%, transparent), color-mix(in srgb, var(--c2) 34%, transparent));
-  background-repeat: no-repeat; background-size: 0% 44%; background-position: 0 82%;
-  transition: background-size .55s var(--ease); }
-.fx-write:hover h3 { background-size: 100% 44%; }
-
+/* communicatie: boodschap die van zender naar ontvanger vliegt */
 /* messaging-scene over de hele kaart */
 .fx-write .comm-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .fx-write .comm-person { fill: none; stroke: color-mix(in srgb, var(--c2) 60%, transparent);
@@ -746,6 +740,19 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
   pointer-events: none; opacity: 1; z-index: 2;
 }
 .featured-role .exp-ic { box-shadow: 0 8px 22px -8px color-mix(in srgb, var(--c1) 75%, transparent); }
+/* Gekkoo header: nette uitlijning, stapelt netjes links-uitgelijnd op smal scherm */
+.featured-head { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.featured-id { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.featured-ic { width: 54px; height: 54px; font-size: 1.1rem; flex: none; }
+.featured-title { font-size: 1.25rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0 4px; }
+.featured-sub { color: var(--c2); font-weight: 600; font-size: .95rem; margin-top: 2px; }
+.featured-meta { text-align: right; font-size: .82rem; color: var(--ink-soft); }
+.featured-meta b { display: block; color: var(--c2); font-weight: 600; }
+.featured-meta span { color: var(--ink-soft); }
+@media (max-width: 780px) {
+  .featured-head { flex-direction: column; align-items: flex-start; }
+  .featured-meta { text-align: left; }
+}
 
 /* ---------- Highlight / combine statement ---------- */
 .combine { padding: 44px; text-align: center; }
