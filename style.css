@@ -392,7 +392,10 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 /* ---------- Hero ---------- */
 .hero { padding: 52px 0 48px; }
 .hero-card { padding: 52px 60px; }
-.hero-card h1 { margin: 6px 0 20px; }
+.hero-card h1 { margin: 6px 0 14px; }
+.hero-loc { display: inline-flex; align-items: center; gap: 7px; font-size: .9rem;
+  font-weight: 500; color: var(--ink-soft); margin-bottom: 22px; }
+.hero-loc svg { color: var(--c2); flex: none; }
 .hero-card .lead { margin-bottom: 32px; max-width: 58ch; }
 .hero-card .hero-stats { border-top: 1px solid var(--glass-bord); padding-top: 28px; }
 .hero-card .scroll-cue { margin-top: 20px; }
