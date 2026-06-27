@@ -40,6 +40,7 @@
   --ease: cubic-bezier(.22, 1, .36, 1);
 
   --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-head: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
 
   color-scheme: dark;
@@ -379,7 +380,7 @@ section { position: relative; }
   background: var(--glass-bg); margin-bottom: 22px;
 }
 .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c2); box-shadow: 0 0 12px var(--c2); }
-h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
+h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 .h-xl { font-size: clamp(2.6rem, 7vw, 5.4rem); }
 .h-lg { font-size: clamp(2rem, 4.5vw, 3.2rem); }
 .h-md { font-size: clamp(1.4rem, 3vw, 2rem); }
