@@ -67,20 +67,16 @@
   }, { threshold: 0.5 });
   document.querySelectorAll("[data-count]").forEach((el) => countIO.observe(el));
 
-  /* ---- Skill bars & language rings fill on view ---- */
+  /* ---- Skill / language bars fill on view ---- */
   const fillIO = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
       const el = e.target;
-      if (el.classList.contains("bar")) {
-        el.querySelector("i").style.width = el.dataset.val + "%";
-      } else if (el.classList.contains("ring")) {
-        el.style.setProperty("--p", el.dataset.val);
-      }
+      el.querySelector("i").style.width = el.dataset.val + "%";
       fillIO.unobserve(el);
     });
   }, { threshold: 0.4 });
-  document.querySelectorAll(".bar, .ring").forEach((el) => fillIO.observe(el));
+  document.querySelectorAll(".bar").forEach((el) => fillIO.observe(el));
 
   /* ---- Cursor spotlight on cards (rAF-throttled, GPU-cheap) ---- */
   if (window.matchMedia("(pointer:fine)").matches) {
@@ -114,22 +110,6 @@
       }, 360);
     };
     setInterval(swap, 2600);
-  }
-
-  /* ---- Contact form (mailto) ---- */
-  const form = document.querySelector("#contact-form");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const fd = new FormData(form);
-      const name = encodeURIComponent(fd.get("name") || "");
-      const msg = encodeURIComponent(fd.get("message") || "");
-      const subject = encodeURIComponent(`Bericht via portfolio: ${fd.get("name") || ""}`);
-      window.location.href =
-        `mailto:victorvansande@gmail.com?subject=${subject}&body=${msg}%0D%0A%0D%0AGroeten,%0D%0A${name}`;
-      const btn = form.querySelector("button[type=submit]");
-      if (btn) { btn.textContent = "Mailclient geopend ✓"; }
-    });
   }
 
   /* ---- Glim: fire only on mouseenter, not on mouseleave ---- */
