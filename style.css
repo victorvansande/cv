@@ -242,35 +242,41 @@ section { position: relative; }
 .fx-card .fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 0; }
 .fx-card > *:not(.fx) { position: relative; z-index: 1; }
 
-/* communicatie: marker sweep op h3 + spotlight + focusringen over de kaart */
+/* communicatie: marker sweep op h3 + boodschap die van zender naar ontvanger vliegt */
 .fx-write h3 { display: inline; box-decoration-break: clone; -webkit-box-decoration-break: clone;
   background-image: linear-gradient(color-mix(in srgb, var(--c2) 34%, transparent), color-mix(in srgb, var(--c2) 34%, transparent));
   background-repeat: no-repeat; background-size: 0% 44%; background-position: 0 82%;
   transition: background-size .55s var(--ease); }
 .fx-write:hover h3 { background-size: 100% 44%; }
-/* spotlight glow over the whole card */
-.fx-write .fx {
-  background: radial-gradient(ellipse 72% 60% at 50% 42%,
-    color-mix(in srgb, var(--c2) 20%, transparent) 0%,
-    transparent 80%);
-  opacity: 0; transition: opacity .5s var(--ease); }
-.fx-write:hover .fx { opacity: 1; }
-/* focus rings pulse outward from center */
-.focus-ring {
-  position: absolute; border-radius: 50%; pointer-events: none;
-  border: 1.2px solid color-mix(in srgb, var(--c2) 55%, transparent);
-  left: 50%; top: 42%;
-  transform: translate(-50%, -50%) scale(0); opacity: 0; }
-.fr1 { width:  56px; height:  56px; }
-.fr2 { width: 104px; height: 104px; border-color: color-mix(in srgb, var(--c2) 35%, transparent); }
-.fr3 { width: 156px; height: 156px; border-color: color-mix(in srgb, var(--c2) 18%, transparent); }
-.fx-write:hover .fr1 { animation: focusring .85s var(--ease) .10s forwards; }
-.fx-write:hover .fr2 { animation: focusring .85s var(--ease) .28s forwards; }
-.fx-write:hover .fr3 { animation: focusring .85s var(--ease) .46s forwards; }
-@keyframes focusring {
-  0%   { transform: translate(-50%,-50%) scale(0); opacity: .85; }
-  65%  { opacity: .4; }
-  100% { transform: translate(-50%,-50%) scale(1); opacity: 0; } }
+
+/* messaging-scene over de hele kaart */
+.fx-write .comm-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fx-write .comm-person { fill: none; stroke: color-mix(in srgb, var(--c2) 60%, transparent);
+  stroke-width: 2; stroke-linecap: round; opacity: 0; transition: opacity .45s var(--ease); }
+.fx-write:hover .comm-person { opacity: .85; }
+.fx-write .comm-path { fill: none; stroke: color-mix(in srgb, var(--c2) 45%, transparent);
+  stroke-width: 1.4; stroke-dasharray: 4 5; stroke-linecap: round;
+  stroke-dashoffset: 240; opacity: 0; transition: opacity .4s var(--ease); }
+.fx-write:hover .comm-path { opacity: 1; animation: commdash 1.8s linear infinite; }
+.fx-write .comm-mail { fill: color-mix(in srgb, var(--c2) 20%, var(--bg-1));
+  stroke: var(--c2); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
+  offset-path: path('M58,58 Q160,18 262,58'); offset-rotate: auto;
+  offset-distance: 0%; opacity: 0; }
+.fx-write:hover .comm-mail { animation: commfly 1.8s var(--ease) infinite; }
+/* ontvanger pulseert bij aankomst */
+.fx-write .comm-pulse { transform-box: fill-box; transform-origin: center; }
+.fx-write:hover .comm-pulse { animation: commrcv 1.8s var(--ease) infinite; }
+
+@keyframes commdash { to { stroke-dashoffset: 0; } }
+@keyframes commfly {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  12%  { opacity: 1; }
+  82%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; } }
+@keyframes commrcv {
+  0%, 80%  { stroke: color-mix(in srgb, var(--c2) 60%, transparent); }
+  88%      { stroke: var(--c2); filter: drop-shadow(0 0 5px color-mix(in srgb, var(--c2) 70%, transparent)); }
+  100%     { stroke: color-mix(in srgb, var(--c2) 60%, transparent); filter: none; } }
 
 /* design: soft gradient-mesh blooms */
 .fx-palette .fx { opacity: 0; transform: scale(1.25); transition: opacity .5s var(--ease), transform .6s var(--ease);

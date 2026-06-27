@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=17" />
+  <link rel="stylesheet" href="style.css?v=18" />
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'dark';}catch(e){d.dataset.theme='rose';d.dataset.mode='dark';}})();</script>
 </head>
 <body>
@@ -132,9 +132,25 @@
       <div class="bento">
         <div class="glass fx-card feature feature-wide reveal fx-write" data-d="1">
           <div class="fx" aria-hidden="true">
-            <span class="focus-ring fr1"></span>
-            <span class="focus-ring fr2"></span>
-            <span class="focus-ring fr3"></span>
+            <svg class="comm-svg" viewBox="0 0 320 120" preserveAspectRatio="xMidYMid meet">
+              <!-- vliegpad -->
+              <path class="comm-path" d="M58,58 Q160,18 262,58"/>
+              <!-- zender (links) -->
+              <g class="comm-person comm-sender">
+                <circle cx="40" cy="50" r="6"/>
+                <path d="M28,74 Q40,58 52,74"/>
+              </g>
+              <!-- ontvanger (rechts) -->
+              <g class="comm-person comm-receiver">
+                <circle class="comm-pulse" cx="280" cy="50" r="6"/>
+                <path d="M268,74 Q280,58 292,74"/>
+              </g>
+              <!-- vliegende envelop -->
+              <g class="comm-mail">
+                <rect x="-8" y="-6" width="16" height="12" rx="2"/>
+                <path d="M-8,-5 L0,2 L8,-5"/>
+              </g>
+            </svg>
           </div>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
           <h3>Doelgerichte communicatie</h3>
