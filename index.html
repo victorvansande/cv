@@ -37,12 +37,13 @@
       <a href="#home" class="brand"><img src="assets/victor-profiel.jpg" alt="" class="nav-avatar" aria-hidden="true"> Victor Van Sande</a>
       <div class="nav-right">
       <nav class="nav-links">
-        <a href="#home" class="active">Home</a>
-        <a href="#over">Over mij</a>
-        <a href="#opleiding">Opleiding</a>
-        <a href="#ervaring">Ervaring</a>
-        <a href="#contact" class="nav-cta">Contact</a>
+        <a href="#home" class="active" data-i18n="nav_home">Home</a>
+        <a href="#over" data-i18n="nav_over">Over mij</a>
+        <a href="#opleiding" data-i18n="nav_opleiding">Opleiding</a>
+        <a href="#ervaring" data-i18n="nav_ervaring">Ervaring</a>
+        <a href="#contact" class="nav-cta" data-i18n="nav_contact">Contact</a>
       </nav>
+      <button class="lang-toggle" aria-label="Taal / Language" title="Nederlands / English"><span data-lang="nl">NL</span><span class="lang-sep">/</span><span data-lang="en">EN</span></button>
       <button class="mode-toggle" aria-label="Schakel naar lichte modus" title="Licht / donker">
         <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -97,30 +98,29 @@
           <div class="hero-avatar-wrap">
             <img src="assets/victor-profiel.jpg" alt="Victor Van Sande" class="hero-avatar-img" />
           </div>
-          <span class="eyebrow" style="margin-bottom:0"><span class="dot"></span> Open voor boeiende samenwerkingen</span>
+          <span class="eyebrow" style="margin-bottom:0"><span class="dot"></span> <span data-i18n="hero_eyebrow">Open voor boeiende samenwerkingen</span></span>
         </div>
-        <h1 class="h-xl">Hallo, ik ben<br><span class="grad-text">Victor Van Sande</span></h1>
-        <p class="hero-loc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Gevestigd in Antwerpen, België</p>
+        <h1 class="h-xl"><span data-i18n="hero_hello">Hallo, ik ben</span><br><span class="grad-text">Victor Van Sande</span></h1>
+        <p class="hero-loc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-i18n="hero_loc">Gevestigd in Antwerpen, België</span></p>
         <p class="lead">
-          Communicatiewetenschapper met een brede blik op
-          <strong data-rotate='["communicatie","(web)design","psychologie","media","technologie","journalistiek","leiderschap"]' class="em-serif" style="color:var(--c2);transition:.35s var(--ease);display:inline-block">communicatie</strong>.
-          Ik combineer een analytische, wetenschappelijke kijk met de warmte en empathie die mensgericht werk verdient.
+          <span data-i18n="hero_lead_1">Communicatiewetenschapper met een brede blik op</span>
+          <strong data-rotate='["communicatie","(web)design","psychologie","media","technologie","journalistiek","leiderschap"]' data-rotate-en='["communication","(web)design","psychology","media","technology","journalism","leadership"]' class="em-serif" style="color:var(--c2);transition:.35s var(--ease);display:inline-block">communicatie</strong><span data-i18n="hero_lead_2">. Ik combineer een analytische, wetenschappelijke kijk met de warmte en empathie die mensgericht werk verdient.</span>
         </p>
         <div class="hero-cta">
-          <a href="#ervaring" class="btn btn-primary">Bekijk mijn werk
+          <a href="#ervaring" class="btn btn-primary"><span data-i18n="hero_cta_work">Bekijk mijn werk</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a href="assets/cv-victor-van-sande.pdf" download class="btn btn-ghost" style="gap:8px">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v13M5 12l7 7 7-7"/><path d="M3 21h18"/></svg>
-            Download CV
+            <span data-i18n="hero_cta_cv">Download CV</span>
           </a>
         </div>
         <div class="hero-stats">
-          <div class="stat"><div class="num"><span data-count="3">0</span></div><div class="lbl">diploma's</div></div>
-          <div class="stat"><div class="num"><span data-count="8">0</span></div><div class="lbl">jaar academische ervaring</div></div>
-          <div class="stat"><div class="num"><span data-count="10" data-suffix="+">0</span></div><div class="lbl">jaar leiderschap</div></div>
+          <div class="stat"><div class="num"><span data-count="3">0</span></div><div class="lbl" data-i18n="stat_diplomas">diploma's</div></div>
+          <div class="stat"><div class="num"><span data-count="8">0</span></div><div class="lbl" data-i18n="stat_academic">jaar academische ervaring</div></div>
+          <div class="stat"><div class="num"><span data-count="10" data-suffix="+">0</span></div><div class="lbl" data-i18n="stat_leadership">jaar leiderschap</div></div>
         </div>
-        <div class="scroll-cue"><span class="mouse"></span> Scroll voor meer</div>
+        <div class="scroll-cue"><span class="mouse"></span> <span data-i18n="scroll_more">Scroll voor meer</span></div>
       </div>
     </div>
   </section>
@@ -129,16 +129,16 @@
   <section class="section-pad">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow"><span class="dot"></span> Waar ik voor sta</span>
-        <h2 class="h-lg">Eén profiel, <span class="grad-text em-serif">veel raakvlakken</span></h2>
-        <p class="lead">Communicatie, media en journalistiek, (web)design, psychologie, technologie en leiderschap: ik beweeg me vlot tussen deze domeinen en breng ze samen tot een coherent geheel.</p>
+        <span class="eyebrow"><span class="dot"></span> <span data-i18n="hl_eyebrow">Waar ik voor sta</span></span>
+        <h2 class="h-lg" data-i18n="hl_h2">Eén profiel, <span class="grad-text em-serif">veel raakvlakken</span></h2>
+        <p class="lead" data-i18n="hl_lead">Communicatie, media en journalistiek, (web)design, psychologie, technologie en leiderschap: ik beweeg me vlot tussen deze domeinen en breng ze samen tot een coherent geheel.</p>
         <div class="chips" style="margin-top:24px">
-          <span class="chip">Communicatie</span>
-          <span class="chip">Media &amp; journalistiek</span>
-          <span class="chip">(Web)design</span>
-          <span class="chip">Psychologie</span>
-          <span class="chip">Technologie</span>
-          <span class="chip">Leiderschap</span>
+          <span class="chip" data-i18n="chip_comm">Communicatie</span>
+          <span class="chip" data-i18n="chip_media">Media &amp; journalistiek</span>
+          <span class="chip" data-i18n="chip_webdesign">(Web)design</span>
+          <span class="chip" data-i18n="chip_psych">Psychologie</span>
+          <span class="chip" data-i18n="chip_tech">Technologie</span>
+          <span class="chip" data-i18n="chip_lead">Leiderschap</span>
         </div>
       </div>
       <div class="bento">
@@ -165,20 +165,20 @@
             </svg>
           </div>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-          <h3>Doelgerichte communicatie</h3>
-          <p>Heldere, strategische communicatie is de rode draad doorheen mijn master, met oog voor data, gedrag en het discours in media en politiek.</p>
+          <h3 data-i18n="card_comm_h">Doelgerichte communicatie</h3>
+          <p data-i18n="card_comm_p">Heldere, strategische communicatie is de rode draad doorheen mijn master, met oog voor data, gedrag en het discours in media en politiek.</p>
         </div>
         <div class="glass fx-card feature reveal fx-palette" data-d="2">
           <span class="fx" aria-hidden="true"></span>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-          <h3>Design &amp; digitale content</h3>
-          <p>Van webdesign en visuele identiteit tot fotografie en film: ik vertaal ideeën naar beeld en interfaces die blijven hangen.</p>
+          <h3 data-i18n="card_design_h">Design &amp; digitale content</h3>
+          <p data-i18n="card_design_p">Van webdesign en visuele identiteit tot fotografie en film: ik vertaal ideeën naar beeld en interfaces die blijven hangen.</p>
         </div>
         <div class="glass fx-card feature reveal fx-network" data-d="3">
           <span class="fx" aria-hidden="true"><svg class="net" viewBox="0 0 150 110"><line x1="30" y1="30" x2="95" y2="20"/><line x1="95" y1="20" x2="120" y2="70"/><line x1="30" y1="30" x2="70" y2="85"/><line x1="70" y1="85" x2="120" y2="70"/><circle cx="30" cy="30" r="5"/><circle cx="95" cy="20" r="5"/><circle cx="120" cy="70" r="5"/><circle cx="70" cy="85" r="5"/></svg></span>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div>
-          <h3>Leiderschap &amp; organisatie</h3>
-          <p>Jarenlange ervaring in het aansturen van teams en het organiseren van events vertaal ik moeiteloos naar nieuwe projecten en contexten.</p>
+          <h3 data-i18n="card_lead_h">Leiderschap &amp; organisatie</h3>
+          <p data-i18n="card_lead_p">Jarenlange ervaring in het aansturen van teams en het organiseren van events vertaal ik moeiteloos naar nieuwe projecten en contexten.</p>
         </div>
       </div>
     </div>
@@ -187,14 +187,14 @@
   <!-- COMBINE -->
   <section class="wrap section-pad" style="padding-top:0">
     <div class="glass combine reveal">
-      <span class="eyebrow"><span class="dot"></span> Alles komt samen</span>
-      <h2 class="h-lg">Wat mij <span class="grad-text em-serif">onderscheidt</span></h2>
-      <p class="lead" style="margin:14px auto 0">Mijn kracht zit in de combinatie: academische expertise in communicatie, een scherp oog voor (web)design, vlotte netwerking en een natuurlijk leiderschap. Samen zorgen die ervoor dat ik mensen, boodschappen en organisaties met elkaar verbind.</p>
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="comb_eyebrow">Alles komt samen</span></span>
+      <h2 class="h-lg" data-i18n="comb_h2">Wat mij <span class="grad-text em-serif">onderscheidt</span></h2>
+      <p class="lead" style="margin:14px auto 0" data-i18n="comb_lead">Mijn kracht zit in de combinatie: academische expertise in communicatie, een scherp oog voor (web)design, vlotte netwerking en een natuurlijk leiderschap. Samen zorgen die ervoor dat ik mensen, boodschappen en organisaties met elkaar verbind.</p>
       <div class="combine-list">
-        <div class="combine-item"><span class="combine-num">01</span><div class="combine-body"><h4>Expertise in communicatie</h4><p>Academisch onderbouwd, strategisch en doelgericht.</p></div></div>
-        <div class="combine-item"><span class="combine-num">02</span><div class="combine-body"><h4>(Web)design &amp; visuele creatie</h4><p>Van interface tot beeld dat blijft hangen.</p></div></div>
-        <div class="combine-item"><span class="combine-num">03</span><div class="combine-body"><h4>Netwerking &amp; verbinding</h4><p>Mensen, partners en organisaties samenbrengen.</p></div></div>
-        <div class="combine-item"><span class="combine-num">04</span><div class="combine-body"><h4>Leiderschap &amp; jeugdwerk</h4><p>Teams aansturen met natuurlijk overwicht.</p></div></div>
+        <div class="combine-item"><span class="combine-num">01</span><div class="combine-body"><h4 data-i18n="comb_1_h">Expertise in communicatie</h4><p data-i18n="comb_1_p">Academisch onderbouwd, strategisch en doelgericht.</p></div></div>
+        <div class="combine-item"><span class="combine-num">02</span><div class="combine-body"><h4 data-i18n="comb_2_h">(Web)design &amp; visuele creatie</h4><p data-i18n="comb_2_p">Van interface tot beeld dat blijft hangen.</p></div></div>
+        <div class="combine-item"><span class="combine-num">03</span><div class="combine-body"><h4 data-i18n="comb_3_h">Netwerking &amp; verbinding</h4><p data-i18n="comb_3_p">Mensen, partners en organisaties samenbrengen.</p></div></div>
+        <div class="combine-item"><span class="combine-num">04</span><div class="combine-body"><h4 data-i18n="comb_4_h">Leiderschap &amp; jeugdwerk</h4><p data-i18n="comb_4_p">Teams aansturen met natuurlijk overwicht.</p></div></div>
       </div>
     </div>
   </section>
@@ -203,35 +203,35 @@
   <!-- ============ OVER MIJ ============ -->
   <div class="sec" id="over">
   <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">01</span> Over mij</span>
-    <h2 class="h-lg reveal" data-d="1">Analytisch van geest,<br><span class="grad-text em-serif">mensgericht</span> van nature</h2>
-    <p class="lead reveal" data-d="2">Dankzij drie diploma's die elk een ander deel van mijn passies aanscherpten, ontwikkelde ik me tot een enthousiaste, empathische en kritische geest op het snijvlak van psychologie, educatie en communicatie.</p>
+    <span class="eyebrow reveal"><span class="ey-num">01</span> <span data-i18n="over_eyebrow">Over mij</span></span>
+    <h2 class="h-lg reveal" data-d="1" data-i18n="over_h2">Analytisch van geest,<br><span class="grad-text em-serif">mensgericht</span> van nature</h2>
+    <p class="lead reveal" data-d="2" data-i18n="over_lead">Dankzij drie diploma's die elk een ander deel van mijn passies aanscherpten, ontwikkelde ik me tot een enthousiaste, empathische en kritische geest op het snijvlak van psychologie, educatie en communicatie.</p>
   </section>
 
   <!-- BIO + SKILLS -->
   <section class="section-pad" style="padding-top:40px">
     <div class="wrap grid grid-2" style="align-items:start">
       <div class="bio-open reveal">
-        <p class="pull-quote">Ik werk graag mensgericht, <span class="em-serif">ongeacht wat ik doe.</span></p>
-        <p style="color:var(--ink-soft);margin-bottom:16px">Ik bevind me op het snijvlak van communicatie, media, psychologie en technologie. Mijn academische bagage combineer ik met een scherp oog voor design en jarenlange ervaring in het aansturen van teams en projecten, wat me sterke communicatieve, organisatorische en leidinggevende vaardigheden geeft.</p>
-        <p style="color:var(--ink-soft)">Ik kijk naar de wereld met een analytische, wetenschappelijke blik die tegelijkertijd de broodnodige warmte, empathie en begrip toepast die ieder van ons dagelijks verdient.</p>
+        <p class="pull-quote" data-i18n="over_pullquote">Ik werk graag mensgericht, <span class="em-serif">ongeacht wat ik doe.</span></p>
+        <p style="color:var(--ink-soft);margin-bottom:16px" data-i18n="over_bio1">Ik bevind me op het snijvlak van communicatie, media, psychologie en technologie. Mijn academische bagage combineer ik met een scherp oog voor design en jarenlange ervaring in het aansturen van teams en projecten, wat me sterke communicatieve, organisatorische en leidinggevende vaardigheden geeft.</p>
+        <p style="color:var(--ink-soft)" data-i18n="over_bio2">Ik kijk naar de wereld met een analytische, wetenschappelijke blik die tegelijkertijd de broodnodige warmte, empathie en begrip toepast die ieder van ons dagelijks verdient.</p>
         <div class="chips" style="margin-top:24px">
-          <span class="chip">Communicatie &amp; strategie</span>
-          <span class="chip">Media &amp; journalistiek</span>
-          <span class="chip">(Web)design</span>
-          <span class="chip">Psychologie</span>
-          <span class="chip">Leiderschap</span>
-          <span class="chip">Technologie</span>
+          <span class="chip" data-i18n="chip_comm_strat">Communicatie &amp; strategie</span>
+          <span class="chip" data-i18n="chip_media">Media &amp; journalistiek</span>
+          <span class="chip" data-i18n="chip_webdesign">(Web)design</span>
+          <span class="chip" data-i18n="chip_psych">Psychologie</span>
+          <span class="chip" data-i18n="chip_lead">Leiderschap</span>
+          <span class="chip" data-i18n="chip_tech">Technologie</span>
         </div>
       </div>
 
       <div class="glass feature reveal" data-d="1" style="padding:38px">
-        <h2 class="h-md" style="margin-bottom:24px">Vaardigheden</h2>
-        <div class="skill"><div class="skill-top"><span>Doelgericht schrijven</span><span class="pct">95%</span></div><div class="bar" data-val="95"><i></i></div></div>
-        <div class="skill"><div class="skill-top"><span>Communicatieskills</span><span class="pct">95%</span></div><div class="bar" data-val="95"><i></i></div></div>
-        <div class="skill"><div class="skill-top"><span>Leiderschap &amp; coördinatie</span><span class="pct">90%</span></div><div class="bar" data-val="90"><i></i></div></div>
-        <div class="skill"><div class="skill-top"><span>Projectmanagement</span><span class="pct">85%</span></div><div class="bar" data-val="85"><i></i></div></div>
-        <div class="skill" style="margin-bottom:0"><div class="skill-top"><span>Visuele contentcreatie</span><span class="pct">88%</span></div><div class="bar" data-val="88"><i></i></div></div>
+        <h2 class="h-md" style="margin-bottom:24px" data-i18n="skills_h">Vaardigheden</h2>
+        <div class="skill"><div class="skill-top"><span data-i18n="skill_writing">Doelgericht schrijven</span><span class="pct">95%</span></div><div class="bar" data-val="95"><i></i></div></div>
+        <div class="skill"><div class="skill-top"><span data-i18n="skill_commskills">Communicatieskills</span><span class="pct">95%</span></div><div class="bar" data-val="95"><i></i></div></div>
+        <div class="skill"><div class="skill-top"><span data-i18n="skill_leadership">Leiderschap &amp; coördinatie</span><span class="pct">90%</span></div><div class="bar" data-val="90"><i></i></div></div>
+        <div class="skill"><div class="skill-top"><span data-i18n="skill_projectmgmt">Projectmanagement</span><span class="pct">85%</span></div><div class="bar" data-val="85"><i></i></div></div>
+        <div class="skill" style="margin-bottom:0"><div class="skill-top"><span data-i18n="skill_visual">Visuele contentcreatie</span><span class="pct">88%</span></div><div class="bar" data-val="88"><i></i></div></div>
       </div>
     </div>
   </section>
@@ -240,20 +240,20 @@
   <section class="section-pad" style="padding-top:0">
     <div class="wrap">
       <div class="section-head reveal" style="text-align:center;margin-left:auto;margin-right:auto">
-        <span class="eyebrow"><span class="dot"></span> Talen</span>
-        <h2 class="h-lg">Meertalig <span class="grad-text">communiceren</span></h2>
+        <span class="eyebrow"><span class="dot"></span> <span data-i18n="lang_eyebrow">Talen</span></span>
+        <h2 class="h-lg" data-i18n="lang_h2">Meertalig <span class="grad-text">communiceren</span></h2>
       </div>
       <div class="glass lang-card reveal">
         <div class="lang-row">
-          <div class="lang-top"><span class="lang-name">Nederlands <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl">Moedertaal</span></div>
+          <div class="lang-top"><span class="lang-name"><span data-i18n="lang_nl_name">Nederlands</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_nl_lvl">Moedertaal</span></div>
           <div class="bar lang-bar" data-val="100"><i></i></div>
         </div>
         <div class="lang-row">
-          <div class="lang-top"><span class="lang-name">Engels <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl">C2 · volledige beheersing</span></div>
+          <div class="lang-top"><span class="lang-name"><span data-i18n="lang_en_name">Engels</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_en_lvl">C2 · volledige beheersing</span></div>
           <div class="bar lang-bar" data-val="100"><i></i></div>
         </div>
         <div class="lang-row">
-          <div class="lang-top"><span class="lang-name">Frans</span><span class="lang-lvl">A2 · basis secundair onderwijs</span></div>
+          <div class="lang-top"><span class="lang-name" data-i18n="lang_fr_name">Frans</span><span class="lang-lvl" data-i18n="lang_fr_lvl">A2 · basis secundair onderwijs</span></div>
           <div class="bar lang-bar" data-val="45"><i></i></div>
         </div>
       </div>
@@ -264,13 +264,13 @@
   <section class="section-pad" style="padding-top:0">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow"><span class="dot"></span> Interesses &amp; hobby's</span>
-        <h2 class="h-lg">Wat me <span class="grad-text">drijft</span></h2>
-        <p class="lead">Mijn interesses zijn geen bijzaak: ze voeden mijn professionele blik. Fotografie scherpt mijn oog voor beeld en compositie, tech-interesse houdt me scherp op wat komen zal, jeugdwerk trainde mij als leider lang voor ik er een diploma voor haalde, en psychologie is de lens waarmee ik élke communicatievraag benader.</p>
+        <span class="eyebrow"><span class="dot"></span> <span data-i18n="int_eyebrow">Interesses &amp; hobby's</span></span>
+        <h2 class="h-lg" data-i18n="int_h2">Wat me <span class="grad-text">drijft</span></h2>
+        <p class="lead" data-i18n="int_lead">Mijn interesses zijn geen bijzaak: ze voeden mijn professionele blik. Fotografie scherpt mijn oog voor beeld en compositie, tech-interesse houdt me scherp op wat komen zal, jeugdwerk trainde mij als leider lang voor ik er een diploma voor haalde, en psychologie is de lens waarmee ik élke communicatievraag benader.</p>
       </div>
       <div class="grid grid-2">
-        <div class="glass fx-card feature reveal fx-flash" data-d="1"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3>Fotografie &amp; film</h3><p>Verhalen vertellen door beeld, van compositie tot montage.</p></div>
-        <div class="glass fx-card feature reveal fx-circuit" data-d="2"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Tech-trends</h3><p>Nieuwe technologieën en hun impact op mens en samenleving.</p></div>
+        <div class="glass fx-card feature reveal fx-flash" data-d="1"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3 data-i18n="int_photo_h">Fotografie &amp; film</h3><p data-i18n="int_photo_p">Verhalen vertellen door beeld, van compositie tot montage.</p></div>
+        <div class="glass fx-card feature reveal fx-circuit" data-d="2"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3 data-i18n="int_tech_h">Tech-trends</h3><p data-i18n="int_tech_p">Nieuwe technologieën en hun impact op mens en samenleving.</p></div>
         <div class="glass fx-card feature reveal fx-rally" data-d="3">
           <div class="fx" aria-hidden="true">
             <svg class="leaf l1" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/><line x1="10" y1="25" x2="10" y2="7" stroke="currentColor" stroke-width=".9" opacity=".45"/></svg>
@@ -281,7 +281,7 @@
             <svg class="leaf l6" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/></svg>
           </div>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div>
-          <h3>Hoofdleider KSA Herentals</h3><p>Jeugdwerk met hart, sinds 2017 als hoofdverantwoordelijke.</p>
+          <h3 data-i18n="int_ksa_h">Hoofdleider KSA Herentals</h3><p data-i18n="int_ksa_p">Jeugdwerk met hart, sinds 2017 als hoofdverantwoordelijke.</p>
         </div>
         <div class="glass fx-card feature reveal fx-neuro" data-d="4">
           <svg class="neuro-svg" viewBox="0 0 180 140" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
@@ -311,7 +311,7 @@
             <circle class="neuro-node" cx="90" cy="125" r="4.5"/>
           </svg>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2zM9 22h6"/></svg></div>
-          <h3>Psychologie</h3><p>Diep inzicht in de menselijke psyche, persoonlijk én professioneel.</p>
+          <h3 data-i18n="int_psych_h">Psychologie</h3><p data-i18n="int_psych_p">Diep inzicht in de menselijke psyche, persoonlijk én professioneel.</p>
         </div>
       </div>
     </div>
@@ -321,9 +321,9 @@
   <!-- ============ OPLEIDING ============ -->
   <div class="sec" id="opleiding">
   <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">02</span> Opleidingen</span>
-    <h2 class="h-lg reveal" data-d="1">Drie diploma's,<br>twee <span class="grad-text em-serif">met onderscheiding</span></h2>
-    <p class="lead reveal" data-d="2">Psychologie, lerarenopleiding en communicatiewetenschappen: een opbouw die mijn passies stap voor stap aanscherpte.</p>
+    <span class="eyebrow reveal"><span class="ey-num">02</span> <span data-i18n="edu_eyebrow">Opleidingen</span></span>
+    <h2 class="h-lg reveal" data-d="1" data-i18n="edu_h2">Drie diploma's,<br>twee <span class="grad-text em-serif">met onderscheiding</span></h2>
+    <p class="lead reveal" data-d="2" data-i18n="edu_lead">Psychologie, lerarenopleiding en communicatiewetenschappen: een opbouw die mijn passies stap voor stap aanscherpte.</p>
   </section>
 
   <section class="section-pad" style="padding-top:50px">
@@ -333,9 +333,9 @@
         <div class="tl-item reveal">
           <div class="glass tilt tl-card">
             <div class="tl-head"><h3>Universiteit Antwerpen</h3><span class="tl-date">sep 2023 – sep 2025</span></div>
-            <p class="tl-sub grad-text">Master in de communicatiewetenschappen</p>
-            <p>Deze master stilde mijn academische nieuwsgierigheid. Ik verdiepte me in journalistiek, media en de opkomende technologieën die deze velden vormgeven, en versterkte mijn geloof in een sterke, wetenschappelijke aanpak in een snel veranderende samenleving. Het verbreedde mijn kijk op media, politiek en het discours daartussen, terwijl ik mijn communicatieskills verder aanscherpte.</p>
-            <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> Afgestudeerd met onderscheiding</span>
+            <p class="tl-sub grad-text" data-i18n="edu1_sub">Master in de communicatiewetenschappen</p>
+            <p data-i18n="edu1_p">Deze master stilde mijn academische nieuwsgierigheid. Ik verdiepte me in journalistiek, media en de opkomende technologieën die deze velden vormgeven, en versterkte mijn geloof in een sterke, wetenschappelijke aanpak in een snel veranderende samenleving. Het verbreedde mijn kijk op media, politiek en het discours daartussen, terwijl ik mijn communicatieskills verder aanscherpte.</p>
+            <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> <span data-i18n="edu1_badge">Afgestudeerd met onderscheiding</span></span>
             <div class="diploma-thumb" data-full="assets/diploma-uantwerpen-master.jpg"><img src="assets/diploma-uantwerpen-master.jpg" alt="Getuigschrift Master in de communicatiewetenschappen, Universiteit Antwerpen" loading="lazy" /></div>
           </div>
         </div>
@@ -343,9 +343,9 @@
         <div class="tl-item reveal" data-d="1">
           <div class="glass tilt tl-card">
             <div class="tl-head"><h3>Karel de Grote Hogeschool</h3><span class="tl-date">sep 2020 – jun 2023</span></div>
-            <p class="tl-sub grad-text">Educatieve Bachelor: Wetenschappen &amp; Engels</p>
-            <p>Deze opleiding verdiepte mijn academische interesse, ditmaal in zowel Engels als de natuurwetenschappen. Ik leerde deze vakken met evenveel enthousiasme overbrengen aan jongeren als ik er zelf voor voel. Dat versterkte niet alleen mijn wetenschappelijke kennis, maar bevestigde ook mijn C2-niveau Engels en verbreedde mijn opties voor de toekomst.</p>
-            <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> Afgestudeerd met onderscheiding</span>
+            <p class="tl-sub grad-text" data-i18n="edu2_sub">Educatieve Bachelor: Wetenschappen &amp; Engels</p>
+            <p data-i18n="edu2_p">Deze opleiding verdiepte mijn academische interesse, ditmaal in zowel Engels als de natuurwetenschappen. Ik leerde deze vakken met evenveel enthousiasme overbrengen aan jongeren als ik er zelf voor voel. Dat versterkte niet alleen mijn wetenschappelijke kennis, maar bevestigde ook mijn C2-niveau Engels en verbreedde mijn opties voor de toekomst.</p>
+            <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> <span data-i18n="edu2_badge">Afgestudeerd met onderscheiding</span></span>
             <div class="diploma-thumb" data-full="assets/diploma-kdg-bachelor.jpg"><img src="assets/diploma-kdg-bachelor.jpg" alt="Diploma Educatieve Bachelor secundair onderwijs, Karel de Grote Hogeschool" loading="lazy" /></div>
           </div>
         </div>
@@ -353,9 +353,9 @@
         <div class="tl-item reveal" data-d="2">
           <div class="glass tilt tl-card">
             <div class="tl-head"><h3>Thomas More Hogeschool</h3><span class="tl-date">sep 2017 – jun 2020</span></div>
-            <p class="tl-sub grad-text">Bachelor in de Toegepaste Psychologie</p>
-            <p>Mijn eerste diploma leerde me doorzettingsvermogen en zelfstandigheid, en wekte mijn interesse in de academische wereld. Ik leerde zowel groepen als individuen begeleiden en verwierf diepgaand inzicht in de menselijke psyche, telkens toegepast in een reële context. Met de officiële titel psychologisch consulent kan ik mensen in nood inschatten, erop reflecteren en feedback geven, trouw aan de nieuwste wetenschappelijke inzichten.</p>
-            <span class="badge-hon" style="color:var(--c2)"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg> Titel: psychologisch consulent</span>
+            <p class="tl-sub grad-text" data-i18n="edu3_sub">Bachelor in de Toegepaste Psychologie</p>
+            <p data-i18n="edu3_p">Mijn eerste diploma leerde me doorzettingsvermogen en zelfstandigheid, en wekte mijn interesse in de academische wereld. Ik leerde zowel groepen als individuen begeleiden en verwierf diepgaand inzicht in de menselijke psyche, telkens toegepast in een reële context. Met de officiële titel psychologisch consulent kan ik mensen in nood inschatten, erop reflecteren en feedback geven, trouw aan de nieuwste wetenschappelijke inzichten.</p>
+            <span class="badge-hon" style="color:var(--c2)"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg> <span data-i18n="edu3_badge">Titel: psychologisch consulent</span></span>
             <div class="diploma-thumb" data-full="assets/diploma-thomasmore-psychologie.jpg"><img src="assets/diploma-thomasmore-psychologie.jpg" alt="Diploma Bachelor Toegepaste Psychologie, Thomas More Hogeschool" loading="lazy" /></div>
           </div>
         </div>
@@ -367,20 +367,20 @@
   <!-- THESIS -->
   <section class="wrap section-pad" style="padding-top:0">
     <div class="section-head reveal">
-      <span class="eyebrow"><span class="dot"></span> Masterproef</span>
-      <h2 class="h-lg">Mijn <span class="grad-text em-serif">onderzoek</span></h2>
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="thesis_eyebrow">Masterproef</span></span>
+      <h2 class="h-lg" data-i18n="thesis_h2">Mijn <span class="grad-text em-serif">onderzoek</span></h2>
     </div>
     <div class="glass thesis reveal">
       <div class="thesis-top">
-        <span class="thesis-tag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14v7M5 11v4c0 1 3 3 7 3s7-2 7-3v-4"/></svg> Masterproef · Communicatiewetenschappen · UAntwerpen</span>
-        <h3>De Macht van Misleiding</h3>
-        <p class="sub">Een kwantitatieve analyse van epistemisch vertrouwen, mediavertrouwen en complotdenken bij Vlamingen. Hoe verschillende vormen van (wan)vertrouwen de vatbaarheid voor complottheorieën vormgeven in een post-truth samenleving.</p>
+        <span class="thesis-tag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14v7M5 11v4c0 1 3 3 7 3s7-2 7-3v-4"/></svg> <span data-i18n="thesis_tag">Masterproef · Communicatiewetenschappen · UAntwerpen</span></span>
+        <h3 data-i18n="thesis_title">De Macht van Misleiding</h3>
+        <p class="sub" data-i18n="thesis_sub">Een kwantitatieve analyse van epistemisch vertrouwen, mediavertrouwen en complotdenken bij Vlamingen. Hoe verschillende vormen van (wan)vertrouwen de vatbaarheid voor complottheorieën vormgeven in een post-truth samenleving.</p>
       </div>
       <div class="thesis-stats">
-        <div class="thesis-stat"><div class="n"><span data-count="241">0</span></div><div class="l">respondenten</div></div>
-        <div class="thesis-stat"><div class="n">18&ndash;65</div><div class="l">jaar, Vlaanderen</div></div>
-        <div class="thesis-stat"><div class="n">2</div><div class="l">meetschalen (ETMCQ + GCB-5)</div></div>
-        <div class="thesis-stat"><div class="n"><span data-count="14716">0</span></div><div class="l">woorden</div></div>
+        <div class="thesis-stat"><div class="n"><span data-count="241">0</span></div><div class="l" data-i18n="stat_respondents">respondenten</div></div>
+        <div class="thesis-stat"><div class="n">18&ndash;65</div><div class="l" data-i18n="stat_age">jaar, Vlaanderen</div></div>
+        <div class="thesis-stat"><div class="n">2</div><div class="l" data-i18n="stat_scales">meetschalen (ETMCQ + GCB-5)</div></div>
+        <div class="thesis-stat"><div class="n"><span data-count="14716">0</span></div><div class="l" data-i18n="stat_words">woorden</div></div>
       </div>
       <div class="thesis-bottom">
         <div class="thesis-viz">
@@ -526,12 +526,12 @@
       </div>
       <div class="glass tilt exp-item reveal" data-d="2">
         <div class="exp-ic">SL</div>
-        <div class="exp-body"><h3>Sint-Lutgardisschool</h3><p>Leerkracht natuurwetenschappen (stage) · Science Education</p></div>
+        <div class="exp-body"><h3>Sint-Lutgardisschool</h3><p>Leerkracht natuurwetenschappen (stage) in Antwerpen · Science Education</p></div>
         <div class="exp-meta"><b>2022</b>Antwerpen</div>
       </div>
       <div class="glass tilt exp-item reveal" data-d="3">
         <div class="exp-ic">kO</div>
-        <div class="exp-body"><h3>kOsh Campus Ieperstraat</h3><p>Jeugdconsulent (stage) · Counseling &amp; begeleiding</p></div>
+        <div class="exp-body"><h3>kOsh Campus Ieperstraat</h3><p>Jeugdconsulent (stage) in Herentals · Counseling &amp; begeleiding</p></div>
         <div class="exp-meta"><b>2020</b>Herentals</div>
       </div>
     </div>
@@ -618,6 +618,7 @@
 
   <div class="progress-bar"></div>
   <button class="to-top" aria-label="Naar boven"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
-  <script src="main.js?v=14"></script>
+  <script src="i18n.js?v=1"></script>
+  <script src="main.js?v=15"></script>
 </body>
 </html>
