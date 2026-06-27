@@ -503,11 +503,23 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
 
 /* ---------- Contact ---------- */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-.contact-card { padding: 30px; display: flex; gap: 18px; align-items: center; transition: transform .25s var(--ease); }
-.contact-card:hover { transform: translateY(-4px); }
-.contact-card .ic { width: 52px; height: 52px; flex: none; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent)); border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--c2); font-size: 1.3rem; }
-.contact-card .lbl { display: block; font-size: .8rem; color: var(--ink-dim); margin-bottom: 2px; }
-.contact-card .val { display: block; font-weight: 600; font-size: 1.02rem; word-break: break-word; }
+/* Compacte contact-strip: 4 items in 1 kaart (2x2) */
+.contact-strip { padding: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.contact-mini {
+  display: flex; align-items: center; gap: 13px; padding: 13px 15px;
+  border-radius: var(--r-md); min-width: 0;
+  transition: background .2s var(--ease);
+}
+.contact-mini:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.contact-mini .ic {
+  width: 40px; height: 40px; flex: none; border-radius: 11px; display: grid; place-items: center;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
+  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--c2);
+}
+.contact-mini .cm-body { min-width: 0; }
+.contact-mini .lbl { display: block; font-size: .73rem; color: var(--ink-dim); margin-bottom: 1px; }
+.contact-mini .val { display: block; font-weight: 600; font-size: .94rem; word-break: break-word; }
+@media (max-width: 560px) { .contact-strip { grid-template-columns: 1fr; } }
 
 .form-field { margin-bottom: 18px; }
 .form-field label { display: block; font-size: .85rem; color: var(--ink-soft); margin-bottom: 8px; }
