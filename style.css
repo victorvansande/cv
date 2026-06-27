@@ -730,17 +730,9 @@ h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
   background: color-mix(in srgb, var(--c1) 9%, var(--glass-bg));
   position: relative;
 }
-/* Accent-streepje bovenaan. Deelt het ::after met de .tilt-spotlight, dus
-   we maken het permanent zichtbaar en herstellen de gradient-achtergrond met
-   genoeg specificiteit om de light-mode spotlight-override te overrulen. */
-.featured-role::after,
-:root[data-mode="light"] .featured-role::after {
-  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
-  background: var(--grad); border-radius: var(--r-lg) var(--r-lg) 0 0;
-  pointer-events: none; opacity: 1; z-index: 2;
-}
 .featured-role .exp-ic { box-shadow: 0 8px 22px -8px color-mix(in srgb, var(--c1) 75%, transparent); }
 /* Gekkoo header: nette uitlijning, stapelt netjes links-uitgelijnd op smal scherm */
+/* (geen accent-streepje meer: nadruk via rand + tint + badge; ::after = spotlight) */
 .featured-head { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .featured-id { display: flex; align-items: center; gap: 16px; min-width: 0; }
 .featured-ic { width: 54px; height: 54px; font-size: 1.1rem; flex: none; }
