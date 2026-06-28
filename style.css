@@ -546,7 +546,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 
 /* ---------- Footer quote rotator ---------- */
-.footer-quote { padding: 48px 24px 20px; text-align: center; }
+.footer-quote { padding: 12px 24px 4px; text-align: center; }
 .quote-block { margin: 0 auto; max-width: 580px; }
 .quote-text { font-family: var(--font-display); font-style: italic;
   font-size: clamp(.95rem, 1.5vw, 1.1rem); line-height: 1.65;
@@ -566,7 +566,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 @media (max-width: 620px) { .nav-avatar { width: 24px; height: 24px; } }
 
 /* ---------- Footer ---------- */
-.footer { border-top: 1px solid var(--glass-bord); padding: 40px 0; margin-top: 40px; }
+.footer { border-top: 1px solid var(--glass-bord); padding: 24px 0; margin-top: 20px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
 .footer .muted { font-size: .9rem; }
 .footer-soc { display: flex; gap: 12px; }
@@ -979,7 +979,7 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   .thesis-stat { padding: 18px 12px; }
   .thesis-stat .n { font-size: 1.5rem; }
   .to-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
-  .footer { padding: 30px 0; }
+  .footer { padding: 20px 0; }
 }
 
 /* Reduced motion */
