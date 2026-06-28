@@ -641,6 +641,20 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .swatch span { position: absolute; inset: 0; border-radius: inherit; }
 
+/* ---------- Taalschakelaar ---------- */
+.lang-toggle {
+  height: 40px; padding: 0 12px; border-radius: 12px; display: inline-flex; align-items: center; gap: 5px;
+  background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-dim);
+  font-size: .82rem; font-weight: 700; letter-spacing: .03em;
+  transition: color .25s, border-color .25s, transform .25s, background .25s;
+}
+.lang-toggle:hover { border-color: var(--glass-bord-hi); transform: translateY(-1px); }
+.lang-toggle .lang-sep { color: var(--glass-bord-hi); font-weight: 500; }
+.lang-toggle [data-lang] { transition: color .25s; }
+:root[lang="nl"] .lang-toggle [data-lang="nl"],
+:root[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c2); }
+@media (max-width: 620px) { .lang-toggle { padding: 0 9px; font-size: .78rem; } }
+
 /* ---------- Toegankelijkheidstoggle ---------- */
 .a11y-wrap { position: relative; }
 .a11y-toggle {

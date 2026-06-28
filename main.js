@@ -96,21 +96,46 @@
     });
   }
 
-  /* ---- Hero role rotator ---- */
+  /* ---- Hero role rotator (language-aware) ---- */
   const rot = document.querySelector("[data-rotate]");
   if (rot) {
-    const words = JSON.parse(rot.dataset.rotate);
+    const wordsNl = JSON.parse(rot.dataset.rotate);
+    const wordsEn = rot.dataset.rotateEn ? JSON.parse(rot.dataset.rotateEn) : wordsNl;
+    const curWords = () => (document.documentElement.lang === "en" ? wordsEn : wordsNl);
     let i = 0;
     const swap = () => {
       rot.style.opacity = "0"; rot.style.transform = "translateY(8px)";
       setTimeout(() => {
-        i = (i + 1) % words.length;
-        rot.textContent = words[i];
+        const w = curWords();
+        i = (i + 1) % w.length;
+        rot.textContent = w[i];
         rot.style.opacity = "1"; rot.style.transform = "none";
       }, 360);
     };
+    window.__syncRotator = () => { const w = curWords(); rot.textContent = w[i % w.length]; };
     setInterval(swap, 2600);
   }
+
+  /* ---- Language switch (NL / EN) ---- */
+  const I18N = (window.I18N && window.I18N.en) || {};
+  const langBtn = document.querySelector(".lang-toggle");
+  const i18nEls = [...document.querySelectorAll("[data-i18n]")];
+  i18nEls.forEach((el) => { el.dataset.nlHtml = el.innerHTML; });
+  const applyLang = (lang) => {
+    const en = lang === "en";
+    document.documentElement.lang = en ? "en" : "nl";
+    i18nEls.forEach((el) => {
+      const key = el.dataset.i18n;
+      el.innerHTML = (en && I18N[key] != null) ? I18N[key] : el.dataset.nlHtml;
+    });
+    try { localStorage.setItem("cv-lang", lang); } catch (e) {}
+    if (langBtn) langBtn.setAttribute("aria-label", en ? "Schakel naar Nederlands · Switch to Dutch" : "Switch to English · Schakel naar Engels");
+    if (window.__syncRotator) window.__syncRotator();
+  };
+  if (langBtn) langBtn.addEventListener("click", () =>
+    applyLang(document.documentElement.lang === "en" ? "nl" : "en"));
+  const savedLang = (() => { try { return localStorage.getItem("cv-lang"); } catch (e) { return null; } })();
+  applyLang(savedLang === "en" ? "en" : "nl");
 
   /* ---- Glim: fire only on mouseenter, not on mouseleave ---- */
   document.querySelectorAll(".chip, .skill-tag").forEach((el) => {
