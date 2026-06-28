@@ -388,10 +388,16 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .h-lg { font-size: clamp(2rem, 4.5vw, 3.2rem); }
 .h-md { font-size: clamp(1.4rem, 3vw, 2rem); }
 .grad-text { background: var(--grad-soft); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
+.lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch;
+  -webkit-hyphens: auto; hyphens: auto; }
 .muted { color: var(--ink-dim); }
 .section-head { max-width: 64ch; margin-bottom: 46px; }
 .section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
+/* lead krijgt lucht onder de kop én een nette uitgevulde rand */
+.section-head .lead { margin-top: 15px; text-align: justify; text-justify: inter-word; }
+/* lange leesprose uitgevuld + afbreken voor strakke randen */
+.bio-open p { text-align: justify; text-justify: inter-word; -webkit-hyphens: auto; hyphens: auto; }
+.feature p, .tl-card p, .role-row p { -webkit-hyphens: auto; hyphens: auto; }
 
 /* ---------- Hero ---------- */
 .hero { padding: 52px 0 48px; }
@@ -932,7 +938,7 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
 }
 @media (max-width: 620px) {
   body { font-size: 15px; }
-  .wrap { padding: 0 18px; }
+  .wrap { padding: 0 22px; }
   .nav-inner { gap: 10px; }
   .brand { font-size: .94rem; white-space: nowrap; }
   .brand .mark { width: 30px; height: 30px; }
