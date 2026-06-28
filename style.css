@@ -906,7 +906,7 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
 .reveal[data-d="4"] { transition-delay: .32s; }
 
 /* ---------- Page hero (sub pages) ---------- */
-.page-hero { padding: 52px 0 22px; text-align: center; }
+.page-hero { padding-top: 52px; padding-bottom: 22px; text-align: center; }
 .page-hero .lead { margin: 18px auto 0; }
 
 /* ---------- Responsive ---------- */
@@ -947,7 +947,7 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   .burger { padding: 7px 6px; }
   .section-pad { padding: 46px 0; }
   .hero { padding: 34px 0 30px; }
-  .page-hero { padding: 40px 0 14px; text-align: left; }
+  .page-hero { padding-top: 40px; padding-bottom: 14px; text-align: left; }
   .page-hero .lead { margin-left: 0; margin-right: 0; }
   .h-xl { font-size: clamp(2.1rem, 11vw, 3rem); margin: 6px 0 16px !important; }
   .h-lg { font-size: clamp(1.6rem, 7.5vw, 2.2rem); }
