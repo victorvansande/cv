@@ -199,6 +199,11 @@ window.I18N = {
     footer_country: `Belgium`,
     a11y_title: `Accessibility`,
     a11y_motion: `Reduce motion`,
-    a11y_contrast: `Higher contrast`
+    a11y_contrast: `Higher contrast`,
+
+    /* settings menu */
+    set_mode: `Mode`,
+    set_lang: `Language`,
+    set_theme: `Colour theme`
   }
 };

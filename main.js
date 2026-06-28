@@ -221,7 +221,22 @@
   const yr = document.querySelector("[data-year]");
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---- Theme switcher ---- */
+  /* ---- Settings menu (mode · language · theme · accessibility in one popover) ---- */
+  const setBtn = document.querySelector(".settings-toggle");
+  const setPop = document.querySelector(".settings-pop");
+  if (setBtn && setPop) {
+    const closePop = () => { setPop.classList.remove("open"); setBtn.setAttribute("aria-expanded", "false"); };
+    setBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = setPop.classList.toggle("open");
+      setBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    setPop.addEventListener("click", (e) => e.stopPropagation());
+    document.addEventListener("click", closePop);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closePop(); });
+  }
+
+  /* ---- Colour theme ---- */
   const THEMES = ["indigo", "teal", "emerald", "amber", "rose", "slate", "violet"];
   const applyTheme = (t) => {
     if (!THEMES.includes(t)) t = "rose";
@@ -230,17 +245,10 @@
     document.querySelectorAll(".swatch").forEach((s) =>
       s.classList.toggle("active", s.dataset.theme === t));
   };
-  const tBtn = document.querySelector(".theme-toggle");
-  const tPop = document.querySelector(".theme-pop");
-  if (tBtn && tPop) {
-    tBtn.addEventListener("click", (e) => { e.stopPropagation(); tPop.classList.toggle("open"); });
-    tPop.addEventListener("click", (e) => e.stopPropagation());
-    document.addEventListener("click", () => tPop.classList.remove("open"));
-    document.querySelectorAll(".swatch").forEach((s) =>
-      s.addEventListener("click", () => { applyTheme(s.dataset.theme); }));
-    const saved = (() => { try { return localStorage.getItem("cv-theme"); } catch (e) { return null; } })();
-    applyTheme(saved || document.documentElement.dataset.theme || "rose");
-  }
+  document.querySelectorAll(".swatch").forEach((s) =>
+    s.addEventListener("click", () => applyTheme(s.dataset.theme)));
+  applyTheme((() => { try { return localStorage.getItem("cv-theme"); } catch (e) { return null; } })()
+    || document.documentElement.dataset.theme || "rose");
 
   /* ---- Light / dark mode ---- */
   const mBtn = document.querySelector(".mode-toggle");
@@ -257,11 +265,9 @@
   }
 
   /* ---- Accessibility preferences (reduce motion / high contrast) ---- */
-  const a11yBtn = document.querySelector(".a11y-toggle");
-  const a11yPop = document.querySelector(".a11y-pop");
-  if (a11yBtn && a11yPop) {
-    const motionCb = a11yPop.querySelector(".a11y-motion");
-    const contrastCb = a11yPop.querySelector(".a11y-contrast");
+  const motionCb = document.querySelector(".a11y-motion");
+  const contrastCb = document.querySelector(".a11y-contrast");
+  if (motionCb && contrastCb) {
     const getLS = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
     const setLS = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
     const applyMotion = (on) => {
@@ -276,16 +282,6 @@
     };
     applyMotion(getLS("cv-motion") === "reduce");
     applyContrast(getLS("cv-contrast") === "high");
-    a11yBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const open = a11yPop.classList.toggle("open");
-      a11yBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    a11yPop.addEventListener("click", (e) => e.stopPropagation());
-    document.addEventListener("click", () => {
-      a11yPop.classList.remove("open");
-      a11yBtn.setAttribute("aria-expanded", "false");
-    });
     motionCb.addEventListener("change", () => {
       applyMotion(motionCb.checked);
       setLS("cv-motion", motionCb.checked ? "reduce" : "no");
