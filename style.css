@@ -930,8 +930,13 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
     background: var(--nav-solid); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-bord);
     padding: 10px 22px 18px; transform: translateY(-130%); transition: transform .4s var(--ease); }
   .nav-links.open { transform: none; }
-  .nav-links a { padding: 13px 8px; }
+  .nav-links a { padding: 13px 8px; border-bottom: 1px solid color-mix(in srgb, var(--ink) 7%, transparent); }
+  .nav-links a:last-child { border-bottom: none; }
   .nav-links a.active::after { display: none; }
+  /* Contact-CTA blendt in het verticale menu i.p.v. een gradient-pil */
+  .nav-links .nav-cta { background: none !important; color: var(--c2) !important;
+    box-shadow: none !important; padding: 13px 8px !important; font-weight: 600; }
+  .nav-links .nav-cta:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); }
   .burger { display: flex; }
 }
 @media (max-width: 760px) {
@@ -953,7 +958,8 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   .burger { padding: 7px 6px; }
   .section-pad { padding: 46px 0; }
   .hero { padding: 34px 0 30px; }
-  .page-hero { padding: 40px 0 14px; }
+  .page-hero { padding: 40px 0 14px; text-align: left; }
+  .page-hero .lead { margin-left: 0; margin-right: 0; }
   .h-xl { font-size: clamp(2.1rem, 11vw, 3rem); margin: 6px 0 16px !important; }
   .h-lg { font-size: clamp(1.6rem, 7.5vw, 2.2rem); }
   .h-md { font-size: 1.3rem; }
@@ -970,8 +976,9 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   .hero .lead { margin-bottom: 24px; }
   .hero-cta { gap: 10px; }
   .btn { padding: 12px 20px; font-size: .92rem; }
-  .hero-stats { gap: 22px; margin-top: 28px; }
-  .stat .num { font-size: 1.85rem; }
+  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 12px; margin-top: 28px; }
+  .stat .num { font-size: 1.7rem; }
+  .stat .lbl { font-size: .76rem; }
   .scroll-cue { margin-top: 26px; }
   .exp-item { flex-wrap: wrap; padding: 18px 20px; gap: 14px; }
   .exp-meta { text-align: left; }
