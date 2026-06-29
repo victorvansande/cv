@@ -391,9 +391,9 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch;
   -webkit-hyphens: auto; hyphens: auto; }
 .muted { color: var(--ink-dim); }
-.section-head { max-width: 64ch; margin-bottom: 46px; }
+.section-head { max-width: 64ch; margin-bottom: 46px; position: relative; }
 .section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
-/* lead krijgt lucht onder de kop én een nette uitgevulde rand */
+/* lead krijgt lucht onder de kop */
 .section-head .lead { margin-top: 15px; }
 /* lange leesprose uitgevuld + afbreken voor strakke randen */
 .bio-open p { text-align: justify; text-justify: inter-word; -webkit-hyphens: auto; hyphens: auto; }
@@ -1012,14 +1012,20 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   .footer { padding: 20px 0; }
 }
 
-/* ---------- Section-head split met camera-lens ---------- */
-.sh--split { max-width: none; display: grid; grid-template-columns: min(60ch, 100%) 1fr; align-items: center; column-gap: 48px; }
-.sh--split > :not(.sh-lens) { grid-column: 1; }
-.sh-lens { grid-column: 2; grid-row: 1 / -1; justify-self: center; align-self: center; color: var(--c2); opacity: .1; animation: lens-spin 28s linear infinite; pointer-events: none; }
-@keyframes lens-spin { to { transform: rotate(360deg); } }
+/* ---------- Camera-lens decoratie in de witruimte rechts van een section-head ---------- */
+/* Absoluut gepositioneerd: raakt de tekst-flow niet aan, vult enkel de lege rechterkolom. */
+.sh-lens {
+  position: absolute; top: 50%; right: 0;
+  transform: translate(calc(100% + 64px), -50%);
+  color: var(--c2); opacity: .12; pointer-events: none;
+  animation: lens-spin 30s linear infinite;
+}
+.sh-lens svg { display: block; }
+@keyframes lens-spin { to { transform: translate(calc(100% + 64px), -50%) rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .sh-lens { animation: none; } }
 :root[data-motion="reduce"] .sh-lens { animation: none; }
-@media (max-width: 900px) { .sh--split { grid-template-columns: 1fr; } .sh-lens { display: none; } }
+/* Alleen tonen wanneer er echt witruimte rechts is */
+@media (max-width: 1000px) { .sh-lens { display: none; } }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
