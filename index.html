@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=34" />
+  <link rel="stylesheet" href="style.css?v=40" />
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'dark';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='dark';}})();</script>
 </head>
 <body>
@@ -187,20 +187,6 @@
     </div>
   </section>
 
-  <!-- COMBINE -->
-  <section class="wrap section-pad" style="padding-top:0">
-    <div class="glass combine reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="comb_eyebrow">Alles komt samen</span></span>
-      <h2 class="h-lg" data-i18n="comb_h2">Wat mij <span class="grad-text em-serif">onderscheidt</span></h2>
-      <p class="lead" style="margin:14px auto 0" data-i18n="comb_lead">Mijn kracht zit in de combinatie: academische expertise in communicatie, een scherp oog voor (web)design, vlotte netwerking en een natuurlijk leiderschap. Samen zorgen die ervoor dat ik mensen, boodschappen en organisaties met elkaar verbind.</p>
-      <div class="combine-list">
-        <div class="combine-item"><span class="combine-num">01</span><div class="combine-body"><h4 data-i18n="comb_1_h">Expertise in communicatie</h4><p data-i18n="comb_1_p">Academisch onderbouwd, strategisch en doelgericht.</p></div></div>
-        <div class="combine-item"><span class="combine-num">02</span><div class="combine-body"><h4 data-i18n="comb_2_h">(Web)design &amp; visuele creatie</h4><p data-i18n="comb_2_p">Van interface tot beeld dat blijft hangen.</p></div></div>
-        <div class="combine-item"><span class="combine-num">03</span><div class="combine-body"><h4 data-i18n="comb_3_h">Netwerking &amp; verbinding</h4><p data-i18n="comb_3_p">Mensen, partners en organisaties samenbrengen.</p></div></div>
-        <div class="combine-item"><span class="combine-num">04</span><div class="combine-body"><h4 data-i18n="comb_4_h">Leiderschap &amp; jeugdwerk</h4><p data-i18n="comb_4_p">Teams aansturen met natuurlijk overwicht.</p></div></div>
-      </div>
-    </div>
-  </section>
   </div><!-- /#home -->
 
   <!-- ============ OVER MIJ ============ -->
@@ -218,14 +204,6 @@
         <p class="pull-quote" data-i18n="over_pullquote">Ik werk graag mensgericht, <span class="em-serif">ongeacht wat ik doe.</span></p>
         <p style="color:var(--ink-soft);margin-bottom:16px" data-i18n="over_bio1">Ik bevind me op het snijvlak van communicatie, media, psychologie en technologie. Mijn academische bagage combineer ik met een scherp oog voor design en jarenlange ervaring in het aansturen van teams en projecten, wat me sterke communicatieve, organisatorische en leidinggevende vaardigheden geeft.</p>
         <p style="color:var(--ink-soft)" data-i18n="over_bio2">Ik kijk naar de wereld met een analytische, wetenschappelijke blik die tegelijkertijd de broodnodige warmte, empathie en begrip toepast die ieder van ons dagelijks verdient.</p>
-        <div class="chips" style="margin-top:24px">
-          <span class="chip" data-i18n="chip_comm_strat">Communicatie &amp; strategie</span>
-          <span class="chip" data-i18n="chip_media">Media &amp; journalistiek</span>
-          <span class="chip" data-i18n="chip_webdesign">(Web)design</span>
-          <span class="chip" data-i18n="chip_psych">Psychologie</span>
-          <span class="chip" data-i18n="chip_lead">Leiderschap</span>
-          <span class="chip" data-i18n="chip_tech">Technologie</span>
-        </div>
       </div>
 
       <div class="glass feature reveal" data-d="1" style="padding:38px">
@@ -235,6 +213,15 @@
         <div class="skill"><div class="skill-top"><span data-i18n="skill_leadership">Leiderschap &amp; coördinatie</span><span class="pct">90%</span></div><div class="bar" data-val="90"><i></i></div></div>
         <div class="skill"><div class="skill-top"><span data-i18n="skill_projectmgmt">Projectmanagement</span><span class="pct">85%</span></div><div class="bar" data-val="85"><i></i></div></div>
         <div class="skill" style="margin-bottom:0"><div class="skill-top"><span data-i18n="skill_visual">Visuele contentcreatie</span><span class="pct">88%</span></div><div class="bar" data-val="88"><i></i></div></div>
+        <div style="margin-top:22px;border-top:1px solid var(--glass-bord);padding-top:16px">
+          <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px" data-i18n="tools_h">Tools</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Meta Ads</span>
+            <span class="skill-tag">Google Analytics</span>
+            <span class="skill-tag">Office 365</span>
+            <span class="skill-tag">Claude Code</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -410,13 +397,13 @@
   </section>
 
   <!-- CERTIFICATES -->
-  <section class="wrap section-pad" style="padding-top:0">
-    <div class="section-head reveal">
+  <section class="wrap" style="padding-bottom:46px">
+    <div style="margin-bottom:20px" class="reveal">
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="cert_eyebrow">Certificaten</span></span>
-      <h2 class="h-lg" data-i18n="cert_h2">Aanvullende <span class="grad-text">kwalificaties</span></h2>
-      <p class="lead" data-i18n="cert_lead">Brevetten van het Rode Kruis Vlaanderen (geldig tot 2028), samen een deelkwalificatie Eventhulpverlener.</p>
+      <h3 class="h-md" style="margin-top:10px" data-i18n="cert_h2">Aanvullende <span class="grad-text">kwalificaties</span></h3>
+      <p style="font-size:.9rem;color:var(--ink-soft);margin-top:6px" data-i18n="cert_lead">Brevetten van het Rode Kruis Vlaanderen (geldig tot 2028), samen een deelkwalificatie Eventhulpverlener.</p>
     </div>
-    <div class="grid grid-2">
+    <div class="grid grid-2" style="max-width:680px">
       <div class="glass tilt feature reveal ehbo-card" data-d="1" style="padding:24px">
         <span class="heart-wrap" aria-hidden="true"><svg class="heart-svg" width="22" height="20" viewBox="0 0 24 22"><path d="M12 21C12 21 2 13.5 2 7a5 5 0 0 1 10 0 5 5 0 0 1 10 0c0 6.5-10 14-10 14z" fill="var(--c2)" fill-opacity=".85"/></svg></span>
         <h3 style="display:flex;align-items:center;gap:10px;font-size:1.08rem"><span class="ic" style="width:38px;height:38px;margin-bottom:0;border-radius:11px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span> <span data-i18n="cert1_h">Eerste Hulp (basiscursus)</span></h3>
@@ -460,7 +447,7 @@
         </div>
         <div class="featured-meta"><b data-i18n="gekkoo_date">mei 2026 – heden</b><span>Limburgstraat 49-53, 2020 Antwerpen</span></div>
       </div>
-      <p style="color:var(--ink-soft)" data-i18n="gekkoo_p">Gekkoo organiseert speelpleinwerking en vakantiekampen die kinderen 'dé vakantie van hun leven' bezorgen, van de Speelpleinen Gekkoo tijdens de zomer- en herfstvakantie tot Kamp Gekkoo in de Ardennen. Ik sta er in als inhoudelijk medewerker, maak waar nodig de visuele en grafische designs, sta mee in voor de communicatie en onderhoud de netwerken met andere speelpleinwerkingen. Ik werk nauw samen met collega's en breng er mijn achtergrond in communicatie, psychologie en jeugdwerk samen — deze zomer ben ik daarnaast verantwoordelijk voor een autonoom project in Essen.</p>
+      <p style="color:var(--ink-soft)" data-i18n="gekkoo_p">Als inhoudelijk medewerker sta ik in voor contentcreatie, visuele en grafische designs en externe communicatie. Ik onderhoud de netwerken met andere speelpleinwerkingen en breng mijn achtergrond in communicatie, psychologie en jeugdwerk samen in één rol. Deze zomer ben ik bovendien verantwoordelijk voor een autonoom project in Essen. Gekkoo organiseert speelpleinwerking en vakantiekampen voor kinderen in Vlaanderen en de Ardennen.</p>
       <div class="skill-tags"><span class="skill-tag" data-i18n="tag_content">Inhoudelijke uitbouw</span><span class="skill-tag" data-i18n="chip_comm">Communicatie</span><span class="skill-tag" data-i18n="tag_graphic">Grafisch design</span><span class="skill-tag" data-i18n="tag_network">Netwerking</span><span class="skill-tag" data-i18n="tag_projectlead">Projectverantwoordelijke</span></div>
       <p style="font-size:.82rem;margin-top:14px"><a href="https://gekkoo.be/" target="_blank" rel="noopener" style="color:var(--c2)">gekkoo.be ↗</a></p>
     </div>
@@ -570,7 +557,7 @@
       </a>
       <div class="contact-mini">
         <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-        <span class="cm-body"><span class="lbl" data-i18n="cm_location">Locatie</span><span class="val">2200 Herentals, Antwerpen</span></span>
+        <span class="cm-body"><span class="lbl" data-i18n="cm_location">Locatie</span><span class="val">Antwerpen, België</span></span>
       </div>
       <a href="https://linkedin.com/in/victorvansande" target="_blank" rel="noopener" class="contact-mini">
         <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 17V10.3H6.1V17zM7.22 9.27a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6zM18 17v-3.67c0-1.96-.42-3.47-2.71-3.47a2.38 2.38 0 0 0-2.14 1.18h-.03V10.3H10.9V17h2.23v-3.31c0-.88.16-1.72 1.25-1.72s1.1.99 1.1 1.78V17z"/></svg></span>

@@ -148,7 +148,7 @@ window.I18N = {
     gekkoo_badge: `Since May 2026`,
     gekkoo_sub: `Content &amp; communication officer · graphic design · networking`,
     gekkoo_date: `May 2026 – present`,
-    gekkoo_p: `Gekkoo organises playground programmes and holiday camps that give children 'the holiday of their lives', from the Gekkoo Playgrounds during the summer and autumn holidays to Camp Gekkoo in the Ardennes. I work there as a content officer, create the visual and graphic designs where needed, contribute to communication and maintain the networks with other playground programmes. I work closely with colleagues and bring together my background in communication, psychology and youth work — this summer I'm also responsible for an autonomous project in Essen.`,
+    gekkoo_p: `As content officer I handle content creation, visual and graphic design, and external communication. I maintain networks with other playground programmes and bring together my background in communication, psychology and youth work in one role. This summer I am also responsible for an autonomous project in Essen. Gekkoo organises playground programmes and holiday camps for children across Flanders and the Ardennes.`,
     tag_content: `Content development`,
     tag_graphic: `Graphic design`,
     tag_network: `Networking`,
@@ -194,6 +194,8 @@ window.I18N = {
     a11y_title: `Accessibility`,
     a11y_motion: `Reduce motion`,
     a11y_contrast: `Higher contrast`,
+
+    tools_h: `Tools`,
 
     /* settings menu */
     set_mode: `Mode`,
