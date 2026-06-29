@@ -830,8 +830,10 @@ main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bott
 .thesis-kw { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 
 /* ---------- Scroll progress bar ---------- */
-.progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 200; background: var(--grad);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--c1) 70%, transparent); transition: width .1s linear; }
+.progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 200;
+  background: linear-gradient(90deg, var(--c1) 0%, var(--c2) 30%, var(--c3) 55%, var(--c2) 78%, var(--c1) 100%);
+  background-size: 200% 100%; background-position: 100% 0;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--c2) 80%, transparent); transition: width .1s linear; }
 
 /* ---------- Back to top ---------- */
 .to-top { position: fixed; right: 24px; bottom: 24px; z-index: 150; width: 48px; height: 48px; border-radius: 14px;

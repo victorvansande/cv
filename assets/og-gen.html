@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OG Image Generator</title>
+<style>
+  body { margin: 0; background: #111; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 16px; font-family: sans-serif; }
+  canvas { border: 1px solid #333; display: block; }
+  button { padding: 12px 28px; background: #7c5cff; color: #fff; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; }
+  button:hover { background: #6a4de0; }
+  p { color: #888; font-size: 13px; margin: 0; }
+</style>
+</head>
+<body>
+<p>Klik op "Downloaden" om <code>og-image.png</code> op te slaan in de <code>assets/</code> map.</p>
+<canvas id="c" width="1200" height="630"></canvas>
+<button onclick="download()">⬇ Downloaden als og-image.png</button>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = 1200, H = 630;
+
+// Background
+ctx.fillStyle = '#0d1117';
+ctx.fillRect(0, 0, W, H);
+
+// Background blobs (radial gradients)
+const blob1 = ctx.createRadialGradient(0, -50, 0, 0, -50, 900);
+blob1.addColorStop(0, 'rgba(124,92,255,0.20)');
+blob1.addColorStop(1, 'rgba(0,0,0,0)');
+ctx.fillStyle = blob1; ctx.fillRect(0, 0, W, H);
+
+const blob2 = ctx.createRadialGradient(W + 100, 0, 0, W + 100, 0, 750);
+blob2.addColorStop(0, 'rgba(58,214,255,0.14)');
+blob2.addColorStop(1, 'rgba(0,0,0,0)');
+ctx.fillStyle = blob2; ctx.fillRect(0, 0, W, H);
+
+const blob3 = ctx.createRadialGradient(W * 0.5, H + 100, 0, W * 0.5, H + 100, 650);
+blob3.addColorStop(0, 'rgba(255,106,213,0.12)');
+blob3.addColorStop(1, 'rgba(0,0,0,0)');
+ctx.fillStyle = blob3; ctx.fillRect(0, 0, W, H);
+
+// Left accent bar
+const barGrad = ctx.createLinearGradient(0, 0, 0, H);
+barGrad.addColorStop(0,   '#7c5cff');
+barGrad.addColorStop(0.5, '#3ad6ff');
+barGrad.addColorStop(1,   '#ff6ad5');
+ctx.fillStyle = barGrad;
+ctx.fillRect(0, 0, 6, H);
+
+const PAD = 72;
+
+// Avatar circle
+ctx.save();
+ctx.beginPath();
+ctx.arc(PAD + 36, 70, 36, 0, Math.PI * 2);
+ctx.clip();
+const avGrad = ctx.createLinearGradient(PAD, 34, PAD + 72, 106);
+avGrad.addColorStop(0, '#7c5cff');
+avGrad.addColorStop(1, '#3ad6ff');
+ctx.fillStyle = avGrad;
+ctx.fillRect(PAD, 34, 72, 72);
+ctx.restore();
+ctx.font = 'bold 30px Inter, Arial, sans-serif';
+ctx.fillStyle = '#fff';
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.fillText('V', PAD + 36, 71);
+
+// Name
+ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+ctx.font = '700 22px Inter, Arial, sans-serif';
+ctx.fillStyle = '#e8edf5';
+ctx.fillText('Victor Van Sande', PAD + 84, 63);
+ctx.font = '400 14px Inter, Arial, sans-serif';
+ctx.fillStyle = 'rgba(168,191,232,0.65)';
+ctx.fillText('📍 Antwerpen, België', PAD + 84, 84);
+
+// URL chip (top right)
+const chipText = 'victorvansande.github.io/cv';
+ctx.font = '500 13px Inter, Arial, sans-serif';
+const chipW = ctx.measureText(chipText).width + 28;
+const chipX = W - PAD - chipW, chipY = 46;
+ctx.beginPath();
+ctx.roundRect(chipX, chipY, chipW, 28, 14);
+ctx.fillStyle = 'rgba(124,92,255,0.12)';
+ctx.fill();
+ctx.strokeStyle = 'rgba(124,92,255,0.28)';
+ctx.lineWidth = 1;
+ctx.stroke();
+ctx.fillStyle = 'rgba(124,92,255,0.95)';
+ctx.textAlign = 'center';
+ctx.fillText(chipText, chipX + chipW / 2, chipY + 18);
+
+// Eyebrow
+ctx.textAlign = 'left';
+ctx.font = '600 13px Inter, Arial, sans-serif';
+ctx.fillStyle = 'rgba(58,214,255,0.75)';
+ctx.letterSpacing = '0.12em';
+ctx.fillText('COMMUNICATIEWETENSCHAPPER  ·  MASTER UANTWERPEN', PAD, 178);
+
+// Headline
+ctx.font = '800 58px Inter, Arial, sans-serif';
+ctx.fillStyle = '#e8edf5';
+ctx.fillText('Analytisch van geest,', PAD, 248);
+
+// Gradient word
+const gradText = 'mensgericht';
+const plainBefore = '';
+const headX = PAD;
+ctx.font = '700 58px Inter, Arial, sans-serif'; // italic simulation: use regular
+const grad = ctx.createLinearGradient(headX, 0, headX + 480, 0);
+grad.addColorStop(0, '#7c5cff');
+grad.addColorStop(0.5, '#3ad6ff');
+grad.addColorStop(1, '#ff6ad5');
+ctx.fillStyle = grad;
+ctx.fillText(gradText, PAD, 318);
+const gW = ctx.measureText(gradText).width;
+ctx.fillStyle = '#e8edf5';
+ctx.fillText(' van nature', PAD + gW, 318);
+
+// Sub text
+ctx.font = '400 18px Inter, Arial, sans-serif';
+ctx.fillStyle = 'rgba(168,191,232,0.72)';
+const subLines = [
+  'Communicatie, media & (web)design, psychologie,',
+  'technologie en leiderschap — ik breng ze samen.'
+];
+subLines.forEach((l, i) => ctx.fillText(l, PAD, 368 + i * 28));
+
+// Chips
+const chips = [
+  { label: 'Communicatie', hi: true },
+  { label: 'Media & journalistiek', hi: true },
+  { label: '(Web)design', hi: false },
+  { label: 'Psychologie', hi: false },
+  { label: 'Leiderschap', hi: false },
+];
+ctx.font = '600 13px Inter, Arial, sans-serif';
+let cx = PAD;
+const cy = 450;
+chips.forEach(chip => {
+  const tw = ctx.measureText(chip.label).width;
+  const cw = tw + 32, ch = 32, cr = 16;
+  ctx.beginPath();
+  ctx.roundRect(cx, cy, cw, ch, cr);
+  ctx.fillStyle = chip.hi ? 'rgba(124,92,255,0.18)' : 'rgba(255,255,255,0.06)';
+  ctx.fill();
+  ctx.strokeStyle = chip.hi ? 'rgba(124,92,255,0.35)' : 'rgba(255,255,255,0.10)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.fillStyle = chip.hi ? '#a78bff' : 'rgba(200,215,240,0.85)';
+  ctx.textAlign = 'center';
+  ctx.fillText(chip.label, cx + cw / 2, cy + 20);
+  cx += cw + 10;
+});
+
+// Right badge
+const bx = W - PAD - 180, by = H - 120;
+ctx.beginPath();
+ctx.roundRect(bx, by, 180, 72, 12);
+ctx.fillStyle = 'rgba(124,92,255,0.16)';
+ctx.fill();
+ctx.strokeStyle = 'rgba(124,92,255,0.32)';
+ctx.lineWidth = 1;
+ctx.stroke();
+ctx.font = '700 11px Inter, Arial, sans-serif';
+ctx.fillStyle = 'rgba(124,92,255,0.9)';
+ctx.textAlign = 'center';
+ctx.fillText('MASTER', bx + 90, by + 22);
+ctx.font = '800 22px Inter, Arial, sans-serif';
+ctx.fillStyle = '#e8edf5';
+ctx.fillText('met onderscheiding', bx + 90, by + 52);
+
+function download() {
+  const a = document.createElement('a');
+  a.download = 'og-image.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+</script>
+</body>
+</html>
