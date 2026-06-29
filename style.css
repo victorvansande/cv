@@ -394,21 +394,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .section-head { max-width: 64ch; margin-bottom: 46px; }
 .section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
 /* lead krijgt lucht onder de kop én een nette uitgevulde rand */
-.section-head .lead { margin-top: 15px; text-align: justify; text-justify: inter-word; }
-/* Camera-lens end-mark vult de orphan-witruimte op de laatste regel */
-.section-head .lead::after {
-  content: '';
-  display: inline-block;
-  width: 14px; height: 14px;
-  vertical-align: middle;
-  margin-left: 9px;
-  border-radius: 50%;
-  background: radial-gradient(circle, transparent 29%, var(--c2) 31%, var(--c2) 60%, transparent 62%),
-              radial-gradient(circle, transparent 71%, var(--c2) 73%, var(--c2) 82%, transparent 84%);
-  opacity: .38;
-}
-@media (max-width: 480px) { .section-head .lead::after { display: none; } }
-:root[data-motion="reduce"] .section-head .lead::after { display: none; }
+.section-head .lead { margin-top: 15px; }
 /* lange leesprose uitgevuld + afbreken voor strakke randen */
 .bio-open p { text-align: justify; text-justify: inter-word; -webkit-hyphens: auto; hyphens: auto; }
 .feature p, .tl-card p, .role-row p { -webkit-hyphens: auto; hyphens: auto; }
@@ -1026,17 +1012,14 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   .footer { padding: 20px 0; }
 }
 
-/* ---------- Camera flash on click ---------- */
-.cam-flash { position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0; background: #fff; }
-.cam-flash.firing { animation: camflash .52s ease-out forwards; }
-@keyframes camflash {
-  0%   { opacity: .78; }
-  28%  { opacity: .08; }
-  52%  { opacity: .55; }
-  100% { opacity: 0;   }
-}
-@media (prefers-reduced-motion: reduce) { .cam-flash { display: none !important; } }
-:root[data-motion="reduce"] .cam-flash { display: none !important; }
+/* ---------- Section-head split met camera-lens ---------- */
+.sh--split { max-width: none; display: grid; grid-template-columns: min(60ch, 100%) 1fr; align-items: center; column-gap: 48px; }
+.sh--split > :not(.sh-lens) { grid-column: 1; }
+.sh-lens { grid-column: 2; grid-row: 1 / -1; justify-self: center; align-self: center; color: var(--c2); opacity: .1; animation: lens-spin 28s linear infinite; pointer-events: none; }
+@keyframes lens-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .sh-lens { animation: none; } }
+:root[data-motion="reduce"] .sh-lens { animation: none; }
+@media (max-width: 900px) { .sh--split { grid-template-columns: 1fr; } .sh-lens { display: none; } }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
