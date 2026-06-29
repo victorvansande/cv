@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=40" />
+  <link rel="stylesheet" href="style.css?v=41" />
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'dark';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='dark';}})();</script>
 </head>
 <body>
@@ -106,7 +106,7 @@
         <h1 class="h-xl"><span data-i18n="hero_hello">Hallo, ik ben</span><br><span class="grad-text">Victor Van Sande</span></h1>
         <p class="hero-loc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-i18n="hero_loc">Gevestigd in Antwerpen, België</span></p>
         <p class="lead">
-          <span data-i18n="hero_lead_1">Communicatiewetenschapper met een brede blik op</span>
+          <span data-i18n="hero_lead_1">Communicatiewetenschapper met expertise in</span>
           <strong data-rotate='["communicatie","(web)design","psychologie","media","technologie","journalistiek","leiderschap"]' data-rotate-en='["communication","(web)design","psychology","media","technology","journalism","leadership"]' class="em-serif" style="color:var(--c2);transition:.35s var(--ease);display:inline-block">communicatie</strong><span data-i18n="hero_lead_2">. Ik combineer een analytische, wetenschappelijke kijk met de warmte en empathie die mensgericht werk verdient.</span>
         </p>
         <div class="hero-cta">
@@ -120,10 +120,15 @@
         </div>
         <div class="hero-stats">
           <div class="stat"><div class="num"><span data-count="3">0</span></div><div class="lbl" data-i18n="stat_diplomas">diploma's</div></div>
-          <div class="stat"><div class="num"><span data-count="8">0</span></div><div class="lbl" data-i18n="stat_academic">jaar academische ervaring</div></div>
+          <div class="stat"><div class="num"><span data-count="2">0</span></div><div class="lbl" data-i18n="stat_distinction">diploma's met onderscheiding</div></div>
           <div class="stat"><div class="num"><span data-count="10" data-suffix="+">0</span></div><div class="lbl" data-i18n="stat_leadership">jaar leiderschap</div></div>
         </div>
         <div class="scroll-cue"><span class="mouse"></span> <span data-i18n="scroll_more">Scroll voor meer</span></div>
+        <div class="hero-creds">
+          <span class="hero-cred hero-cred-now"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;flex:none"></span> Gekkoo · mei 2026</span>
+          <a href="#opleiding" class="hero-cred hero-cred-link">📊 <span data-i18n="cred_thesis">Masterproef · 241 respondenten</span></a>
+          <span class="hero-cred">🎓 <span data-i18n="cred_distinction">Master UAntwerpen · met onderscheiding</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -135,14 +140,6 @@
         <span class="eyebrow"><span class="dot"></span> <span data-i18n="hl_eyebrow">Waar ik voor sta</span></span>
         <h2 class="h-lg" data-i18n="hl_h2">Eén profiel, <span class="grad-text em-serif">veel raakvlakken</span></h2>
         <p class="lead" data-i18n="hl_lead">Communicatie, media en journalistiek, (web)design, psychologie, technologie en leiderschap: ik beweeg me vlot tussen deze domeinen en breng ze samen tot een coherent geheel.</p>
-        <div class="chips" style="margin-top:24px">
-          <span class="chip" data-i18n="chip_comm">Communicatie</span>
-          <span class="chip" data-i18n="chip_media">Media &amp; journalistiek</span>
-          <span class="chip" data-i18n="chip_webdesign">(Web)design</span>
-          <span class="chip" data-i18n="chip_psych">Psychologie</span>
-          <span class="chip" data-i18n="chip_tech">Technologie</span>
-          <span class="chip" data-i18n="chip_lead">Leiderschap</span>
-        </div>
       </div>
       <div class="bento">
         <div class="glass fx-card feature feature-wide reveal fx-write" data-d="1">
@@ -204,6 +201,16 @@
         <p class="pull-quote" data-i18n="over_pullquote">Ik werk graag mensgericht, <span class="em-serif">ongeacht wat ik doe.</span></p>
         <p style="color:var(--ink-soft);margin-bottom:16px" data-i18n="over_bio1">Ik bevind me op het snijvlak van communicatie, media, psychologie en technologie. Mijn academische bagage combineer ik met een scherp oog voor design en jarenlange ervaring in het aansturen van teams en projecten, wat me sterke communicatieve, organisatorische en leidinggevende vaardigheden geeft.</p>
         <p style="color:var(--ink-soft)" data-i18n="over_bio2">Ik kijk naar de wereld met een analytische, wetenschappelijke blik die tegelijkertijd de broodnodige warmte, empathie en begrip toepast die ieder van ons dagelijks verdient.</p>
+        <a href="#opleiding" class="thesis-teaser">
+          <div class="tt-left">
+            <span class="tt-icon">📊</span>
+            <div class="tt-body">
+              <strong data-i18n="thesis_teaser_title">De Macht van Misleiding</strong>
+              <span data-i18n="thesis_teaser_sub">Masterproef · 241 respondenten · UAntwerpen · met onderscheiding</span>
+            </div>
+          </div>
+          <span class="tt-arr">→</span>
+        </a>
       </div>
 
       <div class="glass feature reveal" data-d="1" style="padding:38px">
@@ -470,17 +477,17 @@
       <div class="role-list">
         <div class="role-row">
           <div class="rt"><h4 data-i18n="ksa_role1_h">Website Designer</h4><span class="rd" data-i18n="ksa_role1_date">2022 – heden</span></div>
-          <p data-i18n="ksa_role1_p">Na de overstap naar een meer digitale aanpak richtte ik zelfstandig de website van onze jeugdbeweging op en houd ik die al jaren up-to-date.</p>
+          <p data-i18n="ksa_role1_p">Ik richtte <a href="https://ksaherentals.be" target="_blank" rel="noopener" style="color:var(--c2)">ksaherentals.be ↗</a> zelfstandig op en beheer die als hoofdplatform voor de volledige werking: ledenplanning, activiteiten én een maandelijkse blog die ik zelf schrijf en publiceer.</p>
           <div class="skill-tags"><span class="skill-tag">User Interface Design</span><span class="skill-tag">Website Building</span><span class="skill-tag" data-i18n="tag_webmgmt">Webbeheer</span></div>
         </div>
         <div class="role-row">
           <div class="rt"><h4 data-i18n="ksa_role2_h">Hoofdleider</h4><span class="rd" data-i18n="ksa_role2_date">sep 2019 – heden</span></div>
-          <p data-i18n="ksa_role2_p">Verantwoordelijk voor het leiden van de jeugdbeweging: een team van leiding coördineren, activiteiten en grootschalige events organiseren en de organisatie vertegenwoordigen in de lokale gemeenschap.</p>
+          <p data-i18n="ksa_role2_p">Verantwoordelijk voor het leiden van de jeugdbeweging: ik coördineer een team van gemiddeld 20 jongvolwassenen, organiseer activiteiten en grootschalige events en vertegenwoordig de organisatie in de lokale gemeenschap.</p>
           <div class="skill-tags"><span class="skill-tag" data-i18n="tag_teammgmt">Teammanagement</span><span class="skill-tag">Event Planning</span><span class="skill-tag">Social media</span></div>
         </div>
         <div class="role-row">
           <div class="rt"><h4 data-i18n="ksa_role3_h">Leider</h4><span class="rd" data-i18n="ksa_role3_date">sep 2015 – heden</span></div>
-          <p data-i18n="ksa_role3_p">Wekelijks activiteiten begeleiden voor kinderen en jongeren, met oog voor verhaal, verbeelding en groepsgevoel.</p>
+          <p data-i18n="ksa_role3_p">Naast het hoofdleiderschap blijf ik ook actief op de vloer: wekelijks activiteiten begeleiden voor de leden, met oog voor verhaal, verbeelding en groepsgevoel. Beide rollen lopen bewust parallel.</p>
           <div class="skill-tags"><span class="skill-tag">Storytelling</span><span class="skill-tag" data-i18n="tag_creativity">Creativiteit</span></div>
         </div>
       </div>
@@ -488,26 +495,26 @@
   </section>
 
   <!-- STAGES & ONDERWIJS -->
-  <section class="wrap section-pad" style="padding-top:50px">
-    <div class="section-head reveal">
+  <section class="wrap" style="padding-top:46px;padding-bottom:46px">
+    <div style="margin-bottom:16px" class="reveal">
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="stages_eyebrow">Stages &amp; onderwijs</span></span>
-      <h2 class="h-lg" data-i18n="stages_h2">In de <span class="grad-text">praktijk</span></h2>
+      <h3 class="h-md" style="margin-top:10px" data-i18n="stages_h2">In de <span class="grad-text">praktijk</span></h3>
     </div>
-    <div class="grid">
-      <div class="glass tilt exp-item reveal" data-d="1">
-        <div class="exp-ic">GN</div>
-        <div class="exp-body"><h3>Githo Nijlen</h3><p data-i18n="stage1_p">Leerkracht Engels (stage) · Teaching English as a Foreign Language</p></div>
-        <div class="exp-meta"><b>2023</b>Nijlen</div>
+    <div class="glass stage-compact reveal" data-d="1">
+      <div class="stage-row">
+        <span class="stage-yr">2023</span>
+        <div class="stage-info"><strong>Githo Nijlen</strong><span data-i18n="stage1_short">Leerkracht Engels (stage) · TEFL</span></div>
+        <span class="stage-loc">Nijlen</span>
       </div>
-      <div class="glass tilt exp-item reveal" data-d="2">
-        <div class="exp-ic">SL</div>
-        <div class="exp-body"><h3>Sint-Lutgardisschool</h3><p data-i18n="stage2_p">Leerkracht natuurwetenschappen (stage) in Antwerpen · Science Education</p></div>
-        <div class="exp-meta"><b>2022</b>Antwerpen</div>
+      <div class="stage-row">
+        <span class="stage-yr">2022</span>
+        <div class="stage-info"><strong>Sint-Lutgardisschool</strong><span data-i18n="stage2_short">Leerkracht wetenschappen (stage)</span></div>
+        <span class="stage-loc">Antwerpen</span>
       </div>
-      <div class="glass tilt exp-item reveal" data-d="3">
-        <div class="exp-ic">kO</div>
-        <div class="exp-body"><h3>kOsh Campus Ieperstraat</h3><p data-i18n="stage3_p">Jeugdconsulent (stage) in Herentals · Counseling &amp; begeleiding</p></div>
-        <div class="exp-meta"><b>2020</b>Herentals</div>
+      <div class="stage-row">
+        <span class="stage-yr">2020</span>
+        <div class="stage-info"><strong>kOsh Campus Ieperstraat</strong><span data-i18n="stage3_short">Jeugdconsulent (stage) · Counseling</span></div>
+        <span class="stage-loc">Herentals</span>
       </div>
     </div>
   </section>
