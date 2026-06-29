@@ -337,4 +337,24 @@
     lb.addEventListener("click", (e) => { if (e.target === lb || e.target.closest(".lightbox-close")) close(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
+
+  /* ---- Camera flash on click ---- */
+  (function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (document.documentElement.dataset.motion === "reduce") return;
+    const flash = document.createElement("div");
+    flash.className = "cam-flash";
+    document.body.appendChild(flash);
+    let lastFlash = 0;
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("a,button,input,select,textarea,label,[role='button']")) return;
+      const now = Date.now();
+      if (now - lastFlash < 1600) return;
+      lastFlash = now;
+      flash.classList.remove("firing");
+      void flash.offsetWidth; // reflow → herstart animatie
+      flash.classList.add("firing");
+    });
+  })();
+
 })();
