@@ -22,10 +22,10 @@ window.I18N = {
     hero_cta_work: `See my work`,
     hero_cta_cv: `Download CV`,
     stat_diplomas: `diplomas`,
-    stat_distinction: `diplomas with distinction`,
+    stat_respondents_hero: `respondents in my thesis`,
     stat_leadership: `years of leadership`,
     scroll_more: `Scroll for more`,
-    cred_thesis: `Master's thesis · 241 respondents`,
+    cred_thesis: `Master's thesis · The Power of Deception`,
     cred_distinction: `Master UAntwerpen · with distinction`,
 
     /* highlights */

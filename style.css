@@ -424,7 +424,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch;
   -webkit-hyphens: auto; hyphens: auto; }
 .muted { color: var(--ink-dim); }
-.section-head { max-width: 64ch; margin-bottom: 46px; position: relative; }
+.section-head { max-width: 64ch; margin-bottom: 46px; }
 .section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
 /* lead krijgt lucht onder de kop */
 .section-head .lead { margin-top: 15px; }
@@ -1044,21 +1044,6 @@ h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-setting
   .to-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
   .footer { padding: 20px 0; }
 }
-
-/* ---------- Camera-lens decoratie in de witruimte rechts van een section-head ---------- */
-/* Absoluut gepositioneerd: raakt de tekst-flow niet aan, vult enkel de lege rechterkolom. */
-.sh-lens {
-  position: absolute; top: 50%; right: 0;
-  transform: translate(calc(100% + 64px), -50%);
-  color: var(--c2); opacity: .12; pointer-events: none;
-  animation: lens-spin 30s linear infinite;
-}
-.sh-lens svg { display: block; }
-@keyframes lens-spin { to { transform: translate(calc(100% + 64px), -50%) rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .sh-lens { animation: none; } }
-:root[data-motion="reduce"] .sh-lens { animation: none; }
-/* Alleen tonen wanneer er echt witruimte rechts is */
-@media (max-width: 1000px) { .sh-lens { display: none; } }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {

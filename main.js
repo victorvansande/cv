@@ -362,15 +362,4 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
-  /* ---- Section-head lens decoration ---- */
-  (function () {
-    const svg = `<svg width="110" height="110" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="50" cy="50" r="47"/><circle cx="50" cy="50" r="38" stroke-opacity=".55"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="15"/><line x1="50" y1="3" x2="50" y2="12"/><line x1="50" y1="88" x2="50" y2="97"/><line x1="3" y1="50" x2="12" y2="50"/><line x1="88" y1="50" x2="97" y2="50"/><line x1="17" y1="17" x2="23" y2="23"/><line x1="83" y1="17" x2="77" y2="23"/><line x1="17" y1="83" x2="23" y2="77"/><line x1="83" y1="83" x2="77" y2="77"/><circle cx="50" cy="50" r="2.5" fill="currentColor" stroke="none"/></svg>`;
-    document.querySelectorAll(".section-head").forEach((sh) => {
-      if ((sh.getAttribute("style") || "").includes("center")) return;
-      const d = document.createElement("div");
-      d.className = "sh-lens"; d.setAttribute("aria-hidden", "true"); d.innerHTML = svg;
-      sh.appendChild(d);
-    });
-  })();
-
 })();
