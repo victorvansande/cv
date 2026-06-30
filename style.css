@@ -424,9 +424,10 @@ section { position: relative; }
 /* ---------- Headings & text ---------- */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; color: var(--c2);
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
   padding: 6px 14px; border-radius: 999px; border: 1px solid var(--glass-bord);
-  background: var(--glass-bg); margin-bottom: 22px;
+  /* dekkende achtergrond zodat de tekst altijd contrasteert, ook op de gekleurde hero */
+  background: color-mix(in srgb, var(--bg-1) 82%, transparent); margin-bottom: 22px;
 }
 .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c2); box-shadow: 0 0 12px var(--c2); }
 h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; }
@@ -458,10 +459,10 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 /* Hero credential pills */
 .hero-creds { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
 .hero-cred { font-size:.76rem; font-weight:600; padding:5px 13px; border-radius:999px; display:inline-flex; align-items:center; gap:6px;
-  background:color-mix(in srgb, var(--ink) 5%, transparent); border:1px solid var(--glass-bord);
+  background:color-mix(in srgb, var(--bg-1) 82%, transparent); border:1px solid var(--glass-bord);
   color:var(--ink-soft); text-decoration:none; transition:.25s var(--ease); }
-.hero-cred-link:hover { background:color-mix(in srgb, var(--c2) 10%, transparent); border-color:color-mix(in srgb, var(--c2) 35%, transparent); color:var(--c2); }
-.hero-cred-now { background:color-mix(in srgb, var(--c2) 9%, transparent); border-color:color-mix(in srgb, var(--c2) 28%, transparent); color:var(--c2); }
+.hero-cred-link:hover { background:color-mix(in srgb, var(--bg-1) 72%, var(--c2)); border-color:color-mix(in srgb, var(--c2) 45%, transparent); color:var(--ink); }
+.hero-cred-now { background:color-mix(in srgb, var(--bg-1) 80%, var(--c2)); border-color:color-mix(in srgb, var(--c2) 34%, transparent); color:var(--ink); }
 /* Thesis teaser link in bio */
 .thesis-teaser { display:flex; align-items:center; justify-content:space-between; gap:16px;
   margin-top:20px; padding:13px 16px; border-radius:var(--r-sm); text-decoration:none; color:var(--ink);
