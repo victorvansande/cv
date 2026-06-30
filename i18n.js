@@ -206,6 +206,7 @@ window.I18N = {
     set_lang: `Language`,
     set_theme: `Colour theme`,
     set_download: `Downloads`,
-    set_cv_pdf: `CV as PDF`
+    set_cv_pdf: `CV as PDF`,
+    brand_sub: `Online CV`
   }
 };
