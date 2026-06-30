@@ -4,16 +4,40 @@
 (() => {
   "use strict";
 
-  /* ---- Cursor glow (desktop only) ---- */
+  /* ---- Custom cursor + glow (desktop / fine pointer only) ---- */
   const glow = document.querySelector(".cursor-glow");
-  if (glow && window.matchMedia("(pointer:fine)").matches) {
-    let x = 0, y = 0, tx = 0, ty = 0;
+  if (window.matchMedia("(pointer:fine)").matches) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      || document.documentElement.dataset.motion === "reduce";
+    const dot = document.createElement("div");
+    dot.className = "cursor-dot"; dot.setAttribute("aria-hidden", "true"); dot.style.opacity = "0";
+    const ring = document.createElement("div");
+    ring.className = "cursor-ring"; ring.setAttribute("aria-hidden", "true"); ring.style.opacity = "0";
+    document.body.append(dot, ring);
+    document.documentElement.classList.add("has-custom-cursor");
+
+    const interactive = "a, button, label, .swatch, .settings-toggle, .burger, [role='button'], .diploma-thumb, .thesis-teaser";
+    let x = 0, y = 0, tx = 0, ty = 0, shown = false;
+
     window.addEventListener("mousemove", (e) => {
-      tx = e.clientX; ty = e.clientY; glow.style.opacity = "1";
+      tx = e.clientX; ty = e.clientY;
+      dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
+      if (reduce) ring.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
+      ring.classList.toggle("is-hover", !!e.target.closest(interactive));
+      if (!shown) { shown = true; dot.style.opacity = ""; ring.style.opacity = ""; }
+      if (glow) glow.style.opacity = "1";
     });
+    document.addEventListener("mousedown", () => ring.classList.add("is-down"));
+    document.addEventListener("mouseup", () => ring.classList.remove("is-down"));
+    document.addEventListener("mouseleave", () => {
+      dot.style.opacity = "0"; ring.style.opacity = "0"; if (glow) glow.style.opacity = "0";
+    });
+    document.addEventListener("mouseenter", () => { dot.style.opacity = ""; ring.style.opacity = ""; });
+
     const loop = () => {
-      x += (tx - x) * 0.14; y += (ty - y) * 0.14;
-      glow.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
+      x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+      if (!reduce) ring.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
+      if (glow) glow.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
       requestAnimationFrame(loop);
     };
     loop();

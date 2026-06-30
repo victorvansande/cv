@@ -159,6 +159,30 @@ button { font-family: inherit; cursor: pointer; }
   mix-blend-mode: screen;
 }
 
+/* ---------- Custom cursor (desktop / fine pointer, via JS) ---------- */
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 10000; pointer-events: none;
+  border-radius: 50%; will-change: transform;
+}
+.cursor-dot {
+  width: 7px; height: 7px; background: var(--c2);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--c2) 70%, transparent);
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1.5px solid color-mix(in srgb, var(--c2) 55%, transparent);
+  transition: width .25s var(--ease), height .25s var(--ease),
+              background-color .25s var(--ease), border-color .25s var(--ease), opacity .3s;
+}
+.cursor-ring.is-hover {
+  width: 50px; height: 50px;
+  background-color: color-mix(in srgb, var(--c2) 10%, transparent);
+  border-color: color-mix(in srgb, var(--c2) 75%, transparent);
+}
+.cursor-ring.is-down { width: 24px; height: 24px; }
+/* native cursor verbergen zodra de custom cursor actief is (alleen als JS draait) */
+:root.has-custom-cursor * { cursor: none; }
+
 /* ---------- Layout ---------- */
 main { overflow-x: clip; }
 .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
