@@ -160,26 +160,27 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ---------- Custom cursor (desktop / fine pointer, via JS) ---------- */
-.cursor-dot, .cursor-ring {
-  position: fixed; top: 0; left: 0; z-index: 10000; pointer-events: none;
+.cursor-dot, .cursor-halo {
+  position: fixed; top: 0; left: 0; pointer-events: none;
   border-radius: 50%; will-change: transform;
 }
 .cursor-dot {
-  width: 7px; height: 7px; background: var(--c2);
+  z-index: 10000; width: 7px; height: 7px; background: var(--c2);
   box-shadow: 0 0 10px color-mix(in srgb, var(--c2) 70%, transparent);
 }
-.cursor-ring {
-  width: 32px; height: 32px;
-  border: 1.5px solid color-mix(in srgb, var(--c2) 55%, transparent);
-  transition: width .25s var(--ease), height .25s var(--ease),
-              background-color .25s var(--ease), border-color .25s var(--ease), opacity .3s;
+/* zachte halo die exact meebeweegt en subtiel ademt */
+.cursor-halo {
+  z-index: 9999; width: 30px; height: 30px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--c2) 30%, transparent), transparent 68%);
+  animation: cursor-breathe 3.2s var(--ease) infinite;
+  transition: width .25s var(--ease), height .25s var(--ease), opacity .3s var(--ease);
 }
-.cursor-ring.is-hover {
-  width: 50px; height: 50px;
-  background-color: color-mix(in srgb, var(--c2) 10%, transparent);
-  border-color: color-mix(in srgb, var(--c2) 75%, transparent);
-}
-.cursor-ring.is-down { width: 24px; height: 24px; }
+@keyframes cursor-breathe { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
+.cursor-halo.is-hover { width: 46px; height: 46px; }
+.cursor-halo.is-down { width: 20px; height: 20px; }
+.cursor-dot.is-off, .cursor-halo.is-off { opacity: 0; animation: none; }
+@media (prefers-reduced-motion: reduce) { .cursor-halo { animation: none; } }
+:root[data-motion="reduce"] .cursor-halo { animation: none; }
 /* native cursor verbergen zodra de custom cursor actief is (alleen als JS draait) */
 :root.has-custom-cursor * { cursor: none; }
 

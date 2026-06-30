@@ -7,40 +7,40 @@
   /* ---- Custom cursor + glow (desktop / fine pointer only) ---- */
   const glow = document.querySelector(".cursor-glow");
   if (window.matchMedia("(pointer:fine)").matches) {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      || document.documentElement.dataset.motion === "reduce";
     const dot = document.createElement("div");
-    dot.className = "cursor-dot"; dot.setAttribute("aria-hidden", "true"); dot.style.opacity = "0";
-    const ring = document.createElement("div");
-    ring.className = "cursor-ring"; ring.setAttribute("aria-hidden", "true"); ring.style.opacity = "0";
-    document.body.append(dot, ring);
+    dot.className = "cursor-dot is-off"; dot.setAttribute("aria-hidden", "true");
+    const halo = document.createElement("div");
+    halo.className = "cursor-halo is-off"; halo.setAttribute("aria-hidden", "true");
+    document.body.append(dot, halo);
     document.documentElement.classList.add("has-custom-cursor");
 
     const interactive = "a, button, label, .swatch, .settings-toggle, .burger, [role='button'], .diploma-thumb, .thesis-teaser";
-    let x = 0, y = 0, tx = 0, ty = 0, shown = false;
+    let gx = 0, gy = 0, tx = 0, ty = 0, shown = false;
 
     window.addEventListener("mousemove", (e) => {
       tx = e.clientX; ty = e.clientY;
-      dot.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
-      if (reduce) ring.style.transform = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
-      ring.classList.toggle("is-hover", !!e.target.closest(interactive));
-      if (!shown) { shown = true; dot.style.opacity = ""; ring.style.opacity = ""; }
+      const pos = `translate(${tx}px, ${ty}px) translate(-50%,-50%)`;
+      dot.style.transform = pos;
+      halo.style.transform = pos;
+      halo.classList.toggle("is-hover", !!e.target.closest(interactive));
+      if (!shown) { shown = true; dot.classList.remove("is-off"); halo.classList.remove("is-off"); }
       if (glow) glow.style.opacity = "1";
     });
-    document.addEventListener("mousedown", () => ring.classList.add("is-down"));
-    document.addEventListener("mouseup", () => ring.classList.remove("is-down"));
+    document.addEventListener("mousedown", () => halo.classList.add("is-down"));
+    document.addEventListener("mouseup", () => halo.classList.remove("is-down"));
     document.addEventListener("mouseleave", () => {
-      dot.style.opacity = "0"; ring.style.opacity = "0"; if (glow) glow.style.opacity = "0";
+      dot.classList.add("is-off"); halo.classList.add("is-off"); if (glow) glow.style.opacity = "0";
     });
-    document.addEventListener("mouseenter", () => { dot.style.opacity = ""; ring.style.opacity = ""; });
+    document.addEventListener("mouseenter", () => { dot.classList.remove("is-off"); halo.classList.remove("is-off"); });
 
-    const loop = () => {
-      x += (tx - x) * 0.18; y += (ty - y) * 0.18;
-      if (!reduce) ring.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
-      if (glow) glow.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
-      requestAnimationFrame(loop);
-    };
-    loop();
+    if (glow) {
+      const loop = () => {
+        gx += (tx - gx) * 0.14; gy += (ty - gy) * 0.14;
+        glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%,-50%)`;
+        requestAnimationFrame(loop);
+      };
+      loop();
+    }
   }
 
   /* ---- Nav scrolled state ---- */
