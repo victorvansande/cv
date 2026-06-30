@@ -184,6 +184,61 @@ button { font-family: inherit; cursor: pointer; }
 /* native cursor verbergen zodra de custom cursor actief is (alleen als JS draait) */
 :root.has-custom-cursor * { cursor: none; }
 
+/* ---------- Handtekening (footer) ---------- */
+.signature { text-align: center; margin-bottom: 18px; }
+.signature span {
+  display: inline-block; font-family: "Dancing Script", cursive; font-weight: 700;
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem); line-height: 1; color: var(--c2);
+  padding: 0 .1em .12em; clip-path: inset(0 -8% 0 -8%);
+}
+.signature.drawn span { animation: sign-draw 1.8s var(--ease) both; }
+@keyframes sign-draw { from { clip-path: inset(0 108% 0 -8%); } to { clip-path: inset(0 -8% 0 -8%); } }
+
+/* ---------- Sneltoetsen-overlay ---------- */
+.kbd-help {
+  position: fixed; inset: 0; z-index: 9996; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--bg-0) 64%, transparent); backdrop-filter: blur(5px);
+  opacity: 0; visibility: hidden; transition: opacity .28s var(--ease), visibility .28s var(--ease);
+}
+.kbd-help.open { opacity: 1; visibility: visible; }
+.kbd-card {
+  background: var(--pop-bg); border: 1px solid var(--glass-bord); border-radius: var(--r-md);
+  padding: 22px 24px; width: min(330px, 88vw); box-shadow: var(--glass-shadow);
+  transform: translateY(10px) scale(.98); transition: transform .3s var(--ease);
+}
+.kbd-help.open .kbd-card { transform: none; }
+.kbd-card h4 { font-size: .74rem; letter-spacing: .14em; text-transform: uppercase; color: var(--c2); margin-bottom: 14px; font-weight: 700; }
+.kbd-list { display: flex; flex-direction: column; gap: 11px; }
+.kbd-list li { display: flex; align-items: center; gap: 14px; font-size: .9rem; color: var(--ink-soft); }
+.kbd-list .keys { flex: none; min-width: 58px; display: flex; align-items: center; gap: 4px; }
+.kbd-foot { margin-top: 16px; padding-top: 13px; border-top: 1px solid var(--glass-bord); font-size: .8rem; color: var(--ink-dim); }
+kbd {
+  font-family: var(--font); font-size: .78rem; font-weight: 700; color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 8%, transparent); border: 1px solid var(--glass-bord);
+  border-bottom-width: 2px; border-radius: 6px; padding: 2px 7px; min-width: 22px; text-align: center; line-height: 1.4;
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 30px; z-index: 9997; pointer-events: none;
+  transform: translateX(-50%) translateY(16px); opacity: 0;
+  background: var(--pop-bg); border: 1px solid var(--glass-bord); box-shadow: var(--glass-shadow);
+  color: var(--ink); font-size: .88rem; font-weight: 600; padding: 11px 18px; border-radius: 999px;
+  backdrop-filter: blur(12px); transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Confetti (easter egg) ---------- */
+.confetti {
+  position: fixed; top: 12vh; width: 9px; height: 9px; border-radius: 2px; z-index: 9994;
+  pointer-events: none; opacity: 0; will-change: transform, opacity;
+  animation: confetti-fall 2.3s var(--ease) forwards;
+}
+@keyframes confetti-fall {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+}
+
 /* ---------- Layout ---------- */
 main { overflow-x: clip; }
 .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }

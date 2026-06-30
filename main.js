@@ -391,4 +391,104 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
+  /* ---- Speelse extra's: handtekening, sneltoetsen, easter egg ---- */
+  (function () {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      || document.documentElement.dataset.motion === "reduce";
+    const lang = () => (document.documentElement.lang === "en" ? "en" : "nl");
+    const STR = {
+      egg:   { nl: "🎉 Easter egg ontgrendeld!", en: "🎉 Easter egg unlocked!" },
+      theme: { nl: "Kleurthema gewijzigd", en: "Colour theme changed" },
+      tip:   { nl: "Tip: druk op ? voor sneltoetsen", en: "Tip: press ? for keyboard shortcuts" },
+    };
+    const T = (k) => STR[k][lang()];
+
+    /* --- toast --- */
+    let toastTimer, toastEl;
+    const toast = (msg, ms = 3000) => {
+      if (!toastEl) { toastEl = document.createElement("div"); toastEl.className = "toast"; toastEl.setAttribute("role", "status"); document.body.appendChild(toastEl); }
+      toastEl.textContent = msg;
+      requestAnimationFrame(() => toastEl.classList.add("show"));
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove("show"), ms);
+    };
+
+    /* --- handtekening: teken zichzelf bij in beeld komen --- */
+    const sig = document.querySelector(".signature");
+    if (sig) {
+      if (reduce) { sig.classList.add("drawn"); }
+      else {
+        const io = new IntersectionObserver((es) => {
+          es.forEach((en) => { if (en.isIntersecting) { sig.classList.add("drawn"); io.disconnect(); } });
+        }, { threshold: 0.6 });
+        io.observe(sig);
+      }
+    }
+
+    /* --- help-overlay --- */
+    const help = document.querySelector(".kbd-help");
+    const showHelp = (on) => { if (!help) return; help.classList.toggle("open", on); help.setAttribute("aria-hidden", on ? "false" : "true"); };
+    if (help) help.addEventListener("click", (e) => { if (e.target === help) showHelp(false); });
+
+    /* --- confetti --- */
+    const confetti = () => {
+      if (reduce) return;
+      const root = getComputedStyle(document.documentElement);
+      const cols = ["--c1", "--c2", "--c3"].map((v) => root.getPropertyValue(v).trim()).concat("#ffffff");
+      for (let i = 0; i < 46; i++) {
+        const p = document.createElement("div");
+        p.className = "confetti";
+        p.style.left = (50 + (Math.random() - 0.5) * 26) + "vw";
+        p.style.background = cols[i % cols.length];
+        p.style.setProperty("--dx", ((Math.random() - 0.5) * 70) + "vw");
+        p.style.setProperty("--dy", (58 + Math.random() * 34) + "vh");
+        p.style.setProperty("--rot", (Math.random() * 760 - 380) + "deg");
+        p.style.animationDelay = (Math.random() * 0.18) + "s";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 2700);
+      }
+    };
+
+    /* --- toetsenbord: sneltoetsen + konami --- */
+    const sectionKeys = { "1": "home", "2": "over", "3": "opleiding", "4": "ervaring", "5": "contact" };
+    const seq = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a"];
+    let kp = 0;
+
+    document.addEventListener("keydown", (e) => {
+      const tgt = e.target;
+      if (tgt && tgt.closest && tgt.closest("input, textarea, select, [contenteditable]")) return;
+      const raw = e.key;
+      const key = raw.toLowerCase();
+
+      // konami-code
+      if (key === seq[kp]) { kp++; if (kp === seq.length) { kp = 0; confetti(); toast(T("egg"), 3600); } }
+      else { kp = (key === seq[0]) ? 1 : 0; }
+
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      if (sectionKeys[raw]) {
+        const el = document.getElementById(sectionKeys[raw]);
+        if (el) el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      } else if (key === "t") {
+        const i = THEMES.indexOf(document.documentElement.dataset.theme);
+        applyTheme(THEMES[(i + 1) % THEMES.length]);
+        toast(T("theme"));
+      } else if (key === "m") {
+        const mb = document.querySelector(".mode-toggle"); if (mb) mb.click();
+      } else if (raw === "?") {
+        showHelp(!help.classList.contains("open"));
+      } else if (raw === "Escape") {
+        showHelp(false);
+      }
+    });
+
+    /* --- eenmalige hint dat sneltoetsen bestaan (desktop, niet bij reduced motion) --- */
+    if (window.matchMedia("(pointer:fine)").matches) {
+      let seen = false; try { seen = localStorage.getItem("cv-kbd-hint") === "1"; } catch (e) {}
+      if (!seen) {
+        setTimeout(() => { toast(T("tip"), 4500); try { localStorage.setItem("cv-kbd-hint", "1"); } catch (e) {} }, 2600);
+      }
+    }
+  })();
+
 })();
