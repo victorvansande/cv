@@ -207,12 +207,6 @@ window.I18N = {
     set_theme: `Colour theme`,
     set_download: `Downloads`,
     set_cv_pdf: `CV as PDF`,
-    brand_sub: `Online CV`,
-    kbd_title: `Keyboard shortcuts`,
-    kbd_section: `Jump to a section`,
-    kbd_theme: `Switch colour theme`,
-    kbd_mode: `Light / dark`,
-    kbd_help: `Show this help`,
-    kbd_close: `to close`
+    brand_sub: `Online CV`
   }
 };
