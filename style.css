@@ -197,7 +197,8 @@ section { position: relative; }
   -webkit-backdrop-filter: blur(18px) saturate(140%);
   background: var(--nav-bg);
   border-bottom: 1px solid var(--glass-bord);
-  transition: background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+  transition: background .35s var(--ease), border-color .35s var(--ease),
+              box-shadow .35s var(--ease), transform .4s var(--ease);
 }
 .nav.scrolled {
   background: var(--nav-solid);
@@ -205,6 +206,8 @@ section { position: relative; }
   box-shadow: 0 4px 28px -8px rgba(0,0,0,.30);
 }
 :root[data-mode="light"] .nav.scrolled { box-shadow: 0 2px 18px -4px rgba(22,27,51,.16); }
+/* verbergt zich bij naar beneden scrollen, komt snel terug bij omhoog scrollen */
+.nav.nav-hidden { transform: translateY(-100%); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -0.03em; font-size: 1.02rem; }
 .brand .mark {
@@ -928,6 +931,8 @@ main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bott
   opacity: 0; transition: opacity .25s var(--ease), transform .25s var(--ease);
   backdrop-filter: blur(10px); box-shadow: var(--glass-shadow); }
 .dot-nav a:hover span { opacity: 1; transform: translateY(-50%); }
+/* label popt enkele seconden uit het bolletje bij het binnenscrollen van een sectie */
+.dot-nav a.spy-pop span { opacity: 1; transform: translateY(-50%); }
 @media (max-width: 1180px) { .dot-nav { display: none; } }
 
 /* ---------- "Glim" sheen — only fires on mouseenter, not on leave ---------- */

@@ -43,10 +43,22 @@
     }
   }
 
-  /* ---- Nav scrolled state ---- */
+  /* ---- Nav scrolled state + auto-hide bij scroll-richting ---- */
   const navEl = document.querySelector(".nav");
   if (navEl) {
-    const syncNav = () => navEl.classList.toggle("scrolled", window.scrollY > 48);
+    let lastY = window.scrollY;
+    const syncNav = () => {
+      const y = window.scrollY;
+      navEl.classList.toggle("scrolled", y > 48);
+      const menuOpen = navEl.querySelector(".nav-links.open");
+      // verbergen bij naar beneden scrollen voorbij de balk; tonen bij omhoog of bovenaan
+      if (!menuOpen && y > 120 && y > lastY + 4) {
+        navEl.classList.add("nav-hidden");
+      } else if (y < lastY - 4 || y <= 120) {
+        navEl.classList.remove("nav-hidden");
+      }
+      lastY = y;
+    };
     window.addEventListener("scroll", syncNav, { passive: true });
     syncNav();
   }
@@ -336,8 +348,20 @@
   const secs = [...document.querySelectorAll(".sec[id]")];
   if (secs.length) {
     const links = [...document.querySelectorAll('.nav-links a[href^="#"], .dot-nav a[href^="#"]')];
+    const dotLinks = [...document.querySelectorAll('.dot-nav a[href^="#"]')];
     const setActive = (id) => links.forEach((a) =>
       a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+    // sectienaam enkele seconden uit het bolletje laten poppen
+    let popTimer;
+    const popLabel = (id) => {
+      const dot = dotLinks.find((a) => a.getAttribute("href") === "#" + id);
+      if (!dot) return;
+      dotLinks.forEach((a) => a.classList.remove("spy-pop"));
+      void dot.offsetWidth; // reflow → animatie/overgang opnieuw starten
+      dot.classList.add("spy-pop");
+      clearTimeout(popTimer);
+      popTimer = setTimeout(() => dot.classList.remove("spy-pop"), 2200);
+    };
     let current = "";
     const spy = new IntersectionObserver((entries) => {
       // pick the entry whose top is closest to the offset line and is intersecting
@@ -345,7 +369,12 @@
       entries.forEach((e) => {
         if (e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio)) best = e;
       });
-      if (best && best.target.id !== current) { current = best.target.id; setActive(current); }
+      if (best && best.target.id !== current) {
+        const first = current === "";
+        current = best.target.id;
+        setActive(current);
+        if (!first) popLabel(current); // niet poppen bij de eerste meting op laadmoment
+      }
     }, { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] });
     secs.forEach((s) => spy.observe(s));
   }
