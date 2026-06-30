@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Victor Van Sande — CV</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  :root {
+    --red: #e11d2e; --red-d: #c4172a;
+    --ink: #1b1e2a; --soft: #4c5163; --dim: #8b90a1; --line: #e7e8ee;
+  }
+  html, body { background: #fff; }
+  body {
+    font-family: "Segoe UI", "Inter", Arial, sans-serif;
+    color: var(--ink); font-size: 9.3pt; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { width: 210mm; min-height: 296mm; padding: 13mm 14mm 12mm; position: relative; background: #fff; }
+  .sheet + .sheet { page-break-before: always; }
+
+  /* ---------- Header ---------- */
+  .hd { display: flex; justify-content: space-between; align-items: flex-end; gap: 18px; }
+  .hd h1 { font-size: 26pt; font-weight: 800; letter-spacing: -.5pt; line-height: 1; }
+  .hd h1 .r { color: var(--red); }
+  .hd .role { color: var(--red); font-weight: 600; font-size: 11pt; margin-top: 5px; }
+  .hd .sub { color: var(--dim); font-size: 9pt; margin-top: 1px; }
+  .hd-right { text-align: right; font-size: 8.6pt; color: var(--soft); line-height: 1.85; }
+  .hd-right .ci { display: inline-flex; align-items: center; gap: 6px; }
+  .hd-right svg { color: var(--red); flex: none; }
+  .rule { height: 2.4px; background: var(--red); border-radius: 2px; margin: 9px 0 0; }
+  .rule.sub { background: var(--line); height: 1px; }
+
+  /* ---------- Columns ---------- */
+  .cols { display: flex; gap: 11mm; margin-top: 8mm; }
+  .side { width: 56mm; flex: none; }
+  .main { flex: 1; }
+
+  .sec-t { font-size: 8pt; font-weight: 700; letter-spacing: 1.4pt; text-transform: uppercase;
+    color: var(--red); margin-bottom: 7px; }
+  .side .block { margin-bottom: 7mm; }
+  .side .block:last-child { margin-bottom: 0; }
+
+  /* skill bars */
+  .skill { margin-bottom: 8px; }
+  .skill:last-child { margin-bottom: 0; }
+  .skill .lbl { display: flex; justify-content: space-between; font-size: 8.6pt; font-weight: 600; }
+  .skill .lbl .pct { color: var(--dim); font-weight: 600; }
+  .bar { height: 4px; background: #edeef2; border-radius: 3px; margin-top: 4px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--red-d), var(--red)); border-radius: 3px; }
+
+  /* languages */
+  .lang { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; font-size: 8.8pt; }
+  .lang:last-child { margin-bottom: 0; }
+  .lang b { font-weight: 600; }
+  .lang span { color: var(--dim); font-size: 8pt; }
+
+  /* tools */
+  .tools { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tool { font-size: 7.7pt; padding: 2.5px 7px; border: 1px solid var(--line); border-radius: 5px;
+    color: var(--soft); background: #fafafb; }
+
+  /* sidebar list */
+  .slist li { position: relative; padding-left: 11px; margin-bottom: 6px; font-size: 8.6pt; color: var(--soft); line-height: 1.4; }
+  .slist li:last-child { margin-bottom: 0; }
+  .slist li::before { content: ""; position: absolute; left: 0; top: 5px; width: 4px; height: 4px;
+    border-radius: 50%; background: var(--red); }
+  .slist li b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Main ---------- */
+  .num-h { display: flex; align-items: center; gap: 9px; margin: 0 0 7px; }
+  .num-h .n { font-size: 8pt; font-weight: 700; color: var(--red); }
+  .num-h h2 { font-size: 13pt; font-weight: 700; letter-spacing: -.2pt; }
+  .num-h .ln { flex: 1; height: 1px; background: var(--line); }
+  .profiel { font-size: 9.3pt; color: var(--soft); line-height: 1.6; }
+  .profiel em { color: var(--red); font-style: italic; }
+  .blk { margin-bottom: 6mm; }
+  .blk:last-child { margin-bottom: 0; }
+
+  .item { margin-bottom: 4.5mm; page-break-inside: avoid; }
+  .item:last-child { margin-bottom: 0; }
+  .it-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .it-top .t { font-weight: 700; font-size: 9.6pt; }
+  .it-top .t .o { color: var(--red); }
+  .it-top .yr { color: var(--dim); font-size: 8.3pt; font-weight: 600; white-space: nowrap; flex: none; }
+  .it-sub { color: var(--soft); font-size: 8.6pt; margin-top: 1px; }
+  .it-p { color: var(--soft); font-size: 8.8pt; margin-top: 3px; line-height: 1.5; }
+
+  .group-t { font-weight: 700; font-size: 9.4pt; margin: 1mm 0 3mm; display: flex; align-items: center; gap: 7px; }
+  .group-t::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--red); flex: none; }
+  .roles { padding-left: 4mm; border-left: 1.5px solid var(--line); margin-left: 2px; }
+
+  .badge { display: inline-block; margin-top: 3px; font-size: 7.8pt; font-weight: 700; color: var(--red-d);
+    background: color-mix(in srgb, var(--red) 9%, #fff); border: 1px solid color-mix(in srgb, var(--red) 22%, #fff);
+    padding: 1.5px 7px; border-radius: 5px; }
+
+  .thesis { border: 1px solid var(--line); border-radius: 8px; padding: 5mm 5mm; background: #fcfcfd; }
+  .thesis .tt { font-weight: 700; font-size: 11pt; color: var(--red-d); }
+  .thesis .td { color: var(--soft); font-size: 8.8pt; margin-top: 3px; line-height: 1.55; }
+  .thesis .meta { color: var(--dim); font-size: 8pt; margin-top: 5px; }
+  .thesis .meta b { color: var(--soft); }
+
+  /* page 2 header */
+  .mini-hd { display: flex; justify-content: space-between; align-items: baseline; }
+  .mini-hd .nm { font-weight: 800; font-size: 12pt; }
+  .mini-hd .nm .r { color: var(--red); }
+  .mini-hd .pg { color: var(--dim); font-size: 8.4pt; font-weight: 600; letter-spacing: .3pt; }
+  .two { display: flex; gap: 11mm; }
+  .two > div { flex: 1; }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGINA 1 ============ -->
+<section class="sheet">
+  <header class="hd">
+    <div class="hd-left">
+      <h1>Victor <span class="r">Van Sande</span></h1>
+      <p class="role">Communicatiewetenschapper</p>
+      <p class="sub">Communicatiemedewerker bij Gekkoo</p>
+    </div>
+    <div class="hd-right">
+      <div class="ci"><span>Antwerpen, België</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><br>
+      <div class="ci"><span>victorvansande@gmail.com</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><br>
+      <div class="ci"><span>0479 87 81 52</span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg></div><br>
+      <div class="ci"><span>linkedin.com/in/victorvansande</span><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.3 18.3v-7H6v7h2.3zM7.1 10.3a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6zM18 18.3v-3.8c0-2-1.1-3-2.6-3-1.2 0-1.7.7-2 1.1v-1H11v7h2.3v-3.9c0-1 .2-2 1.4-2 1.2 0 1.2 1.1 1.2 2v3.9H18z"/></svg></div>
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <div class="cols">
+    <!-- SIDEBAR -->
+    <aside class="side">
+      <div class="block">
+        <div class="sec-t">Kerncompetenties</div>
+        <div class="skill"><div class="lbl"><span>Doelgericht schrijven</span><span class="pct">95%</span></div><div class="bar"><i style="width:95%"></i></div></div>
+        <div class="skill"><div class="lbl"><span>Communicatie</span><span class="pct">95%</span></div><div class="bar"><i style="width:95%"></i></div></div>
+        <div class="skill"><div class="lbl"><span>Leiderschap &amp; coördinatie</span><span class="pct">90%</span></div><div class="bar"><i style="width:90%"></i></div></div>
+        <div class="skill"><div class="lbl"><span>Visuele contentcreatie</span><span class="pct">88%</span></div><div class="bar"><i style="width:88%"></i></div></div>
+        <div class="skill"><div class="lbl"><span>Projectmanagement</span><span class="pct">85%</span></div><div class="bar"><i style="width:85%"></i></div></div>
+      </div>
+
+      <div class="block">
+        <div class="sec-t">Talen</div>
+        <div class="lang"><b>Nederlands</b><span>Moedertaal</span></div>
+        <div class="lang"><b>Engels</b><span>C2 · volledig</span></div>
+        <div class="lang"><b>Frans</b><span>A2 · basis</span></div>
+      </div>
+
+      <div class="block">
+        <div class="sec-t">Tools</div>
+        <div class="tools">
+          <span class="tool">Meta Ads</span>
+          <span class="tool">Google Analytics</span>
+          <span class="tool">Office 365</span>
+          <span class="tool">Claude Code</span>
+          <span class="tool">DaVinci Resolve</span>
+          <span class="tool">Crisiscommunicatie</span>
+          <span class="tool">Kwantitatieve data-analyse</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="sec-t">Certificaten</div>
+        <ul class="slist">
+          <li><b>Eerste Hulp</b> — basiscursus, Rode Kruis Vlaanderen (geldig tot 2028)</li>
+          <li><b>Helper</b> — vervolgcursus, Rode Kruis Vlaanderen (geldig tot 2028)</li>
+          <li>Samen een deelkwalificatie <b>Eventhulpverlener</b></li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="sec-t">Kerngebieden</div>
+        <ul class="slist">
+          <li>Communicatie &amp; strategie</li>
+          <li>Media &amp; journalistiek</li>
+          <li>(Web)design &amp; visuele creatie</li>
+          <li>Psychologie &amp; mensgericht werk</li>
+          <li>Leiderschap &amp; jeugdwerk</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="blk">
+        <div class="sec-t">Profiel</div>
+        <p class="profiel">Communicatiewetenschapper met expertise in communicatie, media, (web)design, psychologie, technologie en leiderschap. Ik combineer een <em>analytische, wetenschappelijke</em> kijk met de warmte en empathie die mensgericht werk verdient — en breng mensen, boodschappen en organisaties met elkaar in verbinding.</p>
+      </div>
+
+      <div class="blk">
+        <div class="num-h"><span class="n">01</span><h2>Ervaring</h2><span class="ln"></span></div>
+
+        <div class="item">
+          <div class="it-top"><div class="t"><span class="o">Gekkoo</span> — Communicatiemedewerker · grafisch design</div><div class="yr">mei 2026 – heden</div></div>
+          <p class="it-p">Als communicatiemedewerker sta ik in voor contentcreatie, visueel en grafisch design en externe communicatie. Ik onderhoud netwerken met andere speelpleinwerkingen en breng mijn achtergrond in communicatie, psychologie en jeugdwerk samen in één rol. Deze zomer ben ik verantwoordelijk voor een autonoom project in Essen.</p>
+        </div>
+
+        <div class="group-t">KSA Herentals · jeugdbeweging · 10+ jaar engagement</div>
+        <div class="roles">
+          <div class="item">
+            <div class="it-top"><div class="t">Hoofdleider</div><div class="yr">sep 2019 – heden</div></div>
+            <p class="it-p">Een team van gemiddeld 20 jongvolwassenen coördineren, grootschalige events organiseren en de organisatie vertegenwoordigen in de lokale gemeenschap.</p>
+          </div>
+          <div class="item">
+            <div class="it-top"><div class="t">Website Designer</div><div class="yr">2022 – heden</div></div>
+            <p class="it-p">ksaherentals.be zelfstandig opgezet en beheerd als centraal platform voor de hele werking: ledenplanning, activiteiten en een maandelijkse blog die ik zelf schrijf en publiceer.</p>
+          </div>
+          <div class="item">
+            <div class="it-top"><div class="t">Leider</div><div class="yr">sep 2015 – heden</div></div>
+            <p class="it-p">Wekelijks activiteiten begeleiden voor leden, met oog voor verhaal en groepsgevoel. Naast het hoofdleiderschap — beide rollen lopen bewust parallel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGINA 2 ============ -->
+<section class="sheet">
+  <div class="mini-hd">
+    <div class="nm">Victor <span class="r">Van Sande</span></div>
+    <div class="pg">Curriculum Vitae · pagina 2</div>
+  </div>
+  <div class="rule"></div>
+
+  <div style="margin-top:8mm">
+    <div class="blk">
+      <div class="num-h"><span class="n">02</span><h2>Opleiding</h2><span class="ln"></span></div>
+      <div class="item">
+        <div class="it-top"><div class="t">Master in de communicatiewetenschappen</div><div class="yr">2023 – 2025</div></div>
+        <div class="it-sub">Universiteit Antwerpen</div>
+        <span class="badge">★ Met onderscheiding</span>
+      </div>
+      <div class="item">
+        <div class="it-top"><div class="t">Educatieve Bachelor: Wetenschappen &amp; Engels</div><div class="yr">2020 – 2023</div></div>
+        <div class="it-sub">Karel de Grote Hogeschool</div>
+        <span class="badge">★ Met onderscheiding</span>
+      </div>
+      <div class="item">
+        <div class="it-top"><div class="t">Bachelor in de Toegepaste Psychologie</div><div class="yr">2017 – 2020</div></div>
+        <div class="it-sub">Thomas More Hogeschool · titel psychologisch consulent</div>
+      </div>
+    </div>
+
+    <div class="blk">
+      <div class="num-h"><span class="n">03</span><h2>Masterproef</h2><span class="ln"></span></div>
+      <div class="thesis">
+        <div class="tt">De Macht van Misleiding</div>
+        <p class="td">Een kwantitatieve analyse van epistemisch vertrouwen, mediavertrouwen en complotdenken bij Vlamingen (241 respondenten, ETMCQ + GCB-5). Zowel algemeen wantrouwen als mediavertrouwen blijken significante voorspellers van complotdenken.</p>
+        <p class="meta">Promotor <b>Prof. dr. Philippe De Vries</b> · Medebeoordelaar <b>Prof. dr. Karolien Poels</b> · Communicatiewetenschappen, UAntwerpen</p>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="blk">
+        <div class="num-h"><span class="n">04</span><h2>Stages &amp; onderwijs</h2><span class="ln"></span></div>
+        <div class="item"><div class="it-top"><div class="t">Githo Nijlen</div><div class="yr">2023</div></div><div class="it-sub">Leerkracht Engels (stage) · TEFL</div></div>
+        <div class="item"><div class="it-top"><div class="t">Sint-Lutgardisschool</div><div class="yr">2022</div></div><div class="it-sub">Leerkracht natuurwetenschappen (stage) · Antwerpen</div></div>
+        <div class="item"><div class="it-top"><div class="t">kOsh Campus Ieperstraat</div><div class="yr">2020</div></div><div class="it-sub">Jeugdconsulent (stage) · Counseling · Herentals</div></div>
+      </div>
+      <div class="blk">
+        <div class="num-h"><span class="n">05</span><h2>Jobstudent</h2><span class="ln"></span></div>
+        <div class="item"><div class="it-top"><div class="t">POP Coffee</div><div class="yr">2023 – 2024</div></div><div class="it-sub">Barista · Herentals</div></div>
+        <div class="item"><div class="it-top"><div class="t">Van Eccelpoel</div><div class="yr">2016 – 2018</div></div><div class="it-sub">Winkelmedewerker · Herentals</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
