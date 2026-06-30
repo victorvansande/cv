@@ -691,8 +691,9 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .settings-toggle:hover { color: var(--c2); background: color-mix(in srgb, var(--c2) 10%, transparent);
   border-color: color-mix(in srgb, var(--c2) 38%, transparent); transform: translateY(-1px); }
-.settings-toggle svg { transition: transform .5s var(--ease); }
-.settings-toggle:hover svg { transform: rotate(60deg); }
+.settings-toggle svg { transition: transform .55s cubic-bezier(.34, 1.4, .5, 1);
+  transform-origin: center; will-change: transform; backface-visibility: hidden; }
+.settings-toggle:hover svg { transform: rotate(90deg); }
 .settings-toggle::after {
   content: ""; position: absolute; right: 5px; bottom: 5px; width: 8px; height: 8px; border-radius: 50%;
   background: var(--grad); box-shadow: 0 0 7px color-mix(in srgb, var(--c1) 70%, transparent);
