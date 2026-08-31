@@ -18,7 +18,7 @@ window.I18N = {
     hero_hello: `Hi, I'm`,
     hero_loc: `Based in Antwerp, Belgium`,
     hero_lead_1: `Communication scientist with expertise in`,
-    hero_lead_2: `. I combine an analytical, scientific outlook with the warmth and empathy that people-centred work deserves.`,
+    hero_lead_2: `I combine an analytical, scientific outlook with the warmth and empathy that people-centred work deserves.`,
     hero_cta_work: `See my work`,
     hero_cta_cv: `Download CV`,
     stat_diplomas: `diplomas`,

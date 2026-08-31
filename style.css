@@ -970,9 +970,10 @@ main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bott
   box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--c2) 65%, transparent); }
 .chip:hover { box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--c2) 55%, transparent); }
 
-/* ---------- Variable-font interaction (Fraunces axes) ---------- */
-.em-serif { font-variation-settings: "opsz" 80, "wght" 500; transition: font-variation-settings .5s var(--ease); }
-h1:hover .em-serif, h2:hover .em-serif, .em-serif:hover { font-variation-settings: "opsz" 144, "wght" 600; }
+/* ---------- Variable-font (Fraunces axes) ---------- */
+/* Vaste optische grootte: de hover-morph (opsz 80->144) oogde als een inconsistente
+   in/uit-zoom omdat het lettertype bij hoge opsz drastisch van vorm verandert. */
+.em-serif { font-variation-settings: "opsz" 80, "wght" 500; }
 
 /* ---------- "Load in" pops for stars/badges on scroll ---------- */
 @keyframes starpop {
