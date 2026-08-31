@@ -198,6 +198,8 @@ window.I18N = {
     tldr_eyebrow: `TL;DR`,
     tldr_h2: `The essentials <span class="grad-text em-serif">at a glance</span>`,
     tldr_lead: `No time to read it all? Here's what you need to know.`,
+    tldr_toggle_open: `Show the essentials`,
+    tldr_toggle_sub: `6 key facts in 20 seconds`,
     tldr_edu_lbl: `Education`,
     tldr_edu_val: `3 diplomas, 2x with distinction`,
     tldr_edu_sub: `Master in Communication Studies, University of Antwerp`,

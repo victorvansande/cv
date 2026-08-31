@@ -409,4 +409,20 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
+  /* ---- TL;DR toggle (dichtgeklapt tot een bezoeker het opent) ---- */
+  const tldrCard = document.querySelector(".tldr-card");
+  const tldrToggle = document.querySelector(".tldr-toggle");
+  const tldrPanel = document.querySelector(".tldr-panel");
+  if (tldrCard && tldrToggle && tldrPanel) {
+    const setTldrOpen = (open) => {
+      tldrCard.classList.toggle("open", open);
+      tldrToggle.setAttribute("aria-expanded", String(open));
+      tldrPanel.toggleAttribute("inert", !open);
+    };
+    tldrToggle.addEventListener("click", () => setTldrOpen(!tldrCard.classList.contains("open")));
+    // de sprong-link in de hero moet meteen ook openklappen, anders land je op een dichte kaart
+    const tldrNudge = document.querySelector(".tldr-nudge");
+    if (tldrNudge) tldrNudge.addEventListener("click", () => setTldrOpen(true));
+  }
+
 })();
