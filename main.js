@@ -291,7 +291,7 @@
   }
 
   /* ---- Colour theme ---- */
-  const THEMES = ["indigo", "teal", "emerald", "amber", "rose", "slate", "violet"];
+  const THEMES = ["indigo", "teal", "emerald", "amber", "rose", "slate", "violet", "mono"];
   const applyTheme = (t) => {
     if (!THEMES.includes(t)) t = "rose";
     document.documentElement.dataset.theme = t;
