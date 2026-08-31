@@ -176,7 +176,7 @@ window.I18N = {
     tag_webmgmt: `Web management`,
     ksa_role2_h: `Head leader`,
     ksa_role2_date: `Sep 2019 – 2027`,
-    ksa_role2_p: `Responsible for leading the youth movement: I coordinate a team of around 20 young adults, organise activities and large-scale events, and represent the organisation in the local community.`,
+    ksa_role2_p: `Responsible for leading the youth movement: I coordinate a team of around 20 young adults, organise activities and large-scale events, and represent the organisation in the local community. As head leader I organised dozens of events, together drawing over 10,000 visitors.`,
     tag_teammgmt: `Team management`,
     ksa_role3_h: `Leader`,
     ksa_role3_date: `Sep 2015 – 2027`,
