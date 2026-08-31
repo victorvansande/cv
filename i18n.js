@@ -193,6 +193,28 @@ window.I18N = {
     jobstudent_label: `Student job experience`,
     jobstudent_text: `Barista at POP Coffee, Herentals (2023–2024) · Sales assistant at Van Eccelpoel, Herentals (2016–2018)`,
 
+    /* tl;dr */
+    tldr_nudge: `Not a fan of reading? Skip to the essentials`,
+    tldr_eyebrow: `TL;DR`,
+    tldr_h2: `The essentials <span class="grad-text em-serif">at a glance</span>`,
+    tldr_lead: `No time to read it all? Here's what you need to know.`,
+    tldr_edu_lbl: `Education`,
+    tldr_edu_val: `3 diplomas, 2x with distinction`,
+    tldr_edu_sub: `Master in Communication Studies, University of Antwerp`,
+    tldr_role_lbl: `Current role`,
+    tldr_role_val: `Fundraiser at Gekkoo`,
+    tldr_role_sub: `Since September 2026`,
+    tldr_ksa_lbl: `Leadership`,
+    tldr_ksa_val: `10+ years at KSA Herentals`,
+    tldr_ksa_sub: `Head leader, 10,000+ visitors through events`,
+    tldr_thesis_lbl: `Master's thesis`,
+    tldr_thesis_val: `The Power of Deception`,
+    tldr_thesis_sub: `Quantitative research on (dis)information, 241 respondents`,
+    tldr_domains_lbl: `Strong in`,
+    tldr_domains_val: `Communication, (web)design, psychology &amp; leadership`,
+    tldr_lang_lbl: `Languages`,
+    tldr_lang_val: `NL (native) · EN (C2) · FR (A2)`,
+
     /* contact */
     contact_eyebrow: `Contact`,
     contact_h2: `Let's <span class="grad-text em-serif">work together</span>`,

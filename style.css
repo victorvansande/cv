@@ -595,6 +595,32 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .contact-mini .val { display: block; font-weight: 600; font-size: .94rem; word-break: break-word; }
 @media (max-width: 560px) { .contact-strip { grid-template-columns: 1fr; } }
 
+/* ---------- TL;DR summary (net voor Contact) ---------- */
+.tldr-card { padding: 34px 36px; }
+.tldr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; margin-top: 24px; }
+.tldr-item { display: flex; align-items: flex-start; gap: 13px; padding: 12px 10px; border-radius: var(--r-md); min-width: 0; }
+.tldr-ic {
+  width: 38px; height: 38px; flex: none; border-radius: 11px; display: grid; place-items: center; margin-top: 1px;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
+  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--acc-text); font-size: 1.05rem;
+}
+.tldr-body { min-width: 0; }
+.tldr-body .lbl { display: block; font-size: .73rem; color: var(--ink-dim); margin-bottom: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.tldr-body .val { display: block; font-weight: 600; font-size: .95rem; color: var(--ink); }
+.tldr-body .sub { display: block; font-size: .84rem; color: var(--ink-soft); margin-top: 1px; font-weight: 400; }
+@media (max-width: 700px) { .tldr-grid { grid-template-columns: 1fr; } .tldr-card { padding: 26px 22px; } }
+
+/* Ludieke sprong-link in de hero naar de TL;DR */
+.tldr-nudge {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-size: .84rem; font-weight: 600; color: var(--ink-dim);
+  text-decoration: underline; text-decoration-style: dashed; text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--ink-dim) 55%, transparent);
+  transition: color .25s var(--ease); }
+.tldr-nudge:hover { color: var(--acc-text); }
+.tldr-nudge svg { transition: transform .25s var(--ease); flex: none; }
+.tldr-nudge:hover svg { transform: translateY(2px); }
+
 /* ---------- Lively contact closer ---------- */
 .contact-final { text-align: center; padding: 56px 44px; position: relative; overflow: hidden; }
 .contact-final .now-badge { margin: 0 0 18px; }
