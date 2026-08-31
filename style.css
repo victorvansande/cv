@@ -94,16 +94,16 @@
 :root[data-theme="violet"] { --c1: #7c5cff; --c2: #3ad6ff; --c3: #ff6ad5; } /* het originele */
 :root[data-theme="grad"], :root:not([data-theme]) { --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3)); }
 
-/* ---------- Mono: strak zwart-wit editorial thema ---------- */
-/* Geen kleur, enkel inkt: vulkleuren draaien om de huidige modus (bijna wit in
-   dark mode, bijna zwart in light mode), zodat knoppen/badges altijd het
-   klassieke "geïnverteerde" swiss-poster contrast krijgen i.p.v. een gradient. */
+/* ============================================================
+   Mono: zwart-wit editorial thema — type-gedreven, geen glas,
+   geen ronde vormen, geen kleur. Zelfde inhoud, radicaal andere jas.
+   ============================================================ */
 :root[data-theme="mono"] {
   --c1: #f2f2f2; --c2: #f2f2f2; --c3: #f2f2f2;
   --acc-text: #9a9aa4; /* gedempt grijs: onderscheidt labels/links van pure inkt zonder kleur toe te voegen */
   --grad-ink: linear-gradient(120deg, var(--ink), var(--ink));
   --ink-on-accent: #0a0a0a;
-  --r-lg: 3px; --r-md: 3px; --r-sm: 2px;
+  --r-lg: 0px; --r-md: 0px; --r-sm: 0px;
   --font-head: "Archivo Black", "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
 }
 :root[data-mode="light"][data-theme="mono"] {
@@ -111,36 +111,119 @@
   --acc-text: #5c5c64;
   --ink-on-accent: #fafafa;
 }
-/* Vlakke, geprinte kaarten i.p.v. glas: geen blur, dunne inktrand, geen gloed */
+:root[data-theme="mono"] body { letter-spacing: -0.006em; }
+
+/* ---- Geen glas: vlakke kaarten met dunne inktrand, geen ronde hoeken ---- */
 :root[data-theme="mono"] .glass {
   background: var(--bg-1); backdrop-filter: none; -webkit-backdrop-filter: none;
-  border: 1.5px solid var(--ink); box-shadow: none;
+  border: 1.5px solid var(--ink); box-shadow: none; border-radius: 0;
 }
 :root[data-theme="mono"] .glass::before { display: none; }
-:root[data-theme="mono"] .tilt:hover { box-shadow: none; transform: translateY(-3px); }
+:root[data-theme="mono"] .tilt:hover { box-shadow: none; transform: none; }
 :root[data-theme="mono"] .tilt::after { display: none; }
-/* Scherpe hoeken op de opvallendste pil-vormige elementen */
-:root[data-theme="mono"] .nav-links a,
-:root[data-theme="mono"] .btn,
-:root[data-theme="mono"] .eyebrow,
-:root[data-theme="mono"] .hero-cred,
-:root[data-theme="mono"] .personal-chip,
-:root[data-theme="mono"] .chip,
-:root[data-theme="mono"] .tl-date,
-:root[data-theme="mono"] .now-badge { border-radius: 3px; }
-/* Klassieke inkt-invert bij hover i.p.v. kleurverloop */
-:root[data-theme="mono"] .btn-ghost:hover { background: var(--ink); border-color: var(--ink); color: var(--bg-0); }
-/* Grote, strakke koppen: geen italic-serif accent, enkel gewicht/grootte als contrast */
+:root[data-theme="mono"] .fx-card:hover { box-shadow: none; transform: none; }
+:root[data-theme="mono"] .blob,
+:root[data-theme="mono"] .cursor-glow,
+:root[data-theme="mono"] .grain { display: none; }
+:root[data-theme="mono"] .bg-canvas { background: var(--bg-0); }
+
+/* ---- Typografie: geen italic-serif accent, alles in de zware grotesk ---- */
 :root[data-theme="mono"] { --font-display: var(--font-head); }
 :root[data-theme="mono"] .em-serif,
 :root[data-theme="mono"] .quote-text,
 :root[data-theme="mono"] .ey-num { font-family: var(--font-head); font-style: normal; }
 :root[data-theme="mono"] .em-serif { font-weight: 800; letter-spacing: -0.02em; }
-:root[data-theme="mono"] .h-xl { font-size: clamp(2.4rem, 6.4vw, 5.2rem); letter-spacing: -0.045em; }
-:root[data-theme="mono"] .h-lg { font-size: clamp(2.1rem, 5.6vw, 4rem); letter-spacing: -0.045em; }
-/* Vlakke achtergrond: geen gekleurde ambient blobs, wel het neutrale rasterpatroon behouden */
-:root[data-theme="mono"] .blob { display: none; }
-:root[data-theme="mono"] .cursor-glow { display: none; }
+:root[data-theme="mono"] h1, :root[data-theme="mono"] h2, :root[data-theme="mono"] h3 { letter-spacing: -0.045em; }
+:root[data-theme="mono"] .h-lg { font-size: clamp(2.3rem, 6vw, 4.4rem); }
+:root[data-theme="mono"] .h-md { font-size: clamp(1.5rem, 3.4vw, 2.3rem); }
+
+/* ---- Nav: vlak, geen blur, dikke onderrand ---- */
+:root[data-theme="mono"] .nav {
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: var(--bg-0); border-bottom: 2px solid var(--ink); box-shadow: none;
+}
+:root[data-theme="mono"] .nav.scrolled { background: var(--bg-0); box-shadow: none; }
+:root[data-theme="mono"] .brand .mark, :root[data-theme="mono"] .nav-avatar { border-radius: 0; }
+
+/* ---- Eyebrow-labels: geen pil, plain kicker met onderlijn i.p.v. badge ---- */
+:root[data-theme="mono"] .eyebrow {
+  background: none; border: none; border-bottom: 2px solid var(--ink);
+  border-radius: 0; padding: 0 0 7px; gap: 9px;
+}
+:root[data-theme="mono"] .eyebrow .dot { border-radius: 0; width: 7px; height: 7px; box-shadow: none; }
+
+/* ---- Tags/badges/chips: outline i.p.v. gevulde tint ---- */
+:root[data-theme="mono"] .hero-cred,
+:root[data-theme="mono"] .personal-chip,
+:root[data-theme="mono"] .chip,
+:root[data-theme="mono"] .skill-tag,
+:root[data-theme="mono"] .tool,
+:root[data-theme="mono"] .tl-date,
+:root[data-theme="mono"] .now-badge {
+  background: none; border: 1.5px solid var(--ink); border-radius: 0; color: var(--ink);
+}
+:root[data-theme="mono"] .now-badge .pulse,
+:root[data-theme="mono"] .now-badge .pulse::after { background: var(--ink); }
+:root[data-theme="mono"] .hero-cred-now,
+:root[data-theme="mono"] .hero-cred-link:hover { background: var(--ink); color: var(--bg-0); }
+
+/* ---- Iconbadges: getinte gradient-cirkel -> vlak omlijnd vierkant ---- */
+:root[data-theme="mono"] .feature .ic,
+:root[data-theme="mono"] .contact-mini .ic,
+:root[data-theme="mono"] .tldr-ic {
+  background: none; border: 1.5px solid var(--ink); border-radius: 0; color: var(--ink);
+}
+/* Gevulde inkt-merktekens (initialen/logo's) blijven gevuld maar hoekig */
+:root[data-theme="mono"] .role-logo,
+:root[data-theme="mono"] .exp-ic { border-radius: 0; }
+
+/* ---- Knoppen: blokvormig, klassieke inkt-invert bij hover ---- */
+:root[data-theme="mono"] .btn-ghost { border-width: 1.5px; }
+:root[data-theme="mono"] .btn-ghost:hover { background: var(--ink); border-color: var(--ink); color: var(--bg-0); }
+:root[data-theme="mono"] .btn-primary:hover { filter: none; opacity: .82; transform: none; }
+
+/* ================================================================
+   HERO: van gecentreerde SaaS-kaart naar een kop-pagina/masthead —
+   geen kader, reusachtige naam, cijfers als grafisch element.
+   ================================================================ */
+:root[data-theme="mono"] .hero-card {
+  background: none; border: none; box-shadow: none; padding: 0;
+}
+:root[data-theme="mono"] .hero { padding-top: 32px; }
+:root[data-theme="mono"] .hero-card-lead { margin-bottom: 30px; }
+:root[data-theme="mono"] .hero-avatar-wrap {
+  width: 54px; height: 54px; border-radius: 0; padding: 0;
+  background: none; border: 1.5px solid var(--ink); box-shadow: none;
+}
+:root[data-theme="mono"] .hero-avatar-img { border-radius: 0; filter: grayscale(1) contrast(1.05); }
+:root[data-theme="mono"] .hero-card h1 {
+  font-size: .92rem; font-weight: 700; text-transform: uppercase; letter-spacing: .16em;
+  color: var(--ink-dim); margin: 0 0 4px;
+}
+:root[data-theme="mono"] .hero-card h1 br { display: none; }
+:root[data-theme="mono"] .hero-card h1 .grad-text {
+  display: block; font-family: var(--font-head); font-weight: 900;
+  font-size: clamp(3rem, 10.5vw, 7.6rem); letter-spacing: -0.045em; text-transform: uppercase;
+  line-height: .88; color: var(--ink); margin-top: 8px;
+}
+:root[data-theme="mono"] .hero-loc { font-size: .82rem; color: var(--ink-dim); margin-top: 18px; }
+:root[data-theme="mono"] .hero-card .lead { font-size: 1.02rem; max-width: 46ch; margin-top: 20px; }
+:root[data-theme="mono"] .hero-card .lead [data-rotate] {
+  font-family: var(--font-head); font-weight: 800; font-style: normal; letter-spacing: -0.02em;
+}
+:root[data-theme="mono"] .hero-cta { margin-top: 28px; }
+:root[data-theme="mono"] .btn { border-radius: 0; }
+:root[data-theme="mono"] .hero-card .hero-stats {
+  border-top: 2px solid var(--ink); margin-top: 40px; padding-top: 26px; gap: 44px;
+}
+:root[data-theme="mono"] .stat .num {
+  font-family: var(--font-head); font-size: clamp(2.6rem, 5vw, 3.6rem); letter-spacing: -0.03em;
+}
+:root[data-theme="mono"] .stat .lbl { font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; }
+
+/* ---- Geen enkele kleur-uitzondering: het gouden onderscheidingssterretje ook naar inkt ---- */
+:root[data-theme="mono"] .badge-hon,
+:root[data-theme="mono"] .lang-star { color: var(--ink); filter: none; }
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
