@@ -139,6 +139,20 @@
     const wordsEn = rot.dataset.rotateEn ? JSON.parse(rot.dataset.rotateEn) : wordsNl;
     const curWords = () => (document.documentElement.lang === "en" ? wordsEn : wordsNl);
     let i = 0;
+
+    // reserveer de breedte van het langste woord zodat de zin nooit verspringt
+    const measureEl = document.createElement("span");
+    measureEl.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap;left:-9999px;top:-9999px;";
+    document.body.appendChild(measureEl);
+    const syncWidth = () => {
+      const cs = getComputedStyle(rot);
+      measureEl.style.font = cs.font;
+      measureEl.style.letterSpacing = cs.letterSpacing;
+      let max = 0;
+      curWords().forEach((w) => { measureEl.textContent = w; max = Math.max(max, measureEl.getBoundingClientRect().width); });
+      rot.style.minWidth = Math.ceil(max) + "px";
+    };
+
     const swap = () => {
       rot.style.opacity = "0"; rot.style.transform = "translateY(8px)";
       setTimeout(() => {
@@ -148,7 +162,11 @@
         rot.style.opacity = "1"; rot.style.transform = "none";
       }, 360);
     };
-    window.__syncRotator = () => { const w = curWords(); rot.textContent = w[i % w.length]; };
+    window.__syncRotator = () => { const w = curWords(); rot.textContent = w[i % w.length]; syncWidth(); };
+    syncWidth();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncWidth);
+    let resizeTimer;
+    window.addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(syncWidth, 150); }, { passive: true });
     setInterval(swap, 2600);
   }
 

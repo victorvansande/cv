@@ -472,6 +472,12 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   color:var(--ink-soft); text-decoration:none; transition:.25s var(--ease); }
 .hero-cred-link:hover { background:color-mix(in srgb, var(--bg-1) 72%, var(--c2)); border-color:color-mix(in srgb, var(--c2) 45%, transparent); color:var(--ink); }
 .hero-cred-now { background:color-mix(in srgb, var(--bg-1) 80%, var(--c2)); border-color:color-mix(in srgb, var(--c2) 34%, transparent); color:var(--ink); }
+/* Persoonlijke strip: kort en luchtig, geeft warmte naast het professionele profiel */
+.personal-strip { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin-top:18px; }
+.personal-label { font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim); margin-right:2px; }
+.personal-chip { display:inline-flex; align-items:center; gap:6px; font-size:.82rem; font-weight:600;
+  color:var(--ink-soft); padding:6px 13px; border-radius:999px;
+  background:color-mix(in srgb, var(--ink) 5%, transparent); border:1px solid var(--glass-bord); }
 /* Thesis teaser link in bio */
 .thesis-teaser { display:flex; align-items:center; justify-content:space-between; gap:16px;
   margin-top:20px; padding:13px 16px; border-radius:var(--r-sm); text-decoration:none; color:var(--ink);
@@ -605,22 +611,6 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   50% { transform: translate(-28%, 6%) scale(1.12); }
 }
 @media (max-width: 560px) { .contact-final { padding: 40px 22px; } .contact-final-cta .btn { width: 100%; justify-content: center; } }
-
-/* ---------- EHBO: heartbeat + beating heart ---------- */
-.ehbo-card { position: relative; overflow: hidden; }
-.ehbo-card .heart-wrap { position: absolute; top: 18px; right: 18px; pointer-events: none; }
-.ehbo-card .heart-svg { display: block; animation: heartbeat 1.2s ease-in-out infinite; }
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.22); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.16); }
-  56% { transform: scale(1); }
-}
-.ehbo-card .ecg-wrap { position: absolute; bottom: 0; left: 0; right: 0; height: 24px; pointer-events: none; overflow: hidden; }
-.ehbo-card .ecg-line { stroke: var(--c2); stroke-width: 1.2; fill: none; stroke-linecap: round; stroke-linejoin: round;
-  opacity: .55; stroke-dasharray: 200; stroke-dashoffset: 200; animation: ecgdraw 2.4s linear infinite; }
-@keyframes ecgdraw { 0% { stroke-dashoffset: 200; } 55% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -200; } }
 
 /* ---------- Jobstudent footnote ---------- */
 .jobstudent-note {
