@@ -37,6 +37,7 @@ window.I18N = {
     hl_personal_film: `Films`,
     hl_personal_people: `Quality time with loved ones`,
     hl_personal_nature: `Nature`,
+    hl_personal_tech: `Trying out new tech gadgets`,
     chip_comm: `Communication`,
     card_comm_h: `Purposeful communication`,
     card_comm_p: `Clear, strategic communication is the common thread throughout my master's, with an eye for data, behaviour and the discourse in media and politics.`,
