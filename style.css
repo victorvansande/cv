@@ -129,7 +129,7 @@ button { font-family: inherit; cursor: pointer; }
 /* subtle dot-grid texture for depth / midtones */
 .bg-canvas::after {
   content: ""; position: absolute; inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 11%, transparent) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 18%, transparent) 1px, transparent 0);
   background-size: 38px 38px;
   -webkit-mask-image: radial-gradient(120% 100% at 50% 0%, #000 35%, transparent 78%);
   mask-image: radial-gradient(120% 100% at 50% 0%, #000 35%, transparent 78%);
