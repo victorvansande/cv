@@ -214,8 +214,10 @@ window.I18N = {
     tldr_thesis_sub: `Quantitative research on (dis)information, 241 respondents`,
     tldr_domains_lbl: `Strong in`,
     tldr_domains_val: `Communication, (web)design, psychology &amp; leadership`,
+    tldr_domains_sub: `The common thread through my education and work experience`,
     tldr_lang_lbl: `Languages`,
     tldr_lang_val: `NL (native) · EN (C2) · FR (A2)`,
+    tldr_lang_sub: `Comfortable working in an international or bilingual environment`,
 
     /* contact */
     contact_eyebrow: `Contact`,
