@@ -176,6 +176,46 @@
     setInterval(swap, 2600);
   }
 
+  /* ---- Tag/chip-rijen (.skill-tags): vooruitkijkend opvullen i.p.v. simpelweg
+     links-naar-rechts omslaan, zodat er zo weinig mogelijk restruimte overblijft
+     op elke regel. flex-wrap zelf kijkt niet vooruit; hier wel, via flex `order`
+     zodat de onderliggende DOM/leesvolgorde intact blijft. ---- */
+  const packSkillTags = () => {
+    document.querySelectorAll(".skill-tags").forEach((wrap) => {
+      const items = [...wrap.children];
+      if (items.length < 2) return;
+      const containerWidth = wrap.clientWidth;
+      const gap = parseFloat(getComputedStyle(wrap).columnGap) || 0;
+      const widths = items.map((el) => el.getBoundingClientRect().width);
+      const used = new Array(items.length).fill(false);
+      const order = [];
+      let remaining = containerWidth, firstInRow = true, placed = 0;
+      while (placed < items.length) {
+        const earliest = used.indexOf(false);
+        const firstNeeded = widths[earliest] + (firstInRow ? 0 : gap);
+        let pick = firstNeeded <= remaining + 0.5 ? earliest : -1;
+        if (pick === -1) {
+          for (let i = earliest + 1; i < items.length; i++) {
+            if (used[i]) continue;
+            if (widths[i] + gap <= remaining + 0.5) { pick = i; break; }
+          }
+        }
+        if (pick === -1) {
+          if (firstInRow) { pick = earliest; } // item zelf breder dan de rij: forceer plaatsen, geen oneindige lus
+          else { remaining = containerWidth; firstInRow = true; continue; }
+        }
+        used[pick] = true; order.push(pick);
+        remaining -= widths[pick] + (firstInRow ? 0 : gap);
+        firstInRow = false; placed++;
+      }
+      order.forEach((origIdx, visualPos) => { items[origIdx].style.order = visualPos; });
+    });
+  };
+  packSkillTags();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(packSkillTags);
+  let tagsResizeTimer;
+  window.addEventListener("resize", () => { clearTimeout(tagsResizeTimer); tagsResizeTimer = setTimeout(packSkillTags, 150); }, { passive: true });
+
   /* ---- Language switch (NL / EN) ---- */
   const I18N = (window.I18N && window.I18N.en) || {};
   const langBtn = document.querySelector(".lang-toggle");
@@ -191,6 +231,7 @@
     try { localStorage.setItem("cv-lang", lang); } catch (e) {}
     if (langBtn) langBtn.setAttribute("aria-label", en ? "Schakel naar Nederlands · Switch to Dutch" : "Switch to English · Schakel naar Engels");
     if (window.__syncRotator) window.__syncRotator();
+    packSkillTags();
   };
   if (langBtn) langBtn.addEventListener("click", () =>
     applyLang(document.documentElement.lang === "en" ? "nl" : "en"));
