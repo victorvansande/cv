@@ -16,66 +16,74 @@
     color: #ecedf6;
   }
   .blob1 {
-    position: absolute; top: -260px; left: -180px; width: 700px; height: 700px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(196,23,42,0.35), transparent 70%);
+    position: absolute; top: -280px; left: -200px; width: 780px; height: 780px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,23,42,0.38), transparent 70%);
   }
   .blob2 {
-    position: absolute; bottom: -300px; right: -220px; width: 780px; height: 780px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(246,59,70,0.22), transparent 70%);
+    position: absolute; bottom: -320px; right: -240px; width: 860px; height: 860px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(246,59,70,0.24), transparent 70%);
   }
   .bar {
-    position: absolute; left: 0; top: 0; bottom: 0; width: 7px;
+    position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
     background: linear-gradient(180deg, #c4172a, #e11d2e 55%, #f63b46);
   }
-  .stage { position: relative; width: 1200px; height: 630px; padding: 64px 68px; }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 9px;
-    font-size: 14px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    color: #f6636e; margin-bottom: 26px;
+  .stage {
+    position: relative; width: 1200px; height: 630px; padding: 56px 64px;
+    display: flex; flex-direction: column; justify-content: center;
   }
-  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: #f63b46; }
+  .main-col { max-width: 700px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 16px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: #f6636e; margin-bottom: 22px;
+  }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #f63b46; }
   h1 {
     font-family: "Plus Jakarta Sans", Inter, sans-serif;
-    font-weight: 800; letter-spacing: -0.03em; line-height: 1.02;
-    font-size: 72px; color: #ecedf6;
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.0;
+    font-size: 96px; color: #ecedf6;
   }
   h1 .accent {
     background: linear-gradient(120deg, #c4172a, #e11d2e 60%, #f63b46);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .role {
-    margin-top: 22px; font-size: 24px; font-weight: 500; color: #b2b7cc;
+    margin-top: 24px; font-size: 23px; font-weight: 500; color: #b2b7cc; white-space: nowrap;
   }
   .role strong { color: #ecedf6; font-weight: 700; }
-  .chips { margin-top: 34px; display: flex; gap: 10px; flex-wrap: wrap; max-width: 720px; }
+  .tagline {
+    margin-top: 18px; font-size: 18px; line-height: 1.5; color: #8b92ac; max-width: 620px;
+  }
+  .chips { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; max-width: 680px; }
   .chip {
-    font-size: 15px; font-weight: 600; padding: 9px 18px; border-radius: 999px;
+    font-size: 17px; font-weight: 600; padding: 11px 22px; border-radius: 999px;
     background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10); color: #c8d2ee;
   }
   .chip.hi { background: rgba(196,23,42,0.16); border-color: rgba(246,59,70,0.35); color: #ff9aa2; }
   .url {
-    position: absolute; left: 68px; bottom: 46px;
-    font-size: 16px; font-weight: 500; color: #6c7590;
+    display: block; margin-top: 28px;
+    font-size: 17px; font-weight: 500; color: #6c7590;
   }
   .card {
-    position: absolute; top: 64px; right: 68px; width: 320px;
-    background: #12151f; border: 1px solid rgba(255,255,255,0.10); border-radius: 20px;
-    padding: 28px; text-align: center;
+    position: absolute; top: 56px; bottom: 56px; right: 64px; width: 372px;
+    background: #12151f; border: 1px solid rgba(255,255,255,0.10); border-radius: 24px;
+    padding: 40px 34px; text-align: center;
+    display: flex; flex-direction: column; justify-content: center;
   }
   .avatar {
-    width: 92px; height: 92px; border-radius: 50%; object-fit: cover; margin: 0 auto 16px;
-    border: 3px solid #e11d2e; display: block;
+    width: 128px; height: 128px; border-radius: 50%; object-fit: cover; margin: 0 auto 22px;
+    border: 4px solid #e11d2e; display: block;
   }
-  .card .name { font-size: 20px; font-weight: 700; color: #ecedf6; margin-bottom: 6px; }
-  .card .role-line { font-size: 15px; color: #8b92ac; line-height: 1.4; }
-  .card .div { height: 1px; background: rgba(255,255,255,0.10); margin: 22px 0; }
+  .card .name { font-size: 25px; font-weight: 700; color: #ecedf6; margin-bottom: 10px; }
+  .card .role-line { font-size: 18px; color: #8b92ac; line-height: 1.5; }
+  .card .div { height: 1px; background: rgba(255,255,255,0.10); margin: 30px 0; }
   .stats { display: flex; justify-content: space-between; }
   .stat .num {
     font-family: "Plus Jakarta Sans", Inter, sans-serif; font-weight: 800;
-    font-size: 26px; background: linear-gradient(120deg, #c4172a, #e11d2e 60%, #f63b46);
+    font-size: 32px; background: linear-gradient(120deg, #c4172a, #e11d2e 60%, #f63b46);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .stat .lbl { font-size: 12px; color: #8b92ac; margin-top: 2px; }
+  .stat .lbl { font-size: 14px; color: #8b92ac; margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -83,17 +91,20 @@
   <div class="blob2"></div>
   <div class="bar"></div>
   <div class="stage">
-    <span class="eyebrow"><span class="dot"></span> Portfolio &amp; CV</span>
-    <h1>Victor<br>Van <span class="accent">Sande</span></h1>
-    <p class="role">Communicatiewetenschapper &middot; <strong>Fondsenwerver bij Gekkoo</strong></p>
-    <div class="chips">
-      <span class="chip hi">Communicatie</span>
-      <span class="chip hi">Media &amp; journalistiek</span>
-      <span class="chip">(Web)design</span>
-      <span class="chip">Psychologie</span>
-      <span class="chip">Leiderschap</span>
+    <div class="main-col">
+      <span class="eyebrow"><span class="dot"></span> Portfolio &amp; CV</span>
+      <h1>Victor<br>Van <span class="accent">Sande</span></h1>
+      <p class="role">Communicatiewetenschapper &middot; <strong>Fondsenwerver bij Gekkoo</strong></p>
+      <p class="tagline">Analytisch van geest, mensgericht van nature — communicatie, media, design, psychologie en leiderschap samengebracht.</p>
+      <div class="chips">
+        <span class="chip hi">Communicatie</span>
+        <span class="chip hi">Media &amp; journalistiek</span>
+        <span class="chip">(Web)design</span>
+        <span class="chip">Psychologie</span>
+        <span class="chip">Leiderschap</span>
+      </div>
+      <span class="url">victorvansande.github.io/cv</span>
     </div>
-    <span class="url">victorvansande.github.io/cv</span>
     <div class="card">
       <img class="avatar" src="victor-profiel.jpg" alt="" />
       <div class="name">Victor Van Sande</div>
