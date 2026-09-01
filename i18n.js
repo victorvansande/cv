@@ -202,8 +202,6 @@ window.I18N = {
 
     /* contact */
     contact_eyebrow: `Contact`,
-    contact_h2: `Let's <span class="grad-text em-serif">work together</span>`,
-    contact_lead: `Have a question, a project or a great opportunity? I'd love to hear from you.`,
     contact_badge: `Open to collaborations`,
     contact_final_h2: `Feel free to send me a <span class="grad-text em-serif">message</span>`,
     contact_final_lead: `A question, a project or just getting to know each other? I usually reply quickly. One click and your mail window is ready.`,
