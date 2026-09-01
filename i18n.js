@@ -35,7 +35,7 @@ window.I18N = {
     hl_personal_coffee: `Coffee`,
     hl_personal_learn: `Lifelong learning`,
     hl_personal_film: `Films`,
-    hl_personal_people: `Quality time with loved ones`,
+    hl_personal_people: `Quality time with friends`,
     hl_personal_nature: `Nature`,
     hl_personal_tech: `Trying out new tech gadgets`,
     chip_comm: `Communication`,
