@@ -703,7 +703,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 
 /* ---------- Light-mode finetuning ---------- */
 :root[data-mode="light"] .cursor-glow { display: none; }
-:root[data-mode="light"] .glass::before { background: linear-gradient(160deg, rgba(255,255,255,.5), transparent 42%); }
+:root[data-mode="light"] .glass::before { background: linear-gradient(160deg, rgba(255,255,255,.14), transparent 42%); }
 :root[data-mode="light"] .nav { box-shadow: 0 1px 0 rgba(22,27,51,.04); }
 :root[data-mode="light"] .glass {
   box-shadow: 0 2px 20px -6px rgba(22,27,51,.13), 0 0 0 1px rgba(22,27,51,.055);
