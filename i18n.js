@@ -25,8 +25,6 @@ window.I18N = {
     stat_distinction_hero: `with distinction`,
     stat_leadership: `years of leadership`,
     scroll_more: `Scroll for more`,
-    cred_thesis: `Master's thesis · The Power of Deception`,
-    cred_distinction: `Master UAntwerpen · with distinction`,
 
     /* highlights */
     hl_eyebrow: `What I stand for`,
