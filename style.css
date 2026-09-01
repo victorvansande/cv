@@ -518,10 +518,16 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .feature h3 { font-size: 1.15rem; margin-bottom: 9px; }
 .feature p { color: var(--ink-soft); font-size: .95rem; }
 
-/* ---------- Skill bars ---------- */
-.skill { margin-bottom: 22px; }
-.skill-top { display: flex; justify-content: space-between; margin-bottom: 9px; font-size: .95rem; }
-.skill-top .pct { color: var(--ink-soft); font-weight: 600; }
+/* ---------- Skills (icoon + naam, geen niveau-claim) ---------- */
+.skill-list { display: flex; flex-direction: column; gap: 14px; }
+.skill-row { display: flex; align-items: center; gap: 12px; font-size: .95rem; }
+.skill-ic {
+  width: 32px; height: 32px; flex: none; border-radius: 10px; display: grid; place-items: center;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
+  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--acc-text);
+}
+
+/* ---------- Voortgangsbalk (enkel nog voor taalvaardigheid) ---------- */
 .bar { height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 9%, transparent); overflow: hidden; }
 .bar > i { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--grad); transition: width 1.3s var(--ease); }
 
