@@ -315,7 +315,7 @@
     mBtn.addEventListener("click", () =>
       setMode(document.documentElement.dataset.mode === "light" ? "dark" : "light"));
     const savedMode = (() => { try { return localStorage.getItem("cv-mode"); } catch (e) { return null; } })();
-    setMode(savedMode || document.documentElement.dataset.mode || "dark");
+    setMode(savedMode || document.documentElement.dataset.mode || "light");
   }
 
   /* ---- Accessibility preferences (reduce motion / high contrast) ---- */
