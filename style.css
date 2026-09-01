@@ -166,6 +166,8 @@
 :root[data-theme="mono"] .now-badge .pulse::after { background: var(--ink); }
 :root[data-theme="mono"] .hero-cred-now,
 :root[data-theme="mono"] .hero-cred-link:hover { background: var(--ink); color: var(--bg-0); }
+/* Taalschakelaar behoudt zijn gevulde schuifpil (functie), enkel scherpe hoeken */
+:root[data-theme="mono"] .lang-toggle, :root[data-theme="mono"] .lang-pill { border-radius: 0; }
 
 /* ---- Iconbadges: getinte gradient-cirkel -> vlak omlijnd vierkant ---- */
 :root[data-theme="mono"] .feature .ic,
@@ -908,19 +910,28 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .swatch span { position: absolute; inset: 0; border-radius: inherit; }
 
-/* ---------- Taalschakelaar ---------- */
+/* ---------- Taalschakelaar: strakke schuifknop met glijdende pil ---------- */
 .lang-toggle {
-  height: 40px; padding: 0 12px; border-radius: 12px; display: inline-flex; align-items: center; gap: 5px;
-  background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-dim);
-  font-size: .82rem; font-weight: 700; letter-spacing: .03em;
-  transition: color .25s, border-color .25s, transform .25s, background .25s;
+  position: relative; height: 40px; width: 76px; padding: 4px; border-radius: 12px;
+  display: inline-flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord);
+  cursor: pointer; transition: border-color .25s, transform .25s;
 }
 .lang-toggle:hover { border-color: var(--glass-bord-hi); transform: translateY(-1px); }
-.lang-toggle .lang-sep { color: var(--glass-bord-hi); font-weight: 500; }
-.lang-toggle [data-lang] { transition: color .25s; }
+.lang-pill {
+  position: absolute; top: 4px; left: 4px; width: 34px; height: 30px; border-radius: 9px;
+  background: var(--grad); box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--c1) 70%, transparent);
+  transition: transform .32s var(--ease); z-index: 0;
+}
+:root[lang="en"] .lang-pill { transform: translateX(34px); }
+.lang-toggle [data-lang] {
+  position: relative; z-index: 1; flex: 1; text-align: center; font-size: .8rem; font-weight: 700;
+  letter-spacing: .02em; color: var(--ink-dim); transition: color .25s var(--ease);
+}
 :root[lang="nl"] .lang-toggle [data-lang="nl"],
-:root[lang="en"] .lang-toggle [data-lang="en"] { color: var(--acc-text); }
-@media (max-width: 620px) { .lang-toggle { padding: 0 9px; font-size: .78rem; } }
+:root[lang="en"] .lang-toggle [data-lang="en"] { color: var(--ink-on-accent); }
+@media (max-width: 620px) { .lang-toggle { width: 68px; height: 38px; }
+  .lang-pill { width: 30px; height: 28px; } :root[lang="en"] .lang-pill { transform: translateX(30px); }
+  .lang-toggle [data-lang] { font-size: .74rem; } }
 
 /* ---------- Accessibility switches (binnen settings-menu) ---------- */
 .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; cursor: pointer; font-size: .9rem; color: var(--ink-soft); }
