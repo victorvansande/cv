@@ -83,12 +83,12 @@ window.I18N = {
     int_ksa_h: `Head leader, KSA Herentals`,
     int_ksa_p: `Youth work with heart, head of the group since 2017.`,
     int_psych_h: `Psychology`,
-    int_psych_p: `Deep insight into the human psyche, personally and professionally.`,
+    int_psych_p: `How people think and feel keeps fascinating me — on and off the clock.`,
 
     /* education */
     edu_eyebrow: `Education`,
     edu_h2: `Three diplomas,<br>one <span class="grad-text em-serif">common thread</span>`,
-    edu_lead: `Psychology, teacher training and communication studies: a progression that sharpened my passions step by step.`,
+    edu_lead: `Psychology, teacher training and communication studies, in that order: each step built on the one before.`,
     edu1_sub: `Master in Communication Studies`,
     edu1_p: `This master's satisfied my academic curiosity. I delved into journalism, media and the emerging technologies shaping these fields, and strengthened my belief in a strong, scientific approach in a fast-changing society. It broadened my view of media, politics and the discourse between them, while sharpening my communication skills further.`,
     edu1_badge: `Graduated with distinction`,
