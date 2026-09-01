@@ -107,7 +107,7 @@ window.I18N = {
 
     /* education */
     edu_eyebrow: `Education`,
-    edu_h2: `Three diplomas,<br>two <span class="grad-text em-serif">with distinction</span>`,
+    edu_h2: `Three diplomas,<br>one <span class="grad-text em-serif">common thread</span>`,
     edu_lead: `Psychology, teacher training and communication studies: a progression that sharpened my passions step by step.`,
     edu1_sub: `Master in Communication Studies`,
     edu1_p: `This master's satisfied my academic curiosity. I delved into journalism, media and the emerging technologies shaping these fields, and strengthened my belief in a strong, scientific approach in a fast-changing society. It broadened my view of media, politics and the discourse between them, while sharpening my communication skills further.`,
