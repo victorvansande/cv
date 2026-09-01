@@ -589,20 +589,20 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 /* ---------- Hero ---------- */
 .hero { padding: 52px 0 48px; }
 .hero-card { padding: 52px 60px; }
-.hero-card h1 { margin: 6px 0 14px; }
+.hero-card h1 { margin: 6px 0 10px; }
 .hero-loc { display: inline-flex; align-items: center; gap: 7px; font-size: .9rem;
-  font-weight: 500; color: var(--ink-soft); margin-bottom: 22px; }
+  font-weight: 500; color: var(--ink-soft); margin-bottom: 16px; }
 .hero-loc svg { color: var(--acc-text); flex: none; }
-.hero-card .lead { margin-bottom: 32px; max-width: 58ch; }
-.hero-card .hero-stats { border-top: 1px solid var(--glass-bord); padding-top: 28px; }
-.hero-card .scroll-cue { margin-top: 20px; }
+.hero-card .lead { margin-bottom: 22px; max-width: 58ch; }
+.hero-card .hero-stats { border-top: 1px solid var(--glass-bord); padding-top: 22px; }
+.hero-card .scroll-cue { margin-top: 16px; }
 /* Hero credential pills */
-.hero-creds { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.hero-creds { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
 .hero-cred { font-size:.76rem; font-weight:600; padding:5px 13px; border-radius:999px; display:inline-flex; align-items:center; gap:6px;
   background:color-mix(in srgb, var(--bg-1) 82%, transparent); border:1px solid var(--glass-bord);
   color:var(--ink-soft); text-decoration:none; transition:.25s var(--ease); }
 .hero-cred-link:hover { background:color-mix(in srgb, var(--bg-1) 72%, var(--c2)); border-color:color-mix(in srgb, var(--c2) 45%, transparent); color:var(--ink); }
-.hero-cred-now { background:color-mix(in srgb, var(--bg-1) 80%, var(--c2)); border-color:color-mix(in srgb, var(--c2) 34%, transparent); color:var(--ink); }
+/* alle drie badges delen nu dezelfde rustige stijl; enkel het puntje signaleert "actief" */
 /* Persoonlijke strip: kort en luchtig, geeft warmte naast het professionele profiel */
 .personal-strip { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin-top:18px; }
 .personal-label { font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim); margin-right:2px; }
@@ -638,7 +638,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .hero-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
-.hero-stats { display: flex; gap: 34px; margin-top: 44px; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 34px; margin-top: 28px; flex-wrap: wrap; }
 .stat .num { font-size: 2.3rem; font-weight: 800; line-height: 1; }
 .stat .lbl { font-size: .85rem; color: var(--ink-dim); margin-top: 6px; }
 
@@ -1221,14 +1221,14 @@ main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bott
   .role-card { padding: 24px 22px; }
   .section-head { margin-bottom: 30px; }
   .hero-card { padding: 28px 24px; }
-  .hero-card h1 { margin: 6px 0 16px; }
-  .hero .lead { margin-bottom: 24px; }
+  .hero-card h1 { margin: 6px 0 10px; }
+  .hero .lead { margin-bottom: 18px; }
   .hero-cta { gap: 10px; }
   .btn { padding: 12px 20px; font-size: .92rem; }
-  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 12px; margin-top: 28px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 12px; margin-top: 22px; }
   .stat .num { font-size: 1.7rem; }
   .stat .lbl { font-size: .76rem; }
-  .scroll-cue { margin-top: 26px; }
+  .scroll-cue { margin-top: 18px; }
   .exp-item { flex-wrap: wrap; padding: 18px 20px; gap: 14px; }
   .exp-meta { text-align: left; }
   .timeline { padding-left: 26px; }
