@@ -4,9 +4,11 @@
 (() => {
   "use strict";
 
+  const finePointer = window.matchMedia("(pointer:fine)").matches;
+
   /* ---- Custom cursor + glow (desktop / fine pointer only) ---- */
   const glow = document.querySelector(".cursor-glow");
-  if (window.matchMedia("(pointer:fine)").matches) {
+  if (finePointer) {
     const dot = document.createElement("div");
     dot.className = "cursor-dot is-off"; dot.setAttribute("aria-hidden", "true");
     const halo = document.createElement("div");
@@ -115,7 +117,7 @@
   document.querySelectorAll(".bar").forEach((el) => fillIO.observe(el));
 
   /* ---- Cursor spotlight on cards (rAF-throttled, GPU-cheap) ---- */
-  if (window.matchMedia("(pointer:fine)").matches) {
+  if (finePointer) {
     document.querySelectorAll(".tilt, .fx-card").forEach((card) => {
       let raf = null, mx = 50, my = 50;
       const apply = () => {
