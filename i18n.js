@@ -217,7 +217,6 @@ window.I18N = {
     tools_h: `Tools`,
 
     /* settings menu */
-    set_mode: `Mode`,
     set_theme: `Colour theme`,
     set_download: `Downloads`,
     set_cv_pdf: `CV as PDF`,

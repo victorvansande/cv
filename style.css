@@ -696,18 +696,25 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .footer-soc a { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-soft); transition: .25s; }
 .footer-soc a:hover { color: var(--ink); border-color: var(--glass-bord-hi); transform: translateY(-2px); }
 
-/* ---------- Mode toggle (light / dark) ---------- */
+/* ---------- Mode toggle (light / dark): zelfde schuifpil-patroon als de taalknop ---------- */
 .mode-toggle {
-  width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; position: relative;
-  background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-soft);
-  transition: color .25s, border-color .25s, transform .25s, background .25s; overflow: hidden;
+  position: relative; height: 40px; width: 76px; padding: 4px; border-radius: 12px;
+  display: inline-flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord);
+  cursor: pointer; transition: border-color .25s, transform .25s;
 }
-.mode-toggle:hover { color: var(--ink); border-color: var(--glass-bord-hi); transform: translateY(-1px); }
-.mode-toggle .sun, .mode-toggle .moon { position: absolute; transition: opacity .3s var(--ease), transform .4s var(--ease); }
-:root[data-mode="light"] .mode-toggle .sun { opacity: 0; transform: rotate(-90deg) scale(.4); }
-:root[data-mode="light"] .mode-toggle .moon { opacity: 1; transform: none; }
-.mode-toggle .moon { opacity: 0; transform: rotate(90deg) scale(.4); }
-.mode-toggle .sun { opacity: 1; transform: none; }
+.mode-toggle:hover { border-color: var(--glass-bord-hi); transform: translateY(-1px); }
+.mode-pill {
+  position: absolute; top: 4px; left: 4px; width: 34px; height: 30px; border-radius: 9px;
+  background: var(--grad); box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--c1) 70%, transparent);
+  transition: transform .32s var(--ease); z-index: 0;
+}
+:root[data-mode="dark"] .mode-pill { transform: translateX(34px); }
+.mode-toggle svg {
+  position: relative; z-index: 1; flex: 1; margin: 0 auto;
+  color: var(--ink-dim); transition: color .25s var(--ease);
+}
+:root[data-mode="light"] .mode-toggle .sun,
+:root[data-mode="dark"] .mode-toggle .moon { color: var(--ink-on-accent); }
 
 /* editorial serif accent */
 .em-serif { font-family: var(--font-display); font-style: italic; font-weight: 500; letter-spacing: -0.015em; }
