@@ -11,17 +11,17 @@
   html, body { width: 1200px; height: 630px; overflow: hidden; }
   body {
     font-family: "Inter", Arial, sans-serif;
-    background: #0a0c14;
+    background: #f4f5fa;
     position: relative;
-    color: #ecedf6;
+    color: #161a2b;
   }
   .blob1 {
     position: absolute; top: -280px; left: -200px; width: 780px; height: 780px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(196,23,42,0.38), transparent 70%);
+    background: radial-gradient(circle, rgba(196,23,42,0.16), transparent 70%);
   }
   .blob2 {
     position: absolute; bottom: -320px; right: -240px; width: 860px; height: 860px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(246,59,70,0.24), transparent 70%);
+    background: radial-gradient(circle, rgba(246,59,70,0.12), transparent 70%);
   }
   .bar {
     position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
@@ -35,55 +35,56 @@
   .eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
     font-size: 16px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    color: #f6636e; margin-bottom: 22px;
+    color: #c4172a; margin-bottom: 22px;
   }
   .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: #f63b46; }
   h1 {
     font-family: "Plus Jakarta Sans", Inter, sans-serif;
     font-weight: 800; letter-spacing: -0.03em; line-height: 1.0;
-    font-size: 96px; color: #ecedf6;
+    font-size: 96px; color: #161a2b;
   }
   h1 .accent {
     background: linear-gradient(120deg, #c4172a, #e11d2e 60%, #f63b46);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .role {
-    margin-top: 24px; font-size: 23px; font-weight: 500; color: #b2b7cc; white-space: nowrap;
+    margin-top: 24px; font-size: 23px; font-weight: 500; color: #474d63; white-space: nowrap;
   }
-  .role strong { color: #ecedf6; font-weight: 700; }
+  .role strong { color: #161a2b; font-weight: 700; }
   .tagline {
-    margin-top: 18px; font-size: 18px; line-height: 1.5; color: #8b92ac; max-width: 620px;
+    margin-top: 18px; font-size: 18px; line-height: 1.5; color: #5e6379; max-width: 620px;
   }
   .chips { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; max-width: 680px; }
   .chip {
     font-size: 17px; font-weight: 600; padding: 11px 22px; border-radius: 999px;
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10); color: #c8d2ee;
+    background: rgba(22,27,51,0.05); border: 1px solid rgba(22,27,51,0.10); color: #474d63;
   }
-  .chip.hi { background: rgba(196,23,42,0.16); border-color: rgba(246,59,70,0.35); color: #ff9aa2; }
+  .chip.hi { background: rgba(196,23,42,0.10); border-color: rgba(196,23,42,0.30); color: #b91230; }
   .url {
     display: block; margin-top: 28px;
-    font-size: 17px; font-weight: 500; color: #6c7590;
+    font-size: 17px; font-weight: 500; color: #7d8398;
   }
   .card {
     position: absolute; top: 56px; bottom: 56px; right: 64px; width: 372px;
-    background: #12151f; border: 1px solid rgba(255,255,255,0.10); border-radius: 24px;
+    background: #ffffff; border: 1px solid rgba(22,27,51,0.10); border-radius: 24px;
     padding: 40px 34px; text-align: center;
     display: flex; flex-direction: column; justify-content: center;
+    box-shadow: 0 20px 50px -20px rgba(22,27,51,0.18);
   }
   .avatar {
     width: 128px; height: 128px; border-radius: 50%; object-fit: cover; margin: 0 auto 22px;
     border: 4px solid #e11d2e; display: block;
   }
-  .card .name { font-size: 25px; font-weight: 700; color: #ecedf6; margin-bottom: 10px; }
-  .card .role-line { font-size: 18px; color: #8b92ac; line-height: 1.5; }
-  .card .div { height: 1px; background: rgba(255,255,255,0.10); margin: 30px 0; }
+  .card .name { font-size: 25px; font-weight: 700; color: #161a2b; margin-bottom: 10px; }
+  .card .role-line { font-size: 18px; color: #5e6379; line-height: 1.5; }
+  .card .div { height: 1px; background: rgba(22,27,51,0.10); margin: 30px 0; }
   .stats { display: flex; justify-content: space-between; }
   .stat .num {
     font-family: "Plus Jakarta Sans", Inter, sans-serif; font-weight: 800;
     font-size: 32px; background: linear-gradient(120deg, #c4172a, #e11d2e 60%, #f63b46);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .stat .lbl { font-size: 14px; color: #8b92ac; margin-top: 4px; }
+  .stat .lbl { font-size: 14px; color: #5e6379; margin-top: 4px; }
 </style>
 </head>
 <body>
