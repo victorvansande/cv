@@ -611,14 +611,15 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 @media (prefers-reduced-motion: reduce) { .tldr-panel, .tldr-chevron { transition: none; } }
 :root[data-motion="reduce"] .tldr-panel, :root[data-motion="reduce"] .tldr-chevron { transition: none; }
 
-/* Ludieke sprong-link in de hero naar de TL;DR */
+/* Ludieke sprong-link in de hero naar de TL;DR: lichte pil i.p.v. losse tekst,
+   met genoeg marge om los te komen van de schaduw van de knoppen erboven */
 .tldr-nudge {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
-  font-size: .84rem; font-weight: 600; color: var(--ink-dim);
-  text-decoration: underline; text-decoration-style: dashed; text-underline-offset: 3px;
-  text-decoration-color: color-mix(in srgb, var(--ink-dim) 55%, transparent);
-  transition: color .25s var(--ease); }
-.tldr-nudge:hover { color: var(--acc-text); }
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 22px;
+  padding: 7px 14px; border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 5%, transparent); border: 1px solid var(--glass-bord);
+  font-size: .8rem; font-weight: 600; color: var(--ink-dim); text-decoration: none;
+  transition: color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease); }
+.tldr-nudge:hover { color: var(--acc-text); border-color: color-mix(in srgb, var(--c2) 40%, transparent); transform: translateY(-2px); }
 .tldr-nudge svg { transition: transform .25s var(--ease); flex: none; }
 .tldr-nudge:hover svg { transform: translateY(2px); }
 
