@@ -106,6 +106,7 @@
   document.querySelectorAll("[data-count]").forEach((el) => countIO.observe(el));
 
   /* ---- Language pips: één voor één inladen bij scroll-in-view ---- */
+  const PIP_STAGGER = 220, PIP_FILL_MS = 500;
   const langIO = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
@@ -113,8 +114,17 @@
       const level = parseInt(wrap.dataset.level, 10) || 0;
       const pips = [...wrap.querySelectorAll(".lang-pip")];
       pips.forEach((pip, i) => {
-        if (i < level) setTimeout(() => pip.classList.add("filled"), i * 220);
+        if (i < level) setTimeout(() => pip.classList.add("filled"), i * PIP_STAGGER);
       });
+      // bij een volledig gevulde balk (moedertaal/C2): sterretjes pas laten opflakkeren
+      // nadat de laatste pip klaar is met vullen, als kleine beloning i.p.v. los van de balk
+      if (level >= pips.length) {
+        const star = wrap.closest(".lang-row")?.querySelector(".lang-star");
+        if (star) {
+          const doneAt = (level - 1) * PIP_STAGGER + PIP_FILL_MS;
+          setTimeout(() => star.classList.add("pop-star"), doneAt);
+        }
+      }
       langIO.unobserve(wrap);
     });
   }, { threshold: 0.4 });
