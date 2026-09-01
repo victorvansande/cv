@@ -74,7 +74,7 @@
       burger.classList.toggle("on");
     });
     links.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => links.classList.remove("open")));
+      a.addEventListener("click", () => { links.classList.remove("open"); burger.classList.remove("on"); }));
   }
 
   /* ---- Reveal on scroll ---- */

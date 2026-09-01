@@ -245,8 +245,19 @@ section { position: relative; }
   transform: translateY(-2px); filter: brightness(1.08) saturate(1.05);
   box-shadow: 0 16px 32px -10px color-mix(in srgb, var(--c1) 95%, transparent);
 }
-.burger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; padding: 8px; }
-.burger span { width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
+.burger { display: none; position: relative; width: 40px; height: 40px; background: none; border: 0; border-radius: 11px; transition: background .25s var(--ease); }
+.burger:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.burger span {
+  position: absolute; left: 50%; width: 20px; height: 2px; margin-left: -10px;
+  background: var(--ink); border-radius: 2px;
+  transition: top .3s var(--ease), transform .3s var(--ease), opacity .25s var(--ease);
+}
+.burger span:nth-child(1) { top: 14px; }
+.burger span:nth-child(2) { top: 19px; }
+.burger span:nth-child(3) { top: 24px; }
+.burger.on span:nth-child(1) { top: 19px; transform: rotate(45deg); }
+.burger.on span:nth-child(2) { opacity: 0; }
+.burger.on span:nth-child(3) { top: 19px; transform: rotate(-45deg); }
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -1020,7 +1031,7 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
     box-shadow: 0 18px 44px -14px rgba(0,0,0,.55);
     padding: 8px 22px 16px; transform: translateY(-130%); transition: transform .4s var(--ease); }
   .nav-links.open { transform: none; }
-  .nav-links a { padding: 13px 8px; border-bottom: 1px solid color-mix(in srgb, var(--ink) 7%, transparent); }
+  .nav-links a { padding: 13px 8px; border-radius: 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 7%, transparent); }
   .nav-links a:last-child { border-bottom: none; }
   .nav-links a.active::after { display: none; }
   /* Contact-CTA blendt in het verticale menu i.p.v. een gradient-pil */
