@@ -42,14 +42,6 @@
   .side .block { margin-bottom: 7mm; }
   .side .block:last-child { margin-bottom: 0; }
 
-  /* skill bars */
-  .skill { margin-bottom: 8px; }
-  .skill:last-child { margin-bottom: 0; }
-  .skill .lbl { display: flex; justify-content: space-between; font-size: 8.6pt; font-weight: 600; }
-  .skill .lbl .pct { color: var(--dim); font-weight: 600; }
-  .bar { height: 4px; background: #edeef2; border-radius: 3px; margin-top: 4px; overflow: hidden; }
-  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--red-d), var(--red)); border-radius: 3px; }
-
   /* languages */
   .lang { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; font-size: 8.8pt; }
   .lang:last-child { margin-bottom: 0; }
@@ -135,11 +127,14 @@
     <aside class="side">
       <div class="block">
         <div class="sec-t">Kerncompetenties</div>
-        <div class="skill"><div class="lbl"><span>Doelgericht schrijven</span><span class="pct">95%</span></div><div class="bar"><i style="width:95%"></i></div></div>
-        <div class="skill"><div class="lbl"><span>Communicatie</span><span class="pct">95%</span></div><div class="bar"><i style="width:95%"></i></div></div>
-        <div class="skill"><div class="lbl"><span>Leiderschap &amp; coördinatie</span><span class="pct">90%</span></div><div class="bar"><i style="width:90%"></i></div></div>
-        <div class="skill"><div class="lbl"><span>Visuele contentcreatie</span><span class="pct">88%</span></div><div class="bar"><i style="width:88%"></i></div></div>
-        <div class="skill"><div class="lbl"><span>Projectmanagement</span><span class="pct">85%</span></div><div class="bar"><i style="width:85%"></i></div></div>
+        <ul class="slist">
+          <li>Doelgericht schrijven</li>
+          <li>Communicatieskills</li>
+          <li>Leiderschap &amp; coördinatie</li>
+          <li>Projectmanagement</li>
+          <li>Visuele contentcreatie</li>
+          <li>Multitasken met koffie</li>
+        </ul>
       </div>
 
       <div class="block">

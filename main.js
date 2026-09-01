@@ -92,7 +92,7 @@
       const el = e.target;
       const target = parseFloat(el.dataset.count);
       const suffix = el.dataset.suffix || "";
-      const dur = 1400; const start = performance.now();
+      const dur = 2400; const start = performance.now();
       const step = (now) => {
         const p = Math.min((now - start) / dur, 1);
         const eased = 1 - Math.pow(1 - p, 3);
@@ -105,16 +105,20 @@
   }, { threshold: 0.5 });
   document.querySelectorAll("[data-count]").forEach((el) => countIO.observe(el));
 
-  /* ---- Skill / language bars fill on view ---- */
-  const fillIO = new IntersectionObserver((entries) => {
+  /* ---- Language pips: één voor één inladen bij scroll-in-view ---- */
+  const langIO = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
-      const el = e.target;
-      el.querySelector("i").style.width = el.dataset.val + "%";
-      fillIO.unobserve(el);
+      const wrap = e.target;
+      const level = parseInt(wrap.dataset.level, 10) || 0;
+      const pips = [...wrap.querySelectorAll(".lang-pip")];
+      pips.forEach((pip, i) => {
+        if (i < level) setTimeout(() => pip.classList.add("filled"), i * 220);
+      });
+      langIO.unobserve(wrap);
     });
   }, { threshold: 0.4 });
-  document.querySelectorAll(".bar").forEach((el) => fillIO.observe(el));
+  document.querySelectorAll(".lang-pips").forEach((el) => langIO.observe(el));
 
   /* ---- Cursor spotlight on cards (rAF-throttled, GPU-cheap) ---- */
   if (finePointer) {

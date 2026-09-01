@@ -62,6 +62,7 @@ window.I18N = {
     skill_leadership: `Leadership &amp; coordination`,
     skill_projectmgmt: `Project management`,
     skill_visual: `Visual content creation`,
+    skill_coffee: `Multitasking, fuelled by coffee`,
 
     /* languages */
     lang_eyebrow: `Languages`,
