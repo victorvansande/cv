@@ -631,6 +631,10 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .contact-final .now-badge { margin: 0 0 18px; }
 .contact-final h2 { margin-bottom: 4px; }
 .contact-final-cta { display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; }
+.contact-final .contact-strip {
+  text-align: left; margin-top: 32px; padding: 20px 8px 0;
+  border-top: 1px solid var(--glass-bord);
+}
 .contact-final::after {
   content: ""; position: absolute; left: 50%; top: -60%; width: 70%; height: 150%; z-index: 0; pointer-events: none;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--c2) 24%, transparent), transparent 70%);
