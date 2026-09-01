@@ -16,6 +16,7 @@ $mimes = @{
   '.png'=   'image/png'
   '.jpg'=   'image/jpeg'
   '.webp'=  'image/webp'
+  '.pdf'=   'application/pdf'
 }
 while ($listener.IsListening) {
   $ctx = $listener.GetContext()

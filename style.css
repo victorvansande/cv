@@ -223,11 +223,6 @@ section { position: relative; }
 .brand-sub { font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
   color: var(--ink-dim); transition: color .25s var(--ease); }
 .brand:hover .brand-sub { color: var(--acc-text); }
-.brand .mark {
-  width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
-  background: var(--grad); color: var(--ink-on-accent); font-weight: 800; font-size: .85rem;
-  box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--c1) 70%, transparent);
-}
 .nav-right { display: flex; align-items: center; gap: 12px; }
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-links a {
@@ -513,7 +508,6 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 
 /* ---------- Cards grid ---------- */
 .grid { display: grid; gap: 22px; }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 .feature { padding: 30px; }
 .feature .ic {
@@ -532,7 +526,6 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .bar > i { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--grad); transition: width 1.3s var(--ease); }
 
 /* ---------- Pills / chips ---------- */
-.chips { display: flex; flex-wrap: wrap; gap: 11px; }
 .chip {
   padding: 9px 16px; border-radius: 999px; font-size: .9rem; font-weight: 500; color: var(--ink-soft);
   background: var(--glass-bg); border: 1px solid var(--glass-bord); transition: .25s;
@@ -565,16 +558,6 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 /* goud is onleesbaar op de witte light mode — daar donker amber */
 :root[data-mode="light"] .badge-hon { color: #8a6410; }
 :root[data-mode="light"] .lang-star { color: #b07f10; filter: none; }
-
-/* ---------- Experience list ---------- */
-.exp-item { padding: 22px 26px; display: flex; align-items: center; gap: 20px; transition: transform .25s var(--ease), border-color .25s, border-left-color .25s; border-left: 3px solid transparent; }
-.exp-item:hover { transform: translateX(5px); border-color: var(--glass-bord-hi); border-left-color: color-mix(in srgb, var(--c2) 70%, transparent); }
-.exp-ic { width: 48px; height: 48px; flex: none; border-radius: 13px; display: grid; place-items: center; font-weight: 800; color: #fff; background: var(--grad); }
-.exp-body { flex: 1; min-width: 0; }
-.exp-body h3 { font-size: 1.08rem; }
-.exp-body p { font-size: .9rem; color: var(--ink-soft); }
-.exp-meta { text-align: right; font-size: .82rem; color: var(--ink-dim); white-space: nowrap; }
-.exp-meta b { display: block; color: var(--acc-text); font-weight: 600; }
 
 /* ---------- Contact ---------- */
 /* Compacte contact-strip: 4 items in 1 kaart (2x2) */
@@ -852,38 +835,6 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .now-badge .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--c2); position: relative; }
 .now-badge .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--c2); animation: pulse 1.8s ease-out infinite; }
 @keyframes pulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3.5); opacity: 0; } }
-.exp-item.featured { border-color: color-mix(in srgb, var(--c2) 30%, var(--glass-bord)); background: color-mix(in srgb, var(--c1) 6%, var(--glass-bg)); }
-.featured-role {
-  border: 1px solid color-mix(in srgb, var(--c2) 40%, transparent);
-  background: color-mix(in srgb, var(--c1) 9%, var(--glass-bg));
-  position: relative;
-}
-.featured-role .exp-ic { box-shadow: 0 8px 22px -8px color-mix(in srgb, var(--c1) 75%, transparent); }
-/* Gekkoo header: nette uitlijning, stapelt netjes links-uitgelijnd op smal scherm */
-/* (geen accent-streepje meer: nadruk via rand + tint + badge; ::after = spotlight) */
-.featured-head { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-.featured-id { display: flex; align-items: center; gap: 16px; min-width: 0; }
-.featured-ic { width: 54px; height: 54px; font-size: 1.1rem; flex: none; }
-.featured-title { font-size: 1.25rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0 4px; }
-.featured-sub { color: var(--acc-text); font-weight: 600; font-size: .95rem; margin-top: 2px; }
-.featured-meta { text-align: right; font-size: .82rem; color: var(--ink-soft); }
-.featured-meta b { display: block; color: var(--acc-text); font-weight: 600; }
-.featured-meta span { color: var(--ink-soft); }
-@media (max-width: 780px) {
-  .featured-head { flex-direction: column; align-items: flex-start; }
-  .featured-meta { text-align: left; }
-}
-
-/* ---------- Highlight / combine statement ---------- */
-.combine { padding: 44px; text-align: center; }
-
-/* editorial 01-04 list */
-.combine-list { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 48px; text-align: left; margin-top: 30px; max-width: 760px; margin-left: auto; margin-right: auto; }
-.combine-item { display: flex; gap: 16px; align-items: flex-start; }
-.combine-num { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: 2rem; line-height: 1;
-  background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent; flex: none; min-width: 42px; }
-.combine-body h4 { font-size: 1.04rem; margin-bottom: 3px; }
-.combine-body p { font-size: .9rem; color: var(--ink-soft); }
 
 /* bento grid for highlights */
 .bento { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
@@ -903,11 +854,9 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   color: var(--acc-text); margin-right: 2px; text-transform: none; }
 
 /* alternating section bands so sections breathe */
-main > .sec:nth-of-type(even) { background: var(--panel); }
 main > .sec { border-top: 1px solid transparent; }
-main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bottom: 1px solid var(--glass-bord); }
+main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(--glass-bord); border-bottom: 1px solid var(--glass-bord); }
 @media (max-width: 560px) {
-  .combine-list { grid-template-columns: 1fr; gap: 16px; }
   .bento { grid-template-columns: 1fr; }
   .bento > .feature-wide { grid-template-columns: 1fr; }
   .bento > .feature-wide .ic { grid-row: auto; margin-bottom: 14px; }
@@ -1046,7 +995,6 @@ main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bott
 @media (max-width: 900px) {
   .section-pad { padding-top: 72px; padding-bottom: 72px; }
   .hero-card { padding: 40px 44px; }
-  .grid-3 { grid-template-columns: 1fr 1fr; }
   .nav-links { position: fixed; inset: 68px 0 auto 0; flex-direction: column; align-items: stretch; gap: 0;
     background: var(--bg-1); border-bottom: 1px solid var(--glass-bord);
     box-shadow: 0 18px 44px -14px rgba(0,0,0,.55);
@@ -1074,7 +1022,6 @@ main > .sec:nth-of-type(even) { border-top-color: var(--glass-bord); border-bott
   .wrap { padding: 0 22px; }
   .nav-inner { gap: 10px; }
   .brand { font-size: .94rem; white-space: nowrap; }
-  .brand .mark { width: 30px; height: 30px; }
   .nav-right { gap: 7px; }
   .settings-toggle { width: 38px; height: 38px; }
   .burger { padding: 7px 6px; }
