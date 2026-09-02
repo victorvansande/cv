@@ -1056,128 +1056,185 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .reveal[data-d="4"] { transition-delay: .32s; }
 
 /* ================================================================
-   Prisma-intro (eenmalig per sessie, enkel rond de naam)
+   Prisma-intro (eenmalig per sessie)
    ----------------------------------------------------------------
    Nagebouwd naar het principe van de Sony-logoreveal: de kleur is
    niet de versiering maar het geboortemedium. Ze piekt VOOR de
    letters scherp zijn en is volledig weggetrokken zodra ze dat wel
-   zijn — wat overblijft is de gewone, themagekleurde naam.
-   Drie gelijktijdige bewegingen: chroma-bloei (piek + wegtrekken),
-   scherptetrek op de letters (blur 18px -> 0) en een trage push-in.
+   zijn — daarna valt het licht binnen en verschijnt de pagina.
+
+   Alles speelt zich af op een zwarte laag bovenop de site, met een
+   kopie van de naam exact over de echte (JS meet de positie). Zo
+   hoeft er niets door de overflow/stacking-context van de glaskaart.
+
+   Prestatie: er animeren uitsluitend `opacity` en `transform` —
+   allebei volledig GPU-gecomposit. De scherptetrek is géén
+   geanimeerde blur (die hapert omdat elk frame hergerasterd moet
+   worden) maar een kruisvervaging tussen drie statisch vervaagde
+   kopieën van de tekst.
    ================================================================ */
-.prism-field { display: none; }
+.intro-veil { display: none; }
 
-:root.intro .prism-host { position: relative; animation: prism-push 2.6s cubic-bezier(.25,.6,.25,1) .45s both; }
-:root.intro .prism-host > *:not(.prism-field) { position: relative; z-index: 1; }
-
-/* het veld wordt door main.js exact over de naam gelegd (--px/--py/--pw/--ph),
-   met ruime bleed eromheen; de fallbacks gelden zolang dat nog niet gemeten is */
-:root.intro .prism-field {
-  display: block; position: absolute;
-  left: calc(var(--px, 0%) - 13%);
-  top: calc(var(--py, 34%) - 52%);
-  width: calc(var(--pw, 100%) + 26%);
-  height: calc(var(--ph, 52%) + 104%);
-  pointer-events: none; z-index: 0; opacity: 0;
-  /* zachte ovale uitdoving: nergens een zichtbare rand */
-  -webkit-mask-image: radial-gradient(ellipse 60% 54% at 50% 50%, #000 28%, transparent 76%);
-  mask-image: radial-gradient(ellipse 60% 54% at 50% 50%, #000 28%, transparent 76%);
-  filter: blur(14px);
-  animation: prism-bloom 2.6s cubic-bezier(.4,0,.25,1) .45s both;
+:root.intro .intro-veil {
+  display: block; position: fixed; inset: 0; z-index: 9998;
+  pointer-events: none;
+  animation: intro-end 4.4s linear .3s both;
 }
-/* licht = subtractief (pigment op wit), donker = additief (licht in het zwart);
-   de video is bewust ingetogen — vandaar lage alfa's, per modus afgestemd */
-:root[data-mode="light"] .prism-field { mix-blend-mode: multiply; --a: .30; }
-:root[data-mode="dark"] .prism-field { mix-blend-mode: screen; --a: .58; }
+.intro-blackout {
+  position: absolute; inset: 0; background: #000;
+  animation: intro-blackout 4.4s cubic-bezier(.42,0,.3,1) .3s both;
+}
+/* De echte naam blijft verborgen tot de laag verdwijnt: zo kan er nooit een
+   dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
+   in plaats van een JS-klasse, zodat de naam ook terugkomt als het script faalt.
+   De :not(.in-l) is essentieel: de klonen dragen de klasse prism-host mee, en
+   zonder die uitzondering zou deze regel ook de kloonlagen verbergen — dan zie
+   je tijdens de hele intro helemaal geen naam. */
+:root.intro .prism-host:not(.in-l) .grad-text { animation: intro-real-name 4.4s linear .3s both; }
 
+/* De naamlagen worden gekloond uit de echte h1 en op diens rect gelegd; het
+   klonen is wat garandeert dat text-wrap: balance exact hetzelfde uitvalt. */
+.intro-stage {
+  position: fixed; left: 0; top: 0; width: 0;
+  transform-origin: 0 50%;
+  animation: intro-push 4.4s cubic-bezier(.25,.6,.25,1) .3s both;
+}
+/* De selector is bewust specifieker dan .h-xl: die zet in de mobiele media query
+   zelf een !important-marge, en bij gelijke specificiteit zou de laatste regel
+   in het bestand winnen — dan zakt de kloon een paar pixels weg t.o.v. de
+   echte naam en zie je op het eind een sprongetje. */
+.intro-stage .in-l {
+  position: absolute; left: 0; top: 0;
+  margin: 0 !important;
+  opacity: 0; will-change: opacity;
+}
+/* alles behalve de naam wordt in de kloon onzichtbaar gezet, maar blijft wel
+   ruimte innemen — anders verschuift de regelval */
+.in-l .intro-hidden { visibility: hidden; }
+/* de blur staat vast, dus elke laag wordt één keer gerasterd en daarna alleen
+   nog gecomposit — dat is wat het vloeiend houdt */
+.in-b3 .grad-text { filter: blur(24px) saturate(.10); }
+.in-b1 .grad-text { filter: blur(7px) saturate(.45); }
+.in-b3 { animation: in-b3 4.4s linear .3s both; }
+.in-b1 { animation: in-b1 4.4s linear .3s both; }
+.in-b0 { animation: in-b0 4.4s linear .3s both; }
+
+/* ---- de lichtspill: het licht dat uit de explosie naar buiten slaat en het
+       zwart wegduwt, zodat het opklaren zichtbaar uit het effect voortkomt ---- */
+.intro-spill {
+  position: fixed; left: var(--nx, 50%); top: var(--ny, 50%);
+  width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax;
+  pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255, 248, 238, .52), rgba(255, 238, 220, .15) 30%, rgba(255, 238, 220, 0) 62%);
+  will-change: transform, opacity;
+  animation: intro-spill 4.4s linear .3s both;
+}
+
+/* ---- de kleurenexplosie: begint klein rond de naam en dijt versneld uit tot
+       voorbij de schermranden, alsof de verschijnende letters de kleur als een
+       vloeistof wegduwen ---- */
+.intro-burst {
+  position: fixed; left: var(--nx, 50%); top: var(--ny, 50%);
+  width: 96vmax; height: 96vmax; margin: -48vmax 0 0 -48vmax;
+  pointer-events: none; opacity: 0;
+  will-change: transform, opacity;
+  animation: intro-burst 4.4s linear .3s both;
+}
+/* op zwart is additief blenden overbodig: geen mix-blend-mode = veel goedkoper */
 .pl { position: absolute; border-radius: 50%; will-change: transform; }
 /* de spectrale sweep uit de video: amber links -> magenta/violet -> azuur/cyaan rechts */
+/* `ellipse farthest-side` laat elke lob zijn eigen vak volledig vullen en pas
+   aan de rand uitdoven; met deze overlap vloeien ze samen tot één doorlopend
+   spectrum in plaats van vijf herkenbare bollen. */
 .pl-warm {
-  left: -4%; top: 12%; width: 44%; height: 78%;
-  background: radial-gradient(circle at 50% 50%, hsl(26 92% 55% / var(--a)), hsl(26 92% 55% / 0) 72%);
-  animation: pl-drift-a 2.6s cubic-bezier(.33,0,.2,1) .45s both;
+  left: -3%; top: 38%; width: 44%; height: 24%;
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(26 92% 56% / .66), hsl(26 92% 56% / 0));
+  animation: pl-drift-a 4.4s cubic-bezier(.5,0,.3,1) .3s both;
 }
 .pl-magenta {
-  left: 16%; top: 18%; width: 38%; height: 70%;
-  background: radial-gradient(circle at 50% 50%, hsl(332 84% 58% / calc(var(--a) * .72)), hsl(332 84% 58% / 0) 72%);
-  animation: pl-drift-b 2.6s cubic-bezier(.33,0,.2,1) .45s both;
+  left: 14%; top: 39%; width: 42%; height: 22%;
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(332 84% 58% / .54), hsl(332 84% 58% / 0));
+  animation: pl-drift-b 4.4s cubic-bezier(.5,0,.3,1) .3s both;
 }
 .pl-violet {
-  left: 33%; top: 10%; width: 40%; height: 78%;
-  background: radial-gradient(circle at 50% 50%, hsl(268 82% 62% / calc(var(--a) * .76)), hsl(268 82% 62% / 0) 72%);
-  animation: pl-drift-c 2.6s cubic-bezier(.33,0,.2,1) .45s both;
+  left: 30%; top: 37%; width: 44%; height: 26%;
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(268 82% 62% / .56), hsl(268 82% 62% / 0));
+  animation: pl-drift-c 4.4s cubic-bezier(.5,0,.3,1) .3s both;
 }
 .pl-azure {
-  left: 50%; top: 16%; width: 44%; height: 76%;
-  background: radial-gradient(circle at 50% 50%, hsl(210 92% 56% / calc(var(--a) * .95)), hsl(210 92% 56% / 0) 72%);
-  animation: pl-drift-b 2.6s cubic-bezier(.33,0,.2,1) .45s both reverse;
+  left: 46%; top: 38%; width: 44%; height: 24%;
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(210 92% 57% / .64), hsl(210 92% 57% / 0));
+  animation: pl-drift-b 4.4s cubic-bezier(.5,0,.3,1) .3s both reverse;
 }
 .pl-cyan {
-  left: 70%; top: 12%; width: 38%; height: 72%;
-  background: radial-gradient(circle at 50% 50%, hsl(190 88% 54% / calc(var(--a) * .76)), hsl(190 88% 54% / 0) 72%);
-  animation: pl-drift-a 2.6s cubic-bezier(.33,0,.2,1) .45s both reverse;
-}
-/* fijne korrel: breekt de banding van de grote zachte verlopen, zoals de filmgrain in de video */
-.prism-grain {
-  position: absolute; inset: 0; opacity: .05; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  left: 63%; top: 39%; width: 42%; height: 22%;
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(190 88% 55% / .56), hsl(190 88% 55% / 0));
+  animation: pl-drift-a 4.4s cubic-bezier(.5,0,.3,1) .3s both reverse;
 }
 
-/* de letters: onscherp en kleurloos geboren, scherp en themagekleurd volgroeid */
-:root.intro .prism-host .grad-text {
-  animation: prism-name 2.6s cubic-bezier(.22,.61,.24,1) .45s both;
-  will-change: filter, opacity;
+@keyframes intro-blackout {
+  0%   { opacity: 1; }
+  48%  { opacity: 1; }
+  90%  { opacity: 0; }
+  100% { opacity: 0; }
 }
-:root.intro .prism-hello { animation: prism-hello 1.5s var(--ease) .35s both; }
-
-@keyframes prism-bloom {
-  0%   { opacity: 0; transform: scale(.9); }
-  18%  { opacity: .18; }
-  30%  { opacity: .55; }
-  40%  { opacity: 1; }
-  52%  { opacity: .82; }
-  64%  { opacity: .45; }
-  80%  { opacity: .16; }
-  100% { opacity: 0; transform: scale(1.05); }
+@keyframes intro-spill {
+  0%, 30% { opacity: 0; transform: scale(.16); }
+  52%     { opacity: .8; transform: scale(.46); }
+  66%     { opacity: 1; transform: scale(.82); }
+  82%     { opacity: .4; transform: scale(1.24); }
+  94%     { opacity: 0; transform: scale(1.48); }
+  100%    { opacity: 0; transform: scale(1.54); }
 }
-@keyframes prism-name {
-  0%   { opacity: 0; filter: blur(18px) saturate(.08); }
-  26%  { opacity: .06; filter: blur(15px) saturate(.1); }
-  38%  { opacity: .28; filter: blur(10px) saturate(.2); }
-  50%  { opacity: .62; filter: blur(5px) saturate(.45); }
-  62%  { opacity: .9; filter: blur(1.6px) saturate(.8); }
-  74%  { opacity: 1; filter: blur(0) saturate(1); }
-  100% { opacity: 1; filter: blur(0) saturate(1); }
+/* De kern van de "umph": tot ~56% zwelt de kleur rustig aan, daarna schiet ze
+   versneld naar buiten — precies wanneer de letters scherp worden, zodat het
+   lijkt alsof zij de kleur als vloeistof wegduwen. */
+@keyframes intro-burst {
+  0%   { opacity: 0;   transform: scale(.13); animation-timing-function: cubic-bezier(.35,0,.65,1); }
+  14%  { opacity: .40; transform: scale(.20); animation-timing-function: cubic-bezier(.4,0,.7,.95); }
+  28%  { opacity: .88; transform: scale(.31); animation-timing-function: cubic-bezier(.5,0,.8,.8); }
+  42%  { opacity: 1;   transform: scale(.46); animation-timing-function: cubic-bezier(.8,0,.92,.5); }
+  56%  { opacity: 1;   transform: scale(.74); animation-timing-function: cubic-bezier(.88,0,.96,.42); }
+  70%  { opacity: .70; transform: scale(1.95); }
+  84%  { opacity: .28; transform: scale(4.1); }
+  94%  { opacity: .06; transform: scale(6.4); }
+  100% { opacity: 0;   transform: scale(7.4); }
 }
-@keyframes prism-push { 0% { transform: scale(.972); } 100% { transform: scale(1); } }
-@keyframes prism-hello { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes intro-push { 0% { transform: scale(.962); } 100% { transform: scale(1); } }
+/* de echte naam blijft weg tot de laag exact op datzelfde moment verdwijnt */
+@keyframes intro-real-name { 0%, 99.9% { visibility: hidden; } 100% { visibility: visible; } }
+@keyframes in-b3 { 0%,24% { opacity: 0; } 36% { opacity: .9; } 48% { opacity: .85; } 64% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes in-b1 { 0%,40% { opacity: 0; } 56% { opacity: 1; } 72% { opacity: .9; } 84% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes in-b0 { 0%,56% { opacity: 0; } 78% { opacity: 1; } 100% { opacity: 1; } }
+/* de laag verdwijnt pas als alles stilstaat; de echte naam eronder is identiek */
+@keyframes intro-end { 0%, 99.9% { visibility: visible; } 100% { visibility: hidden; } }
+/* de lobben zwellen mee op terwijl ze uit elkaar drijven: dat geeft de
+   vloeistofachtige uitwaaiering in plaats van een vlakke uitvergroting */
 @keyframes pl-drift-a {
-  0%   { transform: translate3d(-7%, 4%, 0) scale(.82); }
-  45%  { transform: translate3d(-1%, 0, 0) scale(1.04); }
-  100% { transform: translate3d(6%, -5%, 0) scale(1.2); }
+  0%   { transform: translate3d(-6%, 5%, 0) scale(.82); }
+  45%  { transform: translate3d(-1%, 0, 0) scale(1.06); }
+  100% { transform: translate3d(-16%, -7%, 0) scale(1.62); }
 }
 @keyframes pl-drift-b {
-  0%   { transform: translate3d(5%, 5%, 0) scale(.86); }
-  45%  { transform: translate3d(1%, -1%, 0) scale(1.06); }
-  100% { transform: translate3d(-6%, -6%, 0) scale(1.24); }
+  0%   { transform: translate3d(5%, 6%, 0) scale(.86); }
+  45%  { transform: translate3d(1%, -1%, 0) scale(1.08); }
+  100% { transform: translate3d(13%, -9%, 0) scale(1.68); }
 }
 @keyframes pl-drift-c {
-  0%   { transform: translate3d(0, 7%, 0) scale(.8); }
-  45%  { transform: translate3d(2%, 0, 0) scale(1.08); }
-  100% { transform: translate3d(-2%, -7%, 0) scale(1.26); }
+  0%   { transform: translate3d(0, 8%, 0) scale(.8); }
+  45%  { transform: translate3d(2%, 0, 0) scale(1.1); }
+  100% { transform: translate3d(0, -10%, 0) scale(1.72); }
 }
 
-/* wie minder beweging wil, krijgt meteen het eindbeeld */
+/* wie minder beweging wil, krijgt meteen de gewone pagina — en dus ook meteen
+   de echte naam, die anders door intro-real-name verborgen zou blijven */
 @media (prefers-reduced-motion: reduce) {
-  :root.intro .prism-field { display: none; }
-  :root.intro .prism-host,
-  :root.intro .prism-host .grad-text,
-  :root.intro .prism-hello { animation: none; }
+  :root.intro .intro-veil { display: none; }
+  :root.intro .prism-host:not(.in-l) .grad-text { animation: none; }
 }
-:root[data-motion="reduce"].intro .prism-field { display: none; }
-:root[data-motion="reduce"].intro .prism-host,
-:root[data-motion="reduce"].intro .prism-host .grad-text,
-:root[data-motion="reduce"].intro .prism-hello { animation: none; }
+:root[data-motion="reduce"].intro .intro-veil { display: none; }
+:root[data-motion="reduce"].intro .prism-host:not(.in-l) .grad-text { animation: none; }
 
 /* ---------- Page hero (sub pages) ---------- */
 .page-hero { padding-top: 52px; padding-bottom: 22px; text-align: center; }

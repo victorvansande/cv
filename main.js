@@ -77,21 +77,76 @@
       a.addEventListener("click", () => { links.classList.remove("open"); burger.classList.remove("on"); }));
   }
 
-  /* ---- Prisma-intro: het kleurveld exact over de naam leggen ----
-     De naam is een inline span die op smalle schermen afbreekt, dus de positie
-     wordt gemeten in plaats van vastgezet. Gebeurt binnen de 0.45s aanloop van
-     de animatie, ruim voor de eerste zichtbare frame. */
+  /* ---- Prisma-intro: de naamlagen klonen uit de echte h1 ----
+     De h1 gebruikt `text-wrap: balance`, die de regels verdeelt over de hele
+     kop ("Hallo, ik ben" + de naam). Een kopie die alleen de naam bevat komt
+     daardoor op een andere regelval uit — vandaar dat er eerder een tweede
+     "Sande" op een eigen regel kon belanden. Door de volledige h1 te klonen en
+     daarin alles behalve de naam onzichtbaar te zetten, is de zetting per
+     definitie identiek: zelfde inhoud, zelfde breedte, zelfde balancering. */
   if (document.documentElement.classList.contains("intro")) {
+    const veil = document.querySelector(".intro-veil");
+    const stage = veil && veil.querySelector(".intro-stage");
     const host = document.querySelector(".prism-host");
-    const name = host && host.querySelector(".grad-text");
-    if (host && name) {
-      const h = host.getBoundingClientRect();
-      const n = name.getBoundingClientRect();
-      if (h.width && h.height) {
-        host.style.setProperty("--px", ((n.left - h.left) / h.width) * 100 + "%");
-        host.style.setProperty("--py", ((n.top - h.top) / h.height) * 100 + "%");
-        host.style.setProperty("--pw", (n.width / h.width) * 100 + "%");
-        host.style.setProperty("--ph", (n.height / h.height) * 100 + "%");
+    const real = host && host.querySelector(".grad-text");
+    if (veil && stage && host && real) {
+      const copies = ["in-b3", "in-b1", "in-b0"].map((cls) => {
+        const clone = host.cloneNode(true);
+        clone.classList.add("in-l", cls);
+        clone.removeAttribute("id");
+        // i18n moet de klonen negeren: ze leven maar een paar seconden
+        clone.querySelectorAll("[data-i18n]").forEach((el) => el.removeAttribute("data-i18n"));
+        // alles behalve de naam onzichtbaar, maar wel ruimte latend innemen
+        clone.querySelectorAll(":scope > *:not(.grad-text)").forEach((el) => el.classList.add("intro-hidden"));
+        stage.appendChild(clone);
+        return clone;
+      });
+      let last = "";
+      const place = () => {
+        const h = host.getBoundingClientRect();
+        const r = real.getBoundingClientRect();
+        const key = h.left + "|" + h.top + "|" + h.width + "|" + r.top + "|" + r.height;
+        if (key === last) return;
+        last = key;
+        // de klonen liggen op de h1 zelf, niet op de naam: zo klopt de regelval
+        stage.style.left = h.left + "px";
+        stage.style.top = h.top + "px";
+        stage.style.width = h.width + "px";
+        stage.style.height = h.height + "px";
+        copies.forEach((c) => { c.style.width = h.width + "px"; });
+        // explosie en lichtspill centreren op het midden van de naam
+        veil.style.setProperty("--nx", r.left + r.width / 2 + "px");
+        veil.style.setProperty("--ny", r.top + r.height / 2 + "px");
+      };
+      /* De echte naam beweegt tijdens de intro: de hero-kaart schuift nog omhoog
+         (.reveal), het webfont kan later inladen en de bezoeker kan scrollen.
+         Daarom elk frame volgen — de schrijfbeurt gebeurt enkel als er iets
+         wijzigde, dus dit is één meting per frame en verder niets. */
+      let tracking = true;
+      const track = () => { if (!tracking) return; place(); requestAnimationFrame(track); };
+      place();
+      requestAnimationFrame(track);
+      /* rAF ligt stil in een achtergrondtab; deze hermetingen vuren wél en vangen
+         het uitklappen van de hero-kaart (.reveal, 0.8s) en het laden van het
+         webfont op, zodat de laag ook dan exact blijft liggen. */
+      [80, 260, 520, 900, 1400].forEach((ms) => setTimeout(place, ms));
+      const done = () => {
+        tracking = false;
+        veil.remove();
+      };
+      veil.addEventListener("animationend", (e) => { if (e.animationName === "intro-end") done(); });
+      /* Vangnet, zodat de laag nooit blijft hangen als animationend uitblijft.
+         De teller start pas als de pagina zichtbaar is: in een achtergrondtab
+         bevriest de browser de animatie, en dan mag de intro niet al weggegooid
+         zijn tegen dat de bezoeker gaat kijken. */
+      const arm = () => setTimeout(done, 7000);
+      if (document.visibilityState === "visible") arm();
+      else {
+        document.addEventListener("visibilitychange", function onVis() {
+          if (document.visibilityState !== "visible") return;
+          document.removeEventListener("visibilitychange", onVis);
+          arm();
+        });
       }
     }
   }
