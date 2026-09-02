@@ -339,10 +339,6 @@
     setInterval(rotate, 3 * 60 * 1000);
   }
 
-  /* ---- Footer year ---- */
-  const yr = document.querySelector("[data-year]");
-  if (yr) yr.textContent = new Date().getFullYear();
-
   /* ---- Settings menu (mode · language · theme · accessibility in one popover) ---- */
   const setBtn = document.querySelector(".settings-toggle");
   const setPop = document.querySelector(".settings-pop");

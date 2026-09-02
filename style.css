@@ -235,16 +235,6 @@ section { position: relative; }
   content: ""; position: absolute; left: 15px; right: 15px; bottom: 3px; height: 2px;
   background: var(--grad); border-radius: 2px;
 }
-.nav-cta {
-  padding: 9px 18px !important; color: var(--ink-on-accent) !important; font-weight: 600;
-  background: var(--grad); box-shadow: 0 10px 26px -10px color-mix(in srgb, var(--c1) 80%, transparent);
-}
-/* contactknop behoudt zijn gradient bij hover (anders overschrijft de algemene hover die) + sterkere lift */
-.nav-links a.nav-cta:hover {
-  color: var(--ink-on-accent); background: var(--grad);
-  transform: translateY(-2px); filter: brightness(1.08) saturate(1.05);
-  box-shadow: 0 16px 32px -10px color-mix(in srgb, var(--c1) 95%, transparent);
-}
 .burger { display: none; position: relative; width: 40px; height: 40px; background: none; border: 0; border-radius: 11px; transition: background .25s var(--ease); }
 .burger:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
 .burger span {
@@ -454,7 +444,6 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .grad-text { background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
 .muted { color: var(--ink-dim); }
-.footer-updated { font-size: .82em; opacity: .6; }
 .section-head { max-width: 64ch; margin-bottom: 46px; }
 .section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
 /* lead krijgt lucht onder de kop */
@@ -1080,7 +1069,7 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
     padding: 12px 22px 20px; transform: translateY(-130%); transition: transform .4s var(--ease); }
   .nav-links.open { transform: none; }
   .nav-links a { padding: 13px 18px; border-radius: 999px; }
-  .nav-links a:not(.nav-cta) { background: var(--glass-bg); border: 1px solid var(--glass-bord); }
+  .nav-links a { background: var(--glass-bg); border: 1px solid var(--glass-bord); }
   .nav-links a.active::after { display: none; }
   .burger { display: flex; }
 }
