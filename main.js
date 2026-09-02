@@ -479,20 +479,26 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
-  /* ---- TL;DR toggle (dichtgeklapt tot een bezoeker het opent) ---- */
-  const tldrCard = document.querySelector(".tldr-card");
-  const tldrToggle = document.querySelector(".tldr-toggle");
-  const tldrPanel = document.querySelector(".tldr-panel");
-  if (tldrCard && tldrToggle && tldrPanel) {
-    const setTldrOpen = (open) => {
-      tldrCard.classList.toggle("open", open);
-      tldrToggle.setAttribute("aria-expanded", String(open));
-      tldrPanel.toggleAttribute("inert", !open);
+  /* ---- Inklapbare kaarten (TL;DR, ontwerpwerk-luikje, ...): dichtgeklapt tot geopend ---- */
+  const accordionSetters = new Map();
+  document.querySelectorAll(".tldr-card").forEach((card) => {
+    const toggle = card.querySelector(".tldr-toggle");
+    const panel = card.querySelector(".tldr-panel");
+    if (!toggle || !panel) return;
+    const setOpen = (open) => {
+      card.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      panel.toggleAttribute("inert", !open);
     };
-    tldrToggle.addEventListener("click", () => setTldrOpen(!tldrCard.classList.contains("open")));
-    // de sprong-link in de hero moet meteen ook openklappen, anders land je op een dichte kaart
-    const tldrNudge = document.querySelector(".tldr-nudge");
-    if (tldrNudge) tldrNudge.addEventListener("click", () => setTldrOpen(true));
+    toggle.addEventListener("click", () => setOpen(!card.classList.contains("open")));
+    accordionSetters.set(card, setOpen);
+  });
+  // de sprong-link in de hero moet de TL;DR-kaart meteen openklappen, anders land je op een dichte kaart
+  const tldrCard = document.querySelector("#tldr .tldr-card");
+  const tldrNudge = document.querySelector(".tldr-nudge");
+  if (tldrCard && tldrNudge) {
+    const setTldrOpen = accordionSetters.get(tldrCard);
+    if (setTldrOpen) tldrNudge.addEventListener("click", () => setTldrOpen(true));
   }
 
 })();

@@ -22,9 +22,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,400;1,6..72,500;1,6..72,600&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=90" />
-  <script src="i18n.js?v=29" defer></script>
-  <script src="main.js?v=39" defer></script>
+  <link rel="stylesheet" href="style.css?v=91" />
+  <script src="i18n.js?v=30" defer></script>
+  <script src="main.js?v=40" defer></script>
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
 <body>
@@ -197,6 +197,49 @@
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div>
           <h3 data-i18n="card_lead_h">Leiderschap &amp; organisatie</h3>
           <p data-i18n="card_lead_p">Jarenlange ervaring in het aansturen van teams en het organiseren van events vertaal ik moeiteloos naar nieuwe projecten en contexten.</p>
+        </div>
+      </div>
+      <div class="glass tilt tldr-card reveal" data-d="4" style="margin-top:18px">
+        <button class="tldr-toggle" aria-expanded="false" aria-controls="designs-panel">
+          <span class="tldr-toggle-txt">
+            <strong data-i18n="designs_toggle_open">Bekijk voorbeelden van mijn ontwerpwerk</strong>
+            <span data-i18n="designs_toggle_sub">7 designs: infographics, brochures &amp; presentaties</span>
+          </span>
+          <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="tldr-panel" id="designs-panel" inert>
+          <div class="tldr-panel-inner">
+            <div class="designs-grid">
+              <div class="design-item">
+                <button type="button" class="diploma-thumb" data-full="assets/designs/poster-kokerjuffer.jpg"><img src="assets/designs/poster-kokerjuffer.jpg" alt="Infographic-poster 'De Kokerjuffer' over de levenscyclus van een insectensoort" loading="lazy" /></button>
+                <span class="design-cap"><span class="design-cap-t" data-i18n="design_kokerjuffer_t">Infographic · De Kokerjuffer</span><span class="design-cap-s" data-i18n="design_kokerjuffer_s">Wetenschapscommunicatie, Karel de Grote Hogeschool</span></span>
+              </div>
+              <div class="design-item">
+                <button type="button" class="diploma-thumb" data-full="assets/designs/infographic-ph-meting.jpg"><img src="assets/designs/infographic-ph-meting.jpg" alt="Infographic met stappenplan voor een pH-meting van waterlichamen" loading="lazy" /></button>
+                <span class="design-cap"><span class="design-cap-t" data-i18n="design_ph_t">Infographic · pH-meting</span><span class="design-cap-s" data-i18n="design_ph_s">Stap-voor-stap uitleg van een meetproces</span></span>
+              </div>
+              <div class="design-item">
+                <button type="button" class="diploma-thumb" data-full="assets/designs/poster-dune-voorbeeld.jpg"><img src="assets/designs/poster-dune-voorbeeld.jpg" alt="Zelf ontworpen voorbeeldposter over de film Dune, gemaakt als lesmateriaal" loading="lazy" /></button>
+                <span class="design-cap"><span class="design-cap-t" data-i18n="design_dune_t">Voorbeeldposter · Dune</span><span class="design-cap-s" data-i18n="design_dune_s">Zelf ontworpen als lesvoorbeeld voor leerlingen</span></span>
+              </div>
+              <div class="design-item">
+                <button type="button" class="diploma-thumb" data-full="assets/designs/brochure-licht-uit.jpg"><img src="assets/designs/brochure-licht-uit.jpg" alt="Drieluik-brochure 'Licht uit, oogjes toe' over schermlicht en slaap bij jongeren" loading="lazy" /></button>
+                <span class="design-cap"><span class="design-cap-t" data-i18n="design_brochure_t">Brochure · Licht uit, oogjes toe</span><span class="design-cap-s" data-i18n="design_brochure_s">Informatieve drieluik-folder voor en door jongeren</span></span>
+              </div>
+              <div class="design-item">
+                <button type="button" class="diploma-thumb" data-full="assets/designs/slides-beyond-the-buzz.jpg"><img src="assets/designs/slides-beyond-the-buzz.jpg" alt="Titelslide van de presentatie 'Beyond the Buzz', Universiteit Antwerpen" loading="lazy" /></button>
+                <span class="design-cap"><span class="design-cap-t" data-i18n="design_beyond_t">Presentatie · Beyond the Buzz</span><span class="design-cap-s" data-i18n="design_beyond_s">Academische paper-presentatie, Universiteit Antwerpen</span></span>
+              </div>
+              <div class="design-item">
+                <button type="button" class="diploma-thumb" data-full="assets/designs/slides-permanently-online.jpg"><img src="assets/designs/slides-permanently-online.jpg" alt="Titelslide van de presentatie 'Permanently Online, Always Stressed Out?', Universiteit Antwerpen" loading="lazy" /></button>
+                <span class="design-cap"><span class="design-cap-t" data-i18n="design_permanently_t">Presentatie · Permanently Online</span><span class="design-cap-s" data-i18n="design_permanently_s">Academische paper-presentatie, Universiteit Antwerpen</span></span>
+              </div>
+              <div class="design-item">
+                <button type="button" class="diploma-thumb" data-full="assets/designs/slides-masterproef-seminarie.jpg"><img src="assets/designs/slides-masterproef-seminarie.jpg" alt="Titelslide van de presentatie van de masterproef 'De Macht van Misleiding'" loading="lazy" /></button>
+                <span class="design-cap"><span class="design-cap-t" data-i18n="design_masterproef_t">Presentatie · Masterproefseminarie</span><span class="design-cap-s" data-i18n="design_masterproef_s">Voorstelling van 'De Macht van Misleiding'</span></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
