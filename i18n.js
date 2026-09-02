@@ -75,7 +75,7 @@ window.I18N = {
     photo_theater_s: `Dramatic lighting during a show`,
     photo_melkweg_t: `Astrophotography · Milky Way`,
     photo_melkweg_s: `Long exposure under a clear sky`,
-    photo_eclipse_t: `Astrophotography · Lunar eclipse`,
+    photo_eclipse_t: `Astrophotography · Solar eclipse`,
     photo_eclipse_s: `Close-up through a telephoto lens`,
     photo_bos_t: `Nature · Light beams`,
     photo_bos_s: `Sunlight breaking through the canopy`,
