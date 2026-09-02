@@ -604,11 +604,22 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   color: var(--ink); font-family: inherit;
 }
 .tldr-toggle:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
-.tldr-toggle-txt { display: flex; flex-direction: column; gap: 2px; }
+.tldr-toggle-txt { display: flex; flex: 1 1 auto; flex-direction: column; gap: 2px; min-width: 0; }
 .tldr-toggle-txt strong { font-size: 1.02rem; font-weight: 700; }
 .tldr-toggle-txt span { font-size: .82rem; color: var(--ink-dim); font-weight: 500; }
 .tldr-chevron { flex: none; color: var(--acc-text); transition: transform .35s var(--ease); }
 .tldr-card.open .tldr-chevron { transform: rotate(180deg); }
+/* mini-voorproefje: gestapelde thumbnails naast de toggle-tekst, verdwijnt zodra het luik openstaat */
+.tldr-preview-stack { display: flex; flex: none; align-items: center; }
+.tldr-preview-stack img {
+  width: 34px; height: 34px; border-radius: 10px; object-fit: cover; display: block;
+  border: 2px solid rgba(127, 127, 127, .22); box-shadow: 0 3px 8px rgba(0,0,0,.14);
+  margin-left: -13px; background: var(--glass-bg);
+}
+.tldr-preview-stack img:first-child { margin-left: 0; }
+.tldr-card.open .tldr-preview-stack { opacity: 0; width: 0; margin-left: -16px; overflow: hidden; }
+.tldr-preview-stack { transition: opacity .25s var(--ease), width .35s var(--ease), margin-left .35s var(--ease); }
+@media (max-width: 560px) { .tldr-preview-stack img { width: 28px; height: 28px; } }
 /* grid-template-rows 0fr->1fr: vloeiend in-/uitklappen zonder JS-hoogtemeting */
 .tldr-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease); }
 .tldr-card.open .tldr-panel { grid-template-rows: 1fr; }
@@ -638,6 +649,13 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .design-cap-s { display: block; font-size: .78rem; color: var(--ink-dim); margin-top: 1px; }
 @media (max-width: 820px) { .designs-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .designs-grid { grid-template-columns: 1fr; padding: 20px 22px 22px; } }
+
+/* ---------- Fotografie-luik: masonry i.p.v. uniforme crop, toont elke foto op eigen verhouding ---------- */
+.photos-grid { display: block; columns: 3; column-gap: 18px; }
+.photos-grid .design-item { display: block; break-inside: avoid; margin-bottom: 18px; }
+.photos-grid .diploma-thumb img { height: auto; }
+@media (max-width: 820px) { .photos-grid { columns: 2; } }
+@media (max-width: 560px) { .photos-grid { columns: 1; } }
 @media (prefers-reduced-motion: reduce) { .tldr-panel, .tldr-chevron { transition: none; } }
 :root[data-motion="reduce"] .tldr-panel, :root[data-motion="reduce"] .tldr-chevron { transition: none; }
 
