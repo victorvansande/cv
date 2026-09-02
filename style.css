@@ -814,6 +814,9 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .a11y-row input:checked ~ .sw { background: var(--grad); border-color: transparent; }
 .a11y-row input:checked ~ .sw::after { transform: translateX(16px); }
 .a11y-row:hover { color: var(--ink); }
+/* de echte checkbox is onzichtbaar (0x0) - de focus-ring moet dus op de zichtbare .sw komen */
+.a11y-row input:focus-visible ~ .sw { outline: 2px solid var(--c2); outline-offset: 3px; }
+:root[data-mode="light"] .a11y-row input:focus-visible ~ .sw { outline-color: var(--c1); }
 .set-action { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border-radius: 10px;
   font-size: .9rem; font-weight: 600; color: var(--ink); background: var(--glass-bg);
   border: 1px solid var(--glass-bord); transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); }
@@ -826,6 +829,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .diploma-thumb {
   margin-top: 16px; border-radius: var(--r-sm); overflow: hidden; cursor: zoom-in;
   border: 1px solid var(--glass-bord); position: relative; background: #fff; display: block;
+  width: 100%; padding: 0; text-align: left; appearance: none; -webkit-appearance: none; font: inherit;
 }
 .diploma-thumb img { width: 100%; height: 220px; object-fit: cover; object-position: top center; display: block; transition: transform .4s var(--ease); }
 .diploma-thumb.compact img { height: 128px; }
@@ -835,7 +839,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   padding: 8px 12px; font-size: .78rem; font-weight: 600; color: #fff;
   background: linear-gradient(transparent, rgba(0,0,0,.65)); opacity: 0; transition: opacity .25s;
 }
-.diploma-thumb:hover::after { opacity: 1; }
+.diploma-thumb:hover::after, .diploma-thumb:focus-visible::after { opacity: 1; }
 
 .lightbox {
   position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 28px;
