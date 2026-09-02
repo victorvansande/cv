@@ -1055,6 +1055,130 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .reveal[data-d="3"] { transition-delay: .24s; }
 .reveal[data-d="4"] { transition-delay: .32s; }
 
+/* ================================================================
+   Prisma-intro (eenmalig per sessie, enkel rond de naam)
+   ----------------------------------------------------------------
+   Nagebouwd naar het principe van de Sony-logoreveal: de kleur is
+   niet de versiering maar het geboortemedium. Ze piekt VOOR de
+   letters scherp zijn en is volledig weggetrokken zodra ze dat wel
+   zijn — wat overblijft is de gewone, themagekleurde naam.
+   Drie gelijktijdige bewegingen: chroma-bloei (piek + wegtrekken),
+   scherptetrek op de letters (blur 18px -> 0) en een trage push-in.
+   ================================================================ */
+.prism-field { display: none; }
+
+:root.intro .prism-host { position: relative; animation: prism-push 2.6s cubic-bezier(.25,.6,.25,1) .45s both; }
+:root.intro .prism-host > *:not(.prism-field) { position: relative; z-index: 1; }
+
+/* het veld wordt door main.js exact over de naam gelegd (--px/--py/--pw/--ph),
+   met ruime bleed eromheen; de fallbacks gelden zolang dat nog niet gemeten is */
+:root.intro .prism-field {
+  display: block; position: absolute;
+  left: calc(var(--px, 0%) - 13%);
+  top: calc(var(--py, 34%) - 52%);
+  width: calc(var(--pw, 100%) + 26%);
+  height: calc(var(--ph, 52%) + 104%);
+  pointer-events: none; z-index: 0; opacity: 0;
+  /* zachte ovale uitdoving: nergens een zichtbare rand */
+  -webkit-mask-image: radial-gradient(ellipse 60% 54% at 50% 50%, #000 28%, transparent 76%);
+  mask-image: radial-gradient(ellipse 60% 54% at 50% 50%, #000 28%, transparent 76%);
+  filter: blur(14px);
+  animation: prism-bloom 2.6s cubic-bezier(.4,0,.25,1) .45s both;
+}
+/* licht = subtractief (pigment op wit), donker = additief (licht in het zwart);
+   de video is bewust ingetogen — vandaar lage alfa's, per modus afgestemd */
+:root[data-mode="light"] .prism-field { mix-blend-mode: multiply; --a: .30; }
+:root[data-mode="dark"] .prism-field { mix-blend-mode: screen; --a: .58; }
+
+.pl { position: absolute; border-radius: 50%; will-change: transform; }
+/* de spectrale sweep uit de video: amber links -> magenta/violet -> azuur/cyaan rechts */
+.pl-warm {
+  left: -4%; top: 12%; width: 44%; height: 78%;
+  background: radial-gradient(circle at 50% 50%, hsl(26 92% 55% / var(--a)), hsl(26 92% 55% / 0) 72%);
+  animation: pl-drift-a 2.6s cubic-bezier(.33,0,.2,1) .45s both;
+}
+.pl-magenta {
+  left: 16%; top: 18%; width: 38%; height: 70%;
+  background: radial-gradient(circle at 50% 50%, hsl(332 84% 58% / calc(var(--a) * .72)), hsl(332 84% 58% / 0) 72%);
+  animation: pl-drift-b 2.6s cubic-bezier(.33,0,.2,1) .45s both;
+}
+.pl-violet {
+  left: 33%; top: 10%; width: 40%; height: 78%;
+  background: radial-gradient(circle at 50% 50%, hsl(268 82% 62% / calc(var(--a) * .76)), hsl(268 82% 62% / 0) 72%);
+  animation: pl-drift-c 2.6s cubic-bezier(.33,0,.2,1) .45s both;
+}
+.pl-azure {
+  left: 50%; top: 16%; width: 44%; height: 76%;
+  background: radial-gradient(circle at 50% 50%, hsl(210 92% 56% / calc(var(--a) * .95)), hsl(210 92% 56% / 0) 72%);
+  animation: pl-drift-b 2.6s cubic-bezier(.33,0,.2,1) .45s both reverse;
+}
+.pl-cyan {
+  left: 70%; top: 12%; width: 38%; height: 72%;
+  background: radial-gradient(circle at 50% 50%, hsl(190 88% 54% / calc(var(--a) * .76)), hsl(190 88% 54% / 0) 72%);
+  animation: pl-drift-a 2.6s cubic-bezier(.33,0,.2,1) .45s both reverse;
+}
+/* fijne korrel: breekt de banding van de grote zachte verlopen, zoals de filmgrain in de video */
+.prism-grain {
+  position: absolute; inset: 0; opacity: .05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* de letters: onscherp en kleurloos geboren, scherp en themagekleurd volgroeid */
+:root.intro .prism-host .grad-text {
+  animation: prism-name 2.6s cubic-bezier(.22,.61,.24,1) .45s both;
+  will-change: filter, opacity;
+}
+:root.intro .prism-hello { animation: prism-hello 1.5s var(--ease) .35s both; }
+
+@keyframes prism-bloom {
+  0%   { opacity: 0; transform: scale(.9); }
+  18%  { opacity: .18; }
+  30%  { opacity: .55; }
+  40%  { opacity: 1; }
+  52%  { opacity: .82; }
+  64%  { opacity: .45; }
+  80%  { opacity: .16; }
+  100% { opacity: 0; transform: scale(1.05); }
+}
+@keyframes prism-name {
+  0%   { opacity: 0; filter: blur(18px) saturate(.08); }
+  26%  { opacity: .06; filter: blur(15px) saturate(.1); }
+  38%  { opacity: .28; filter: blur(10px) saturate(.2); }
+  50%  { opacity: .62; filter: blur(5px) saturate(.45); }
+  62%  { opacity: .9; filter: blur(1.6px) saturate(.8); }
+  74%  { opacity: 1; filter: blur(0) saturate(1); }
+  100% { opacity: 1; filter: blur(0) saturate(1); }
+}
+@keyframes prism-push { 0% { transform: scale(.972); } 100% { transform: scale(1); } }
+@keyframes prism-hello { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes pl-drift-a {
+  0%   { transform: translate3d(-7%, 4%, 0) scale(.82); }
+  45%  { transform: translate3d(-1%, 0, 0) scale(1.04); }
+  100% { transform: translate3d(6%, -5%, 0) scale(1.2); }
+}
+@keyframes pl-drift-b {
+  0%   { transform: translate3d(5%, 5%, 0) scale(.86); }
+  45%  { transform: translate3d(1%, -1%, 0) scale(1.06); }
+  100% { transform: translate3d(-6%, -6%, 0) scale(1.24); }
+}
+@keyframes pl-drift-c {
+  0%   { transform: translate3d(0, 7%, 0) scale(.8); }
+  45%  { transform: translate3d(2%, 0, 0) scale(1.08); }
+  100% { transform: translate3d(-2%, -7%, 0) scale(1.26); }
+}
+
+/* wie minder beweging wil, krijgt meteen het eindbeeld */
+@media (prefers-reduced-motion: reduce) {
+  :root.intro .prism-field { display: none; }
+  :root.intro .prism-host,
+  :root.intro .prism-host .grad-text,
+  :root.intro .prism-hello { animation: none; }
+}
+:root[data-motion="reduce"].intro .prism-field { display: none; }
+:root[data-motion="reduce"].intro .prism-host,
+:root[data-motion="reduce"].intro .prism-host .grad-text,
+:root[data-motion="reduce"].intro .prism-hello { animation: none; }
+
 /* ---------- Page hero (sub pages) ---------- */
 .page-hero { padding-top: 52px; padding-bottom: 22px; text-align: center; }
 .page-hero .lead { margin: 18px auto 0; }

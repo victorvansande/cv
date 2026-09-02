@@ -22,9 +22,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,400;1,6..72,500;1,6..72,600&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=93" />
+  <!-- Prisma-intro: eenmalig per sessie, moet vóór de eerste paint vaststaan om flikkeren te vermijden -->
+  <script>
+    (function () {
+      try {
+        if (!sessionStorage.getItem("vvs-intro-seen")) {
+          document.documentElement.classList.add("intro");
+          sessionStorage.setItem("vvs-intro-seen", "1");
+        }
+      } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css?v=95" />
   <script src="i18n.js?v=32" defer></script>
-  <script src="main.js?v=41" defer></script>
+  <script src="main.js?v=42" defer></script>
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
 <body>
@@ -112,7 +123,13 @@
           </div>
           <span class="eyebrow" style="margin-bottom:0"><span class="dot"></span> <span data-i18n="hero_eyebrow">Open voor boeiende samenwerkingen</span></span>
         </div>
-        <h1 class="h-xl"><span data-i18n="hero_hello">Hallo, ik ben</span><br><span class="grad-text">Victor Van Sande</span></h1>
+        <h1 class="h-xl prism-host">
+          <span class="prism-field" aria-hidden="true">
+            <i class="pl pl-warm"></i><i class="pl pl-magenta"></i><i class="pl pl-violet"></i><i class="pl pl-azure"></i><i class="pl pl-cyan"></i>
+            <i class="prism-grain"></i>
+          </span>
+          <span class="prism-hello" data-i18n="hero_hello">Hallo, ik ben</span><br><span class="grad-text">Victor Van Sande</span>
+        </h1>
         <p class="hero-loc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-i18n="hero_loc">Gevestigd in Antwerpen, België</span></p>
         <p class="lead">
           <span data-i18n="hero_lead_1">Communicatiewetenschapper met expertise in</span>

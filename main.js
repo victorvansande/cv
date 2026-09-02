@@ -77,6 +77,25 @@
       a.addEventListener("click", () => { links.classList.remove("open"); burger.classList.remove("on"); }));
   }
 
+  /* ---- Prisma-intro: het kleurveld exact over de naam leggen ----
+     De naam is een inline span die op smalle schermen afbreekt, dus de positie
+     wordt gemeten in plaats van vastgezet. Gebeurt binnen de 0.45s aanloop van
+     de animatie, ruim voor de eerste zichtbare frame. */
+  if (document.documentElement.classList.contains("intro")) {
+    const host = document.querySelector(".prism-host");
+    const name = host && host.querySelector(".grad-text");
+    if (host && name) {
+      const h = host.getBoundingClientRect();
+      const n = name.getBoundingClientRect();
+      if (h.width && h.height) {
+        host.style.setProperty("--px", ((n.left - h.left) / h.width) * 100 + "%");
+        host.style.setProperty("--py", ((n.top - h.top) / h.height) * 100 + "%");
+        host.style.setProperty("--pw", (n.width / h.width) * 100 + "%");
+        host.style.setProperty("--ph", (n.height / h.height) * 100 + "%");
+      }
+    }
+  }
+
   /* ---- Reveal on scroll ---- */
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
