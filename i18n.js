@@ -210,6 +210,7 @@ window.I18N = {
 
     /* footer + a11y */
     footer_country: `Belgium`,
+    footer_updated: `· last updated Sep 2026`,
     a11y_title: `Accessibility`,
     a11y_motion: `Reduce motion`,
     a11y_contrast: `Higher contrast`,

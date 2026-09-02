@@ -422,7 +422,7 @@
       const h = document.documentElement;
       const max = h.scrollHeight - h.clientHeight;
       const p = max > 0 ? (h.scrollTop / max) * 100 : 0;
-      if (prog) { prog.style.width = p + "%"; prog.style.backgroundPosition = (100 - p) + "% 0"; }
+      if (prog) prog.style.width = p + "%";
       // dicht bij de footer: knop verbergen zodat hij nooit over de social-icons valt
       const distToBottom = h.scrollHeight - (h.scrollTop + h.clientHeight);
       if (toTop) toTop.classList.toggle("show", h.scrollTop > 600 && distToBottom > 180);

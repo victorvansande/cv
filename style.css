@@ -454,6 +454,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .grad-text { background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
 .muted { color: var(--ink-dim); }
+.footer-updated { font-size: .82em; opacity: .6; }
 .section-head { max-width: 64ch; margin-bottom: 46px; }
 .section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
 /* lead krijgt lucht onder de kop */
@@ -939,9 +940,12 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .thesis-kw { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 
 /* ---------- Scroll progress bar ---------- */
+/* Brede, vaste kleurovergang die geleidelijk onthuld wordt naarmate de balk
+   groeit met de scroll - de kleur schuift dus letterlijk mee met waar je
+   op de pagina bent, i.p.v. één vaste tint of een repeterende shimmer. */
 .progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 200;
-  background: linear-gradient(90deg, var(--c1) 0%, var(--c2) 30%, var(--c3) 55%, var(--c2) 78%, var(--c1) 100%);
-  background-size: 200% 100%; background-position: 100% 0;
+  background-image: linear-gradient(90deg, var(--c1) 0%, var(--c2) 25%, var(--c3) 50%, var(--c2) 75%, var(--c1) 100%);
+  background-size: 100vw 100%; background-position: left top; background-repeat: no-repeat;
   box-shadow: 0 0 12px color-mix(in srgb, var(--c2) 80%, transparent); transition: width .1s linear; }
 
 /* ---------- Back to top ---------- */
