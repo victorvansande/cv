@@ -33,7 +33,7 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=113" />
+  <link rel="stylesheet" href="style.css?v=114" />
   <script src="i18n.js?v=33" defer></script>
   <script src="main.js?v=51" defer></script>
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
@@ -184,15 +184,20 @@
       </div>
       <div class="bento">
         <div class="glass fx-card feature feature-wide reveal fx-write" data-d="1">
-          <!-- Twee losse draden die samenkomen tot één doorlopende lijn: de rode
-               draad waar de kaarttekst zelf over spreekt. Geen beeldtaal van
-               zender en ontvanger, maar van tot elkaar komen. -->
+          <!-- Kernboodschap: verspreide stippen die bij hover samenkomen tot één
+               uitgelijnde rij. Elke stip staat al op zijn eindplek in die rij;
+               de verstrooiing is een verschuiving die bij hover naar nul gaat. -->
           <div class="fx" aria-hidden="true">
-            <svg class="thread" viewBox="0 0 380 44" preserveAspectRatio="none">
-              <path class="tp tp-a" pathLength="1" d="M2,6 C78,6 128,19 188,22"/>
-              <path class="tp tp-b" pathLength="1" d="M2,38 C78,38 128,25 188,22"/>
-              <path class="tp tp-c" pathLength="1" d="M188,22 L378,22"/>
-            </svg>
+            <span class="msg">
+              <i style="--dx:-22px;--dy:-26px;--i:0"></i><i style="--dx:14px;--dy:18px;--i:1"></i>
+              <i style="--dx:-8px;--dy:-34px;--i:2"></i><i style="--dx:26px;--dy:-12px;--i:3"></i>
+              <i style="--dx:-30px;--dy:8px;--i:4"></i><i style="--dx:6px;--dy:30px;--i:5"></i>
+              <i style="--dx:20px;--dy:-28px;--i:6"></i><i style="--dx:-14px;--dy:22px;--i:7"></i>
+              <i style="--dx:30px;--dy:14px;--i:8"></i><i style="--dx:-26px;--dy:-10px;--i:9"></i>
+              <i style="--dx:10px;--dy:-20px;--i:10"></i><i style="--dx:-18px;--dy:32px;--i:11"></i>
+              <i style="--dx:24px;--dy:6px;--i:12"></i><i style="--dx:-6px;--dy:-16px;--i:13"></i>
+              <i style="--dx:16px;--dy:26px;--i:14"></i><i style="--dx:-12px;--dy:-6px;--i:15"></i>
+            </span>
           </div>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
           <h3 data-i18n="card_comm_h">Doelgerichte communicatie</h3>

@@ -299,43 +299,45 @@ section { position: relative; }
 .fx-card .fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 0; }
 .fx-card > *:not(.fx) { position: relative; z-index: 1; }
 
-/* Communicatie: twee draden die samenkomen tot één.
-   De kaarttekst noemt zelf "de rode draad"; dat is hier de vorm geworden.
-   Verticaal gecentreerd over de volle breedte, want de kaart wisselt van
-   indeling - icoon bovenaan bij smalle vensters, ernaast bij brede - en een
-   vaste positie zou de ene of de andere keer op de kop botsen. Drie ijle
-   lijnen mogen achter tekst staan; de dekking blijft daarvoor laag. */
-.fx-write .thread {
-  position: absolute; left: 6%; right: 6%; top: 50%;
-  height: 46px; transform: translateY(-50%);
-  overflow: visible;
-}
-.fx-write .tp {
-  fill: none;
-  stroke: color-mix(in srgb, var(--c2) 55%, transparent);
-  stroke-width: 1.5; stroke-linecap: round;
-  /* de svg wordt uitgerekt naar de band; hiermee blijft de lijndikte gelijk */
-  vector-effect: non-scaling-stroke;
-  opacity: .15;
-  transition: opacity .45s var(--ease);
-}
-/* de samengekomen draad is de hoofdlijn en mag steviger staan */
-.fx-write .tp-c { stroke: color-mix(in srgb, var(--c2) 88%, transparent); stroke-width: 2; }
+/* Communicatie: kernboodschap.
+   De stippen liggen verstrooid en komen bij hover samen tot één uitgelijnde
+   rij: van verspreide input naar één heldere boodschap.
 
-/* pathLength="1" maakt de lengtes vergelijkbaar, zodat beide draden even snel
-   naar het samenkomstpunt tekenen ongeacht hun werkelijke lengte */
-.fx-write:hover .tp { stroke-dasharray: 1; }
-.fx-write:hover .tp-a,
-.fx-write:hover .tp-b { animation: threaddraw 2.6s var(--ease) infinite; }
-.fx-write:hover .tp-c { animation: threaddraw 2.6s var(--ease) infinite; animation-delay: .42s; }
+   De rij zelf wordt door flexbox gemaakt, dus elke stip staat al op zijn
+   eindplek. De verstrooiing is enkel een verschuiving (--dx/--dy) die bij
+   hover naar nul loopt. Daardoor animeert er niets anders dan `transform` en
+   `opacity`, allebei door de compositor afgehandeld.
 
-@keyframes threaddraw {
-  0%   { stroke-dashoffset: 1; opacity: 0; }
-  14%  { opacity: .62; }
-  46%  { stroke-dashoffset: 0; opacity: .62; }
-  82%  { stroke-dashoffset: 0; opacity: .62; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
+   Het is een overgang en geen lus: de stippen komen aan en blijven staan
+   zolang je erop staat. Dat leest als aankomen in plaats van rondjes draaien.
+
+   Verticaal gecentreerd over de volle breedte, want de kaart klapt bij brede
+   vensters horizontaal uit en stapelt bij smalle; een vaste positie zou in de
+   ene of de andere indeling op de kop botsen. */
+.fx-write .msg {
+  position: absolute; left: 9%; right: 9%; top: 50%;
+  height: 76px; transform: translateY(-50%);
+  display: flex; align-items: center; justify-content: space-between;
 }
+.fx-write .msg i {
+  width: 5px; height: 5px; flex: none; border-radius: 50%;
+  background: color-mix(in srgb, var(--c2) 85%, transparent);
+  opacity: .16;
+  transform: translate(var(--dx), var(--dy));
+  transition: transform .78s var(--ease), opacity .5s var(--ease);
+  transition-delay: calc(var(--i) * 16ms);
+}
+.fx-write:hover .msg i {
+  opacity: .6;
+  transform: translate(0, 0);
+}
+/* minder beweging: geen samenkomst, alleen het oplichten */
+@media (prefers-reduced-motion: reduce) {
+  .fx-write .msg i { transition: opacity .3s linear; }
+  .fx-write:hover .msg i { transform: translate(var(--dx), var(--dy)); }
+}
+:root[data-motion="reduce"] .fx-write .msg i { transition: opacity .3s linear; }
+:root[data-motion="reduce"] .fx-write:hover .msg i { transform: translate(var(--dx), var(--dy)); }
 
 /* design: soft gradient-mesh blooms */
 .fx-palette .fx { opacity: 0; transform: scale(1.25); transition: opacity .5s var(--ease), transform .6s var(--ease);
