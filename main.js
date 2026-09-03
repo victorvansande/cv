@@ -195,11 +195,19 @@
      één keer gerasterd wordt en daarna alleen nog gecomposit.
      De h1 wordt in zijn geheel gekloond: alleen zo valt de regelval (die door
      text-wrap: balance bepaald wordt) gegarandeerd identiek uit. */
-  const glowHost = document.querySelector(".prism-host");
-  const glowName = glowHost && glowHost.querySelector(".grad-text");
-  if (glowName && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  /* De luisteraar hangt aan het document en zoekt de naam pas op bij de klik.
+     Dat is nodig omdat de intro klonen van de h1 maakt die de klasse
+     prism-host meedragen, en de introlaag vóór de hero in de DOM staat: een
+     directe querySelector greep dus de kloon, en die verdwijnt samen met de
+     laag zodra de intro klaar is. Daardoor werkte de klik enkel bij een
+     herbezoek binnen dezelfde sessie, wanneer de intro niet meer speelt.
+     De :not(.in-l) sluit de introlagen uit, net als in de bijbehorende CSS. */
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
     let current = null;
-    glowName.addEventListener("click", () => {
+    document.addEventListener("click", (ev) => {
+      const glowName = ev.target.closest(".prism-host:not(.in-l) .grad-text");
+      if (!glowName) return;
+      const glowHost = glowName.closest(".prism-host");
       if (document.documentElement.dataset.motion === "reduce") return;
       // hoogstens één gloed tegelijk: snel achter elkaar klikken stapelt niet op
       if (current) current.remove();

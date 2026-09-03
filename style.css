@@ -460,6 +460,16 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .h-lg { font-size: clamp(2rem, 4.5vw, 3.2rem); }
 .h-md { font-size: clamp(1.4rem, 3vw, 2rem); }
 .grad-text { background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Bij background-clip: text wordt alleen binnen het achtergrondvak geschilderd.
+   Cursieve letters steken met hun schuine uithalen buiten dat vak - gemeten tot
+   ruim 3px bij "rode draad" - en dat stuk bleef dus ongeschilderd, wat leest als
+   een bruusk afgesneden letter. De marge maakt het vak breder; de negatieve
+   marge haalt die ruimte weer weg zodat de tekstloop niet verschuift.
+   Symmetrisch, zodat het midden van de naam op zijn plek blijft: de klikgloed
+   en de introlagen worden op dat midden uitgelijnd. */
+.grad-text,
+.pull-quote .em-serif { padding-inline: .16em; margin-inline: -.16em; }
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
 .muted { color: var(--ink-dim); }
 .section-head { max-width: 64ch; margin-bottom: 46px; }
