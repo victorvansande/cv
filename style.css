@@ -1471,7 +1471,9 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   .hero .lead { margin-bottom: 18px; }
   .hero-cta { gap: 10px; }
   .btn { padding: 12px 20px; font-size: .92rem; }
-  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 12px; margin-top: 22px; }
+  /* vier tellers: twee kolommen geeft een sluitend 2x2 raster, drie zou een
+     losse teller op een eigen regel achterlaten */
+  .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 12px; margin-top: 22px; }
   .stat .num { font-size: 1.7rem; }
   .stat .lbl { font-size: .76rem; }
   .scroll-cue { margin-top: 18px; }

@@ -24,6 +24,7 @@ window.I18N = {
     stat_diplomas: `diplomas`,
     stat_distinction_hero: `with distinction`,
     stat_leadership: `years of leadership`,
+    stat_motivation: `years of motivation left`,
     scroll_more: `Scroll for more`,
 
     /* highlights */
