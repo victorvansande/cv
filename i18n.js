@@ -88,7 +88,7 @@ window.I18N = {
     over_lead: `Thanks to three diplomas that each sharpened a different part of my passions, I grew into an enthusiastic, empathetic and critical mind at the intersection of psychology, education and communication.`,
     over_pullquote: `I like working in a people-centred way, <span class="em-serif">whatever I do.</span>`,
     thesis_teaser_title: `The Power of Deception`,
-    thesis_teaser_sub: `Master's thesis · 241 respondents · UAntwerpen · with distinction`,
+    thesis_teaser_sub: `Master's thesis · 241 respondents · UAntwerpen`,
     over_bio1: `My academic background in communication, media, psychology and technology I combine with a sharp eye for design and years of experience leading teams and projects, giving me strong communicative, organisational and leadership skills.`,
     skills_h: `Skills`,
     skill_writing: `Purposeful writing`,

@@ -299,35 +299,43 @@ section { position: relative; }
 .fx-card .fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 0; }
 .fx-card > *:not(.fx) { position: relative; z-index: 1; }
 
-/* communicatie: boodschap die van zender naar ontvanger vliegt */
-/* messaging-scene over de hele kaart */
-.fx-write .comm-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.fx-write .comm-person { fill: none; stroke: color-mix(in srgb, var(--c2) 60%, transparent);
-  stroke-width: 2; stroke-linecap: round; opacity: 0; transition: opacity .45s var(--ease); }
-.fx-write:hover .comm-person { opacity: .85; }
-.fx-write .comm-path { fill: none; stroke: color-mix(in srgb, var(--c2) 45%, transparent);
-  stroke-width: 1.4; stroke-dasharray: 4 5; stroke-linecap: round;
-  stroke-dashoffset: 240; opacity: 0; transition: opacity .4s var(--ease); }
-.fx-write:hover .comm-path { opacity: 1; animation: commdash 1.8s linear infinite; }
-.fx-write .comm-mail { fill: color-mix(in srgb, var(--c2) 20%, var(--bg-1));
-  stroke: var(--c2); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round;
-  offset-path: path('M58,58 Q160,18 262,58'); offset-rotate: auto;
-  offset-distance: 0%; opacity: 0; }
-.fx-write:hover .comm-mail { animation: commfly 1.8s var(--ease) infinite; }
-/* ontvanger pulseert bij aankomst */
-.fx-write .comm-pulse { transform-box: fill-box; transform-origin: center; }
-.fx-write:hover .comm-pulse { animation: commrcv 1.8s var(--ease) infinite; }
+/* Communicatie: twee draden die samenkomen tot één.
+   De kaarttekst noemt zelf "de rode draad"; dat is hier de vorm geworden.
+   Verticaal gecentreerd over de volle breedte, want de kaart wisselt van
+   indeling - icoon bovenaan bij smalle vensters, ernaast bij brede - en een
+   vaste positie zou de ene of de andere keer op de kop botsen. Drie ijle
+   lijnen mogen achter tekst staan; de dekking blijft daarvoor laag. */
+.fx-write .thread {
+  position: absolute; left: 6%; right: 6%; top: 50%;
+  height: 46px; transform: translateY(-50%);
+  overflow: visible;
+}
+.fx-write .tp {
+  fill: none;
+  stroke: color-mix(in srgb, var(--c2) 55%, transparent);
+  stroke-width: 1.5; stroke-linecap: round;
+  /* de svg wordt uitgerekt naar de band; hiermee blijft de lijndikte gelijk */
+  vector-effect: non-scaling-stroke;
+  opacity: .15;
+  transition: opacity .45s var(--ease);
+}
+/* de samengekomen draad is de hoofdlijn en mag steviger staan */
+.fx-write .tp-c { stroke: color-mix(in srgb, var(--c2) 88%, transparent); stroke-width: 2; }
 
-@keyframes commdash { to { stroke-dashoffset: 0; } }
-@keyframes commfly {
-  0%   { offset-distance: 0%;   opacity: 0; }
-  12%  { opacity: 1; }
-  82%  { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; } }
-@keyframes commrcv {
-  0%, 80%  { stroke: color-mix(in srgb, var(--c2) 60%, transparent); }
-  88%      { stroke: var(--c2); filter: drop-shadow(0 0 5px color-mix(in srgb, var(--c2) 70%, transparent)); }
-  100%     { stroke: color-mix(in srgb, var(--c2) 60%, transparent); filter: none; } }
+/* pathLength="1" maakt de lengtes vergelijkbaar, zodat beide draden even snel
+   naar het samenkomstpunt tekenen ongeacht hun werkelijke lengte */
+.fx-write:hover .tp { stroke-dasharray: 1; }
+.fx-write:hover .tp-a,
+.fx-write:hover .tp-b { animation: threaddraw 2.6s var(--ease) infinite; }
+.fx-write:hover .tp-c { animation: threaddraw 2.6s var(--ease) infinite; animation-delay: .42s; }
+
+@keyframes threaddraw {
+  0%   { stroke-dashoffset: 1; opacity: 0; }
+  14%  { opacity: .62; }
+  46%  { stroke-dashoffset: 0; opacity: .62; }
+  82%  { stroke-dashoffset: 0; opacity: .62; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
 
 /* design: soft gradient-mesh blooms */
 .fx-palette .fx { opacity: 0; transform: scale(1.25); transition: opacity .5s var(--ease), transform .6s var(--ease);
@@ -350,13 +358,27 @@ section { position: relative; }
 .fx-network:hover .net circle:nth-child(7) { animation: nodepulse 1.6s ease-in-out .95s infinite; }
 @keyframes nodepulse { 0%,100% { r: 5; } 50% { r: 7; } }
 
-/* fotografie: real camera flash with shutter ring */
+/* Fotografie: cameraflits met sluiterring.
+   In donkere modus flitst wit, zoals een echte flits. Op een lichte kaart kan
+   dat niet - feller dan wit bestaat niet - dus daar krijgt de flits kleur:
+   een korte, verzadigde bloei in het accent. De kleuren dragen zelf hun alfa,
+   zodat dezelfde keyframes in beide modi kloppen. */
+.fx-flash {
+  --flash-core: #fff;
+  --flash-edge: color-mix(in srgb, #fff 70%, transparent);
+  --flash-ring: rgba(255, 255, 255, .95);
+}
+:root[data-mode="light"] .fx-flash {
+  --flash-core: color-mix(in srgb, var(--c1) 74%, transparent);
+  --flash-edge: color-mix(in srgb, var(--c2) 30%, transparent);
+  --flash-ring: color-mix(in srgb, var(--c1) 88%, transparent);
+}
 .fx-flash .fx { opacity: 0; background:
-  radial-gradient(circle at 50% 42%, #fff, #fff 38%, color-mix(in srgb, #fff 70%, transparent) 70%); }
+  radial-gradient(circle at 50% 42%, var(--flash-core), var(--flash-core) 38%, var(--flash-edge) 70%); }
 .fx-flash:hover .fx { animation: flashfx .9s var(--ease); }
 @keyframes flashfx { 0% { opacity: 0; } 6% { opacity: .98; } 16% { opacity: .9; } 30% { opacity: .35; } 46% { opacity: .8; } 70% { opacity: 0; } 100% { opacity: 0; } }
 .fx-flash .fx::after { content: ""; position: absolute; left: 50%; top: 46%; width: 30px; height: 30px; border-radius: 50%;
-  border: 3px solid rgba(255,255,255,.95); transform: translate(-50%,-50%) scale(0); opacity: 0; }
+  border: 3px solid var(--flash-ring); transform: translate(-50%,-50%) scale(0); opacity: 0; }
 .fx-flash:hover .fx::after { animation: shutter .9s var(--ease); }
 @keyframes shutter { 0% { transform: translate(-50%,-50%) scale(0); opacity: 0; } 18% { transform: translate(-50%,-50%) scale(1); opacity: .9; } 60% { transform: translate(-50%,-50%) scale(7); opacity: 0; } 100% { opacity: 0; } }
 

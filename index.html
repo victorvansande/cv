@@ -33,8 +33,8 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=109" />
-  <script src="i18n.js?v=32" defer></script>
+  <link rel="stylesheet" href="style.css?v=112" />
+  <script src="i18n.js?v=33" defer></script>
   <script src="main.js?v=51" defer></script>
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
@@ -184,25 +184,14 @@
       </div>
       <div class="bento">
         <div class="glass fx-card feature feature-wide reveal fx-write" data-d="1">
+          <!-- Twee losse draden die samenkomen tot één doorlopende lijn: de rode
+               draad waar de kaarttekst zelf over spreekt. Geen beeldtaal van
+               zender en ontvanger, maar van tot elkaar komen. -->
           <div class="fx" aria-hidden="true">
-            <svg class="comm-svg" viewBox="0 0 320 120" preserveAspectRatio="xMidYMid meet">
-              <!-- vliegpad -->
-              <path class="comm-path" d="M58,58 Q160,18 262,58"/>
-              <!-- zender (links) -->
-              <g class="comm-person comm-sender">
-                <circle cx="40" cy="50" r="6"/>
-                <path d="M28,74 Q40,58 52,74"/>
-              </g>
-              <!-- ontvanger (rechts) -->
-              <g class="comm-person comm-receiver">
-                <circle class="comm-pulse" cx="280" cy="50" r="6"/>
-                <path d="M268,74 Q280,58 292,74"/>
-              </g>
-              <!-- vliegende envelop -->
-              <g class="comm-mail">
-                <rect x="-8" y="-6" width="16" height="12" rx="2"/>
-                <path d="M-8,-5 L0,2 L8,-5"/>
-              </g>
+            <svg class="thread" viewBox="0 0 380 44" preserveAspectRatio="none">
+              <path class="tp tp-a" pathLength="1" d="M2,6 C78,6 128,19 188,22"/>
+              <path class="tp tp-b" pathLength="1" d="M2,38 C78,38 128,25 188,22"/>
+              <path class="tp tp-c" pathLength="1" d="M188,22 L378,22"/>
             </svg>
           </div>
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
@@ -294,7 +283,7 @@
             <span class="tt-icon">📊</span>
             <div class="tt-body">
               <strong data-i18n="thesis_teaser_title">De Macht van Misleiding</strong>
-              <span data-i18n="thesis_teaser_sub">Masterproef · 241 respondenten · UAntwerpen · met onderscheiding</span>
+              <span data-i18n="thesis_teaser_sub">Masterproef · 241 respondenten · UAntwerpen</span>
             </div>
           </div>
           <span class="tt-arr">→</span>
