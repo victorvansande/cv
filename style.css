@@ -609,7 +609,13 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .contact-mini .cm-body { min-width: 0; }
 .contact-mini .lbl { display: block; font-size: .73rem; color: var(--ink-dim); margin-bottom: 1px; }
-.contact-mini .val { display: block; font-weight: 600; font-size: .94rem; word-break: break-word; }
+/* Nooit midden in een woord afbreken: dat liet een losse letter op een tweede
+   regel achter. De <wbr> in het adres geeft één net breekpunt na de @; pas als
+   zelfs dat niet past valt de browser terug op een gewone afbreking. */
+.contact-mini .val {
+  display: block; font-weight: 600; font-size: .94rem;
+  word-break: normal; overflow-wrap: break-word; hyphens: none;
+}
 @media (max-width: 560px) { .contact-strip { grid-template-columns: 1fr; } }
 
 /* ---------- Referenties ----------
@@ -737,6 +743,38 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .tldr-nudge:hover { color: var(--acc-text); border-color: color-mix(in srgb, var(--c2) 40%, transparent); transform: translateY(-2px); }
 .tldr-nudge svg { transition: transform .25s var(--ease); flex: none; }
 .tldr-nudge:hover svg { transform: translateY(2px); }
+
+/* Af en toe even oplichten, zodat een recruiter de snelle route opmerkt zonder
+   dat het als knipperende reclame leest. Eén rustige puls per cyclus: de rand
+   en de tekst krijgen kleur, en er trekt een zachte glans overheen. De pauze
+   is bewust lang - de aandacht komt van de zeldzaamheid, niet van de felheid.
+   Bij hover stopt de puls, anders vecht hij met de hoverstijl. */
+.tldr-nudge { position: relative; overflow: hidden; }
+.tldr-nudge.pulse { animation: nudge-glow 2.6s var(--ease); }
+.tldr-nudge:hover { animation: none; }
+/* de glans is een eigen laag, zodat de tekst zelf niet beweegt */
+.tldr-nudge.pulse::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg,
+    transparent 30%,
+    color-mix(in srgb, var(--c2) 26%, transparent) 50%,
+    transparent 70%);
+  transform: translateX(-120%);
+  animation: nudge-sheen 2.6s var(--ease);
+}
+@keyframes nudge-glow {
+  0%, 100% { border-color: var(--glass-bord); color: var(--ink-dim); }
+  30%, 62% { border-color: color-mix(in srgb, var(--c2) 46%, transparent); color: var(--acc-text); }
+}
+@keyframes nudge-sheen {
+  0%, 18%  { transform: translateX(-120%); }
+  72%, 100% { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tldr-nudge.pulse, .tldr-nudge.pulse::after { animation: none; }
+}
+:root[data-motion="reduce"] .tldr-nudge.pulse,
+:root[data-motion="reduce"] .tldr-nudge.pulse::after { animation: none; }
 
 /* ---------- Lively contact closer ---------- */
 .contact-final { text-align: center; padding: 56px 44px; position: relative; overflow: hidden; }
@@ -915,6 +953,26 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 /* de echte checkbox is onzichtbaar (0x0) - de focus-ring moet dus op de zichtbare .sw komen */
 .a11y-row input:focus-visible ~ .sw { outline: 2px solid var(--c2); outline-offset: 3px; }
 :root[data-mode="light"] .a11y-row input:focus-visible ~ .sw { outline-color: var(--c1); }
+/* Tekstgrootte. De knoppen zetten de basislettergrootte op <html>; omdat de
+   site in rem meet, schaalt daarmee ook de witruimte netjes mee. De koppen
+   gebruiken clamp() met vw, dus die groeien beheerst mee in plaats van door te
+   schieten. */
+.zoom-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: .9rem; color: var(--ink-soft); }
+.zoom-ctl { display: flex; align-items: center; gap: 4px; flex: none; }
+.zoom-btn {
+  width: 26px; height: 26px; flex: none; border-radius: 8px; cursor: pointer;
+  display: grid; place-items: center; line-height: 1;
+  font-family: inherit; font-size: 1rem; font-weight: 700;
+  color: var(--ink); background: var(--glass-bg); border: 1px solid var(--glass-bord);
+  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.zoom-btn:hover:not(:disabled) { color: var(--acc-text); border-color: color-mix(in srgb, var(--c2) 38%, transparent); background: color-mix(in srgb, var(--c2) 10%, transparent); }
+.zoom-btn:disabled { opacity: .35; cursor: default; }
+.zoom-btn:focus-visible { outline: 2px solid var(--c2); outline-offset: 2px; }
+:root[data-mode="light"] .zoom-btn:focus-visible { outline-color: var(--c1); }
+/* vaste breedte met tabellarische cijfers, anders verspringt de rij bij 90/100 */
+.zoom-val { min-width: 3.4em; text-align: center; font-size: .84rem; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+
 .set-action { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border-radius: 10px;
   font-size: .9rem; font-weight: 600; color: var(--ink); background: var(--glass-bg);
   border: 1px solid var(--glass-bord); transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); }
@@ -1210,22 +1268,9 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .in-b1 { animation: in-b1 5.2s linear .12s both; }
 .in-b0 { animation: in-b0 5.2s linear .12s both; }
 
-/* ---- de lichtspill: het licht dat uit de explosie naar buiten slaat en het
-       zwart wegduwt, zodat het opklaren zichtbaar uit het effect voortkomt ---- */
-/* De basismaten hieronder zijn bewust klein; het uiteindelijke formaat komt uit
-   `scale`. Een verloop schaalt lineair, dus het beeld blijft hetzelfde, maar de
-   laag die de browser moet rasteren is veel kleiner. Op een 2560x1440-scherm
-   met dpr 2 scheelde dat honderden megabytes rastergeheugen — precies wat de
-   hapering bij het opstarten veroorzaakte. */
-.intro-spill {
-  position: fixed; left: var(--nx, 50%); top: var(--ny, 50%);
-  width: 64vmax; height: 64vmax; margin: -32vmax 0 0 -32vmax;
-  pointer-events: none; opacity: 0;
-  background: radial-gradient(circle at 50% 50%,
-    rgba(255, 248, 238, .52), rgba(255, 238, 220, .15) 30%, rgba(255, 238, 220, 0) 62%);
-  will-change: transform, opacity;
-  animation: intro-spill 5.2s linear .12s both;
-}
+/* De warme lichtspill is weggehaald: die waste de kleuren uit en nam net de
+   verzadiging weg die de explosie moet dragen. Het opklaren gebeurt nu enkel
+   door het zwart dat wegtrekt, en dat scheelt meteen een animatielaag. */
 
 /* ---- de kleurenexplosie: begint klein rond de naam en dijt versneld uit tot
        voorbij de schermranden, alsof de verschijnende letters de kleur als een
@@ -1245,27 +1290,27 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    spectrum in plaats van vijf herkenbare bollen. */
 .pl-warm {
   left: -3%; top: 38%; width: 44%; height: 24%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(26 92% 56% / .66), hsl(26 92% 56% / 0));
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(26 92% 56% / .80), hsl(26 92% 56% / 0));
   animation: pl-drift-a 5.2s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-magenta {
   left: 14%; top: 39%; width: 42%; height: 22%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(332 84% 58% / .54), hsl(332 84% 58% / 0));
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(332 84% 58% / .68), hsl(332 84% 58% / 0));
   animation: pl-drift-b 5.2s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-violet {
   left: 30%; top: 37%; width: 44%; height: 26%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(268 82% 62% / .56), hsl(268 82% 62% / 0));
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(268 82% 62% / .70), hsl(268 82% 62% / 0));
   animation: pl-drift-c 5.2s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-azure {
   left: 46%; top: 38%; width: 44%; height: 24%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(210 92% 57% / .64), hsl(210 92% 57% / 0));
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(210 92% 57% / .78), hsl(210 92% 57% / 0));
   animation: pl-drift-b 5.2s cubic-bezier(.5,0,.3,1) .12s both reverse;
 }
 .pl-cyan {
   left: 63%; top: 39%; width: 42%; height: 22%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(190 88% 55% / .56), hsl(190 88% 55% / 0));
+  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(190 88% 55% / .70), hsl(190 88% 55% / 0));
   animation: pl-drift-a 5.2s cubic-bezier(.5,0,.3,1) .12s both reverse;
 }
 
@@ -1275,31 +1320,24 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   86%  { opacity: 0; }
   100% { opacity: 0; }
 }
-@keyframes intro-spill {
-  0%, 26% { opacity: 0;  transform: scale(.38); }
-  46%     { opacity: .8; transform: scale(1.08); }
-  60%     { opacity: 1;  transform: scale(1.92); }
-  78%     { opacity: .5; transform: scale(2.9); }
-  92%     { opacity: .1; transform: scale(3.5); }
-  100%    { opacity: 0;  transform: scale(3.7); }
-}
-/* De kern van de "umph": tot ~56% zwelt de kleur rustig aan, daarna schiet ze
-   versneld naar buiten — precies wanneer de letters scherp worden, zodat het
-   lijkt alsof zij de kleur als vloeistof wegduwen. */
-/* De schalen zijn omgerekend naar de kleinere basis (56vmax i.p.v. 96vmax), dus
-   de zichtbare maten blijven gelijk. De uitdijing loopt nu langer door en de
-   kleur dooft trager uit, zodat de explosie meer nagalm heeft. */
+/* Elke stap is ongeveer 1,4x de vorige. Die vaste verhouding is wat het vloeiend
+   maakt: de groei versnelt gestaag in plaats van ergens halverwege een zet te
+   geven. In de vorige versie sprong de schaal van 0,84 naar 1,9 met een scherpe
+   ease-in ervoor, en dat las als een schok midden in de animatie.
+   Daarom ook geen per-keyframe easing meer: de versnelling zit al in de
+   getallen, dus lineair ertussen geeft de gladste beweging. */
 @keyframes intro-burst {
-  0%   { opacity: 0;   transform: scale(.20); animation-timing-function: cubic-bezier(.35,0,.65,1); }
-  14%  { opacity: .40; transform: scale(.29); animation-timing-function: cubic-bezier(.4,0,.7,.95); }
-  28%  { opacity: .88; transform: scale(.44); animation-timing-function: cubic-bezier(.5,0,.8,.8); }
-  40%  { opacity: 1;   transform: scale(.59); animation-timing-function: cubic-bezier(.8,0,.92,.5); }
-  48%  { opacity: 1;   transform: scale(.84); animation-timing-function: cubic-bezier(.86,0,.96,.44); }
-  60%  { opacity: .97; transform: scale(1.9); }
-  72%  { opacity: .82; transform: scale(3.4); }
-  82%  { opacity: .60; transform: scale(4.6); }
-  90%  { opacity: .36; transform: scale(5.4); }
-  96%  { opacity: .15; transform: scale(6.0); }
+  0%   { opacity: 0;   transform: scale(.20); }
+  10%  { opacity: .34; transform: scale(.26); }
+  20%  { opacity: .74; transform: scale(.34); }
+  30%  { opacity: .94; transform: scale(.45); }
+  40%  { opacity: 1;   transform: scale(.60); }
+  50%  { opacity: 1;   transform: scale(.82); }
+  60%  { opacity: .99; transform: scale(1.15); }
+  70%  { opacity: .94; transform: scale(1.66); }
+  78%  { opacity: .85; transform: scale(2.35); }
+  86%  { opacity: .62; transform: scale(3.35); }
+  93%  { opacity: .34; transform: scale(4.65); }
   100% { opacity: 0;   transform: scale(6.4); }
 }
 @keyframes intro-push { 0% { transform: scale(.962); } 100% { transform: scale(1); } }

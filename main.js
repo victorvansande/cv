@@ -246,6 +246,32 @@
     });
   }
 
+  /* ---- Essentie-knop af en toe laten oplichten ----
+     Alleen zolang de knop in beeld is: pulseren terwijl niemand kijkt heeft
+     geen zin, en het scheelt werk. De eerste puls komt wat later, zodat hij
+     niet samenvalt met het binnenkomen van de pagina. */
+  const nudge = document.querySelector(".tldr-nudge");
+  if (nudge && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let timer = null, inView = false;
+    const pulse = () => {
+      if (!inView || document.documentElement.dataset.motion === "reduce") return;
+      nudge.classList.remove("pulse");
+      void nudge.offsetWidth;          // reflow, anders start de animatie niet opnieuw
+      nudge.classList.add("pulse");
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { pulse(); schedule(); }, 9000);
+    };
+    new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        inView = e.isIntersecting;
+        if (inView) { clearTimeout(timer); timer = setTimeout(() => { pulse(); schedule(); }, 3500); }
+        else clearTimeout(timer);
+      });
+    }, { threshold: 0.9 }).observe(nudge);
+  }
+
   /* ---- Reveal on scroll ---- */
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
@@ -549,6 +575,42 @@
       setMode(document.documentElement.dataset.mode === "light" ? "dark" : "light"));
     const savedMode = (() => { try { return localStorage.getItem("cv-mode"); } catch (e) { return null; } })();
     setMode(savedMode || document.documentElement.dataset.mode || "light");
+  }
+
+  /* ---- Tekstgrootte ----
+     Zet de basislettergrootte op <html>. De site meet in rem, dus tekst én
+     witruimte schalen samen mee; de koppen staan in clamp() met vw en groeien
+     daardoor beheerst mee in plaats van door te schieten. De keuze wordt
+     bewaard en al in de <head> toegepast, zodat de pagina niet zichtbaar
+     verspringt bij het laden. */
+  const zoomOut = document.querySelector(".zoom-out");
+  const zoomIn = document.querySelector(".zoom-in");
+  const zoomVal = document.querySelector(".zoom-val");
+  if (zoomOut && zoomIn && zoomVal) {
+    const STAPPEN = [80, 90, 100, 110, 120, 130];
+    let huidig = 100;
+    try {
+      const opgeslagen = parseInt(localStorage.getItem("cv-zoom"), 10);
+      if (STAPPEN.includes(opgeslagen)) huidig = opgeslagen;
+    } catch (e) {}
+    const pas = (z, bewaar) => {
+      huidig = z;
+      // 100% blijft de standaard van de browser, dus dan zetten we niets vast
+      if (z === 100) document.documentElement.style.removeProperty("font-size");
+      else document.documentElement.style.fontSize = z + "%";
+      zoomVal.textContent = z + "%";
+      zoomOut.disabled = z === STAPPEN[0];
+      zoomIn.disabled = z === STAPPEN[STAPPEN.length - 1];
+      if (bewaar) { try { localStorage.setItem("cv-zoom", String(z)); } catch (e) {} }
+    };
+    const stap = (richting) => {
+      const i = STAPPEN.indexOf(huidig);
+      const volgende = STAPPEN[i + richting];
+      if (volgende) pas(volgende, true);
+    };
+    zoomOut.addEventListener("click", () => stap(-1));
+    zoomIn.addEventListener("click", () => stap(1));
+    pas(huidig, false);
   }
 
   /* ---- Accessibility preferences (reduce motion / high contrast) ---- */

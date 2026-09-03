@@ -265,6 +265,7 @@ window.I18N = {
     a11y_title: `Accessibility`,
     a11y_motion: `Reduce motion`,
     a11y_contrast: `Higher contrast`,
+    a11y_zoom: `Text size`,
 
     tools_h: `Tools`,
 
