@@ -366,21 +366,15 @@ section { position: relative; }
 .fx-flash {
   --flash-core: #fff;
   --flash-edge: color-mix(in srgb, #fff 70%, transparent);
-  --flash-ring: rgba(255, 255, 255, .95);
 }
 :root[data-mode="light"] .fx-flash {
   --flash-core: color-mix(in srgb, var(--c1) 74%, transparent);
   --flash-edge: color-mix(in srgb, var(--c2) 30%, transparent);
-  --flash-ring: color-mix(in srgb, var(--c1) 88%, transparent);
 }
 .fx-flash .fx { opacity: 0; background:
   radial-gradient(circle at 50% 42%, var(--flash-core), var(--flash-core) 38%, var(--flash-edge) 70%); }
 .fx-flash:hover .fx { animation: flashfx .9s var(--ease); }
 @keyframes flashfx { 0% { opacity: 0; } 6% { opacity: .98; } 16% { opacity: .9; } 30% { opacity: .35; } 46% { opacity: .8; } 70% { opacity: 0; } 100% { opacity: 0; } }
-.fx-flash .fx::after { content: ""; position: absolute; left: 50%; top: 46%; width: 30px; height: 30px; border-radius: 50%;
-  border: 3px solid var(--flash-ring); transform: translate(-50%,-50%) scale(0); opacity: 0; }
-.fx-flash:hover .fx::after { animation: shutter .9s var(--ease); }
-@keyframes shutter { 0% { transform: translate(-50%,-50%) scale(0); opacity: 0; } 18% { transform: translate(-50%,-50%) scale(1); opacity: .9; } 60% { transform: translate(-50%,-50%) scale(7); opacity: 0; } 100% { opacity: 0; } }
 
 /* tech: circuit board powers up */
 .fx-circuit .fx { background: var(--c2); opacity: 0; transition: opacity .4s var(--ease);
