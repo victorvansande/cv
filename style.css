@@ -1285,7 +1285,8 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .name-glow .gl {
   position: absolute; left: 0; top: 0;
   margin: 0 !important;              /* .h-xl zet zelf een !important-marge */
-  transform-origin: 50% 50%;
+  /* main.js zet dit op het midden van de naam; de 50% is enkel een terugval */
+  transform-origin: var(--ox, 50%) var(--oy, 50%);
   will-change: transform, opacity;
 }
 .name-glow .gl .grad-text {

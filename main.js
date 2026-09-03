@@ -204,6 +204,7 @@
       // hoogstens één gloed tegelijk: snel achter elkaar klikken stapelt niet op
       if (current) current.remove();
       const h = glowHost.getBoundingClientRect();
+      const r = glowName.getBoundingClientRect();
       const wrap = document.createElement("div");
       wrap.className = "name-glow";
       wrap.setAttribute("aria-hidden", "true");
@@ -211,6 +212,11 @@
       wrap.style.top = h.top + "px";
       wrap.style.width = h.width + "px";
       wrap.style.height = h.height + "px";
+      /* Draaipunt op het midden van de NAAM, niet van de h1. De kop is zo breed
+         als de kaart terwijl de naam links uitlijnt; schalen om het midden van
+         de kop duwt de gloed dan zichtbaar naar links weg. */
+      wrap.style.setProperty("--ox", r.left + r.width / 2 - h.left + "px");
+      wrap.style.setProperty("--oy", r.top + r.height / 2 - h.top + "px");
       ["gl-near", "gl-mid", "gl-far"].forEach((cls) => {
         const clone = glowHost.cloneNode(true);
         clone.classList.remove("prism-host");   // anders erft de kloon de hover-regels
