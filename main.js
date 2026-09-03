@@ -187,30 +187,47 @@
     }
   }
 
-  /* ---- Klik op de naam: kleurenexplosie over het scherm ----
-     Dezelfde lobben en drift als de intro, alleen sneller getimed en zonder
-     zwarte laag. De laag ligt buiten de pagina-inhoud en vangt geen klikken
-     (pointer-events: none), zodat er niets onbereikbaar wordt. */
-  const burstName = document.querySelector(".prism-host .grad-text");
-  if (burstName && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const LOBES = ["pl-warm", "pl-magenta", "pl-violet", "pl-azure", "pl-cyan"];
+  /* ---- Klik op de naam: de letters stralen kleur uit ----
+     Niet één bloei uit een middelpunt, maar drie kopieën van de naam zelf met
+     elk een vaste blur. Ze schalen op en vloeien weg, dus de gloed heeft in de
+     eerste frames precies de vorm van de glyphs en diffundeert daarna pas.
+     De blur staat vast en enkel transform/opacity animeren, zodat elke laag
+     één keer gerasterd wordt en daarna alleen nog gecomposit.
+     De h1 wordt in zijn geheel gekloond: alleen zo valt de regelval (die door
+     text-wrap: balance bepaald wordt) gegarandeerd identiek uit. */
+  const glowHost = document.querySelector(".prism-host");
+  const glowName = glowHost && glowHost.querySelector(".grad-text");
+  if (glowName && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
     let current = null;
-    burstName.addEventListener("click", () => {
+    glowName.addEventListener("click", () => {
       if (document.documentElement.dataset.motion === "reduce") return;
-      // hoogstens één explosie tegelijk: snel achter elkaar klikken stapelt niet op
+      // hoogstens één gloed tegelijk: snel achter elkaar klikken stapelt niet op
       if (current) current.remove();
-      const r = burstName.getBoundingClientRect();
-      const b = document.createElement("div");
-      b.className = "name-burst";
-      b.setAttribute("aria-hidden", "true");
-      b.style.setProperty("--bx", r.left + r.width / 2 + "px");
-      b.style.setProperty("--by", r.top + r.height / 2 + "px");
-      b.innerHTML = LOBES.map((c) => '<i class="pl ' + c + '"></i>').join("");
-      document.body.appendChild(b);
-      current = b;
-      const clear = () => { if (current === b) current = null; b.remove(); };
-      // animationend borrelt ook op vanuit de lobben; enkel die van de laag telt
-      b.addEventListener("animationend", (e) => { if (e.target === b) clear(); });
+      const h = glowHost.getBoundingClientRect();
+      const wrap = document.createElement("div");
+      wrap.className = "name-glow";
+      wrap.setAttribute("aria-hidden", "true");
+      wrap.style.left = h.left + "px";
+      wrap.style.top = h.top + "px";
+      wrap.style.width = h.width + "px";
+      wrap.style.height = h.height + "px";
+      ["gl-near", "gl-mid", "gl-far"].forEach((cls) => {
+        const clone = glowHost.cloneNode(true);
+        clone.classList.remove("prism-host");   // anders erft de kloon de hover-regels
+        clone.classList.add("gl", cls);
+        clone.removeAttribute("id");
+        clone.querySelectorAll("[data-i18n]").forEach((el) => el.removeAttribute("data-i18n"));
+        clone.querySelectorAll(":scope > *:not(.grad-text)").forEach((el) => el.classList.add("intro-hidden"));
+        clone.style.width = h.width + "px";
+        wrap.appendChild(clone);
+      });
+      document.body.appendChild(wrap);
+      current = wrap;
+      const clear = () => { if (current === wrap) current = null; wrap.remove(); };
+      // animationend borrelt op vanuit de lagen; de traagste bepaalt het einde
+      wrap.addEventListener("animationend", (e) => {
+        if (e.target.classList.contains("gl-far")) clear();
+      });
       setTimeout(clear, 4000);
     });
   }

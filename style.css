@@ -1138,7 +1138,10 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 }
 /* alles behalve de naam wordt in de kloon onzichtbaar gezet, maar blijft wel
    ruimte innemen — anders verschuift de regelval */
-.in-l .intro-hidden { visibility: hidden; }
+/* Gebruikt door zowel de introlagen als de klikgloed: in een kloon blijft
+   alles behalve de naam ruimte innemen, maar onzichtbaar - haal je het weg,
+   dan verschuift de regelval. */
+.intro-hidden { visibility: hidden; }
 /* de blur staat vast, dus elke laag wordt één keer gerasterd en daarna alleen
    nog gecomposit — dat is wat het vloeiend houdt */
 .in-b3 .grad-text { filter: blur(24px) saturate(.10); }
@@ -1269,32 +1272,63 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   100% { transform: translate3d(0, -10%, 0) scale(2.08); }
 }
 
-/* ---------- Klik op de naam: kleurenexplosie ----------
-   Hergebruikt de lobben en hun drift uit de intro; alleen de timing verschilt,
-   en er komt geen zwarte laag aan te pas. De laag vangt geen klikken en wordt
-   door main.js weer opgeruimd zodra de animatie klaar is. */
-.name-burst {
-  position: fixed; left: var(--bx); top: var(--by);
-  width: 52vmax; height: 52vmax; margin: -26vmax 0 0 -26vmax;
-  pointer-events: none; z-index: 200; opacity: 0;
+/* ---------- Klik op de naam: de letters stralen kleur uit ----------
+   Drie kopieën van de naam met elk een vaste blur schalen op en vloeien weg.
+   Omdat de bron de glyphs zelf zijn, heeft de gloed in de eerste frames de
+   vorm van de letters en diffundeert hij pas terwijl hij uitdijt - precies
+   zoals licht dat van een vorm afkomt.
+   De blur staat vast; er animeren alleen transform en opacity, dus elke laag
+   wordt één keer gerasterd en daarna enkel nog gecomposit. Doordat de blur
+   mee opschaalt met de transform, wordt de gloed vanzelf zachter naarmate hij
+   verder reikt. */
+.name-glow { position: fixed; pointer-events: none; z-index: 200; }
+.name-glow .gl {
+  position: absolute; left: 0; top: 0;
+  margin: 0 !important;              /* .h-xl zet zelf een !important-marge */
+  transform-origin: 50% 50%;
   will-change: transform, opacity;
-  animation: name-burst 2.5s linear both;
 }
-/* de lobben erven hun kleur en positie, maar lopen mee op de kortere klikduur */
-.name-burst .pl { animation-duration: 2.5s; animation-delay: 0s; }
+.name-glow .gl .grad-text {
+  /* het volledige spectrum door de letters, los van het themaverloop */
+  background-image: linear-gradient(100deg,
+    hsl(26 92% 56%) 0%, hsl(332 84% 58%) 26%, hsl(268 82% 62%) 50%,
+    hsl(210 92% 57%) 74%, hsl(190 88% 55%) 100%);
+  background-size: 100% 100%;
+  background-position: 0 0;
+  animation: none;
+}
+.name-glow .gl-near .grad-text { filter: blur(7px)  saturate(1.35); }
+.name-glow .gl-mid  .grad-text { filter: blur(21px) saturate(1.3); }
+.name-glow .gl-far  .grad-text { filter: blur(44px) saturate(1.25); }
 
-@keyframes name-burst {
-  0%   { opacity: 0;   transform: scale(.10); animation-timing-function: cubic-bezier(.2,.7,.4,1); }
-  9%   { opacity: .95; transform: scale(.32); }
-  22%  { opacity: 1;   transform: scale(.64); animation-timing-function: cubic-bezier(.72,0,.9,.5); }
-  40%  { opacity: .9;  transform: scale(1.6); }
-  60%  { opacity: .66; transform: scale(3.1); }
-  78%  { opacity: .38; transform: scale(4.5); }
-  92%  { opacity: .13; transform: scale(5.5); }
-  100% { opacity: 0;   transform: scale(6); }
+/* Lineair getimed: de vertraging zit in de schaalstappen zelf. Met één sterke
+   ease-out zakte de dekking al binnen een fractie weg, waardoor het eerder een
+   flits werd dan een uitstraling. */
+.name-glow .gl-near { animation: glow-near 1.2s linear both; }
+.name-glow .gl-mid  { animation: glow-mid  1.85s linear both; }
+.name-glow .gl-far  { animation: glow-far  2.6s linear both; }
+
+@keyframes glow-near {
+  0%   { transform: scale(1);    opacity: .95; }
+  28%  { transform: scale(1.5);  opacity: .7; }
+  60%  { transform: scale(1.88); opacity: .3; }
+  100% { transform: scale(2.1);  opacity: 0; }
 }
-@media (prefers-reduced-motion: reduce) { .name-burst { display: none; } }
-:root[data-motion="reduce"] .name-burst { display: none; }
+@keyframes glow-mid {
+  0%   { transform: scale(1);    opacity: .78; }
+  26%  { transform: scale(1.95); opacity: .64; }
+  58%  { transform: scale(2.95); opacity: .34; }
+  100% { transform: scale(3.6);  opacity: 0; }
+}
+@keyframes glow-far {
+  0%   { transform: scale(1);    opacity: .6; }
+  22%  { transform: scale(2.9);  opacity: .52; }
+  50%  { transform: scale(5.1);  opacity: .32; }
+  78%  { transform: scale(6.5);  opacity: .13; }
+  100% { transform: scale(7);    opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .name-glow { display: none; } }
+:root[data-motion="reduce"] .name-glow { display: none; }
 
 /* wie minder beweging wil, krijgt meteen de gewone pagina — en dus ook meteen
    de echte naam, die anders door intro-real-name verborgen zou blijven */
