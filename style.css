@@ -602,6 +602,56 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .contact-mini .val { display: block; font-weight: 600; font-size: .94rem; word-break: break-word; }
 @media (max-width: 560px) { .contact-strip { grid-template-columns: 1fr; } }
 
+/* ---------- Referenties ----------
+   Elke kaart heeft dezelfde opbouw: initialen, naam, functie(s) en
+   contactknoppen. Alleen de eerste heeft een citaat, en die krijgt daarom de
+   volle breedte - zo leest het verschil als een bewuste compositie in plaats
+   van als een kaart die toevallig langer is. */
+.ref-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; align-items: start; }
+.ref-quoted { grid-column: 1 / -1; }
+.ref-card { padding: 24px 26px; display: flex; flex-direction: column; gap: 16px; }
+.ref-head { display: flex; align-items: flex-start; gap: 14px; }
+.ref-avatar {
+  width: 42px; height: 42px; flex: none; border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: .82rem; font-weight: 700; letter-spacing: .02em;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
+  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent);
+  color: var(--acc-text);
+}
+.ref-id { min-width: 0; }
+.ref-id h3 { font-size: 1.02rem; margin: 0 0 3px; }
+.ref-role { font-size: .84rem; color: var(--ink-dim); margin: 0; line-height: 1.45; }
+.ref-role + .ref-role { margin-top: 1px; }
+
+.ref-quote { margin: 0; position: relative; padding-left: 18px; }
+/* geen aanhalingsteken als plaatje maar een streep: rustiger, en hij groeit
+   mee met de hoogte van het citaat */
+.ref-quote::before {
+  content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c1) 70%, transparent), color-mix(in srgb, var(--c2) 25%, transparent));
+}
+.ref-quote p { margin: 0; color: var(--ink-soft); font-size: .95rem; line-height: 1.68; }
+
+.ref-contact { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.ref-contact a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 13px; border-radius: 999px;
+  background: var(--glass-bg); border: 1px solid var(--glass-bord);
+  color: var(--ink); font-size: .84rem; font-weight: 500;
+  text-decoration: none; word-break: break-word;
+  transition: border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
+}
+.ref-contact a:hover { border-color: var(--glass-bord-hi); background: color-mix(in srgb, var(--ink) 6%, transparent); transform: translateY(-1px); }
+.ref-contact svg { flex: none; color: var(--acc-text); }
+
+@media (max-width: 760px) {
+  .ref-grid { grid-template-columns: 1fr; }
+  .ref-card { padding: 22px 20px; }
+  .ref-contact a { font-size: .8rem; }
+}
+
 /* ---------- TL;DR summary (net voor Contact) ---------- */
 /* Standaard dichtgeklapt: enkel de knop is zichtbaar, zodat de sectie geen
    ruimte inneemt tenzij een bezoeker er expliciet voor kiest. */

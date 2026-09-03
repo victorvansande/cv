@@ -11,7 +11,21 @@ window.I18N = {
     nav_over: `About`,
     nav_opleiding: `Education`,
     nav_ervaring: `Experience`,
+    nav_referenties: `References`,
     nav_contact: `Contact`,
+
+    /* references */
+    ref_eyebrow: `References`,
+    ref_h2: `Not on my word, <span class="grad-text em-serif">but on theirs</span>`,
+    ref_lead: `These people supervised me during my master's and speak freely about my work. Feel free to contact them directly.`,
+    ref_bruijn_role: `Professor of Persuasive Technologies, University of Antwerp`,
+    /* Vertaald citaat: de professor schreef dit in het Nederlands. Zie de
+       toelichting bij deze wijziging - het origineel staat in index.html. */
+    ref_bruijn_quote: `Victor is a student who approaches academic material in a creative and critical way. His concept design for the ‘Struddy’ application (a system that persuasively coaches users based on HRV and biometrics) was methodologically sound and illustrates his capacity to conceptualise data-driven, persuasive technologies. Victor also made a very clear positive contribution to the literature discussions during our sessions.`,
+    ref_paulussen_role: `Professor of Journalism and Cross-media, University of Antwerp`,
+    ref_paulussen_role2: `Professor of News and Journalism`,
+    ref_maeseele_role: `Professor of Media & Democratic Debate, University of Antwerp`,
+    ref_maeseele_role2: `Professor of Contemporary Currents in Communication Studies`,
 
     /* hero */
     hero_eyebrow: `Open to inspiring collaborations`,
