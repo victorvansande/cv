@@ -1250,6 +1250,62 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 :root[data-motion="reduce"].intro .intro-veil { display: none; }
 :root[data-motion="reduce"].intro .prism-host:not(.in-l) .grad-text { animation: none; }
 
+/* ================================================================
+   Naam-hover: hetzelfde spectrum als de intro, maar dan door de letters
+   ----------------------------------------------------------------
+   De naam is een inline span die over twee regels kan breken, dus alles
+   moet met de tekst mee kunnen buigen. Daarom hangt het effect aan de
+   bestaande `background-clip: text`: er komt één extra verlooplaag bovenop
+   `--grad-ink`, die in rust volledig doorzichtig is. Zo is het rustbeeld
+   gegarandeerd exact zoals het was, in elk thema en elke modus - er wordt
+   niets van --grad-ink nagebouwd.
+
+   De kleuren zijn geregistreerde custom properties, want alleen dan kan de
+   browser ze vloeiend laten overvloeien. Ze gaan van alfa 0 naar alfa 1 in
+   dezelfde tint, zodat de overgang enkel de doorzichtigheid verandert en
+   niet via een donkere tussenkleur loopt.
+   ================================================================ */
+@property --sp1 { syntax: "<color>"; inherits: false; initial-value: hsl(26 92% 56% / 0); }
+@property --sp2 { syntax: "<color>"; inherits: false; initial-value: hsl(332 84% 58% / 0); }
+@property --sp3 { syntax: "<color>"; inherits: false; initial-value: hsl(268 82% 62% / 0); }
+@property --sp4 { syntax: "<color>"; inherits: false; initial-value: hsl(210 92% 57% / 0); }
+@property --sp5 { syntax: "<color>"; inherits: false; initial-value: hsl(190 88% 55% / 0); }
+
+@media (hover: hover) and (pointer: fine) {
+  .prism-host:not(.in-l) .grad-text {
+    background-image:
+      linear-gradient(112deg, var(--sp1), var(--sp2) 27%, var(--sp3) 50%, var(--sp4) 73%, var(--sp5)),
+      var(--grad-ink);
+    /* de spectrumlaag start smal en dijt bij hover uit over de hele naam */
+    background-size: 34% 100%, auto;
+    background-position: 50% 50%, 0 0;
+    background-repeat: no-repeat, repeat;
+    transition:
+      --sp1 .5s var(--ease), --sp2 .5s var(--ease), --sp3 .5s var(--ease),
+      --sp4 .5s var(--ease), --sp5 .5s var(--ease),
+      background-size .62s var(--ease), filter .5s var(--ease);
+  }
+  .prism-host:not(.in-l) .grad-text:hover {
+    --sp1: hsl(26 92% 56% / .97);
+    --sp2: hsl(332 84% 58% / .97);
+    --sp3: hsl(268 82% 62% / .97);
+    --sp4: hsl(210 92% 57% / .97);
+    --sp5: hsl(190 88% 55% / .97);
+    background-size: 128% 100%, auto;
+    /* zachte gloed rond de glyphs: de bloei uit de intro, maar ingetogen */
+    filter: drop-shadow(0 0 13px hsl(310 82% 60% / .34)) drop-shadow(0 0 26px hsl(205 90% 58% / .26));
+  }
+  /* minder beweging: de kleur mag, het uitdijen en de gloed niet */
+  @media (prefers-reduced-motion: reduce) {
+    .prism-host:not(.in-l) .grad-text,
+    .prism-host:not(.in-l) .grad-text:hover { transition: none; background-size: 128% 100%, auto; filter: none; }
+  }
+  :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text,
+  :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text:hover {
+    transition: none; background-size: 128% 100%, auto; filter: none;
+  }
+}
+
 /* ---------- Page hero (sub pages) ---------- */
 .page-hero { padding-top: 52px; padding-bottom: 22px; text-align: center; }
 .page-hero .lead { margin: 18px auto 0; }
