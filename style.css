@@ -1274,12 +1274,23 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 @media (hover: hover) and (pointer: fine) {
   .prism-host:not(.in-l) .grad-text {
     background-image:
-      linear-gradient(112deg, var(--sp1), var(--sp2) 27%, var(--sp3) 50%, var(--sp4) 73%, var(--sp5)),
+      linear-gradient(100deg,
+        var(--sp1) 0%, var(--sp2) 12%, var(--sp3) 25%, var(--sp4) 37%, var(--sp5) 50%,
+        var(--sp4) 63%, var(--sp3) 75%, var(--sp2) 88%, var(--sp1) 100%),
       var(--grad-ink);
-    /* de spectrumlaag start smal en dijt bij hover uit over de hele naam */
-    background-size: 34% 100%, auto;
-    background-position: 50% 50%, 0 0;
-    background-repeat: no-repeat, repeat;
+    background-size: 150% 100%, auto;
+    background-repeat: repeat-x, repeat;
+    /* De animatie staat altijd klaar maar gepauzeerd. Zo hervat ze bij hover
+       waar ze gebleven was, en bevriest ze bij het weggaan op de huidige stand
+       in plaats van terug te springen - dat springen zou je zien tijdens het
+       uitvloeien van de kleur. Gepauzeerd kost ze niets. */
+    animation: name-flow 8s linear infinite;
+    animation-play-state: paused;
+    /* De gloed staat er al, maar volledig doorzichtig. Twee redenen: een
+       overgang van `none` naar een filterlijst vloeit niet netjes over, en zo
+       hoeft de browser de filterketen niet pas op het hovermoment op te bouwen
+       - dat kostte anders één trage frame precies bij het aanwijzen. */
+    filter: drop-shadow(0 0 11px hsl(310 82% 60% / 0)) drop-shadow(0 0 20px hsl(205 90% 58% / 0));
     transition:
       --sp1 .5s var(--ease), --sp2 .5s var(--ease), --sp3 .5s var(--ease),
       --sp4 .5s var(--ease), --sp5 .5s var(--ease),
@@ -1291,18 +1302,28 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
     --sp3: hsl(268 82% 62% / .97);
     --sp4: hsl(210 92% 57% / .97);
     --sp5: hsl(190 88% 55% / .97);
-    background-size: 128% 100%, auto;
+    background-size: 200% 100%, auto;
+    animation-play-state: running;
     /* zachte gloed rond de glyphs: de bloei uit de intro, maar ingetogen */
-    filter: drop-shadow(0 0 13px hsl(310 82% 60% / .34)) drop-shadow(0 0 26px hsl(205 90% 58% / .26));
+    filter: drop-shadow(0 0 11px hsl(310 82% 60% / .32)) drop-shadow(0 0 20px hsl(205 90% 58% / .24));
   }
-  /* minder beweging: de kleur mag, het uitdijen en de gloed niet */
+  /* Bij een breedte van 200% is de tegel exact twee keer de tekstbreedte, en
+     verschuift 0% -> 200% precies één tegel. Samen met het palindromische
+     verloop (zelfde kleur aan begin en eind) sluit de lus naadloos. */
+  @keyframes name-flow {
+    from { background-position: 0% 50%, 0 0; }
+    to   { background-position: 200% 50%, 0 0; }
+  }
+  /* minder beweging: de kleur mag, het stromen en de gloed niet */
   @media (prefers-reduced-motion: reduce) {
     .prism-host:not(.in-l) .grad-text,
-    .prism-host:not(.in-l) .grad-text:hover { transition: none; background-size: 128% 100%, auto; filter: none; }
+    .prism-host:not(.in-l) .grad-text:hover {
+      transition: none; animation: none; background-size: 150% 100%, auto; filter: none;
+    }
   }
   :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text,
   :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text:hover {
-    transition: none; background-size: 128% 100%, auto; filter: none;
+    transition: none; animation: none; background-size: 150% 100%, auto; filter: none;
   }
 }
 
