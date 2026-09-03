@@ -5,6 +5,7 @@
   "use strict";
 
   const finePointer = window.matchMedia("(pointer:fine)").matches;
+  let glowKick = null;
 
   /* ---- Custom cursor + glow (desktop / fine pointer only) ---- */
   const glow = document.querySelector(".cursor-glow");
@@ -27,6 +28,7 @@
       halo.classList.toggle("is-hover", !!e.target.closest(interactive));
       if (!shown) { shown = true; dot.classList.remove("is-off"); halo.classList.remove("is-off"); }
       if (glow) glow.style.opacity = "1";
+      if (glowKick) glowKick();
     });
     document.addEventListener("mousedown", () => halo.classList.add("is-down"));
     document.addEventListener("mouseup", () => halo.classList.remove("is-down"));
@@ -36,12 +38,18 @@
     document.addEventListener("mouseenter", () => { dot.classList.remove("is-off"); halo.classList.remove("is-off"); });
 
     if (glow) {
+      /* De gloed loopt de cursor achterna. Vroeger draaide deze lus onafgebroken
+         vanaf het laden - elke frame een stijlschrijfbeurt, ook als de muis
+         nooit bewoog. Dat kostte de intro frames. Nu stopt de lus zodra de
+         gloed de cursor heeft ingehaald; een muisbeweging start hem weer. */
+      let raf = null;
       const loop = () => {
         gx += (tx - gx) * 0.14; gy += (ty - gy) * 0.14;
         glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%,-50%)`;
-        requestAnimationFrame(loop);
+        if (Math.abs(tx - gx) < 0.4 && Math.abs(ty - gy) < 0.4) { raf = null; return; }
+        raf = requestAnimationFrame(loop);
       };
-      loop();
+      glowKick = () => { if (raf === null) raf = requestAnimationFrame(loop); };
     }
   }
 
@@ -135,12 +143,32 @@
          het uitklappen van de hero-kaart en het laden van het webfont op, zodat
          de laag ook dan exact blijft liggen. */
       [80, 260, 520, 900, 1400].forEach((ms) => setTimeout(place, ms));
+
+      /* De startpoort openen. Wachten op het webfont is niet alleen netjes voor
+         de uitlijning: als het lettertype halverwege binnenkomt, moeten de drie
+         vervaagde naamlagen opnieuw gerasterd worden, en dat is midden in de
+         animatie goed zichtbaar. De twee frames erna geven de browser de kans
+         het eerste beeld rustig neer te zetten. Het scherm is zwart, dus dit
+         wachten kost visueel niets - maar er zit een dop op, zodat een traag
+         lettertype de intro nooit tegenhoudt. */
+      const ready = Promise.race([
+        document.fonts ? document.fonts.ready : Promise.resolve(),
+        new Promise((r) => setTimeout(r, 900)),
+      ]);
+      ready.then(() => requestAnimationFrame(() => requestAnimationFrame(() => {
+        place();
+        document.documentElement.classList.add("go");
+      })));
+
       const done = () => {
         tracking = false;
         live = false;
         removeEventListener("scroll", onMove);
         removeEventListener("resize", onMove);
         veil.remove();
+        /* Ook de klassen weg: anders houdt de pauzeregel de echte naam
+           verborgen als de poort door een fout nooit geopend zou zijn. */
+        document.documentElement.classList.remove("intro", "go");
       };
       veil.addEventListener("animationend", (e) => { if (e.animationName === "intro-end") done(); });
       /* Vangnet, zodat de laag nooit blijft hangen als animationend uitblijft.

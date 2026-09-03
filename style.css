@@ -1075,14 +1075,24 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    ================================================================ */
 .intro-veil { display: none; }
 
+/* Startpoort. De animatie begint niet op een vaste vertraging maar pas als het
+   scherm er klaar voor is: main.js zet `.go` nadat de naamlagen bestaan, het
+   webfont geregeld is en er een schone frame getekend is. Zonder die poort viel
+   de start midden in het laadwerk, sneuvelden de eerste frames, en precies dat
+   zag je als hapering. Zolang de poort dicht is staat alles stil op het
+   beginbeeld: zwart scherm, geen kleur, geen naam. */
+:root.intro:not(.go) .intro-veil,
+:root.intro:not(.go) .intro-veil *,
+:root.intro:not(.go) .prism-host:not(.in-l) .grad-text { animation-play-state: paused; }
+
 :root.intro .intro-veil {
   display: block; position: fixed; inset: 0; z-index: 9998;
   pointer-events: none;
-  animation: intro-end 5.2s linear .3s both;
+  animation: intro-end 5.2s linear .12s both;
 }
 .intro-blackout {
   position: absolute; inset: 0; background: #000;
-  animation: intro-blackout 5.2s cubic-bezier(.42,0,.3,1) .3s both;
+  animation: intro-blackout 5.2s cubic-bezier(.42,0,.3,1) .12s both;
 }
 /* De echte naam blijft verborgen tot de laag verdwijnt: zo kan er nooit een
    dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
@@ -1090,14 +1100,14 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    De :not(.in-l) is essentieel: de klonen dragen de klasse prism-host mee, en
    zonder die uitzondering zou deze regel ook de kloonlagen verbergen — dan zie
    je tijdens de hele intro helemaal geen naam. */
-:root.intro .prism-host:not(.in-l) .grad-text { animation: intro-real-name 5.2s linear .3s both; }
+:root.intro .prism-host:not(.in-l) .grad-text { animation: intro-real-name 5.2s linear .12s both; }
 
 /* De naamlagen worden gekloond uit de echte h1 en op diens rect gelegd; het
    klonen is wat garandeert dat text-wrap: balance exact hetzelfde uitvalt. */
 .intro-stage {
   position: fixed; left: 0; top: 0; width: 0;
   transform-origin: 0 50%;
-  animation: intro-push 5.2s cubic-bezier(.25,.6,.25,1) .3s both;
+  animation: intro-push 5.2s cubic-bezier(.25,.6,.25,1) .12s both;
 }
 /* De selector is bewust specifieker dan .h-xl: die zet in de mobiele media query
    zelf een !important-marge, en bij gelijke specificiteit zou de laatste regel
@@ -1115,9 +1125,9 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    nog gecomposit — dat is wat het vloeiend houdt */
 .in-b3 .grad-text { filter: blur(24px) saturate(.10); }
 .in-b1 .grad-text { filter: blur(7px) saturate(.45); }
-.in-b3 { animation: in-b3 5.2s linear .3s both; }
-.in-b1 { animation: in-b1 5.2s linear .3s both; }
-.in-b0 { animation: in-b0 5.2s linear .3s both; }
+.in-b3 { animation: in-b3 5.2s linear .12s both; }
+.in-b1 { animation: in-b1 5.2s linear .12s both; }
+.in-b0 { animation: in-b0 5.2s linear .12s both; }
 
 /* ---- de lichtspill: het licht dat uit de explosie naar buiten slaat en het
        zwart wegduwt, zodat het opklaren zichtbaar uit het effect voortkomt ---- */
@@ -1133,7 +1143,7 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   background: radial-gradient(circle at 50% 50%,
     rgba(255, 248, 238, .52), rgba(255, 238, 220, .15) 30%, rgba(255, 238, 220, 0) 62%);
   will-change: transform, opacity;
-  animation: intro-spill 5.2s linear .3s both;
+  animation: intro-spill 5.2s linear .12s both;
 }
 
 /* ---- de kleurenexplosie: begint klein rond de naam en dijt versneld uit tot
@@ -1144,7 +1154,7 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   width: 56vmax; height: 56vmax; margin: -28vmax 0 0 -28vmax;
   pointer-events: none; opacity: 0;
   will-change: transform, opacity;
-  animation: intro-burst 5.2s linear .3s both;
+  animation: intro-burst 5.2s linear .12s both;
 }
 /* op zwart is additief blenden overbodig: geen mix-blend-mode = veel goedkoper */
 .pl { position: absolute; border-radius: 50%; will-change: transform; }
@@ -1155,27 +1165,27 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .pl-warm {
   left: -3%; top: 38%; width: 44%; height: 24%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(26 92% 56% / .66), hsl(26 92% 56% / 0));
-  animation: pl-drift-a 5.2s cubic-bezier(.5,0,.3,1) .3s both;
+  animation: pl-drift-a 5.2s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-magenta {
   left: 14%; top: 39%; width: 42%; height: 22%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(332 84% 58% / .54), hsl(332 84% 58% / 0));
-  animation: pl-drift-b 5.2s cubic-bezier(.5,0,.3,1) .3s both;
+  animation: pl-drift-b 5.2s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-violet {
   left: 30%; top: 37%; width: 44%; height: 26%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(268 82% 62% / .56), hsl(268 82% 62% / 0));
-  animation: pl-drift-c 5.2s cubic-bezier(.5,0,.3,1) .3s both;
+  animation: pl-drift-c 5.2s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-azure {
   left: 46%; top: 38%; width: 44%; height: 24%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(210 92% 57% / .64), hsl(210 92% 57% / 0));
-  animation: pl-drift-b 5.2s cubic-bezier(.5,0,.3,1) .3s both reverse;
+  animation: pl-drift-b 5.2s cubic-bezier(.5,0,.3,1) .12s both reverse;
 }
 .pl-cyan {
   left: 63%; top: 39%; width: 42%; height: 22%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(190 88% 55% / .56), hsl(190 88% 55% / 0));
-  animation: pl-drift-a 5.2s cubic-bezier(.5,0,.3,1) .3s both reverse;
+  animation: pl-drift-a 5.2s cubic-bezier(.5,0,.3,1) .12s both reverse;
 }
 
 @keyframes intro-blackout {
