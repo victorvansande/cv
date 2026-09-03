@@ -893,7 +893,11 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   transform-origin: center; will-change: transform; backface-visibility: hidden; }
 .settings-toggle:hover svg { transform: rotate(90deg); }
 .settings-pop {
-  position: absolute; right: 0; top: 52px; width: 252px; padding: 16px;
+  /* In rem i.p.v. px, anders groeit de inhoud wel mee met de tekstgrootte maar
+     het menu niet, en viel de zoomknop bij 130% buiten de rand. De max-width
+     houdt het menu op smalle schermen binnen beeld. */
+  position: absolute; right: 0; top: 52px;
+  width: 15.75rem; max-width: calc(100vw - 28px); padding: 1rem;
   border-radius: var(--r-md); z-index: 200;
   background: var(--pop-bg); border: 1px solid var(--glass-bord);
   backdrop-filter: blur(20px) saturate(140%); box-shadow: var(--glass-shadow);
@@ -942,6 +946,33 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   .lang-pill { width: 30px; height: 28px; } :root[lang="en"] .lang-pill { transform: translateX(30px); }
   .lang-toggle [data-lang] { font-size: .74rem; } }
 
+/* De balk had minimaal 369px nodig, dus op 320- en 360-pixelschermen werd de
+   hamburger buiten beeld geduwd en kreeg de pagina een zijwaartse scrolbalk.
+   Hieronder wordt alleen ruimte teruggewonnen in marges en knopmaten; er
+   verdwijnt niets. */
+@media (max-width: 400px) {
+  .nav .nav-inner { padding-left: 13px; padding-right: 13px; gap: 6px; }
+  .nav-right { gap: 5px; flex: none; }
+  .brand { gap: 8px; min-width: 0; }
+  /* Bij een klein scherm én een grote tekstinstelling past de naam niet meer
+     naast de knoppen. Dan wijkt de naam - de knoppen moeten bereikbaar
+     blijven, en de volledige naam staat een stukje lager in de hero. */
+  .brand-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .brand-sub { overflow: hidden; text-overflow: ellipsis; }
+  .lang-toggle { width: 58px; height: 34px; }
+  .lang-pill { width: 25px; height: 26px; } :root[lang="en"] .lang-pill { transform: translateX(25px); }
+  .lang-toggle [data-lang] { font-size: .68rem; }
+  .settings-toggle { width: 34px; height: 34px; }
+  .burger { width: 34px; height: 34px; }
+  /* Het menu hangt met zijn rechterkant aan de instellingenknop, en die staat
+     zelf al een stuk van de schermrand. Alleen naar het venster kijken volstaat
+     dus niet: dan steekt het aan de linkerkant buiten beeld. */
+  .settings-pop { max-width: calc(100vw - 68px); }
+  .burger span:nth-child(1) { top: 11px; }
+  .burger span:nth-child(2) { top: 16px; }
+  .burger span:nth-child(3) { top: 21px; }
+}
+
 /* ---------- Accessibility switches (binnen settings-menu) ---------- */
 .a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; cursor: pointer; font-size: .9rem; color: var(--ink-soft); }
 .a11y-row input { position: absolute; opacity: 0; width: 0; height: 0; }
@@ -957,7 +988,11 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
    site in rem meet, schaalt daarmee ook de witruimte netjes mee. De koppen
    gebruiken clamp() met vw, dus die groeien beheerst mee in plaats van door te
    schieten. */
-.zoom-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: .9rem; color: var(--ink-soft); }
+/* flex-wrap zodat de knoppen op een eigen regel zakken als het label en de
+   knoppen samen niet meer passen - bij een klein scherm met grote tekst liep
+   de rij anders buiten het menu. */
+.zoom-row { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; padding: 7px 0; font-size: .9rem; color: var(--ink-soft); }
+.zoom-row > span { min-width: 0; }
 .zoom-ctl { display: flex; align-items: center; gap: 4px; flex: none; }
 .zoom-btn {
   width: 26px; height: 26px; flex: none; border-radius: 8px; cursor: pointer;
@@ -1062,8 +1097,6 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 /* ---------- Nested roles (KSA) ---------- */
 .role-card { padding: 30px 32px; }
 .role-head { display: flex; align-items: center; gap: 16px; margin-bottom: 6px; }
-.role-logo { width: 52px; height: 52px; flex: none; border-radius: 14px; display: grid; place-items: center;
-  font-weight: 800; color: var(--ink-on-accent); background: var(--grad); font-size: .95rem; }
 .role-list { margin-top: 22px; display: grid; gap: 0; position: relative; padding-left: 26px; }
 .role-list::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 14px; width: 2px;
   background: linear-gradient(var(--c1), var(--c2), transparent); }
