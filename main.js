@@ -118,20 +118,28 @@
         veil.style.setProperty("--nx", r.left + r.width / 2 + "px");
         veil.style.setProperty("--ny", r.top + r.height / 2 + "px");
       };
-      /* De echte naam beweegt tijdens de intro: de hero-kaart schuift nog omhoog
-         (.reveal), het webfont kan later inladen en de bezoeker kan scrollen.
-         Daarom elk frame volgen — de schrijfbeurt gebeurt enkel als er iets
-         wijzigde, dus dit is één meting per frame en verder niets. */
-      let tracking = true;
+      /* De echte naam beweegt vooral in het begin: de hero-kaart schuift omhoog
+         (.reveal, 0.8s) en het webfont kan later binnenkomen. Daarvoor volgen we
+         elk frame. Elke meting dwingt de browser tot een layout-herberekening,
+         dus dat doen we enkel zolang er nog iets kan schuiven; daarna volstaan
+         scroll- en resize-events, die alleen vuren als er echt iets verandert. */
+      let tracking = true, live = true;
       const track = () => { if (!tracking) return; place(); requestAnimationFrame(track); };
       place();
       requestAnimationFrame(track);
+      setTimeout(() => { tracking = false; }, 1800);
+      const onMove = () => { if (live) place(); };
+      addEventListener("scroll", onMove, { passive: true });
+      addEventListener("resize", onMove, { passive: true });
       /* rAF ligt stil in een achtergrondtab; deze hermetingen vuren wél en vangen
-         het uitklappen van de hero-kaart (.reveal, 0.8s) en het laden van het
-         webfont op, zodat de laag ook dan exact blijft liggen. */
+         het uitklappen van de hero-kaart en het laden van het webfont op, zodat
+         de laag ook dan exact blijft liggen. */
       [80, 260, 520, 900, 1400].forEach((ms) => setTimeout(place, ms));
       const done = () => {
         tracking = false;
+        live = false;
+        removeEventListener("scroll", onMove);
+        removeEventListener("resize", onMove);
         veil.remove();
       };
       veil.addEventListener("animationend", (e) => { if (e.animationName === "intro-end") done(); });
