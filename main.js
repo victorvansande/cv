@@ -187,6 +187,34 @@
     }
   }
 
+  /* ---- Klik op de naam: kleurenexplosie over het scherm ----
+     Dezelfde lobben en drift als de intro, alleen sneller getimed en zonder
+     zwarte laag. De laag ligt buiten de pagina-inhoud en vangt geen klikken
+     (pointer-events: none), zodat er niets onbereikbaar wordt. */
+  const burstName = document.querySelector(".prism-host .grad-text");
+  if (burstName && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const LOBES = ["pl-warm", "pl-magenta", "pl-violet", "pl-azure", "pl-cyan"];
+    let current = null;
+    burstName.addEventListener("click", () => {
+      if (document.documentElement.dataset.motion === "reduce") return;
+      // hoogstens één explosie tegelijk: snel achter elkaar klikken stapelt niet op
+      if (current) current.remove();
+      const r = burstName.getBoundingClientRect();
+      const b = document.createElement("div");
+      b.className = "name-burst";
+      b.setAttribute("aria-hidden", "true");
+      b.style.setProperty("--bx", r.left + r.width / 2 + "px");
+      b.style.setProperty("--by", r.top + r.height / 2 + "px");
+      b.innerHTML = LOBES.map((c) => '<i class="pl ' + c + '"></i>').join("");
+      document.body.appendChild(b);
+      current = b;
+      const clear = () => { if (current === b) current = null; b.remove(); };
+      // animationend borrelt ook op vanuit de lobben; enkel die van de laag telt
+      b.addEventListener("animationend", (e) => { if (e.target === b) clear(); });
+      setTimeout(clear, 4000);
+    });
+  }
+
   /* ---- Reveal on scroll ---- */
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {

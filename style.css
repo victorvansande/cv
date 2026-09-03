@@ -1269,6 +1269,33 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   100% { transform: translate3d(0, -10%, 0) scale(2.08); }
 }
 
+/* ---------- Klik op de naam: kleurenexplosie ----------
+   Hergebruikt de lobben en hun drift uit de intro; alleen de timing verschilt,
+   en er komt geen zwarte laag aan te pas. De laag vangt geen klikken en wordt
+   door main.js weer opgeruimd zodra de animatie klaar is. */
+.name-burst {
+  position: fixed; left: var(--bx); top: var(--by);
+  width: 52vmax; height: 52vmax; margin: -26vmax 0 0 -26vmax;
+  pointer-events: none; z-index: 200; opacity: 0;
+  will-change: transform, opacity;
+  animation: name-burst 2.5s linear both;
+}
+/* de lobben erven hun kleur en positie, maar lopen mee op de kortere klikduur */
+.name-burst .pl { animation-duration: 2.5s; animation-delay: 0s; }
+
+@keyframes name-burst {
+  0%   { opacity: 0;   transform: scale(.10); animation-timing-function: cubic-bezier(.2,.7,.4,1); }
+  9%   { opacity: .95; transform: scale(.32); }
+  22%  { opacity: 1;   transform: scale(.64); animation-timing-function: cubic-bezier(.72,0,.9,.5); }
+  40%  { opacity: .9;  transform: scale(1.6); }
+  60%  { opacity: .66; transform: scale(3.1); }
+  78%  { opacity: .38; transform: scale(4.5); }
+  92%  { opacity: .13; transform: scale(5.5); }
+  100% { opacity: 0;   transform: scale(6); }
+}
+@media (prefers-reduced-motion: reduce) { .name-burst { display: none; } }
+:root[data-motion="reduce"] .name-burst { display: none; }
+
 /* wie minder beweging wil, krijgt meteen de gewone pagina — en dus ook meteen
    de echte naam, die anders door intro-real-name verborgen zou blijven */
 @media (prefers-reduced-motion: reduce) {
