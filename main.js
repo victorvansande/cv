@@ -98,7 +98,8 @@
     const host = document.querySelector(".prism-host");
     const real = host && host.querySelector(".grad-text");
     if (veil && stage && host && real) {
-      const copies = ["in-b3", "in-b1", "in-b0"].map((cls) => {
+      // de flitslaag komt als laatste, dus bovenop de scherpe letters
+      const copies = ["in-b3", "in-b1", "in-b0", "in-flash"].map((cls) => {
         const clone = host.cloneNode(true);
         clone.classList.add("in-l", cls);
         clone.removeAttribute("id");
