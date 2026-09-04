@@ -1312,18 +1312,26 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    alles behalve de naam ruimte innemen, maar onzichtbaar - haal je het weg,
    dan verschuift de regelval. */
 .intro-hidden { visibility: hidden; }
-/* de blur staat vast, dus elke laag wordt één keer gerasterd en daarna alleen
-   nog gecomposit — dat is wat het vloeiend houdt */
-.in-b3 .grad-text { filter: blur(24px) saturate(.10); }
-.in-b1 .grad-text { filter: blur(7px) saturate(.45); }
+/* Alle naamlagen zijn wit: de naam verschijnt meteen wit en wordt richting de
+   explosie alleen maar scherper en helderder. Eerder droegen deze lagen het
+   rode themaverloop, waardoor de naam rood opkwam en pas bij de flits wit
+   werd. Het rood komt nu pas na de flits terug, wanneer de echte naam
+   eronder invloeit.
+   De blur staat vast, dus elke laag wordt één keer gerasterd en daarna alleen
+   nog gecomposit — dat is wat het vloeiend houdt. */
+.in-b3 .grad-text,
+.in-b1 .grad-text,
+.in-b0 .grad-text,
+.in-flash .grad-text { background-image: linear-gradient(#fff, #fff); }
+.in-b3 .grad-text { filter: blur(24px); }
+.in-b1 .grad-text { filter: blur(7px); }
 .in-b3 { animation: in-b3 5.7s linear .12s both; }
 .in-b1 { animation: in-b1 5.7s linear .12s both; }
 .in-b0 { animation: in-b0 5.7s linear .12s both; }
-/* de witte flits: zelfde letters, maar vol wit met een gloed eromheen */
+/* de flits is dezelfde witte letters, maar met een gloed eromheen */
 .in-flash .grad-text {
-  background-image: linear-gradient(#fff, #fff);
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, .8))
-          drop-shadow(0 0 30px rgba(255, 240, 225, .5));
+  filter: drop-shadow(0 0 13px rgba(255, 255, 255, .85))
+          drop-shadow(0 0 34px rgba(255, 240, 225, .55));
 }
 .in-flash { animation: in-flash 5.7s linear .12s both; }
 
@@ -1408,14 +1416,24 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   100%   { opacity: 0;   transform: scale(6.4); }
 }
 @keyframes intro-push { 0% { transform: scale(.962); } 100% { transform: scale(1); } }
-/* de echte naam blijft weg tot de laag exact op datzelfde moment verdwijnt */
-@keyframes intro-real-name { 0%, 99.9% { visibility: hidden; } 100% { visibility: visible; } }
+/* De echte, themagekleurde naam vloeit in terwijl de witte laag erboven
+   wegdooft: zo komt het rood pas na de flits terug in plaats van er ineens te
+   staan. Met opacity in plaats van visibility, anders is er geen overvloeiing
+   mogelijk; de laag blijft wel ruimte innemen, dus de regelval verschuift niet. */
+@keyframes intro-real-name {
+  0%, 84% { opacity: 0; }
+  97%     { opacity: 1; }
+  100%    { opacity: 1; }
+}
 /* de letters worden scherp precies terwijl de kleur versneld naar buiten gaat;
    ook hier zijn de percentages herrekend zodat de scherptetrek op dezelfde
    tijdstippen blijft ondanks de langere totale duur */
-@keyframes in-b3 { 0%,18.2% { opacity: 0; } 29.2% { opacity: .9; } 40.1% { opacity: .85; } 52.9% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes in-b1 { 0%,31% { opacity: 0; } 43.8% { opacity: 1; } 56.6% { opacity: .9; } 69.3% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes in-b0 { 0%,43.8% { opacity: 0; } 65.7% { opacity: 1; } 100% { opacity: 1; } }
+/* De dekking loopt per laag op - vaag en gedempt, dan scherper en feller -
+   zodat de witte naam zichtbaar helderder wordt naar de explosie toe. */
+@keyframes in-b3 { 0%,18.2% { opacity: 0; } 29.2% { opacity: .45; } 40.1% { opacity: .5; } 52.9% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes in-b1 { 0%,31% { opacity: 0; } 43.8% { opacity: .72; } 56.6% { opacity: .8; } 69.3% { opacity: 0; } 100% { opacity: 0; } }
+/* de scherpe witte laag dooft pas weg als de echte naam eronder is ingevloeid */
+@keyframes in-b0 { 0%,43.8% { opacity: 0; } 65.7% { opacity: 1; } 84% { opacity: 1; } 97% { opacity: 0; } 100% { opacity: 0; } }
 
 /* De naam vlamt kort fel wit op zodra hij scherp is: een losse laag bovenop de
    scherpe letters, die daarna wegvloeit en de gewone naam achterlaat.
