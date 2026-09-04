@@ -113,16 +113,20 @@
   --blob-op: .07;              /* was .28: haalt de rode waas uit de achtergrond */
 }
 :root[data-theme="clay"][data-mode="light"] { --blob-op: .022; }
-/* koppen en naam in inkt met een warme ondertoon i.p.v. in het accent */
-:root[data-theme="clay"] {
-  --grad-ink: linear-gradient(120deg,
-    color-mix(in srgb, #b81f30 26%, #e9ecf5),
-    color-mix(in srgb, #d93a45 16%, #dfe3ee));
-}
+/* Koppen en naam in diep navy i.p.v. in het accent. Navy naast karmijn is een
+   beproefde combinatie, en het blauw duwt het rood juist naar voren.
+   Bewust niet nóg dieper: getest tegen de bijna-zwarte begroeting eromheen
+   haalde een echt donkere navy maar 1,15 onderscheid, waardoor de naam
+   samenviel met de tekst erboven. Deze tint haalt 2,0 en blijft dus leesbaar
+   als eigen element. */
 :root[data-theme="clay"][data-mode="light"] {
+  --grad-ink: linear-gradient(120deg, #2a4a8c, #35599f);
+}
+/* op donker moet dezelfde kleur juist licht zijn, anders valt ze weg */
+:root[data-theme="clay"][data-mode="dark"] {
   --grad-ink: linear-gradient(120deg,
-    color-mix(in srgb, #b81f30 34%, #1b2131),
-    color-mix(in srgb, #7a2430 26%, #1b2131));
+    color-mix(in srgb, #5b8ad6 34%, #e9ecf5),
+    color-mix(in srgb, #4a76c4 22%, #dfe3ee));
 }
 :root[data-theme="grad"], :root:not([data-theme]) { --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3)); }
 
@@ -207,12 +211,18 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 10000; width: 7px; height: 7px; background: var(--c2);
   box-shadow: 0 0 10px color-mix(in srgb, var(--c2) 70%, transparent);
 }
-/* zachte halo die exact meebeweegt en subtiel ademt */
+/* Zachte halo die exact meebeweegt en subtiel ademt. Wit in plaats van het
+   accent: als gloed rond de cursor leest wit als licht, terwijl het accent er
+   een tweede gekleurd element van maakte.
+   Op een lichte pagina zou wit onzichtbaar zijn, dus daar een gedempte inkt. */
 .cursor-halo {
   z-index: 9999; width: 30px; height: 30px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--c2) 30%, transparent), transparent 68%);
+  background: radial-gradient(circle, rgba(255, 255, 255, .62), rgba(255, 255, 255, 0) 68%);
   animation: cursor-breathe 3.2s var(--ease) infinite;
   transition: width .25s var(--ease), height .25s var(--ease), opacity .3s var(--ease);
+}
+:root[data-mode="light"] .cursor-halo {
+  background: radial-gradient(circle, rgba(22, 27, 51, .30), rgba(22, 27, 51, 0) 68%);
 }
 @keyframes cursor-breathe { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
 .cursor-halo.is-hover { width: 46px; height: 46px; }
