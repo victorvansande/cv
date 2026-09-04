@@ -128,6 +128,26 @@
     color-mix(in srgb, #5b8ad6 34%, #e9ecf5),
     color-mix(in srgb, #4a76c4 22%, #dfe3ee));
 }
+
+/* In donkere modus was dit thema veel roder dan in lichte, en dat kwam niet
+   van de accenten maar van de achtergrond zelf: de lichte modus wast met
+   var(--ink) op 3 a 4 procent - dus neutraal - terwijl de donkere modus
+   dezelfde vlakken met --c1/--c2/--c3 op 9 a 13 procent inkleurt. Daar bovenop
+   liggen de blobs, ook in de accentkleur.
+   Hier worden beide wit: dezelfde diepte en hetzelfde licht, maar zonder de
+   rode waas. Het rood blijft over waar het hoort, in de accenten zelf. */
+:root[data-theme="clay"][data-mode="dark"] .bg-canvas {
+  background:
+    radial-gradient(1200px 800px at 12% -5%, rgba(255, 255, 255, .055), transparent 60%),
+    radial-gradient(900px 700px at 100% 0%, rgba(255, 255, 255, .04), transparent 55%),
+    radial-gradient(1000px 900px at 50% 120%, rgba(255, 255, 255, .032), transparent 60%),
+    var(--bg-0);
+}
+:root[data-theme="clay"][data-mode="dark"] .blob { background: #fff; }
+/* de kaartschaduw bij hover had ook een rode zweem */
+:root[data-theme="clay"][data-mode="dark"] .fx-card:hover {
+  box-shadow: 0 26px 60px -28px rgba(255, 255, 255, .16);
+}
 :root[data-theme="grad"], :root:not([data-theme]) { --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3)); }
 
 /* ---------- Reset ---------- */
@@ -194,10 +214,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* Cursor glow */
+/* Wit in plaats van het accent: als lichtbron rond de cursor leest wit als
+   licht, terwijl een gekleurde gloed een tweede accent werd dat met de knoppen
+   concurreerde. Iets lager gezet dan de vorige 20%, omdat wit door de
+   screen-blending sterker oplicht dan een kleur. */
 .cursor-glow {
   position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
   width: 380px; height: 380px; border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--c1) 20%, transparent), transparent 65%);
+  background: radial-gradient(circle, rgba(255, 255, 255, .17), rgba(255, 255, 255, 0) 65%);
   transform: translate(-50%, -50%); transition: opacity .3s; opacity: 0;
   mix-blend-mode: screen;
 }
@@ -207,9 +231,15 @@ button { font-family: inherit; cursor: pointer; }
   position: fixed; top: 0; left: 0; pointer-events: none;
   border-radius: 50%; will-change: transform;
 }
+/* Het punt zelf is donker, met wit eromheen: zo leest het als een kern in het
+   licht in plaats van als nog een gekleurde stip. */
 .cursor-dot {
-  z-index: 10000; width: 7px; height: 7px; background: var(--c2);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--c2) 70%, transparent);
+  z-index: 10000; width: 7px; height: 7px; background: #0a0c13;
+  box-shadow: 0 0 3px rgba(255, 255, 255, .95), 0 0 11px rgba(255, 255, 255, .7);
+}
+/* op een lichte pagina valt een witte gloed weg, dus daar een zachte inktrand */
+:root[data-mode="light"] .cursor-dot {
+  box-shadow: 0 0 3px rgba(255, 255, 255, .9), 0 0 10px rgba(22, 27, 51, .3);
 }
 /* Zachte halo die exact meebeweegt en subtiel ademt. Wit in plaats van het
    accent: als gloed rond de cursor leest wit als licht, terwijl het accent er
