@@ -176,7 +176,9 @@
          De teller start pas als de pagina zichtbaar is: in een achtergrondtab
          bevriest de browser de animatie, en dan mag de intro niet al weggegooid
          zijn tegen dat de bezoeker gaat kijken. */
-      const arm = () => setTimeout(done, 7000);
+      // ruim na het einde van de animatie (6,6s + 0,12s aanloop), anders zou dit
+      // vangnet de intro voortijdig afkappen
+      const arm = () => setTimeout(done, 9000);
       if (document.visibilityState === "visible") arm();
       else {
         document.addEventListener("visibilitychange", function onVis() {

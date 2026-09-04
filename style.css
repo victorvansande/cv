@@ -1276,11 +1276,11 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 :root.intro .intro-veil {
   display: block; position: fixed; inset: 0; z-index: 9998;
   pointer-events: none;
-  animation: intro-end 5.7s linear .12s both;
+  animation: intro-end 6.6s linear .12s both;
 }
 .intro-blackout {
   position: absolute; inset: 0; background: #000;
-  animation: intro-blackout 5.7s cubic-bezier(.42,0,.3,1) .12s both;
+  animation: intro-blackout 6.6s cubic-bezier(.42,0,.3,1) .12s both;
 }
 /* De echte naam blijft verborgen tot de laag verdwijnt: zo kan er nooit een
    dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
@@ -1288,14 +1288,14 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    De :not(.in-l) is essentieel: de klonen dragen de klasse prism-host mee, en
    zonder die uitzondering zou deze regel ook de kloonlagen verbergen — dan zie
    je tijdens de hele intro helemaal geen naam. */
-:root.intro .prism-host:not(.in-l) .grad-text { animation: intro-real-name 5.7s linear .12s both; }
+:root.intro .prism-host:not(.in-l) .grad-text { animation: intro-real-name 6.6s linear .12s both; }
 
 /* De naamlagen worden gekloond uit de echte h1 en op diens rect gelegd; het
    klonen is wat garandeert dat text-wrap: balance exact hetzelfde uitvalt. */
 .intro-stage {
   position: fixed; left: 0; top: 0; width: 0;
   transform-origin: 0 50%;
-  animation: intro-push 5.7s cubic-bezier(.25,.6,.25,1) .12s both;
+  animation: intro-push 6.6s cubic-bezier(.25,.6,.25,1) .12s both;
 }
 /* De selector is bewust specifieker dan .h-xl: die zet in de mobiele media query
    zelf een !important-marge, en bij gelijke specificiteit zou de laatste regel
@@ -1325,15 +1325,15 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .in-flash .grad-text { background-image: linear-gradient(#fff, #fff); }
 .in-b3 .grad-text { filter: blur(24px); }
 .in-b1 .grad-text { filter: blur(7px); }
-.in-b3 { animation: in-b3 5.7s linear .12s both; }
-.in-b1 { animation: in-b1 5.7s linear .12s both; }
-.in-b0 { animation: in-b0 5.7s linear .12s both; }
+.in-b3 { animation: in-b3 6.6s linear .12s both; }
+.in-b1 { animation: in-b1 6.6s linear .12s both; }
+.in-b0 { animation: in-b0 6.6s linear .12s both; }
 /* de flits is dezelfde witte letters, maar met een gloed eromheen */
 .in-flash .grad-text {
   filter: drop-shadow(0 0 13px rgba(255, 255, 255, .85))
           drop-shadow(0 0 34px rgba(255, 240, 225, .55));
 }
-.in-flash { animation: in-flash 5.7s linear .12s both; }
+.in-flash { animation: in-flash 6.6s linear .12s both; }
 
 /* De warme lichtspill is weggehaald: die waste de kleuren uit en nam net de
    verzadiging weg die de explosie moet dragen. Het opklaren gebeurt nu enkel
@@ -1347,7 +1347,7 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   width: 56vmax; height: 56vmax; margin: -28vmax 0 0 -28vmax;
   pointer-events: none; opacity: 0;
   will-change: transform, opacity;
-  animation: intro-burst 5.7s linear .12s both;
+  animation: intro-burst 6.6s linear .12s both;
 }
 /* op zwart is additief blenden overbodig: geen mix-blend-mode = veel goedkoper */
 .pl { position: absolute; border-radius: 50%; will-change: transform; }
@@ -1358,36 +1358,36 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .pl-warm {
   left: -3%; top: 38%; width: 44%; height: 24%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(26 92% 56% / .80), hsl(26 92% 56% / 0));
-  animation: pl-drift-a 5.7s cubic-bezier(.5,0,.3,1) .12s both;
+  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-magenta {
   left: 14%; top: 39%; width: 42%; height: 22%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(332 84% 58% / .68), hsl(332 84% 58% / 0));
-  animation: pl-drift-b 5.7s cubic-bezier(.5,0,.3,1) .12s both;
+  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-violet {
   left: 30%; top: 37%; width: 44%; height: 26%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(268 82% 62% / .70), hsl(268 82% 62% / 0));
-  animation: pl-drift-c 5.7s cubic-bezier(.5,0,.3,1) .12s both;
+  animation: pl-drift-c 6.6s cubic-bezier(.5,0,.3,1) .12s both;
 }
 .pl-azure {
   left: 46%; top: 38%; width: 44%; height: 24%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(210 92% 57% / .78), hsl(210 92% 57% / 0));
-  animation: pl-drift-b 5.7s cubic-bezier(.5,0,.3,1) .12s both reverse;
+  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse;
 }
 .pl-cyan {
   left: 63%; top: 39%; width: 42%; height: 22%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(190 88% 55% / .70), hsl(190 88% 55% / 0));
-  animation: pl-drift-a 5.7s cubic-bezier(.5,0,.3,1) .12s both reverse;
+  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse;
 }
 
 /* De percentages zijn herrekend naar de langere duur, zodat het zwart op
-   exact hetzelfde moment wegtrekt als voorheen (2,2s tot 4,5s). Alleen de
-   staart van de kleur is langer geworden; de pagina komt dus niet later. */
+   exact hetzelfde moment wegtrekt als voorheen (2,2s tot 4,5s). Alleen achteraan
+   is er tijd bijgekomen; de pagina komt dus niet later. */
 @keyframes intro-blackout {
   0%     { opacity: 1; }
-  38.3%  { opacity: 1; }
-  78.5%  { opacity: 0; }
+  33.1%  { opacity: 1; }
+  67.7%  { opacity: 0; }
   100%   { opacity: 0; }
 }
 /* Elke stap is ongeveer 1,4x de vorige. Die vaste verhouding is wat het vloeiend
@@ -1403,48 +1403,63 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    zijn oude tempo terwijl de tweede helft trager uitdooft. */
 @keyframes intro-burst {
   0%     { opacity: 0;   transform: scale(.20); }
-  9.1%   { opacity: .34; transform: scale(.26); }
-  18.2%  { opacity: .74; transform: scale(.34); }
-  27.4%  { opacity: .94; transform: scale(.45); }
-  36.5%  { opacity: 1;   transform: scale(.60); }
-  45.6%  { opacity: 1;   transform: scale(.82); }
-  54.7%  { opacity: .99; transform: scale(1.15); }
-  66.1%  { opacity: .94; transform: scale(1.66); }
-  75.2%  { opacity: .85; transform: scale(2.35); }
-  84.1%  { opacity: .62; transform: scale(3.35); }
-  92.2%  { opacity: .34; transform: scale(4.65); }
+  7.9%   { opacity: .34; transform: scale(.26); }
+  15.7%  { opacity: .74; transform: scale(.34); }
+  23.7%  { opacity: .94; transform: scale(.45); }
+  31.5%  { opacity: 1;   transform: scale(.60); }
+  39.4%  { opacity: 1;   transform: scale(.82); }
+  47.2%  { opacity: .99; transform: scale(1.15); }
+  57.1%  { opacity: .94; transform: scale(1.66); }
+  64.9%  { opacity: .85; transform: scale(2.35); }
+  72.6%  { opacity: .62; transform: scale(3.35); }
+  79.6%  { opacity: .34; transform: scale(4.65); }
+  86.4%  { opacity: 0;   transform: scale(6.4); }
   100%   { opacity: 0;   transform: scale(6.4); }
 }
 @keyframes intro-push { 0% { transform: scale(.962); } 100% { transform: scale(1); } }
 /* De echte, themagekleurde naam vloeit in terwijl de witte laag erboven
    wegdooft: zo komt het rood pas na de flits terug in plaats van er ineens te
    staan. Met opacity in plaats van visibility, anders is er geen overvloeiing
-   mogelijk; de laag blijft wel ruimte innemen, dus de regelval verschuift niet. */
+   mogelijk; de laag blijft wel ruimte innemen, dus de regelval verschuift niet.
+
+   De omslag gebeurt pas nadat de kleuren van het scherm zijn verdwenen (86,4%,
+   ofwel 5,7s). Deed hij dat eerder, dan trok het veranderen van wit naar rood
+   de aandacht weg van de uitdijende kleuren - net het stuk dat moet blijven
+   hangen. */
 @keyframes intro-real-name {
-  0%, 84% { opacity: 0; }
-  97%     { opacity: 1; }
+  0%, 87% { opacity: 0; }
+  99%     { opacity: 1; }
   100%    { opacity: 1; }
 }
-/* de letters worden scherp precies terwijl de kleur versneld naar buiten gaat;
-   ook hier zijn de percentages herrekend zodat de scherptetrek op dezelfde
-   tijdstippen blijft ondanks de langere totale duur */
 /* De dekking loopt per laag op - vaag en gedempt, dan scherper en feller -
-   zodat de witte naam zichtbaar helderder wordt naar de explosie toe. */
-@keyframes in-b3 { 0%,18.2% { opacity: 0; } 29.2% { opacity: .45; } 40.1% { opacity: .5; } 52.9% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes in-b1 { 0%,31% { opacity: 0; } 43.8% { opacity: .72; } 56.6% { opacity: .8; } 69.3% { opacity: 0; } 100% { opacity: 0; } }
-/* de scherpe witte laag dooft pas weg als de echte naam eronder is ingevloeid */
-@keyframes in-b0 { 0%,43.8% { opacity: 0; } 65.7% { opacity: 1; } 84% { opacity: 1; } 97% { opacity: 0; } 100% { opacity: 0; } }
+   zodat de witte naam zichtbaar helderder wordt naar de explosie toe. De
+   percentages zijn herrekend zodat de scherptetrek op dezelfde tijdstippen
+   blijft ondanks de langere totale duur. */
+@keyframes in-b3 { 0%,15.7% { opacity: 0; } 25.2% { opacity: .45; } 34.6% { opacity: .5; } 45.7% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes in-b1 { 0%,26.8% { opacity: 0; } 37.8% { opacity: .72; } 48.9% { opacity: .8; } 59.8% { opacity: 0; } 100% { opacity: 0; } }
+/* Na het hoogtepunt zakt de witte naam terug naar een rustiger wit en blijft
+   daar staan zolang de kleuren nog uitdijen. Pas als die weg zijn, dooft hij
+   weg terwijl het rood eronder invloeit. */
+@keyframes in-b0 {
+  0%, 37.8% { opacity: 0; }
+  56.7%     { opacity: 1; }
+  62%       { opacity: 1; }
+  73%       { opacity: .55; }
+  87%       { opacity: .55; }
+  99%       { opacity: 0; }
+  100%      { opacity: 0; }
+}
 
 /* De naam vlamt kort fel wit op zodra hij scherp is: een losse laag bovenop de
    scherpe letters, die daarna wegvloeit en de gewone naam achterlaat.
    Alleen opacity animeert; de gloed is een vaste filter, dus de laag wordt één
    keer gerasterd. */
 @keyframes in-flash {
-  0%, 52%  { opacity: 0; }
-  62%      { opacity: 1; }
-  71%      { opacity: 1; }
-  88%      { opacity: 0; }
-  100%     { opacity: 0; }
+  0%, 44.9%  { opacity: 0; }
+  53.5%      { opacity: 1; }
+  61.3%      { opacity: 1; }
+  73%        { opacity: 0; }
+  100%       { opacity: 0; }
 }
 /* de laag verdwijnt pas als alles stilstaat; de echte naam eronder is identiek */
 @keyframes intro-end { 0%, 99.9% { visibility: visible; } 100% { visibility: hidden; } }
@@ -1453,20 +1468,26 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
    groeien en je vijf losse ovalen ziet; door groot te beginnen lopen ze vanaf
    het eerste frame in elkaar over tot één doorlopend spectrum. Ze zwellen
    daarna nog verder op, wat de vloeistofachtige uitwaaiering geeft. */
+/* De drift is meegecomprimeerd naar 86,4%: daar zijn de kleuren weg, en zonder
+   die correctie zou de uitwaaiering trager lopen dan voorheen. Na dat punt
+   staat alles stil, maar dat is toch niet meer zichtbaar. */
 @keyframes pl-drift-a {
-  0%   { transform: translate3d(-5%, 4%, 0) scale(1.26); }
-  45%  { transform: translate3d(-1%, 0, 0) scale(1.36); }
-  100% { transform: translate3d(-15%, -7%, 0) scale(1.98); }
+  0%     { transform: translate3d(-5%, 4%, 0) scale(1.26); }
+  38.9%  { transform: translate3d(-1%, 0, 0) scale(1.36); }
+  86.4%  { transform: translate3d(-15%, -7%, 0) scale(1.98); }
+  100%   { transform: translate3d(-15%, -7%, 0) scale(1.98); }
 }
 @keyframes pl-drift-b {
-  0%   { transform: translate3d(4%, 5%, 0) scale(1.28); }
-  45%  { transform: translate3d(1%, -1%, 0) scale(1.38); }
-  100% { transform: translate3d(12%, -9%, 0) scale(2.04); }
+  0%     { transform: translate3d(4%, 5%, 0) scale(1.28); }
+  38.9%  { transform: translate3d(1%, -1%, 0) scale(1.38); }
+  86.4%  { transform: translate3d(12%, -9%, 0) scale(2.04); }
+  100%   { transform: translate3d(12%, -9%, 0) scale(2.04); }
 }
 @keyframes pl-drift-c {
-  0%   { transform: translate3d(0, 6%, 0) scale(1.24); }
-  45%  { transform: translate3d(2%, 0, 0) scale(1.4); }
-  100% { transform: translate3d(0, -10%, 0) scale(2.08); }
+  0%     { transform: translate3d(0, 6%, 0) scale(1.24); }
+  38.9%  { transform: translate3d(2%, 0, 0) scale(1.4); }
+  86.4%  { transform: translate3d(0, -10%, 0) scale(2.08); }
+  100%   { transform: translate3d(0, -10%, 0) scale(2.08); }
 }
 
 /* ---------- Klik op de naam: de letters stralen kleur uit ----------
