@@ -243,13 +243,17 @@ section { position: relative; }
   transition: top .3s var(--ease), transform .3s var(--ease), opacity .25s var(--ease),
     width .3s var(--ease), margin-left .3s var(--ease);
 }
-/* bewust aflopend dik -> dun i.p.v. 3 gelijke streepjes */
-.burger span:nth-child(1) { top: 14px; width: 22px; margin-left: -11px; }
-.burger span:nth-child(2) { top: 19px; width: 16px; margin-left: -8px; }
+/* bewust aflopend lang -> kort i.p.v. 3 gelijke streepjes */
+/* De hoogtes lopen licht op met de lengte. Ze waren alle drie exact 2px, maar
+   een langere lijn leest optisch dunner dan een kortere van dezelfde dikte;
+   met deze compensatie ogen ze even zwaar. */
+.burger span:nth-child(1) { top: 14px; width: 22px; margin-left: -11px; height: 2.4px; }
+.burger span:nth-child(2) { top: 19px; width: 16px; margin-left: -8px; height: 2.2px; }
 .burger span:nth-child(3) { top: 24px; width: 10px; margin-left: -5px; }
-.burger.on span:nth-child(1) { top: 19px; width: 20px; margin-left: -10px; transform: rotate(45deg); }
+/* in de kruis-stand zijn beide streepjes even lang, dus ook weer even dik */
+.burger.on span:nth-child(1) { top: 19px; width: 20px; margin-left: -10px; height: 2.3px; transform: rotate(45deg); }
 .burger.on span:nth-child(2) { opacity: 0; }
-.burger.on span:nth-child(3) { top: 19px; width: 20px; margin-left: -10px; transform: rotate(-45deg); }
+.burger.on span:nth-child(3) { top: 19px; width: 20px; margin-left: -10px; height: 2.3px; transform: rotate(-45deg); }
 
 /* ---------- Buttons ---------- */
 .btn {
