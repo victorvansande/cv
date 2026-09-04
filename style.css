@@ -106,12 +106,32 @@
    krijgen bijna-inkt met slechts een zweem warmte, en de achtergrondgloed
    gaat fors omlaag. Wat overblijft is een rustige pagina waar het rood
    opvalt juist omdat het schaars is. */
+/* Omgekeerd model t.o.v. de andere thema's: de basiskleuren zijn hier neutraal,
+   en het rood wordt daarna expliciet teruggezet op de handvol echte accenten.
+   Zo kleuren --c1/--c2/--c3 nog wel alle randen, icoontegels, svg-lijnen en
+   tags - maar dan in leisteen in plaats van in karmijn. Dat was de bron van
+   het meeste resterende rood: tientallen kleine elementen, samen goed voor
+   veel meer oppervlakte dan de accenten zelf. */
 :root[data-theme="clay"] {
-  --c1: #b81f30;
-  --c2: #d93a45;
-  --c3: #e8636a;
+  --c1: #3a4258;
+  --c2: #49536e;
+  --c3: #5b6684;
   --blob-op: .07;              /* was .28: haalt de rode waas uit de achtergrond */
+  /* --grad voedt precies de negen echte accenten: de knop, de ring om de foto,
+     de voortgangsbalk, de terug-naar-boven-knop en de schakelaars. Die blijven
+     dus wel rood. */
+  --grad: linear-gradient(120deg, #b81f30, #cf2434 60%, #e0343f);
+  --grad-soft: linear-gradient(120deg, #b81f30, #cf2434);
 }
+/* de twee losse rode signalen: het bolletje bij elke sectiekop en de
+   'nu'-puls, allebei klein en betekenisdragend */
+:root[data-theme="clay"] .eyebrow .dot { background: #cf2434; box-shadow: 0 0 12px #cf2434; }
+:root[data-theme="clay"] .now-badge .pulse,
+:root[data-theme="clay"] .now-badge .pulse::after { background: #cf2434; }
+/* De taalbalken gebruiken --grad en werden daardoor grote rode vlakken - samen
+   de grootste rode oppervlakte na de knop. Ze dragen hun betekenis in hun
+   lengte, niet in hun kleur, dus hier in leisteen. */
+:root[data-theme="clay"] .lang-pip i { background: linear-gradient(120deg, #3a4258, #4c5673); }
 :root[data-theme="clay"][data-mode="light"] { --blob-op: .022; }
 /* Koppen en naam in diep navy i.p.v. in het accent. Navy naast karmijn is een
    beproefde combinatie, en het blauw duwt het rood juist naar voren.
@@ -120,8 +140,20 @@
    samenviel met de tekst erboven. Deze tint haalt 2,0 en blijft dus leesbaar
    als eigen element. */
 :root[data-theme="clay"][data-mode="light"] {
-  --grad-ink: linear-gradient(120deg, #2a4a8c, #35599f);
+  --grad-ink: linear-gradient(120deg, #233c73, #2c4988);
 }
+
+/* --acc-text was de grootste rode oppervlakte van allemaal: het kleurt de
+   skill-tags, alle kaarticoontjes, de svg-lijnen in de kaarten en de
+   thesis-tag - samen tientallen elementen verspreid over de pagina. Dat
+   verklaarde waarom het rood bleef domineren terwijl de accenten zelf al
+   beperkt waren. Hier bijna-zwart met een koele zweem, zodat die elementen
+   rustig meelezen en het rood overblijft voor de knop, de fotoring en het
+   statusbolletje. */
+:root[data-theme="clay"][data-mode="light"] { --acc-text: #232a40; }
+:root[data-theme="clay"][data-mode="dark"]  { --acc-text: #c6cbdc; }
+/* ook in lichte modus stonden de achtergrondblobs nog in de accentkleur */
+:root[data-theme="clay"][data-mode="light"] .blob { background: #8b93a8; }
 /* op donker moet dezelfde kleur juist licht zijn, anders valt ze weg */
 :root[data-theme="clay"][data-mode="dark"] {
   --grad-ink: linear-gradient(120deg,
