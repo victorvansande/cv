@@ -1527,6 +1527,22 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .name-glow .gl-mid  { animation: glow-mid  1.85s linear both; }
 .name-glow .gl-far  { animation: glow-far  2.6s linear both; }
 
+/* Korte witte flits op de letters zelf, zoals bij de intro maar veel vluchtiger
+   omdat het hele klikeffect korter is. Deze laag schaalt bewust niet mee: hij
+   moet exact op de glyphs blijven staan terwijl de kleur eromheen wegtrekt. */
+.name-glow .gl-flash .grad-text {
+  background-image: linear-gradient(#fff, #fff);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, .85))
+          drop-shadow(0 0 26px rgba(255, 240, 225, .5));
+}
+.name-glow .gl-flash { animation: glow-flash .62s linear both; }
+@keyframes glow-flash {
+  0%   { opacity: 0; }
+  12%  { opacity: 1; }
+  32%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 @keyframes glow-near {
   0%   { transform: scale(1);    opacity: .95; }
   28%  { transform: scale(1.5);  opacity: .7; }

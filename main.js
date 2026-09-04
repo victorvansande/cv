@@ -228,7 +228,8 @@
          de kop duwt de gloed dan zichtbaar naar links weg. */
       wrap.style.setProperty("--ox", r.left + r.width / 2 - h.left + "px");
       wrap.style.setProperty("--oy", r.top + r.height / 2 - h.top + "px");
-      ["gl-near", "gl-mid", "gl-far"].forEach((cls) => {
+      // gl-flash als laatste, dus bovenop de kleurlagen
+      ["gl-near", "gl-mid", "gl-far", "gl-flash"].forEach((cls) => {
         const clone = glowHost.cloneNode(true);
         clone.classList.remove("prism-host");   // anders erft de kloon de hover-regels
         clone.classList.add("gl", cls);
