@@ -831,6 +831,21 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .footer { border-top: 1px solid var(--glass-bord); padding: 24px 0; margin-top: 20px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
 .footer .muted { font-size: .9rem; }
+/* De drie delen krijgen hun scheidingsteken uit CSS, zodat de tussenruimte
+   overal gelijk is; eerder plakte de datum tegen de naam terwijl er verderop
+   wel een punt stond. Het punt hoort bij het vólgende deel, zodat er bij het
+   afbreken naar een tweede regel nooit een losse punt achterblijft. */
+.footer-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 7px; margin: 0; }
+.footer-meta > span:not(:first-child)::before {
+  content: "·"; margin-right: 7px; opacity: .5;
+}
+/* Onder ongeveer 390px past de regel niet meer en brak ze af, waarbij de
+   tweede regel met een losse punt begon. Dan liever netjes onder elkaar en
+   de scheidingstekens weg: het regeleinde scheidt de delen al. */
+@media (max-width: 400px) {
+  .footer-meta { flex-direction: column; align-items: flex-start; gap: 3px; }
+  .footer-meta > span:not(:first-child)::before { content: none; }
+}
 .footer-soc { display: flex; gap: 12px; }
 .footer-soc a { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-soft); transition: .25s; }
 .footer-soc a:hover { color: var(--ink); border-color: var(--glass-bord-hi); transform: translateY(-2px); }
