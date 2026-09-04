@@ -92,6 +92,38 @@
 :root[data-theme="rose"]   { --c1: #c4172a; --c2: #e11d2e; --c3: #f63b46; }
 :root[data-theme="slate"]  { --c1: #7c8aa8; --c2: #9aa7c2; --c3: #8b96b4; }
 :root[data-theme="violet"] { --c1: #7c5cff; --c2: #3ad6ff; --c3: #ff6ad5; } /* het originele */
+
+/* ---------- Ingetogen rood ----------
+   Zelfde rood, maar alleen waar het iets betekent.
+
+   Rood domineerde omdat dezelfde drie variabelen zowel de accenten kleuren
+   (knop, statusbolletje, focusrand) als de grote vlakken: de naam en de koppen
+   via --grad-ink, en de hele achtergrondgloed via de blobs. Daardoor lag er
+   overal een rode waas.
+
+   Hier blijven --c1/--c2/--c3 een echt rood, zodat knoppen en accenten hun
+   kleur houden, maar de twee grote massa's worden losgekoppeld: de koppen
+   krijgen bijna-inkt met slechts een zweem warmte, en de achtergrondgloed
+   gaat fors omlaag. Wat overblijft is een rustige pagina waar het rood
+   opvalt juist omdat het schaars is. */
+:root[data-theme="clay"] {
+  --c1: #b81f30;
+  --c2: #d93a45;
+  --c3: #e8636a;
+  --blob-op: .07;              /* was .28: haalt de rode waas uit de achtergrond */
+}
+:root[data-theme="clay"][data-mode="light"] { --blob-op: .022; }
+/* koppen en naam in inkt met een warme ondertoon i.p.v. in het accent */
+:root[data-theme="clay"] {
+  --grad-ink: linear-gradient(120deg,
+    color-mix(in srgb, #b81f30 26%, #e9ecf5),
+    color-mix(in srgb, #d93a45 16%, #dfe3ee));
+}
+:root[data-theme="clay"][data-mode="light"] {
+  --grad-ink: linear-gradient(120deg,
+    color-mix(in srgb, #b81f30 34%, #1b2131),
+    color-mix(in srgb, #7a2430 26%, #1b2131));
+}
 :root[data-theme="grad"], :root:not([data-theme]) { --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3)); }
 
 /* ---------- Reset ---------- */
