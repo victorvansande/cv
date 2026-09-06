@@ -153,6 +153,8 @@ window.I18N = {
     /* thesis */
     thesis_eyebrow: `Master's thesis`,
     thesis_h2: `My <span class="grad-text em-serif">research</span>`,
+    thesis_toggle_open: `Read my master's thesis`,
+    thesis_toggle_sub: `The Power of Deception · 241 respondents · University of Antwerp`,
     thesis_tag: `Master's thesis · Communication Studies · University of Antwerp`,
     thesis_title: `The Power of Deception`,
     thesis_sub: `A quantitative analysis of epistemic trust, media trust and conspiracy thinking among Flemish people. How different forms of (dis)trust shape susceptibility to conspiracy theories in a post-truth society.`,
@@ -250,7 +252,6 @@ window.I18N = {
 
     /* contact */
     contact_eyebrow: `Contact`,
-    contact_badge: `Open to collaborations`,
     contact_final_h2: `Feel free to send me a <span class="grad-text em-serif">message</span>`,
     contact_final_lead: `A question, a project or just getting to know each other? I usually reply quickly. One click and your mail window is ready.`,
     contact_btn_mail: `Send me an email`,

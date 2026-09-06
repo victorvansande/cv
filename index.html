@@ -37,9 +37,9 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=147" />
-  <script src="i18n.js?v=36" defer></script>
-  <script src="main.js?v=60" defer></script>
+  <link rel="stylesheet" href="style.css?v=148" />
+  <script src="i18n.js?v=37" defer></script>
+  <script src="main.js?v=61" defer></script>
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
 <body>
@@ -314,6 +314,31 @@
           </div>
           <span class="tt-arr">→</span>
         </a>
+
+        <!-- Talen staan in deze kolom en niet meer in een eigen sectie: de
+             vaardighedenkaart hiernaast is fors hoger dan de bio, waardoor hier
+             een groot leeg vlak viel. Op smalle schermen valt de kolom gewoon
+             onder de kaart en leest het blok als vanouds. -->
+        <div class="lang-inline">
+          <div class="lang-head">
+            <span class="eyebrow"><span class="dot"></span> <span data-i18n="lang_eyebrow">Talen</span></span>
+            <h3 class="h-md" data-i18n="lang_h2">Meertalig <span class="grad-text">communiceren</span></h3>
+          </div>
+          <div class="glass lang-card">
+            <div class="lang-row">
+              <div class="lang-top"><span class="lang-name"><span data-i18n="lang_nl_name">Nederlands</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_nl_lvl">Moedertaal</span></div>
+              <div class="lang-pips" data-level="6" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
+            </div>
+            <div class="lang-row">
+              <div class="lang-top"><span class="lang-name"><span data-i18n="lang_en_name">Engels</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_en_lvl">C2 · volledige beheersing</span></div>
+              <div class="lang-pips" data-level="6" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
+            </div>
+            <div class="lang-row">
+              <div class="lang-top"><span class="lang-name" data-i18n="lang_fr_name">Frans</span><span class="lang-lvl" data-i18n="lang_fr_lvl">A2 · basis secundair onderwijs</span></div>
+              <div class="lang-pips" data-level="2" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="glass feature reveal" data-d="1" style="padding:38px">
@@ -338,30 +363,6 @@
             <span class="skill-tag">Qualtrics surveys</span>
             <span class="skill-tag">Markdown &amp; Documentatie</span>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LANGUAGES -->
-  <section class="section-pad" style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head reveal" style="text-align:center;margin-left:auto;margin-right:auto">
-        <span class="eyebrow"><span class="dot"></span> <span data-i18n="lang_eyebrow">Talen</span></span>
-        <h2 class="h-lg" data-i18n="lang_h2">Meertalig <span class="grad-text">communiceren</span></h2>
-      </div>
-      <div class="glass lang-card reveal">
-        <div class="lang-row">
-          <div class="lang-top"><span class="lang-name"><span data-i18n="lang_nl_name">Nederlands</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_nl_lvl">Moedertaal</span></div>
-          <div class="lang-pips" data-level="6" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
-        </div>
-        <div class="lang-row">
-          <div class="lang-top"><span class="lang-name"><span data-i18n="lang_en_name">Engels</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_en_lvl">C2 · volledige beheersing</span></div>
-          <div class="lang-pips" data-level="6" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
-        </div>
-        <div class="lang-row">
-          <div class="lang-top"><span class="lang-name" data-i18n="lang_fr_name">Frans</span><span class="lang-lvl" data-i18n="lang_fr_lvl">A2 · basis secundair onderwijs</span></div>
-          <div class="lang-pips" data-level="2" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
         </div>
       </div>
     </div>
@@ -533,7 +534,20 @@
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="thesis_eyebrow">Masterproef</span></span>
       <h2 class="h-lg" data-i18n="thesis_h2">Mijn <span class="grad-text em-serif">onderzoek</span></h2>
     </div>
-    <div class="glass thesis reveal">
+    <!-- Dichtgeklapt, net als het fotoluik: niet iedereen wil meteen de hele
+         masterproef doorlopen, en zo neemt hij hier geen halve pagina in.
+         De teaser bovenaan de bio klapt hem wel meteen open (main.js). -->
+    <div class="glass tilt tldr-card reveal">
+      <button class="tldr-toggle" aria-expanded="false" aria-controls="thesis-panel">
+        <span class="tldr-toggle-txt">
+          <strong data-i18n="thesis_toggle_open">Bekijk mijn masterproef</strong>
+          <span data-i18n="thesis_toggle_sub">De Macht van Misleiding · 241 respondenten · UAntwerpen</span>
+        </span>
+        <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="tldr-panel" id="thesis-panel" inert>
+        <div class="tldr-panel-inner">
+        <div class="thesis">
       <div class="thesis-top">
         <span class="thesis-tag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14v7M5 11v4c0 1 3 3 7 3s7-2 7-3v-4"/></svg> <span data-i18n="thesis_tag">Masterproef · Communicatiewetenschappen · UAntwerpen</span></span>
         <h3 data-i18n="thesis_title">De Macht van Misleiding</h3>
@@ -563,6 +577,9 @@
           <span class="chip" data-i18n="kw_epistemic">Epistemisch vertrouwen</span>
           <span class="chip" data-i18n="kw_posttruth">Post-truth</span>
           <span class="chip" data-i18n="kw_medialit">Mediawijsheid</span>
+        </div>
+      </div>
+        </div><!-- /.thesis -->
         </div>
       </div>
     </div>
@@ -851,7 +868,6 @@
 
   <section class="wrap section-pad" style="padding-top:32px">
     <div class="glass contact-final reveal">
-      <span class="now-badge"><span class="pulse"></span> <span data-i18n="contact_badge">Open voor samenwerkingen</span></span>
       <h2 class="h-lg" data-i18n="contact_final_h2">Stuur me gerust een <span class="grad-text em-serif">bericht</span></h2>
       <p class="lead" style="margin:14px auto 28px" data-i18n="contact_final_lead">Een vraag, een project of gewoon kennismaken? Ik antwoord doorgaans snel. Eén klik en je mailvenster staat klaar.</p>
       <div class="contact-final-cta">

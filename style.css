@@ -697,6 +697,32 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 
 /* Compact language list */
 .lang-card { max-width: 660px; margin: 0 auto; padding: 28px 32px; display: grid; gap: 20px; }
+
+/* ---------- Talen in de biokolom ----------
+   Het blok stond als eigen sectie over de volle breedte, terwijl er naast de
+   bio een groot gat viel: de vaardighedenkaart ernaast is fors hoger. Hier vult
+   het dat gat op.
+   De kaart moet dus meeschalen met een kolom in plaats van met de pagina: de
+   max-width en de auto-marges eraf, want die centreerden hem in een breedte die
+   hij nu niet meer heeft, en de binnenmaten iets kleiner zodat drie talen naast
+   een smallere kolom niet gaan verspringen. Alles in relatieve stappen, zodat
+   het bij het uitklappen van de kolom op mobiel gewoon meegroeit. */
+.lang-inline { margin-top: 34px; }
+.lang-inline .lang-head { margin-bottom: 18px; }
+.lang-inline .lang-head .eyebrow { margin-bottom: 11px; }
+.lang-inline .lang-card {
+  max-width: none; margin: 0;
+  padding: 24px 26px; gap: 17px;
+}
+.lang-inline .lang-name { font-size: 1rem; }
+.lang-inline .lang-lvl { font-size: .82rem; }
+/* Onder deze breedte staan naam en niveau naast elkaar zo krap dat het niveau
+   op een eigen regel valt; dan liever meteen onder elkaar, links uitgelijnd. */
+@media (max-width: 560px) {
+  .lang-inline .lang-card { padding: 20px 20px; }
+  .lang-inline .lang-top { display: block; margin-bottom: 11px; }
+  .lang-inline .lang-lvl { display: block; margin-top: 2px; }
+}
 .lang-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 9px; flex-wrap: wrap; }
 .lang-name { font-weight: 700; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 7px; }
 .lang-star { color: #ffd479; font-size: .95rem; filter: drop-shadow(0 0 6px rgba(255,212,121,.45)); }
@@ -1264,6 +1290,14 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 
 /* ---------- Thesis showcase ---------- */
 .thesis { padding: 0; overflow: hidden; }
+/* De masterproef zit nu in een uitklapluik. De statistiekenband loopt van rand
+   tot rand, dus de kaart eromheen moet clippen, anders steekt die band buiten
+   de afgeronde hoeken uit. De bovenrand van het paneel krijgt een lijn, zodat de
+   knop erboven als eigen strook leest zoals bij de andere luiken, en de eerste
+   binnenmarge mag krapper: de knop levert al lucht. */
+#masterproef .tldr-card { overflow: hidden; }
+#masterproef .tldr-panel-inner > .thesis { border-top: 1px solid var(--glass-bord); }
+#masterproef .thesis-top { padding-top: 30px; }
 .thesis-top { padding: 38px 40px 30px; }
 .thesis-tag { display: inline-flex; align-items: center; gap: 8px; font-size: .76rem; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; color: var(--acc-text); margin-bottom: 16px; }

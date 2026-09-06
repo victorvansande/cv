@@ -720,6 +720,11 @@
       card.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
       panel.toggleAttribute("inert", !open);
+      // Tellers in een dichtgeklapt paneel hebben geen hoogte. De waarnemer ziet
+      // ze dan wel, maar het optellen speelt zich af in een vak van nul pixels,
+      // dus je mist het. Bij het openklappen zetten we ze opnieuw onder toezicht;
+      // de waarnemer start het optellen dan alsnog, nu wel zichtbaar.
+      if (open) panel.querySelectorAll("[data-count]").forEach((el) => countIO.observe(el));
     };
     toggle.addEventListener("click", () => setOpen(!card.classList.contains("open")));
     accordionSetters.set(card, setOpen);
@@ -730,6 +735,14 @@
   if (tldrCard && tldrNudge) {
     const setTldrOpen = accordionSetters.get(tldrCard);
     if (setTldrOpen) tldrNudge.addEventListener("click", () => setTldrOpen(true));
+  }
+  // idem voor de masterproef: de teaser in de bio verwijst naar #masterproef, en
+  // daar staat sinds kort een dichtgeklapt luik
+  const thesisCard = document.querySelector("#masterproef .tldr-card");
+  const thesisTeaser = document.querySelector(".thesis-teaser");
+  if (thesisCard && thesisTeaser) {
+    const setThesisOpen = accordionSetters.get(thesisCard);
+    if (setThesisOpen) thesisTeaser.addEventListener("click", () => setThesisOpen(true));
   }
 
 })();
