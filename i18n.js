@@ -187,8 +187,6 @@ window.I18N = {
     exp_h2: `A versatile<br><span class="grad-text em-serif">journey</span>`,
     exp_lead: `From communication and research to (web)design, leadership and education: experience across various fields, always with people at the centre.`,
     job_eyebrow: `Current employer`,
-    job_h2: `Working at <span class="grad-text">Gekkoo</span>`,
-    job_lead: `My current job, in two consecutive roles: from content and communication work to fundraising.`,
     gekkoo_desc: `Gekkoo organises playground programmes and holiday camps for children across Flanders and the Ardennes. <a href="https://gekkoo.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">gekkoo.be ↗</a>`,
     gekkoo_role1_h: `Fundraiser`,
     gekkoo_role1_badge: `Since Sep 2026`,

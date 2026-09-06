@@ -613,6 +613,10 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
 .muted { color: var(--ink-dim); }
 .section-head { max-width: 64ch; margin-bottom: 46px; }
+/* Losstaand labeltje boven een kaart, zonder kop eronder. Krap gehouden: het
+   hoort bij de kaart die volgt, niet bij de sectie erboven, en de 46px van een
+   volledige sectiekop zou het los doen zweven. */
+.job-label { margin-bottom: 16px; }
 .section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
 /* lead krijgt lucht onder de kop */
 .section-head .lead { margin-top: 15px; }
