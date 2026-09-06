@@ -619,6 +619,9 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 /* lange leesprose uitgevuld + afbreken voor strakke randen (enkel hier: justify heeft
    afbreekstreepjes nodig om grote woordspaties te vermijden; elders (ragged-right) niet) */
 .bio-open p { text-align: justify; text-justify: inter-word; -webkit-hyphens: auto; hyphens: auto; }
+/* de reset zet alle marges op nul, dus opeenvolgende alinea's krijgen hier hun
+   eigen tussenruimte */
+.bio-open p + p { margin-top: 15px; }
 
 /* ---------- Hero ---------- */
 .hero { padding: 52px 0 48px; }
