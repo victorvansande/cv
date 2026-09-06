@@ -216,7 +216,7 @@ window.I18N = {
     ksa_role3_date: `Sep 2015 – 2026`,
     ksa_role3_p: `Alongside the head leader role, I remain active on the floor: running weekly activities for members, with an eye for story, imagination and group spirit. Both roles run in parallel by choice.`,
     tag_creativity: `Creativity`,
-    stages_eyebrow: `Internships &amp; teaching`,
+    stages_eyebrow: `Internships &amp; student jobs`,
     stages_h2: `In <span class="grad-text">practice</span>`,
     stage1_short: `English teacher (internship) · TEFL`,
     stage2_short: `Science teacher (internship)`,
