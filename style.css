@@ -246,14 +246,10 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* Cursor glow */
-/* Wit in plaats van het accent: als lichtbron rond de cursor leest wit als
-   licht, terwijl een gekleurde gloed een tweede accent werd dat met de knoppen
-   concurreerde. Iets lager gezet dan de vorige 20%, omdat wit door de
-   screen-blending sterker oplicht dan een kleur. */
 .cursor-glow {
   position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
   width: 380px; height: 380px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, .17), rgba(255, 255, 255, 0) 65%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--c1) 20%, transparent), transparent 65%);
   transform: translate(-50%, -50%); transition: opacity .3s; opacity: 0;
   mix-blend-mode: screen;
 }
@@ -263,27 +259,37 @@ button { font-family: inherit; cursor: pointer; }
   position: fixed; top: 0; left: 0; pointer-events: none;
   border-radius: 50%; will-change: transform;
 }
-/* Het punt zelf is donker, met wit eromheen: zo leest het als een kern in het
-   licht in plaats van als nog een gekleurde stip. */
 .cursor-dot {
-  z-index: 10000; width: 7px; height: 7px; background: #0a0c13;
-  box-shadow: 0 0 3px rgba(255, 255, 255, .95), 0 0 11px rgba(255, 255, 255, .7);
+  z-index: 10000; width: 7px; height: 7px; background: var(--c2);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--c2) 70%, transparent);
 }
-/* op een lichte pagina valt een witte gloed weg, dus daar een zachte inktrand */
-:root[data-mode="light"] .cursor-dot {
-  box-shadow: 0 0 3px rgba(255, 255, 255, .9), 0 0 10px rgba(22, 27, 51, .3);
-}
-/* Zachte halo die exact meebeweegt en subtiel ademt. Wit in plaats van het
-   accent: als gloed rond de cursor leest wit als licht, terwijl het accent er
-   een tweede gekleurd element van maakte.
-   Op een lichte pagina zou wit onzichtbaar zijn, dus daar een gedempte inkt. */
+/* zachte halo die exact meebeweegt en subtiel ademt */
 .cursor-halo {
   z-index: 9999; width: 30px; height: 30px;
-  background: radial-gradient(circle, rgba(255, 255, 255, .62), rgba(255, 255, 255, 0) 68%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--c2) 30%, transparent), transparent 68%);
   animation: cursor-breathe 3.2s var(--ease) infinite;
   transition: width .25s var(--ease), height .25s var(--ease), opacity .3s var(--ease);
 }
-:root[data-mode="light"] .cursor-halo {
+
+/* De witte cursor hoort bij Clay en alleen bij Clay. Daar werd een gekleurde
+   gloed een tweede accent dat met de knoppen concurreerde; in de andere thema's
+   is de cursor juist een van de plekken waar de themakleur mag spreken. Het
+   punt zelf is er donker met wit eromheen, zodat het als kern in het licht
+   leest. Op een lichte pagina valt witte gloed weg, dus daar een gedempte inkt. */
+:root[data-theme="clay"] .cursor-glow {
+  background: radial-gradient(circle, rgba(255, 255, 255, .17), rgba(255, 255, 255, 0) 65%);
+}
+:root[data-theme="clay"] .cursor-dot {
+  background: #0a0c13;
+  box-shadow: 0 0 3px rgba(255, 255, 255, .95), 0 0 11px rgba(255, 255, 255, .7);
+}
+:root[data-theme="clay"][data-mode="light"] .cursor-dot {
+  box-shadow: 0 0 3px rgba(255, 255, 255, .9), 0 0 10px rgba(22, 27, 51, .3);
+}
+:root[data-theme="clay"] .cursor-halo {
+  background: radial-gradient(circle, rgba(255, 255, 255, .62), rgba(255, 255, 255, 0) 68%);
+}
+:root[data-theme="clay"][data-mode="light"] .cursor-halo {
   background: radial-gradient(circle, rgba(22, 27, 51, .30), rgba(22, 27, 51, 0) 68%);
 }
 @keyframes cursor-breathe { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
@@ -578,6 +584,30 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
    en de introlagen worden op dat midden uitgelijnd. */
 .grad-text,
 .pull-quote .em-serif { padding-inline: .16em; margin-inline: -.16em; }
+
+/* Dikke punt achter de naam: een typografische punt zou meeschalen met het
+   lettertype en te dun uitvallen op deze grootte, dus is het een echte cirkel.
+   Hij staat binnen .grad-text zodat text-wrap: balance hem nooit als los teken
+   op een eigen regel kan zetten - hij hoort bij "Sande".
+   Maten in em, zodat hij meegroeit met de clamp() van .h-xl. Kleur is var(--ink)
+   en niet hard zwart: in donkere modus zou zwart op zwart verdwijnen. */
+.name-dot {
+  display: inline-block;
+  width: .2em; height: .2em;
+  margin-left: .07em;
+  border-radius: 50%;
+  background: var(--ink);
+  /* de baseline zelf ligt onder de x-hoogte; de punt hoort op de grondlijn te
+     rusten, dus geen extra verschuiving nodig behalve de optische correctie */
+  vertical-align: baseline;
+}
+/* In de introlagen en in de klikgloed is de naam wit respectievelijk vol in
+   spectrum; een inktzwarte punt zou daar als gat lezen. */
+.intro-stage .name-dot,
+.name-glow .gl-flash .name-dot { background: #fff; }
+.name-glow .gl-near .name-dot,
+.name-glow .gl-mid .name-dot,
+.name-glow .gl-far .name-dot { background: hsl(190 88% 55%); }
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
 .muted { color: var(--ink-dim); }
 .section-head { max-width: 64ch; margin-bottom: 46px; }
