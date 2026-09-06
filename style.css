@@ -672,23 +672,28 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .feature h3 { font-size: 1.15rem; margin-bottom: 9px; }
 .feature p { color: var(--ink-soft); font-size: .95rem; }
 
-/* ---------- Interesses: titel naast het icoon ----------
+/* ---------- Titel naast het icoon ----------
    De titel stond onder het icoon, waardoor naast het icoon een lege strook
    overbleef en elke kaart een regelhoogte extra innam. Titel en icoon staan nu
-   op één lijn; dezelfde opbouw als de brede kaart bij de hoogtepunten, dus het
-   blijft één taal op de pagina.
+   op één lijn. Dezelfde opbouw als de brede kaart in dit raster, dus het blijft
+   één taal op de pagina - die kaart deed dit al, de smalle ernaast niet, en dat
+   verschil viel op zodra ze naast elkaar stonden.
    De tekst loopt bewust over de volle breedte door en niet in de kolom naast
    het icoon: anders moet elke zin door een smallere koker en wint de kaart in
    hoogte wat ze in breedte bespaart. De sfeeranimaties in deze kaarten staan
    absoluut gepositioneerd en blijven dus buiten dit raster. */
-.int-grid > .feature {
+.int-grid > .feature,
+.bento > .feature:not(.feature-wide) {
   display: grid; grid-template-columns: auto 1fr;
   column-gap: 14px; align-items: center;
   padding: 24px 26px;
 }
-.int-grid > .feature .ic { margin-bottom: 0; width: 44px; height: 44px; border-radius: 13px; }
-.int-grid > .feature h3 { grid-column: 2; margin-bottom: 0; }
-.int-grid > .feature p { grid-column: 1 / -1; margin-top: 13px; }
+.int-grid > .feature .ic,
+.bento > .feature:not(.feature-wide) .ic { margin-bottom: 0; width: 44px; height: 44px; border-radius: 13px; }
+.int-grid > .feature h3,
+.bento > .feature:not(.feature-wide) h3 { grid-column: 2; margin-bottom: 0; }
+.int-grid > .feature p,
+.bento > .feature:not(.feature-wide) p { grid-column: 1 / -1; margin-top: 13px; }
 
 /* ---------- Skills (icoon + naam, geen niveau-claim) ---------- */
 .skill-list { display: flex; flex-direction: column; gap: 14px; }
@@ -1345,9 +1350,13 @@ main > .sec { border-top: 1px solid transparent; }
 main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(--glass-bord); border-bottom: 1px solid var(--glass-bord); }
 @media (max-width: 560px) {
   .bento { grid-template-columns: 1fr; }
-  .bento > .feature-wide { grid-template-columns: 1fr; }
-  .bento > .feature-wide .ic { grid-row: auto; margin-bottom: 14px; }
-  .bento > .feature-wide h3, .bento > .feature-wide p { grid-column: 1; grid-row: auto; }
+  /* Hier is de brede kaart even breed als de andere twee, dus neemt ze ook hun
+     indeling over: icoon en titel op één regel, tekst eronder over de volle
+     breedte. Anders stond op mobiel als enige kaart het icoon bóven de titel. */
+  .bento > .feature-wide { column-gap: 14px; padding: 24px 26px; }
+  .bento > .feature-wide .ic { grid-row: auto; margin-bottom: 0; width: 44px; height: 44px; border-radius: 13px; }
+  .bento > .feature-wide h3 { grid-column: 2; grid-row: auto; margin-bottom: 0; font-size: 1.15rem; }
+  .bento > .feature-wide p { grid-column: 1 / -1; grid-row: auto; margin-top: 13px; }
 }
 
 /* ---------- Skill tags ---------- */
