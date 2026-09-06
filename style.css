@@ -585,8 +585,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
    marge haalt die ruimte weer weg zodat de tekstloop niet verschuift.
    Symmetrisch, zodat het midden van de naam op zijn plek blijft: de klikgloed
    en de introlagen worden op dat midden uitgelijnd. */
-.grad-text,
-.pull-quote .em-serif { padding-inline: .16em; margin-inline: -.16em; }
+.grad-text { padding-inline: .16em; margin-inline: -.16em; }
 
 /* Dikke punt achter de naam: een typografische punt zou meeschalen met het
    lettertype en te dun uitvallen op deze grootte, dus is het een echte cirkel.
@@ -698,18 +697,19 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
    hij nu niet meer heeft, en de binnenmaten iets kleiner zodat drie talen naast
    een smallere kolom niet gaan verspringen. Alles in relatieve stappen, zodat
    het bij het uitklappen van de kolom op mobiel gewoon meegroeit. */
-.lang-inline { margin-top: 34px; flex: 1 1 auto; display: flex; flex-direction: column; }
+/* Het blok zakt naar de onderkant van de kolom, zodat het gelijk eindigt met de
+   vaardighedenkaart ernaast. De overgebleven ruimte komt dus bóven het blok te
+   staan, tussen de biotekst en de kop - dat leest als gewone tussenruimte.
+   Eerder rekte de kaart zelf mee, maar sinds de tussentitel weg is bleef er meer
+   ruimte over en werden de drie talen zichtbaar uit elkaar getrokken.
+   De padding blijft naast de automarge staan: die zorgt voor de minimumafstand
+   wanneer er niets te verdelen valt, zoals op mobiel. */
+.lang-inline { margin-top: auto; padding-top: 34px; display: flex; flex-direction: column; }
 .lang-inline .lang-head { margin-bottom: 18px; }
 .lang-inline .lang-head .eyebrow { margin-bottom: 11px; }
 .lang-inline .lang-card {
   max-width: none; margin: 0;
   padding: 24px 26px; gap: 17px;
-  /* De kaart rekt mee tot de kolom even hoog is als de vaardighedenkaart. De
-     speling gaat naar de ruimte tussen de drie talen en niet naar de talen
-     zelf, zodat de balkjes hun eigen maat houden en de kaart gewoon ruimer
-     ademt. Zonder speling blijft de opgegeven gap staan. */
-  flex: 1 1 auto;
-  align-content: space-between;
 }
 .lang-inline .lang-name { font-size: 1rem; }
 .lang-inline .lang-lvl { font-size: .82rem; }
@@ -1000,16 +1000,37 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .footer-meta > span:not(:first-child)::before {
   content: "·"; margin-right: 7px; opacity: .5;
 }
-/* Onder ongeveer 390px past de regel niet meer en brak ze af, waarbij de
-   tweede regel met een losse punt begon. Dan liever netjes onder elkaar en
-   de scheidingstekens weg: het regeleinde scheidt de delen al. */
-@media (max-width: 400px) {
-  .footer-meta { flex-direction: column; align-items: flex-start; gap: 3px; }
-  .footer-meta > span:not(:first-child)::before { content: none; }
-}
 .footer-soc { display: flex; gap: 12px; }
 .footer-soc a { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-soft); transition: .25s; }
 .footer-soc a:hover { color: var(--ink); border-color: var(--glass-bord-hi); transform: translateY(-2px); }
+/* Op telefoonformaat viel de regel uit elkaar over drie regels, naast de twee
+   iconen; samen maakte dat de voet onnodig hoog. Alles blijft nu op één regel:
+   de delen mogen niet meer afbreken en de tekst schaalt mee met het scherm tot
+   ze past. De iconen worden iets kleiner om die ruimte vrij te maken.
+   De maat is geen ronde gok maar de uitkomst van de meting: de regel is
+   ongeveer 23px breed per pixel lettergrootte, en naast de iconen blijft er
+   (schermbreedte - 134) over. Dat geeft ruwweg schermbreedte gedeeld door 24,
+   min een vaste correctie, met een paar pixels speling. Zo past het op elke
+   breedte precies, in plaats van net wel of net niet op één testformaat.
+   Onder 360px zou de tekst onleesbaar klein moeten worden om te passen, dus
+   daar breekt ze weer af: liever twee leesbare regels dan één die niemand
+   kan lezen. */
+@media (max-width: 560px) {
+  .footer-inner { flex-wrap: nowrap; gap: 12px; }
+  .footer .muted { font-size: clamp(.575rem, calc(4.2vw - 5.9px), .9rem); }
+  .footer-meta { flex-wrap: nowrap; white-space: nowrap; gap: 0 5px; }
+  .footer-meta > span:not(:first-child)::before { margin-right: 5px; }
+  .footer-soc { gap: 10px; }
+  .footer-soc a { width: 34px; height: 34px; border-radius: 10px; }
+  .footer-soc svg { width: 16px; height: 16px; }
+}
+/* Onder 360px past de regel echt niet meer; dan liever netjes onder elkaar en
+   de scheidingstekens weg, want het regeleinde scheidt de delen al. */
+@media (max-width: 359px) {
+  .footer-inner { flex-wrap: wrap; }
+  .footer-meta { flex-direction: column; flex-wrap: wrap; align-items: flex-start; gap: 3px; }
+  .footer-meta > span:not(:first-child)::before { content: none; }
+}
 
 /* ---------- Mode toggle (light / dark): zelfde schuifpil-patroon als de taalknop ---------- */
 .mode-toggle {
@@ -1242,15 +1263,12 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .bento > .feature-wide h3 { grid-column: 2; grid-row: 1; font-size: 1.3rem; }
 .bento > .feature-wide p { grid-column: 2; grid-row: 2; max-width: 62ch; }
 
-/* open bio + serif pull-quote */
+/* open bio */
 /* Kolom in plaats van een gewone stapel blokken: de talenkaart onderaan moet de
    hoogte kunnen opvullen die de vaardighedenkaart ernaast bepaalt, zodat beide
    kolommen op dezelfde lijn eindigen. Op smalle schermen staan de kolommen
    onder elkaar en is er geen speling, dus verandert er dan niets. */
 .bio-open { padding-top: 4px; display: flex; flex-direction: column; }
-.pull-quote { font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.05rem); line-height: 1.25;
-  font-weight: 500; letter-spacing: -.015em; margin-bottom: 22px; color: var(--ink); }
-.pull-quote .em-serif { font-style: italic; background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 /* section numbers in eyebrow */
 .ey-num { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: .92rem; letter-spacing: 0;
