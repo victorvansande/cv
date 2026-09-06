@@ -669,6 +669,24 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .feature h3 { font-size: 1.15rem; margin-bottom: 9px; }
 .feature p { color: var(--ink-soft); font-size: .95rem; }
 
+/* ---------- Interesses: titel naast het icoon ----------
+   De titel stond onder het icoon, waardoor naast het icoon een lege strook
+   overbleef en elke kaart een regelhoogte extra innam. Titel en icoon staan nu
+   op één lijn; dezelfde opbouw als de brede kaart bij de hoogtepunten, dus het
+   blijft één taal op de pagina.
+   De tekst loopt bewust over de volle breedte door en niet in de kolom naast
+   het icoon: anders moet elke zin door een smallere koker en wint de kaart in
+   hoogte wat ze in breedte bespaart. De sfeeranimaties in deze kaarten staan
+   absoluut gepositioneerd en blijven dus buiten dit raster. */
+.int-grid > .feature {
+  display: grid; grid-template-columns: auto 1fr;
+  column-gap: 14px; align-items: center;
+  padding: 24px 26px;
+}
+.int-grid > .feature .ic { margin-bottom: 0; width: 44px; height: 44px; border-radius: 13px; }
+.int-grid > .feature h3 { grid-column: 2; margin-bottom: 0; }
+.int-grid > .feature p { grid-column: 1 / -1; margin-top: 13px; }
+
 /* ---------- Skills (icoon + naam, geen niveau-claim) ---------- */
 .skill-list { display: flex; flex-direction: column; gap: 14px; }
 .skill-row { display: flex; align-items: center; gap: 12px; font-size: .95rem; }
@@ -1231,6 +1249,32 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .set-action:hover { color: var(--acc-text); background: color-mix(in srgb, var(--c2) 10%, transparent);
   border-color: color-mix(in srgb, var(--c2) 38%, transparent); }
 
+
+/* ---------- Knopje naar een bijlage (diploma, brevet) ----------
+   De diploma's stonden als grote voorbeeldafbeelding in de kaart. Dat is veel
+   ruimte voor iets wat je hooguit één keer opent, en het beeld zelf is op die
+   maat toch niet leesbaar. Een klein knopje zegt hetzelfde en scheelt per kaart
+   ruim tweehonderd pixels hoogte. Meegenomen: de vijf schermvullende scans
+   worden niet meer geladen zolang je er niet op klikt.
+   Zelfde pilvorm als de sprong-link in de hero, zodat het als bekend element
+   leest. Op een eigen regel en zo breed als zijn inhoud, zodat hij niet naast
+   het onderscheidingslabel erboven gaat zweven. */
+.doc-btn {
+  display: flex; width: fit-content; align-items: center; gap: 8px;
+  margin-top: 14px; padding: 7px 14px; border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  border: 1px solid var(--glass-bord);
+  font: inherit; font-size: .8rem; font-weight: 600; color: var(--ink-dim);
+  cursor: zoom-in;
+  transition: color .25s var(--ease), border-color .25s var(--ease),
+              background .25s var(--ease), transform .25s var(--ease);
+}
+.doc-btn svg { flex: none; }
+.doc-btn:hover, .doc-btn:focus-visible {
+  color: var(--acc-text); transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--c2) 40%, transparent);
+  background: color-mix(in srgb, var(--c2) 9%, transparent);
+}
 
 /* ---------- Diploma thumbnail + lightbox ---------- */
 .diploma-thumb {

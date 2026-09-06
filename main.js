@@ -17,7 +17,7 @@
     document.body.append(dot, halo);
     document.documentElement.classList.add("has-custom-cursor");
 
-    const interactive = "a, button, label, .swatch, .settings-toggle, .burger, [role='button'], .diploma-thumb, .thesis-teaser";
+    const interactive = "a, button, label, .swatch, .settings-toggle, .burger, [role='button'], .diploma-thumb, .doc-btn";
     let gx = 0, gy = 0, tx = 0, ty = 0, shown = false;
 
     window.addEventListener("mousemove", (e) => {
@@ -760,8 +760,13 @@
     const lbImg = lb.querySelector("img");
     const open = (src, alt) => { lbImg.src = src; lbImg.alt = alt || ""; lb.classList.add("open"); document.body.style.overflow = "hidden"; };
     const close = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
-    document.querySelectorAll(".diploma-thumb").forEach((t) =>
-      t.addEventListener("click", () => open(t.dataset.full || t.querySelector("img").src, t.querySelector("img").alt)));
+    // .doc-btn is de kleine knop bij de diploma's: die heeft geen voorbeeldbeeld,
+    // dus komen pad en omschrijving daar uit data-attributen
+    document.querySelectorAll(".diploma-thumb, .doc-btn").forEach((t) => {
+      const img = t.querySelector("img");
+      t.addEventListener("click", () =>
+        open(t.dataset.full || (img && img.src), t.dataset.alt || (img && img.alt)));
+    });
     lb.addEventListener("click", (e) => { if (e.target === lb || e.target.closest(".lightbox-close")) close(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }

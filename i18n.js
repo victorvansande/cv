@@ -179,6 +179,8 @@ window.I18N = {
     cert1_p: `Certificate 2023/0469/00 · valid until 9/1/2028.`,
     cert2_h: `Helper (advanced course)`,
     cert2_p: `Certificate 2023/0063/00 · valid until 9/1/2028.`,
+    diploma_btn: `View diploma`,
+    brevet_btn: `View certificate`,
 
     /* experience */
     exp_eyebrow: `Experience`,
