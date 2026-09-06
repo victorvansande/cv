@@ -733,7 +733,26 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   display: block; width: 100%; height: 100%; border-radius: inherit; background: var(--grad);
   transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
 }
-.lang-pip.filled i { transform: scaleX(1); }
+/* De balkjes bouwen trapsgewijs op, maar de trapjes zitten nu in css.
+   Eerder zette JavaScript per balkje apart een klasse via een eigen timer: zes
+   timers per rij, elk met een verwijzing naar één vast balkje. Ging er in die
+   ruim seconde iets mis met zo'n timer, dan bleef die rij voorgoed leeg - er
+   was geen tweede kans en niets dat controleerde of het gelukt was.
+   Nu zet JavaScript één klasse op de rij en doet transition-delay de rest. Eén
+   handeling per rij in plaats van zes, dus er valt niets meer te missen.
+   Hoeveel balkjes vollopen leest css rechtstreeks uit data-level, dezelfde bron
+   die JavaScript eerder uitlas. */
+.lang-pip:nth-child(2) i { transition-delay: .22s; }
+.lang-pip:nth-child(3) i { transition-delay: .44s; }
+.lang-pip:nth-child(4) i { transition-delay: .66s; }
+.lang-pip:nth-child(5) i { transition-delay: .88s; }
+.lang-pip:nth-child(6) i { transition-delay: 1.1s; }
+.lang-row.vult .lang-pips[data-level="1"] .lang-pip:nth-child(-n+1) i,
+.lang-row.vult .lang-pips[data-level="2"] .lang-pip:nth-child(-n+2) i,
+.lang-row.vult .lang-pips[data-level="3"] .lang-pip:nth-child(-n+3) i,
+.lang-row.vult .lang-pips[data-level="4"] .lang-pip:nth-child(-n+4) i,
+.lang-row.vult .lang-pips[data-level="5"] .lang-pip:nth-child(-n+5) i,
+.lang-row.vult .lang-pips[data-level="6"] .lang-pip:nth-child(-n+6) i { transform: scaleX(1); }
 
 /* ---------- Timeline ---------- */
 .timeline { position: relative; padding-left: 34px; }
@@ -1411,16 +1430,19 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 .badge-hon svg, .lang-star { display: inline-block; transform-origin: center; }
 .reveal .badge-hon svg, .reveal .lang-star { opacity: 0; }
 .reveal.in .badge-hon svg { animation: starpop .6s var(--ease) .35s forwards; }
-/* .lang-star pop niet meer aan reveal gekoppeld, maar aan het klaar zijn met vullen (main.js) */
-.lang-star.pop-star { animation: starpop .6s var(--ease) forwards; }
+/* Het sterretje hoort te verschijnen zodra de balk vol is, niet los daarvan.
+   Ook dat hing aan een eigen timer; nu wacht het gewoon op zijn beurt met een
+   animation-delay. Sterretjes staan alleen op volle rijen (zes balkjes), dus de
+   vertraging is die van het laatste balkje plus zijn vultijd. */
+.lang-row.vult .lang-star { animation: starpop .6s var(--ease) 1.6s forwards; }
 /* subtiele sparkles die samen met de ster verschijnen, voor de volledig gevulde talen */
 .lang-star { position: relative; }
 .lang-star::before, .lang-star::after {
   content: "✦"; position: absolute; top: 50%; left: 50%; font-size: .55em; color: #ffd479;
   opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(0);
 }
-.lang-star.pop-star::before { animation: sparkfly .7s var(--ease) .08s forwards; --sx: -11px; --sy: -7px; }
-.lang-star.pop-star::after { animation: sparkfly .7s var(--ease) .2s forwards; --sx: 10px; --sy: -8px; }
+.lang-row.vult .lang-star::before { animation: sparkfly .7s var(--ease) 1.68s forwards; --sx: -11px; --sy: -7px; }
+.lang-row.vult .lang-star::after { animation: sparkfly .7s var(--ease) 1.8s forwards; --sx: 10px; --sy: -8px; }
 
 /* ---------- Reveal animation ---------- */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
