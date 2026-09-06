@@ -634,18 +634,6 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .personal-chip { display:inline-flex; align-items:center; gap:6px; font-size:.82rem; font-weight:600;
   color:var(--ink-soft); padding:6px 13px; border-radius:999px;
   background:color-mix(in srgb, var(--ink) 5%, transparent); border:1px solid var(--glass-bord); }
-/* Thesis teaser link in bio */
-.thesis-teaser { display:flex; align-items:center; justify-content:space-between; gap:16px;
-  margin-top:20px; padding:13px 16px; border-radius:var(--r-sm); text-decoration:none; color:var(--ink);
-  background:color-mix(in srgb, var(--c2) 7%, transparent); border:1px solid color-mix(in srgb, var(--c2) 22%, transparent);
-  transition:.25s var(--ease); }
-.thesis-teaser:hover { background:color-mix(in srgb, var(--c2) 13%, transparent); border-color:color-mix(in srgb, var(--c2) 40%, transparent); }
-.tt-left { display:flex; align-items:center; gap:13px; }
-.tt-icon { font-size:1.15rem; flex:none; }
-.tt-body strong { display:block; font-size:.93rem; font-weight:700; color:var(--ink); }
-.tt-body span { font-size:.78rem; color:var(--ink-soft); }
-.tt-arr { color:var(--acc-text); font-size:1rem; flex:none; transition:.25s var(--ease); }
-.thesis-teaser:hover .tt-arr { transform:translateX(4px); }
 /* Compact stages list */
 .stage-compact { padding:6px 28px; }
 .stage-row { display:flex; align-items:baseline; gap:14px; padding:13px 0; border-bottom:1px solid var(--glass-bord); }
@@ -707,12 +695,18 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
    hij nu niet meer heeft, en de binnenmaten iets kleiner zodat drie talen naast
    een smallere kolom niet gaan verspringen. Alles in relatieve stappen, zodat
    het bij het uitklappen van de kolom op mobiel gewoon meegroeit. */
-.lang-inline { margin-top: 34px; }
+.lang-inline { margin-top: 34px; flex: 1 1 auto; display: flex; flex-direction: column; }
 .lang-inline .lang-head { margin-bottom: 18px; }
 .lang-inline .lang-head .eyebrow { margin-bottom: 11px; }
 .lang-inline .lang-card {
   max-width: none; margin: 0;
   padding: 24px 26px; gap: 17px;
+  /* De kaart rekt mee tot de kolom even hoog is als de vaardighedenkaart. De
+     speling gaat naar de ruimte tussen de drie talen en niet naar de talen
+     zelf, zodat de balkjes hun eigen maat houden en de kaart gewoon ruimer
+     ademt. Zonder speling blijft de opgegeven gap staan. */
+  flex: 1 1 auto;
+  align-content: space-between;
 }
 .lang-inline .lang-name { font-size: 1rem; }
 .lang-inline .lang-lvl { font-size: .82rem; }
@@ -1246,7 +1240,11 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .bento > .feature-wide p { grid-column: 2; grid-row: 2; max-width: 62ch; }
 
 /* open bio + serif pull-quote */
-.bio-open { padding-top: 4px; }
+/* Kolom in plaats van een gewone stapel blokken: de talenkaart onderaan moet de
+   hoogte kunnen opvullen die de vaardighedenkaart ernaast bepaalt, zodat beide
+   kolommen op dezelfde lijn eindigen. Op smalle schermen staan de kolommen
+   onder elkaar en is er geen speling, dus verandert er dan niets. */
+.bio-open { padding-top: 4px; display: flex; flex-direction: column; }
 .pull-quote { font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.05rem); line-height: 1.25;
   font-weight: 500; letter-spacing: -.015em; margin-bottom: 22px; color: var(--ink); }
 .pull-quote .em-serif { font-style: italic; background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent; }

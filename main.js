@@ -736,13 +736,15 @@
     const setTldrOpen = accordionSetters.get(tldrCard);
     if (setTldrOpen) tldrNudge.addEventListener("click", () => setTldrOpen(true));
   }
-  // idem voor de masterproef: de teaser in de bio verwijst naar #masterproef, en
-  // daar staat sinds kort een dichtgeklapt luik
+  // idem voor de masterproef: wie rechtstreeks op #masterproef binnenkomt - via
+  // een gedeelde link of een sprong van elders - hoort het luik open te zien en
+  // niet een dichte kaart
   const thesisCard = document.querySelector("#masterproef .tldr-card");
-  const thesisTeaser = document.querySelector(".thesis-teaser");
-  if (thesisCard && thesisTeaser) {
+  if (thesisCard) {
     const setThesisOpen = accordionSetters.get(thesisCard);
-    if (setThesisOpen) thesisTeaser.addEventListener("click", () => setThesisOpen(true));
+    const openOnHash = () => { if (location.hash === "#masterproef" && setThesisOpen) setThesisOpen(true); };
+    window.addEventListener("hashchange", openOnHash);
+    openOnHash();
   }
 
 })();

@@ -37,9 +37,9 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=148" />
-  <script src="i18n.js?v=37" defer></script>
-  <script src="main.js?v=61" defer></script>
+  <link rel="stylesheet" href="style.css?v=150" />
+  <script src="i18n.js?v=38" defer></script>
+  <script src="main.js?v=62" defer></script>
   <script>(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem('cv-theme')||'rose';d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
 <body>
@@ -300,21 +300,10 @@
 
   <!-- BIO + SKILLS -->
   <section class="section-pad" style="padding-top:40px">
-    <div class="wrap grid grid-2" style="align-items:start">
+    <div class="wrap grid grid-2" style="align-items:stretch">
       <div class="bio-open reveal">
         <p class="pull-quote" data-i18n="over_pullquote">Ik werk graag mensgericht, <span class="em-serif">ongeacht wat ik doe.</span></p>
         <p style="color:var(--ink-soft)" data-i18n="over_bio1">Mijn academische bagage in communicatie, media, psychologie en technologie combineer ik met een scherp oog voor design en jarenlange ervaring in het aansturen van teams en projecten, wat me sterke communicatieve, organisatorische en leidinggevende vaardigheden geeft.</p>
-        <a href="#masterproef" class="thesis-teaser">
-          <div class="tt-left">
-            <span class="tt-icon">📊</span>
-            <div class="tt-body">
-              <strong data-i18n="thesis_teaser_title">De Macht van Misleiding</strong>
-              <span data-i18n="thesis_teaser_sub">Masterproef · 241 respondenten · UAntwerpen</span>
-            </div>
-          </div>
-          <span class="tt-arr">→</span>
-        </a>
-
         <!-- Talen staan in deze kolom en niet meer in een eigen sectie: de
              vaardighedenkaart hiernaast is fors hoger dan de bio, waardoor hier
              een groot leeg vlak viel. Op smalle schermen valt de kolom gewoon
