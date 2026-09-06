@@ -85,6 +85,49 @@
       a.addEventListener("click", () => { links.classList.remove("open"); burger.classList.remove("on"); }));
   }
 
+  /* ---- Balk klapt dicht zodra hij niet meer past ----
+     De mediaquery op 900px dekt smalle vensters, maar niet de tweede manier
+     waarop de balk te krap wordt: grotere tekst. Wie via de instellingen op
+     130% zet heeft dezelfde vensterbreedte maar een derde meer tekst, en dan
+     vielen de naam en "Over mij" over twee regels. Een mediaquery ziet dat
+     niet - die meet het venster, niet de inhoud, en rekent met de standaard
+     lettergrootte van de browser en niet met de vergrote.
+     Hier meten we het wel. Alles in de balk staat op nowrap en niets mag onder
+     zijn eigen inhoud krimpen, dus de breedte van het merk plus die van het
+     rechterdeel is precies wat de balk nodig heeft. Past dat niet in de
+     beschikbare breedte, dan klapt hij in. */
+  const navInner = document.querySelector(".nav-inner");
+  const navBrand = document.querySelector(".nav-inner .brand");
+  const navRight = document.querySelector(".nav-inner .nav-right");
+  if (navInner && navBrand && navRight) {
+    const LUCHT = 24;              // marge, zodat het niet nét-aan tegen elkaar plakt
+    const wortel = document.documentElement;
+    const breedte = (el) => el.getBoundingClientRect().width;
+    const meetEnPas = () => {
+      // even uitgeklapt zetten om te zien of het zó past; de metingen hieronder
+      // dwingen een herberekening af, maar er wordt niets getekend voor we de
+      // klasse weer goed zetten, dus je ziet er niets van
+      wortel.classList.add("nav-measuring");
+      const wasCompact = wortel.classList.contains("nav-compact");
+      wortel.classList.remove("nav-compact");
+      const past = breedte(navBrand) + breedte(navRight) + LUCHT <= navInner.clientWidth;
+      wortel.classList.toggle("nav-compact", !past);
+      // van uitgeklapt naar ingeklapt: een openstaand menu hoort dicht te gaan
+      if (!past && !wasCompact && links && burger) {
+        links.classList.remove("open");
+        burger.classList.remove("on");
+      }
+      wortel.classList.remove("nav-measuring");
+    };
+    window.addEventListener("resize", meetEnPas);
+    // lettertypes komen later binnen en veranderen de breedtes
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(meetEnPas);
+    // de taalknop en de zoomknop wijzigen de inhoud van de balk zonder dat het
+    // venster verandert; die melden zich hier
+    window.addEventListener("cv-layout", meetEnPas);
+    meetEnPas();
+  }
+
   /* ---- Prisma-intro: de naamlagen klonen uit de echte h1 ----
      De h1 gebruikt `text-wrap: balance`, die de regels verdeelt over de hele
      kop ("Hallo, ik ben" + de naam). Een kopie die alleen de naam bevat komt
@@ -452,6 +495,8 @@
     if (langBtn) langBtn.setAttribute("aria-label", en ? "Schakel naar Nederlands · Switch to Dutch" : "Switch to English · Schakel naar Engels");
     if (window.__syncRotator) window.__syncRotator();
     packSkillTags();
+    // de menu-items worden langer of korter; de balk moet opnieuw nameten
+    window.dispatchEvent(new Event("cv-layout"));
   };
   if (langBtn) langBtn.addEventListener("click", () =>
     applyLang(document.documentElement.lang === "en" ? "nl" : "en"));
@@ -606,6 +651,8 @@
       zoomOut.disabled = z === STAPPEN[0];
       zoomIn.disabled = z === STAPPEN[STAPPEN.length - 1];
       if (bewaar) { try { localStorage.setItem("cv-zoom", String(z)); } catch (e) {} }
+      // alles in de balk schaalt mee, dus die moet opnieuw nameten of hij past
+      window.dispatchEvent(new Event("cv-layout"));
     };
     const stap = (richting) => {
       const i = STAPPEN.indexOf(huidig);
