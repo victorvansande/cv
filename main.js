@@ -209,11 +209,31 @@
         live = false;
         removeEventListener("scroll", onMove);
         removeEventListener("resize", onMove);
+        removeEventListener("scroll", onScrollAf);
         veil.remove();
         /* Ook de klassen weg: anders houdt de pauzeregel de echte naam
            verborgen als de poort door een fout nooit geopend zou zijn. */
-        document.documentElement.classList.remove("intro", "go");
+        document.documentElement.classList.remove("intro", "go", "intro-afronden");
       };
+
+      /* De intro duurt bijna zeven seconden en houdt de pagina niet tegen: de
+         zwarte laag laat aanraking door. Op een telefoon scrol je dus makkelijk
+         al terwijl ze loopt - de pagina lijkt immers klaar. De naamlagen liggen
+         op de echte naam en schuiven dan gewoon mee het scherm uit, waarna je
+         een paar seconden naar een zwart vlak zonder iets kijkt. Dat is wat er
+         "raar" aan leek.
+         Wie scrolt heeft zijn keuze al gemaakt, dus ronden we de intro dan
+         meteen af. De drempel van dertig pixels laat een duwtje of het inklappen
+         van de adresbalk ongemoeid; alleen een echte veeg telt. */
+      let afgerond = false;
+      const startY = window.scrollY;
+      const onScrollAf = () => {
+        if (afgerond || Math.abs(window.scrollY - startY) < 30) return;
+        afgerond = true;
+        document.documentElement.classList.add("intro-afronden");
+        setTimeout(done, 340);          // net na het uitdoven van de laag
+      };
+      addEventListener("scroll", onScrollAf, { passive: true });
       veil.addEventListener("animationend", (e) => { if (e.animationName === "intro-end") done(); });
       /* Vangnet, zodat de laag nooit blijft hangen als animationend uitblijft.
          De teller start pas als de pagina zichtbaar is: in een achtergrondtab

@@ -622,7 +622,13 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .section-head .lead { margin-top: 15px; }
 /* lange leesprose uitgevuld + afbreken voor strakke randen (enkel hier: justify heeft
    afbreekstreepjes nodig om grote woordspaties te vermijden; elders (ragged-right) niet) */
-.bio-open p { text-align: justify; text-justify: inter-word; -webkit-hyphens: auto; hyphens: auto; }
+/* Deze alinea's stonden als enige op de hele site uitgevuld, met automatische
+   woordafbreking erbij. Op een breed scherm viel dat nauwelijks op, maar in een
+   telefoonkolom moet elke regel dan met een handvol woorden de volle breedte
+   halen: gaten tussen de woorden en vijf afgebroken woorden in twee alinea's.
+   Pal onder de inleiding erboven, die gewoon links uitlijnt, las dat als twee
+   verschillende teksten. Links uitgelijnd is wat de rest van de site doet. */
+.bio-open p { hyphens: manual; }
 /* de reset zet alle marges op nul, dus opeenvolgende alinea's krijgen hier hun
    eigen tussenruimte */
 .bio-open p + p { margin-top: 15px; }
@@ -1551,6 +1557,15 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   position: absolute; inset: 0; background: #000;
   animation: intro-blackout 6.6s cubic-bezier(.42,0,.3,1) .12s both;
 }
+/* Wie tijdens de intro begint te scrollen wil de pagina, niet de animatie. De
+   laag dooft dan in een derde seconde uit in plaats van abrupt te verdwijnen.
+   De echte naam krijgt tegelijk zijn animatie weg, waardoor hij meteen zichtbaar
+   is: zo doven de witte lagen weg óver de naam heen, in plaats van dat er even
+   helemaal geen naam staat. */
+:root.intro.intro-afronden .intro-veil {
+  animation: none; opacity: 0; transition: opacity .32s var(--ease);
+}
+:root.intro.intro-afronden .prism-host:not(.in-l) .grad-text { animation: none; }
 /* De echte naam blijft verborgen tot de laag verdwijnt: zo kan er nooit een
    dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
    in plaats van een JS-klasse, zodat de naam ook terugkomt als het script faalt.
