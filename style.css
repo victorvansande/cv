@@ -93,93 +93,6 @@
 :root[data-theme="slate"]  { --c1: #7c8aa8; --c2: #9aa7c2; --c3: #8b96b4; }
 :root[data-theme="violet"] { --c1: #7c5cff; --c2: #3ad6ff; --c3: #ff6ad5; } /* het originele */
 
-/* ---------- Ingetogen rood ----------
-   Zelfde rood, maar alleen waar het iets betekent.
-
-   Rood domineerde omdat dezelfde drie variabelen zowel de accenten kleuren
-   (knop, statusbolletje, focusrand) als de grote vlakken: de naam en de koppen
-   via --grad-ink, en de hele achtergrondgloed via de blobs. Daardoor lag er
-   overal een rode waas.
-
-   Hier blijven --c1/--c2/--c3 een echt rood, zodat knoppen en accenten hun
-   kleur houden, maar de twee grote massa's worden losgekoppeld: de koppen
-   krijgen bijna-inkt met slechts een zweem warmte, en de achtergrondgloed
-   gaat fors omlaag. Wat overblijft is een rustige pagina waar het rood
-   opvalt juist omdat het schaars is. */
-/* Omgekeerd model t.o.v. de andere thema's: de basiskleuren zijn hier neutraal,
-   en het rood wordt daarna expliciet teruggezet op de handvol echte accenten.
-   Zo kleuren --c1/--c2/--c3 nog wel alle randen, icoontegels, svg-lijnen en
-   tags - maar dan in leisteen in plaats van in karmijn. Dat was de bron van
-   het meeste resterende rood: tientallen kleine elementen, samen goed voor
-   veel meer oppervlakte dan de accenten zelf. */
-:root[data-theme="clay"] {
-  --c1: #3a4258;
-  --c2: #49536e;
-  --c3: #5b6684;
-  --blob-op: .07;              /* was .28: haalt de rode waas uit de achtergrond */
-  /* --grad voedt precies de negen echte accenten: de knop, de ring om de foto,
-     de voortgangsbalk, de terug-naar-boven-knop en de schakelaars. Die blijven
-     dus wel rood. */
-  --grad: linear-gradient(120deg, #b81f30, #cf2434 60%, #e0343f);
-  --grad-soft: linear-gradient(120deg, #b81f30, #cf2434);
-}
-/* de twee losse rode signalen: het bolletje bij elke sectiekop en de
-   'nu'-puls, allebei klein en betekenisdragend */
-:root[data-theme="clay"] .eyebrow .dot { background: #cf2434; box-shadow: 0 0 12px #cf2434; }
-:root[data-theme="clay"] .now-badge .pulse,
-:root[data-theme="clay"] .now-badge .pulse::after { background: #cf2434; }
-/* De taalbalken gebruiken --grad en werden daardoor grote rode vlakken - samen
-   de grootste rode oppervlakte na de knop. Ze dragen hun betekenis in hun
-   lengte, niet in hun kleur, dus hier in leisteen. */
-:root[data-theme="clay"] .lang-pip i { background: linear-gradient(120deg, #3a4258, #4c5673); }
-:root[data-theme="clay"][data-mode="light"] { --blob-op: .022; }
-/* Koppen en naam in diep navy i.p.v. in het accent. Navy naast karmijn is een
-   beproefde combinatie, en het blauw duwt het rood juist naar voren.
-   Bewust niet nóg dieper: getest tegen de bijna-zwarte begroeting eromheen
-   haalde een echt donkere navy maar 1,15 onderscheid, waardoor de naam
-   samenviel met de tekst erboven. Deze tint haalt 2,0 en blijft dus leesbaar
-   als eigen element. */
-:root[data-theme="clay"][data-mode="light"] {
-  --grad-ink: linear-gradient(120deg, #233c73, #2c4988);
-}
-
-/* --acc-text was de grootste rode oppervlakte van allemaal: het kleurt de
-   skill-tags, alle kaarticoontjes, de svg-lijnen in de kaarten en de
-   thesis-tag - samen tientallen elementen verspreid over de pagina. Dat
-   verklaarde waarom het rood bleef domineren terwijl de accenten zelf al
-   beperkt waren. Hier bijna-zwart met een koele zweem, zodat die elementen
-   rustig meelezen en het rood overblijft voor de knop, de fotoring en het
-   statusbolletje. */
-:root[data-theme="clay"][data-mode="light"] { --acc-text: #232a40; }
-:root[data-theme="clay"][data-mode="dark"]  { --acc-text: #c6cbdc; }
-/* ook in lichte modus stonden de achtergrondblobs nog in de accentkleur */
-:root[data-theme="clay"][data-mode="light"] .blob { background: #8b93a8; }
-/* op donker moet dezelfde kleur juist licht zijn, anders valt ze weg */
-:root[data-theme="clay"][data-mode="dark"] {
-  --grad-ink: linear-gradient(120deg,
-    color-mix(in srgb, #5b8ad6 34%, #e9ecf5),
-    color-mix(in srgb, #4a76c4 22%, #dfe3ee));
-}
-
-/* In donkere modus was dit thema veel roder dan in lichte, en dat kwam niet
-   van de accenten maar van de achtergrond zelf: de lichte modus wast met
-   var(--ink) op 3 a 4 procent - dus neutraal - terwijl de donkere modus
-   dezelfde vlakken met --c1/--c2/--c3 op 9 a 13 procent inkleurt. Daar bovenop
-   liggen de blobs, ook in de accentkleur.
-   Hier worden beide wit: dezelfde diepte en hetzelfde licht, maar zonder de
-   rode waas. Het rood blijft over waar het hoort, in de accenten zelf. */
-:root[data-theme="clay"][data-mode="dark"] .bg-canvas {
-  background:
-    radial-gradient(1200px 800px at 12% -5%, rgba(255, 255, 255, .055), transparent 60%),
-    radial-gradient(900px 700px at 100% 0%, rgba(255, 255, 255, .04), transparent 55%),
-    radial-gradient(1000px 900px at 50% 120%, rgba(255, 255, 255, .032), transparent 60%),
-    var(--bg-0);
-}
-:root[data-theme="clay"][data-mode="dark"] .blob { background: #fff; }
-/* de kaartschaduw bij hover had ook een rode zweem */
-:root[data-theme="clay"][data-mode="dark"] .fx-card:hover {
-  box-shadow: 0 26px 60px -28px rgba(255, 255, 255, .16);
-}
 :root[data-theme="grad"], :root:not([data-theme]) { --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3)); }
 
 /* ---------- Reset ---------- */
@@ -271,27 +184,6 @@ button { font-family: inherit; cursor: pointer; }
   transition: width .25s var(--ease), height .25s var(--ease), opacity .3s var(--ease);
 }
 
-/* De witte cursor hoort bij Clay en alleen bij Clay. Daar werd een gekleurde
-   gloed een tweede accent dat met de knoppen concurreerde; in de andere thema's
-   is de cursor juist een van de plekken waar de themakleur mag spreken. Het
-   punt zelf is er donker met wit eromheen, zodat het als kern in het licht
-   leest. Op een lichte pagina valt witte gloed weg, dus daar een gedempte inkt. */
-:root[data-theme="clay"] .cursor-glow {
-  background: radial-gradient(circle, rgba(255, 255, 255, .17), rgba(255, 255, 255, 0) 65%);
-}
-:root[data-theme="clay"] .cursor-dot {
-  background: #0a0c13;
-  box-shadow: 0 0 3px rgba(255, 255, 255, .95), 0 0 11px rgba(255, 255, 255, .7);
-}
-:root[data-theme="clay"][data-mode="light"] .cursor-dot {
-  box-shadow: 0 0 3px rgba(255, 255, 255, .9), 0 0 10px rgba(22, 27, 51, .3);
-}
-:root[data-theme="clay"] .cursor-halo {
-  background: radial-gradient(circle, rgba(255, 255, 255, .62), rgba(255, 255, 255, 0) 68%);
-}
-:root[data-theme="clay"][data-mode="light"] .cursor-halo {
-  background: radial-gradient(circle, rgba(22, 27, 51, .30), rgba(22, 27, 51, 0) 68%);
-}
 @keyframes cursor-breathe { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
 .cursor-halo.is-hover { width: 46px; height: 46px; }
 .cursor-halo.is-down { width: 20px; height: 20px; }
