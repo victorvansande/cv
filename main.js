@@ -805,6 +805,113 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   }
 
+  /* ---- Voorproefvenster bij de volledige documenten ----
+     Een klik op zo'n titelpagina leidde eerst rechtstreeks naar de PDF, en
+     een browser begint die dan meteen te halen - vijf megabyte voor wie enkel
+     even wilde kijken. Nu opent er eerst een venster met de eerste pagina's in
+     verlaagde resolutie; pas de knop onderaan haalt het echte bestand op.
+     De pagina's zijn vooraf gerenderde JPEG's: het venster hoeft dus zelf geen
+     PDF te lezen, wat precies de download zou zijn die we willen vermijden. */
+  const docbox = document.querySelector(".docbox");
+  const docKnoppen = [...document.querySelectorAll(".doc-link")];
+  if (docbox && docKnoppen.length) {
+    const blad = docbox.querySelector(".docbox-blad");
+    const titelEl = docbox.querySelector("#docbox-titel");
+    const vraag = docbox.querySelector(".docbox-vraag");
+    const dl = docbox.querySelector(".docbox-dl");
+    const dlTxt = docbox.querySelector(".docbox-dl-txt");
+    const sluitKnop = docbox.querySelector(".docbox-sluit");
+
+    const sjabloon = (naam) => {
+      const el = docbox.querySelector('[data-sjabloon="' + naam + '"]');
+      return el ? el.textContent : "";
+    };
+    const vulIn = (tekst, waarden) =>
+      tekst.replace(/\{(\w+)\}/g, (m, k) => (k in waarden ? waarden[k] : m));
+    /* Megabytes met één cijfer na de komma, in de schrijfwijze van de taal:
+       5,7 in het Nederlands en 5.7 in het Engels. */
+    const inMb = (bytes) =>
+      (bytes / 1048576).toLocaleString(document.documentElement.lang === "en" ? "en" : "nl", {
+        minimumFractionDigits: 1, maximumFractionDigits: 1,
+      }) + " MB";
+
+    let huidig = null;
+    let vorigeFocus = null;
+
+    const vulVoet = () => {
+      if (!huidig) return;
+      const heel = huidig.voorproef >= huidig.paginas;
+      vraag.textContent = vulIn(sjabloon(heel ? "heel" : "deel"), { n: huidig.voorproef, tot: huidig.paginas });
+      dlTxt.textContent = vulIn(sjabloon("dl"), { grootte: inMb(huidig.bytes) });
+    };
+
+    const dicht = () => {
+      if (!huidig) return;
+      huidig = null;
+      docbox.classList.remove("open");
+      document.body.style.overflow = "";
+      setTimeout(() => { if (!huidig) docbox.hidden = true; }, 260);
+      if (vorigeFocus) vorigeFocus.focus();
+    };
+
+    const open = (knop) => {
+      const d = knop.dataset;
+      huidig = {
+        slug: d.docSlug,
+        pad: d.doc,
+        paginas: parseInt(d.docPages, 10) || 0,
+        voorproef: parseInt(d.docPreview, 10) || 0,
+        bytes: parseInt(d.docBytes, 10) || 0,
+      };
+      vorigeFocus = knop;
+      const item = knop.closest(".design-item");
+      // de titel komt uit het bijschrift, zodat hij vanzelf de taal volgt
+      huidig.kop = item && item.querySelector(".design-cap-t");
+      titelEl.textContent = huidig.kop ? huidig.kop.textContent : "";
+
+      blad.textContent = "";
+      for (let n = 1; n <= huidig.voorproef; n++) {
+        const img = document.createElement("img");
+        img.className = "docbox-pagina";
+        img.src = "assets/docs/voorproef/" + huidig.slug + "-" + n + ".jpg";
+        img.alt = vulIn(sjabloon("pagina"), { n: n });
+        // de eerste pagina is meteen in beeld, de rest pas als je scrolt
+        if (n > 1) img.loading = "lazy";
+        blad.appendChild(img);
+      }
+      blad.scrollTop = 0;
+
+      dl.href = huidig.pad;
+      vulVoet();
+
+      docbox.hidden = false;
+      requestAnimationFrame(() => docbox.classList.add("open"));
+      document.body.style.overflow = "hidden";
+      sluitKnop.focus();
+    };
+
+    docKnoppen.forEach((knop) => knop.addEventListener("click", () => open(knop)));
+    docbox.addEventListener("click", (e) => {
+      if (e.target === docbox || e.target.closest(".docbox-sluit")) dicht();
+    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") dicht(); });
+    /* Bij een taalwissel zijn de sjablonen vertaald, maar alles wat daar al uit
+       gevuld is nog niet: de zinnen onderaan, de titel die uit het bijschrift
+       komt, de opschriften bij de pagina's en het label van de sluitknop. */
+    const vertaalMee = () => {
+      sluitKnop.setAttribute("aria-label", sjabloon("sluit"));
+      if (huidig && huidig.kop) titelEl.textContent = huidig.kop.textContent;
+      blad.querySelectorAll(".docbox-pagina").forEach((img, i) => {
+        img.alt = vulIn(sjabloon("pagina"), { n: i + 1 });
+      });
+      vulVoet();
+    };
+    window.addEventListener("cv-layout", vertaalMee);
+    // applyLang draait eerder in dit bestand dan dit blok, dus de eerste ronde
+    // is al voorbij: een keer zelf inhalen
+    vertaalMee();
+  }
+
   /* ---- Inklapbare kaarten (TL;DR, ontwerpwerk-luikje, ...): dichtgeklapt tot geopend ---- */
   const accordionSetters = new Map();
   document.querySelectorAll(".tldr-card").forEach((card) => {

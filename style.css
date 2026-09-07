@@ -1245,9 +1245,9 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
    uitvergroting. De hoveropschrift verandert mee, anders belooft de kaart een
    vergrootglas en krijg je een PDF. */
 .diploma-thumb.doc-link { cursor: pointer; text-decoration: none; }
-.diploma-thumb.doc-link::after { content: "📄 Open het volledige document"; }
+.diploma-thumb.doc-link::after { content: "📄 Bekijk een voorproef"; }
 :root[lang="en"] .diploma-thumb::after { content: "🔍 Click to enlarge"; }
-:root[lang="en"] .diploma-thumb.doc-link::after { content: "📄 Open the full document"; }
+:root[lang="en"] .diploma-thumb.doc-link::after { content: "📄 See a preview"; }
 /* Klein plaatje rechtsboven op de titelpagina: zegt vooraf wat je krijgt en
    hoe dik het is, zodat niemand op goed geluk een document van 47 pagina's
    opent. Het staat altijd zichtbaar, ook zonder hover, want op een telefoon
@@ -1271,6 +1271,91 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .lightbox img { max-width: min(960px, 94vw); max-height: 88vh; border-radius: var(--r-md);
   box-shadow: 0 30px 90px -20px rgba(0,0,0,.8); transform: scale(.96); transition: transform .3s var(--ease); }
 .lightbox.open img { transform: none; }
+
+/* ================================================================
+   Voorproefvenster bij de volledige documenten
+   ----------------------------------------------------------------
+   Dezelfde laag als de lichtbak, maar met een scrollbaar blad in
+   plaats van één beeld: de eerste pagina's in verlaagde resolutie,
+   en onderaan pas de vraag of je het echte bestand wil.
+   ================================================================ */
+.docbox { display: none; }
+.docbox:not([hidden]) {
+  display: grid; place-items: center;
+  position: fixed; inset: 0; z-index: 1000; padding: 22px;
+  background: rgba(4, 6, 12, .78);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity .25s var(--ease);
+}
+.docbox.open { opacity: 1; }
+.docbox-paneel {
+  display: flex; flex-direction: column;
+  width: min(860px, 100%); max-height: 100%;
+  border-radius: var(--r-lg); overflow: hidden;
+  background: var(--bg-1); border: 1px solid var(--glass-bord);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .7);
+  transform: translateY(10px); transition: transform .28s var(--ease);
+}
+.docbox.open .docbox-paneel { transform: none; }
+
+.docbox-kop {
+  display: grid; grid-template-columns: 1fr auto; align-items: center;
+  gap: 2px 14px; padding: 16px 18px 15px 22px;
+  border-bottom: 1px solid var(--glass-bord);
+}
+.docbox-eyebrow {
+  grid-column: 1; font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--acc-text);
+}
+.docbox-kop h3 { grid-column: 1; font-size: 1.02rem; font-weight: 700; color: var(--ink); min-width: 0; }
+.docbox-sluit {
+  grid-column: 2; grid-row: 1 / span 2; align-self: center;
+  width: 36px; height: 36px; flex: none; display: grid; place-items: center;
+  border-radius: 50%; cursor: pointer; color: var(--ink-dim);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  border: 1px solid var(--glass-bord);
+}
+.docbox-sluit:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 12%, transparent); }
+
+/* Het blad scrollt, de kop en de voet blijven staan. De pagina's krijgen een
+   witte ondergrond: een PDF-pagina is wit, ook in donkere modus. */
+.docbox-blad {
+  flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain;
+  padding: 18px; display: flex; flex-direction: column; gap: 14px;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+.docbox-pagina {
+  display: block; width: 100%; height: auto; background: #fff;
+  border-radius: var(--r-sm); border: 1px solid var(--glass-bord);
+  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, .5);
+}
+
+.docbox-voet {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 10px 18px; padding: 15px 22px 17px;
+  border-top: 1px solid var(--glass-bord); background: var(--bg-1);
+}
+.docbox-vraag { font-size: .84rem; color: var(--ink-dim); min-width: 0; flex: 1 1 240px; }
+.docbox-dl { flex: none; font-size: .86rem; padding: 10px 18px; }
+.docbox-dl svg { flex: none; }
+
+@media (max-width: 560px) {
+  .docbox:not([hidden]) { padding: 0; }
+  .docbox-paneel { width: 100%; height: 100%; max-height: none; border-radius: 0; border: none; }
+  .docbox-blad { padding: 12px; }
+  .docbox-voet { padding: 13px 16px 15px; }
+  /* iets kleiner, zodat "Download het volledige document (5,2 MB)" op een
+     telefoon op een regel blijft en de maat niet alleen achterblijft */
+  /* De .btn-regel in de mobiele media query verderop staat later in het
+     bestand en zou anders winnen, vandaar de extra ouder in de selector. */
+  .docbox-voet .docbox-dl { width: 100%; justify-content: center; font-size: .78rem; padding: 11px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .docbox:not([hidden]), .docbox-paneel { transition: none; }
+}
+:root[data-motion="reduce"] .docbox:not([hidden]),
+:root[data-motion="reduce"] .docbox-paneel { transition: none; }
+
 .lightbox-close {
   position: absolute; top: 22px; right: 26px; width: 46px; height: 46px; border-radius: 50%;
   background: var(--glass-bg); border: 1px solid var(--glass-bord-hi); color: #fff; font-size: 1.4rem;
