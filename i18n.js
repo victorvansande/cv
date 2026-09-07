@@ -26,6 +26,8 @@ window.I18N = {
     ref_paulussen_role2: `Professor of News and Journalism`,
     ref_maeseele_role: `Professor of Media & Democratic Debate, University of Antwerp`,
     ref_maeseele_role2: `Professor of Contemporary Currents in Communication Studies`,
+    ref_hallam_role: `Professor, University of Antwerp`,
+    ref_hallam_role2: `Master's thesis supervisor`,
 
     /* hero */
     hero_eyebrow: `Open to inspiring collaborations`,
