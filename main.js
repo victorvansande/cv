@@ -135,6 +135,16 @@
      "Sande" op een eigen regel kon belanden. Door de volledige h1 te klonen en
      daarin alles behalve de naam onzichtbaar te zetten, is de zetting per
      definitie identiek: zelfde inhoud, zelfde breedte, zelfde balancering. */
+  /* Wie beweging beperkt krijgt de intro niet te zien: de CSS verbergt de laag.
+     Dan moet de klasse ook meteen weg. Zonder dit blijft het scrollslot ruim
+     negen seconden dicht voor een animatie die helemaal niet speelt - de laag
+     is immers display: none, dus er komt ook nooit een animationend. */
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      document.documentElement.dataset.motion === "reduce") {
+    document.documentElement.classList.remove("intro", "go");
+    const stilleVeil = document.querySelector(".intro-veil");
+    if (stilleVeil) stilleVeil.remove();
+  }
   if (document.documentElement.classList.contains("intro")) {
     const veil = document.querySelector(".intro-veil");
     const stage = veil && veil.querySelector(".intro-stage");
@@ -204,36 +214,37 @@
         document.documentElement.classList.add("go");
       })));
 
+      /* De intro speelt één keer per sessie en duurt bijna zeven seconden. Ze
+         mag niet halverwege doorbroken worden: wie er tijdens de animatie
+         doorheen scrolt sleept de naamlagen mee het scherm uit en kijkt de
+         resterende seconden naar een leeg zwart vlak. Daarom ligt de pagina
+         stil tot de laag verdwijnt. De CSS zet de overflow op slot, wat muis en
+         toetsenbord al tegenhoudt; deze luisteraars vangen wat daar doorheen
+         glipt: het touch-schuiven op iOS, waar overflow: hidden op de body niet
+         volstaat, en de scrolltoetsen. passive: false is noodzakelijk, want
+         zonder die vlag mag preventDefault niet. */
+      const houdVast = (e) => e.preventDefault();
+      const scrollToetsen = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "PageUp", "PageDown", "Home", "End", " ", "Spacebar"]);
+      const houdToetsVast = (e) => { if (scrollToetsen.has(e.key)) e.preventDefault(); };
+      const slotOpties = { passive: false };
+      addEventListener("wheel", houdVast, slotOpties);
+      addEventListener("touchmove", houdVast, slotOpties);
+      addEventListener("keydown", houdToetsVast, slotOpties);
+
       const done = () => {
         tracking = false;
         live = false;
         removeEventListener("scroll", onMove);
         removeEventListener("resize", onMove);
-        removeEventListener("scroll", onScrollAf);
+        removeEventListener("wheel", houdVast, slotOpties);
+        removeEventListener("touchmove", houdVast, slotOpties);
+        removeEventListener("keydown", houdToetsVast, slotOpties);
         veil.remove();
         /* Ook de klassen weg: anders houdt de pauzeregel de echte naam
-           verborgen als de poort door een fout nooit geopend zou zijn. */
-        document.documentElement.classList.remove("intro", "go", "intro-afronden");
+           verborgen als de poort door een fout nooit geopend zou zijn, en zou
+           het scrollslot dichtblijven. */
+        document.documentElement.classList.remove("intro", "go");
       };
-
-      /* De intro duurt bijna zeven seconden en houdt de pagina niet tegen: de
-         zwarte laag laat aanraking door. Op een telefoon scrol je dus makkelijk
-         al terwijl ze loopt - de pagina lijkt immers klaar. De naamlagen liggen
-         op de echte naam en schuiven dan gewoon mee het scherm uit, waarna je
-         een paar seconden naar een zwart vlak zonder iets kijkt. Dat is wat er
-         "raar" aan leek.
-         Wie scrolt heeft zijn keuze al gemaakt, dus ronden we de intro dan
-         meteen af. De drempel van dertig pixels laat een duwtje of het inklappen
-         van de adresbalk ongemoeid; alleen een echte veeg telt. */
-      let afgerond = false;
-      const startY = window.scrollY;
-      const onScrollAf = () => {
-        if (afgerond || Math.abs(window.scrollY - startY) < 30) return;
-        afgerond = true;
-        document.documentElement.classList.add("intro-afronden");
-        setTimeout(done, 340);          // net na het uitdoven van de laag
-      };
-      addEventListener("scroll", onScrollAf, { passive: true });
       veil.addEventListener("animationend", (e) => { if (e.animationName === "intro-end") done(); });
       /* Vangnet, zodat de laag nooit blijft hangen als animationend uitblijft.
          De teller start pas als de pagina zichtbaar is: in een achtergrondtab
