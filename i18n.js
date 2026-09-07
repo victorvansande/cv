@@ -64,6 +64,7 @@ window.I18N = {
     card_lead_p: `Years of experience leading teams and organising events translate effortlessly to new projects and contexts.`,
     designs_toggle_open: `See examples of my design and project work`,
     designs_toggle_sub: `13 pieces: infographics, brochures, presentations & papers`,
+    designs_wenk: `Curious about my work?`,
     design_kokerjuffer_t: `Infographic · The Caddisfly`,
     design_kokerjuffer_s: `Science communication, Karel de Grote University College`,
     design_ph_t: `Infographic · pH measurement`,
