@@ -41,11 +41,7 @@
 
   .sec-t { font-size: 8pt; font-weight: 700; letter-spacing: 1.4pt; text-transform: uppercase;
     color: var(--red); margin-bottom: 7px; }
-  /* Was 7mm. Het QR-blok maakt de zijkolom ruim 30mm langer, waardoor blad 1
-     boven de 297mm van een A4 uitkwam en in tweeën brak - met alleen de
-     briefhoofd op de eerste pagina. Vijf tussenruimtes een anderhalve
-     millimeter krapper levert precies genoeg op, en de kolom blijft ademen. */
-  .side .block { margin-bottom: 5.5mm; }
+  .side .block { margin-bottom: 7mm; }
   .side .block:last-child { margin-bottom: 0; }
 
   /* languages */
@@ -59,17 +55,19 @@
   .tool { font-size: 7.7pt; padding: 2.5px 7px; border: 1px solid var(--line); border-radius: 5px;
     color: var(--soft); background: #fafafb; }
 
-  /* QR naar het online cv.
-     De code is 37 modules breed (29 plus de stille zone); op 19mm is één module
-     0,51mm, ruim boven wat een telefooncamera van dichtbij aankan. Kleiner zou
-     ik niet gaan: onder een halve millimeter per module wordt scannen wisselvallig.
+  /* QR naar het online cv, als afsluiter onderaan blad 2.
+     De code is 37 modules breed (29 plus de stille zone); op 24mm is één module
+     0,65mm - ruim boven de halve millimeter waaronder scannen wisselvallig wordt.
+     Achteraan is er breedte zat, dus hij mag hier groter dan in de zijkolom.
      shape-rendering: crispEdges houdt de modules hard begrensd, zodat de printer
      ze niet met een grijze antialiasrand uitsmeert - dat is precies waar de
      leesbaarheid op stukloopt. */
-  .qr-row { display: flex; align-items: center; gap: 8px; }
-  .qr { width: 19mm; height: 19mm; flex: none; shape-rendering: crispEdges; }
-  .qr-txt { font-size: 7.8pt; line-height: 1.4; font-weight: 600; color: var(--soft); }
-  .qr-url { margin-top: 5px; font-size: 7.6pt; color: var(--dim); }
+  .qr-end { margin-top: 8mm; padding-top: 5mm; border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 6mm; page-break-inside: avoid; }
+  .qr { width: 24mm; height: 24mm; flex: none; shape-rendering: crispEdges; }
+  .qr-end-txt b { display: block; font-size: 10pt; font-weight: 700; }
+  .qr-end-txt p { color: var(--soft); font-size: 8.8pt; margin-top: 2px; line-height: 1.5; }
+  .qr-end-txt span { display: block; margin-top: 3px; color: var(--red); font-size: 8.6pt; font-weight: 600; }
 
   /* sidebar list */
   .slist { list-style: none; }
@@ -195,25 +193,6 @@
           <li>Leiderschap &amp; jeugdwerk</li>
         </ul>
       </div>
-
-      <div class="block qr-block">
-        <div class="sec-t">Online CV</div>
-        <div class="qr-row">
-          <!-- Statisch ingebakken: geen script en geen internetverbinding nodig
-               om af te drukken. De code verwijst naar victorvansande.github.io/cv.
-               De stille zone van vier modules zit in de viewBox verwerkt; zonder
-               die witte rand krijgen scanners de code niet vast. -->
-          <svg class="qr" viewBox="0 0 37 37" role="img" aria-label="QR-code naar victorvansande.github.io/cv">
-            <rect width="37" height="37" fill="#fff"/>
-            <path fill="#1b1e2a" d="M4 4h7v1h-7zM13 4h1v1h-1zM17 4h1v1h-1zM19 4h1v1h-1zM21 4h3v1h-3zM26 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM17 5h5v1h-5zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h2v1h-2zM15 6h3v1h-3zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h3v1h-3zM32 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM18 7h1v1h-1zM21 7h1v1h-1zM26 7h1v1h-1zM28 7h3v1h-3zM32 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h2v1h-2zM22 8h3v1h-3zM26 8h1v1h-1zM28 8h3v1h-3zM32 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM19 9h1v1h-1zM21 9h1v1h-1zM26 9h1v1h-1zM32 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h7v1h-7zM12 11h1v1h-1zM15 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM24 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM13 12h4v1h-4zM19 12h3v1h-3zM26 12h5v1h-5zM4 13h3v1h-3zM8 13h2v1h-2zM11 13h1v1h-1zM13 13h6v1h-6zM20 13h9v1h-9zM32 13h1v1h-1zM5 14h1v1h-1zM10 14h3v1h-3zM16 14h5v1h-5zM22 14h1v1h-1zM26 14h1v1h-1zM28 14h1v1h-1zM5 15h3v1h-3zM9 15h1v1h-1zM11 15h2v1h-2zM15 15h1v1h-1zM17 15h1v1h-1zM23 15h2v1h-2zM26 15h4v1h-4zM31 15h1v1h-1zM4 16h1v1h-1zM8 16h1v1h-1zM10 16h2v1h-2zM13 16h1v1h-1zM16 16h1v1h-1zM18 16h2v1h-2zM21 16h1v1h-1zM23 16h1v1h-1zM27 16h1v1h-1zM29 16h2v1h-2zM4 17h1v1h-1zM6 17h4v1h-4zM11 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM23 17h2v1h-2zM26 17h3v1h-3zM32 17h1v1h-1zM5 18h3v1h-3zM10 18h1v1h-1zM14 18h1v1h-1zM16 18h1v1h-1zM19 18h2v1h-2zM24 18h2v1h-2zM27 18h1v1h-1zM29 18h2v1h-2zM7 19h1v1h-1zM15 19h2v1h-2zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM25 19h2v1h-2zM28 19h1v1h-1zM31 19h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM14 20h2v1h-2zM21 20h1v1h-1zM29 20h2v1h-2zM4 21h2v1h-2zM7 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM15 21h1v1h-1zM17 21h2v1h-2zM21 21h4v1h-4zM26 21h3v1h-3zM30 21h1v1h-1zM32 21h1v1h-1zM4 22h1v1h-1zM6 22h6v1h-6zM15 22h6v1h-6zM22 22h1v1h-1zM24 22h1v1h-1zM27 22h2v1h-2zM30 22h1v1h-1zM4 23h1v1h-1zM9 23h1v1h-1zM11 23h2v1h-2zM15 23h3v1h-3zM20 23h1v1h-1zM22 23h2v1h-2zM25 23h2v1h-2zM31 23h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h3v1h-3zM14 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM24 24h5v1h-5zM30 24h3v1h-3zM12 25h1v1h-1zM15 25h1v1h-1zM20 25h1v1h-1zM23 25h2v1h-2zM28 25h5v1h-5zM4 26h7v1h-7zM14 26h1v1h-1zM16 26h1v1h-1zM19 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h3v1h-3zM4 27h1v1h-1zM10 27h1v1h-1zM12 27h1v1h-1zM18 27h2v1h-2zM23 27h2v1h-2zM28 27h1v1h-1zM31 27h1v1h-1zM4 28h1v1h-1zM6 28h3v1h-3zM10 28h1v1h-1zM12 28h2v1h-2zM16 28h1v1h-1zM21 28h1v1h-1zM24 28h5v1h-5zM30 28h1v1h-1zM4 29h1v1h-1zM6 29h3v1h-3zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h3v1h-3zM18 29h1v1h-1zM20 29h1v1h-1zM22 29h1v1h-1zM24 29h1v1h-1zM29 29h4v1h-4zM4 30h1v1h-1zM6 30h3v1h-3zM10 30h1v1h-1zM12 30h1v1h-1zM19 30h1v1h-1zM21 30h11v1h-11zM4 31h1v1h-1zM10 31h1v1h-1zM13 31h3v1h-3zM20 31h1v1h-1zM22 31h1v1h-1zM24 31h2v1h-2zM29 31h1v1h-1zM31 31h1v1h-1zM4 32h7v1h-7zM12 32h1v1h-1zM15 32h3v1h-3zM21 32h3v1h-3zM27 32h4v1h-4z"/>
-          </svg>
-          <div class="qr-txt">Scan voor de volledige,<br>steeds actuele versie</div>
-        </div>
-        <!-- Het adres staat onder de code en niet ernaast: naast de code blijft
-             er maar een kleine dertig millimeter over, en dan brak het midden in
-             "cv" af. Over de volle kolombreedte past het op één regel. -->
-        <div class="qr-url">victorvansande.github.io/cv</div>
-      </div>
     </aside>
 
     <!-- MAIN -->
@@ -306,6 +285,24 @@
         <div class="item"><div class="it-top"><div class="t">POP Coffee</div><div class="yr">2023 – 2024</div></div><div class="it-sub">Barista · Herentals</div></div>
         <div class="item"><div class="it-top"><div class="t">Van Eccelpoel</div><div class="yr">2016 – 2018</div></div><div class="it-sub">Winkelmedewerker · Herentals</div></div>
       </div>
+    </div>
+  </div>
+
+  <!-- Afsluiter van het cv. Stond eerst in de zijkolom van blad 1, maar daar
+       ging bruikbare ruimte naar een verwijzing in plaats van naar inhoud; op
+       het einde is ook logischer: eerst lezen, dan doorklikken.
+       Statisch ingebakken svg: geen script en geen internetverbinding nodig om
+       af te drukken. De stille zone van vier modules zit in de viewBox verwerkt;
+       zonder die witte rand krijgen scanners de code niet vast. -->
+  <div class="qr-end">
+    <svg class="qr" viewBox="0 0 37 37" role="img" aria-label="QR-code naar victorvansande.github.io/cv">
+      <rect width="37" height="37" fill="#fff"/>
+      <path fill="#1b1e2a" d="M4 4h7v1h-7zM13 4h1v1h-1zM17 4h1v1h-1zM19 4h1v1h-1zM21 4h3v1h-3zM26 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM17 5h5v1h-5zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h2v1h-2zM15 6h3v1h-3zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h3v1h-3zM32 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM18 7h1v1h-1zM21 7h1v1h-1zM26 7h1v1h-1zM28 7h3v1h-3zM32 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h2v1h-2zM22 8h3v1h-3zM26 8h1v1h-1zM28 8h3v1h-3zM32 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM19 9h1v1h-1zM21 9h1v1h-1zM26 9h1v1h-1zM32 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h7v1h-7zM12 11h1v1h-1zM15 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM24 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM13 12h4v1h-4zM19 12h3v1h-3zM26 12h5v1h-5zM4 13h3v1h-3zM8 13h2v1h-2zM11 13h1v1h-1zM13 13h6v1h-6zM20 13h9v1h-9zM32 13h1v1h-1zM5 14h1v1h-1zM10 14h3v1h-3zM16 14h5v1h-5zM22 14h1v1h-1zM26 14h1v1h-1zM28 14h1v1h-1zM5 15h3v1h-3zM9 15h1v1h-1zM11 15h2v1h-2zM15 15h1v1h-1zM17 15h1v1h-1zM23 15h2v1h-2zM26 15h4v1h-4zM31 15h1v1h-1zM4 16h1v1h-1zM8 16h1v1h-1zM10 16h2v1h-2zM13 16h1v1h-1zM16 16h1v1h-1zM18 16h2v1h-2zM21 16h1v1h-1zM23 16h1v1h-1zM27 16h1v1h-1zM29 16h2v1h-2zM4 17h1v1h-1zM6 17h4v1h-4zM11 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM23 17h2v1h-2zM26 17h3v1h-3zM32 17h1v1h-1zM5 18h3v1h-3zM10 18h1v1h-1zM14 18h1v1h-1zM16 18h1v1h-1zM19 18h2v1h-2zM24 18h2v1h-2zM27 18h1v1h-1zM29 18h2v1h-2zM7 19h1v1h-1zM15 19h2v1h-2zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM25 19h2v1h-2zM28 19h1v1h-1zM31 19h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM14 20h2v1h-2zM21 20h1v1h-1zM29 20h2v1h-2zM4 21h2v1h-2zM7 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM15 21h1v1h-1zM17 21h2v1h-2zM21 21h4v1h-4zM26 21h3v1h-3zM30 21h1v1h-1zM32 21h1v1h-1zM4 22h1v1h-1zM6 22h6v1h-6zM15 22h6v1h-6zM22 22h1v1h-1zM24 22h1v1h-1zM27 22h2v1h-2zM30 22h1v1h-1zM4 23h1v1h-1zM9 23h1v1h-1zM11 23h2v1h-2zM15 23h3v1h-3zM20 23h1v1h-1zM22 23h2v1h-2zM25 23h2v1h-2zM31 23h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h3v1h-3zM14 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM24 24h5v1h-5zM30 24h3v1h-3zM12 25h1v1h-1zM15 25h1v1h-1zM20 25h1v1h-1zM23 25h2v1h-2zM28 25h5v1h-5zM4 26h7v1h-7zM14 26h1v1h-1zM16 26h1v1h-1zM19 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h3v1h-3zM4 27h1v1h-1zM10 27h1v1h-1zM12 27h1v1h-1zM18 27h2v1h-2zM23 27h2v1h-2zM28 27h1v1h-1zM31 27h1v1h-1zM4 28h1v1h-1zM6 28h3v1h-3zM10 28h1v1h-1zM12 28h2v1h-2zM16 28h1v1h-1zM21 28h1v1h-1zM24 28h5v1h-5zM30 28h1v1h-1zM4 29h1v1h-1zM6 29h3v1h-3zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h3v1h-3zM18 29h1v1h-1zM20 29h1v1h-1zM22 29h1v1h-1zM24 29h1v1h-1zM29 29h4v1h-4zM4 30h1v1h-1zM6 30h3v1h-3zM10 30h1v1h-1zM12 30h1v1h-1zM19 30h1v1h-1zM21 30h11v1h-11zM4 31h1v1h-1zM10 31h1v1h-1zM13 31h3v1h-3zM20 31h1v1h-1zM22 31h1v1h-1zM24 31h2v1h-2zM29 31h1v1h-1zM31 31h1v1h-1zM4 32h7v1h-7zM12 32h1v1h-1zM15 32h3v1h-3zM21 32h3v1h-3zM27 32h4v1h-4z"/>
+    </svg>
+    <div class="qr-end-txt">
+      <b>Liever de volledige versie?</b>
+      <p>Scan de code voor mijn online cv: uitgebreider, met beeld en altijd actueel.</p>
+      <span>victorvansande.github.io/cv</span>
     </div>
   </div>
 </section>
