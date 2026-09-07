@@ -1241,6 +1241,27 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .diploma-thumb:hover::after, .diploma-thumb:focus-visible::after { opacity: 1; }
 
+/* Een titelpagina die naar het volledige document leidt in plaats van naar een
+   uitvergroting. De hoveropschrift verandert mee, anders belooft de kaart een
+   vergrootglas en krijg je een PDF. */
+.diploma-thumb.doc-link { cursor: pointer; text-decoration: none; }
+.diploma-thumb.doc-link::after { content: "📄 Open het volledige document"; }
+:root[lang="en"] .diploma-thumb::after { content: "🔍 Click to enlarge"; }
+:root[lang="en"] .diploma-thumb.doc-link::after { content: "📄 Open the full document"; }
+/* Klein plaatje rechtsboven op de titelpagina: zegt vooraf wat je krijgt en
+   hoe dik het is, zodat niemand op goed geluk een document van 47 pagina's
+   opent. Het staat altijd zichtbaar, ook zonder hover, want op een telefoon
+   bestaat hover niet. */
+.doc-chip {
+  position: absolute; top: 9px; right: 9px;
+  padding: 3px 9px 4px; border-radius: 999px;
+  background: rgba(12, 14, 22, .74);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .02em;
+  white-space: nowrap; pointer-events: none;
+}
+
+
 .lightbox {
   position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 28px;
   background: rgba(4, 5, 12, 0.86); backdrop-filter: blur(8px);

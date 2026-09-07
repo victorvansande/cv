@@ -791,9 +791,12 @@
     const lbImg = lb.querySelector("img");
     const open = (src, alt) => { lbImg.src = src; lbImg.alt = alt || ""; lb.classList.add("open"); document.body.style.overflow = "hidden"; };
     const close = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
-    // .doc-btn is de kleine knop bij de diploma's: die heeft geen voorbeeldbeeld,
-    // dus komen pad en omschrijving daar uit data-attributen
-    document.querySelectorAll(".diploma-thumb, .doc-btn").forEach((t) => {
+    // .doc-btn is de kleine knop bij de diplomas: die heeft geen voorbeeldbeeld,
+    // dus komen pad en omschrijving daar uit data-attributen.
+    // .doc-link is geen vergrootglas maar een echte link naar een volledig
+    // document: die moet de lichtbak met rust laten, anders opent het beeld
+    // van de titelpagina en gaat de link niet door.
+    document.querySelectorAll(".diploma-thumb:not(.doc-link), .doc-btn").forEach((t) => {
       const img = t.querySelector("img");
       t.addEventListener("click", () =>
         open(t.dataset.full || (img && img.src), t.dataset.alt || (img && img.alt)));
