@@ -791,21 +791,71 @@
       clearTimeout(popTimer);
       popTimer = setTimeout(() => dot.classList.remove("spy-pop"), 2200);
     };
+    /* Welke sectie is "de huidige"? De regel: de laatste sectie waarvan de
+       bovenkant de leeslijn al gepasseerd is. Die lijn ligt iets boven het
+       midden van het scherm, waar je oog bij het scrollen zit.
+
+       Hiervoor deed een IntersectionObserver dit werk, en die had twee fouten
+       die elkaar versterkten.
+
+       Ten eerste kreeg de callback alleen de secties waarvan de doorsnijding
+       veranderd was, niet alle secties. Kwam je van Werk terug omhoog naar
+       Home, dan bevatte zo'n ronde vaak enkel "Werk verlaat het beeld" en
+       verder niets - er was dan geen enkele sectie om op over te schakelen, dus
+       bleef Werk aanstaan. Precies het gemelde gedrag.
+
+       Ten tweede werd er vergeleken op intersectionRatio, en dat is het deel
+       van de sectie dat zichtbaar is, niet hoeveel van het scherm ze vult. De
+       waarnemer keek door een strook van een procent of vijf hoog. Werk is
+       dichtgeklapt 141 pixels hoog en vult die strook dus voor een derde; Home
+       is 2200 pixels hoog en vult ze voor twee procent. Bij die vergelijking
+       wint de korte sectie altijd, ook als je nog volop in de lange staat.
+
+       Een rechtstreekse meting kent geen van beide problemen: ze kijkt elke
+       keer naar alle secties en naar hun werkelijke plaats. */
     let current = "";
-    const spy = new IntersectionObserver((entries) => {
-      // pick the entry whose top is closest to the offset line and is intersecting
-      let best = null;
-      entries.forEach((e) => {
-        if (e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio)) best = e;
-      });
-      if (best && best.target.id !== current) {
-        const first = current === "";
-        current = best.target.id;
-        setActive(current);
-        if (!first) popLabel(current); // niet poppen bij de eerste meting op laadmoment
+    const kiesSectie = () => {
+      const leeslijn = window.innerHeight * 0.42;
+      /* De sectie waar de leeslijn dwars doorheen loopt. Niet "de laatste
+         sectie waarvan de bovenkant de lijn al passeerde": bij die regel kan een
+         sectie die korter is dan de lijn hoog zit nooit aan de beurt komen, want
+         de volgende passeert de lijn dan op hetzelfde moment. Werk is
+         dichtgeklapt maar 141 pixels hoog en zou dus nooit oplichten. */
+      let gekozen = null;
+      for (const s of secs) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= leeslijn && r.bottom > leeslijn) { gekozen = s; break; }
       }
-    }, { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] });
-    secs.forEach((s) => spy.observe(s));
+      // boven de eerste sectie, of in een naad ertussen
+      if (!gekozen) {
+        gekozen = secs[0];
+        for (const s of secs) if (s.getBoundingClientRect().top <= leeslijn) gekozen = s;
+      }
+      /* Onderaan gekomen: de laatste sectie haalt de leeslijn nooit als ze
+         korter is dan wat er onder de lijn overblijft. Dan wint ze alsnog,
+         anders blijft de voorlaatste aanstaan terwijl je de voettekst leest. */
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        gekozen = secs[secs.length - 1];
+      }
+      if (gekozen.id === current) return;
+      const eerste = current === "";
+      current = gekozen.id;
+      setActive(current);
+      if (!eerste) popLabel(current); // niet poppen bij de eerste meting op laadmoment
+    };
+    /* Rechtstreeks bij het scrollen meten. Er stond een omweg via
+       requestAnimationFrame omheen, maar dat kost hier niets: zes rechthoeken
+       opmeten is verwaarloosbaar, een scroll-luisteraar vuurt sowieso hoogstens
+       een keer per frame, en zonder die omweg valt er ook niets te blokkeren.
+       Met de omweg bleef de vlag namelijk voorgoed staan als de klok even stil
+       lag, en dan werkte de aanduiding daarna helemaal niet meer. */
+    const plan = kiesSectie;
+    addEventListener("scroll", plan, { passive: true });
+    addEventListener("resize", plan);
+    // een luik dat open- of dichtklapt verschuift alles eronder
+    window.addEventListener("cv-layout", plan);
+    document.addEventListener("click", (e) => { if (e.target.closest(".tldr-toggle")) setTimeout(plan, 480); });
+    kiesSectie();
   }
 
   /* ---- Diploma lightbox ---- */
