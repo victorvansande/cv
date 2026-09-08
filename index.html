@@ -37,12 +37,16 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=176" />
-  <script src="i18n.js?v=51" defer></script>
-  <script src="main.js?v=75" defer></script>
+  <link rel="stylesheet" href="style.css?v=177" />
+  <script src="i18n.js?v=52" defer></script>
+  <script src="main.js?v=76" defer></script>
   <script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('cv-theme');d.dataset.theme=['indigo','teal','emerald','amber','rose','slate','violet'].indexOf(t)<0?'rose':t;d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(d.dataset.motion!=='reduce'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pips-animeren');if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
 <body>
+  <!-- Skip-link: het eerste dat de tabtoets bereikt. Wie met een toetsenbord of
+       een schermlezer werkt, loopt anders bij elk bezoek eerst door de hele
+       navigatie voor hij bij de inhoud komt. Onzichtbaar tot hij focus krijgt. -->
+  <a class="skip-link" href="#home" data-i18n="skip_link">Meteen naar de inhoud</a>
   <!-- Prisma-intro: zwart scherm waarop de naam uit een chromatische bloei ontstaat,
        waarna het licht binnenvalt. Volledig aria-hidden: de echte naam staat in de hero. -->
   <div class="intro-veil" aria-hidden="true">
@@ -66,9 +70,10 @@
       <div class="nav-right">
       <nav class="nav-links">
         <a href="#home" class="active" data-i18n="nav_home">Home</a>
+        <a href="#werk" data-i18n="nav_werk">Werk</a>
+        <a href="#ervaring" data-i18n="nav_ervaring">Ervaring</a>
         <a href="#over" data-i18n="nav_over">Over mij</a>
         <a href="#opleiding" data-i18n="nav_opleiding">Opleiding</a>
-        <a href="#ervaring" data-i18n="nav_ervaring">Ervaring</a>
         <!-- <a href="#referenties" data-i18n="nav_referenties">Referenties</a> -->
         <a href="#contact" data-i18n="nav_contact">Contact</a>
       </nav>
@@ -128,9 +133,10 @@
   <!-- SIDE DOT NAVIGATION -->
   <nav class="dot-nav" aria-label="Sectienavigatie">
     <a href="#home" class="active" data-spy="home"><span data-i18n="nav_home">Home</span></a>
+    <a href="#werk" data-spy="werk"><span data-i18n="nav_werk">Werk</span></a>
+    <a href="#ervaring" data-spy="ervaring"><span data-i18n="nav_ervaring">Ervaring</span></a>
     <a href="#over" data-spy="over"><span data-i18n="nav_over">Over mij</span></a>
     <a href="#opleiding" data-spy="opleiding"><span data-i18n="nav_opleiding">Opleiding</span></a>
-    <a href="#ervaring" data-spy="ervaring"><span data-i18n="nav_ervaring">Ervaring</span></a>
     <!-- <a href="#referenties" data-spy="referenties"><span data-i18n="nav_referenties">Referenties</span></a> -->
     <a href="#contact" data-spy="contact"><span data-i18n="nav_contact">Contact</span></a>
   </nav>
@@ -169,10 +175,6 @@
             <span data-i18n="hero_cta_cv">Download/print CV</span>
           </a>
         </div>
-        <a href="#tldr" class="tldr-nudge">
-          <span data-i18n="tldr_nudge">Geen zin om te lezen? Naar de essentie</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        </a>
         <div class="hero-stats">
           <div class="stat"><div class="num"><span data-count="3">3</span></div><div class="lbl" data-i18n="stat_diplomas">diploma's</div></div>
           <div class="stat"><div class="num"><span data-count="2" data-suffix="x">2x</span></div><div class="lbl" data-i18n="stat_distinction_hero">met onderscheiding</div></div>
@@ -183,7 +185,88 @@
       </div>
     </div>
   </section>
-
+  <!-- ============ TL;DR ============ -->
+  <section class="wrap section-pad" id="tldr" style="padding-top:26px;padding-bottom:40px">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="tldr_eyebrow">TL;DR</span></span>
+      <h2 class="h-lg" data-i18n="tldr_h2">De essentie <span class="grad-text em-serif">in één oogopslag</span></h2>
+      <p class="lead" data-i18n="tldr_lead">Geen tijd om alles te lezen? Dit is wat je moet weten.</p>
+    </div>
+    <!-- Standaard open: dit is het eerste wat een bezoeker onder de hero ziet,
+         en het achter een klik zetten kost precies de twintig seconden die het
+         belooft te besparen. Inklappen kan nog wel. -->
+    <div class="glass tilt tldr-card reveal open" data-d="1">
+      <button class="tldr-toggle" aria-expanded="true" aria-controls="tldr-panel">
+        <span class="tldr-toggle-txt">
+          <strong data-i18n="tldr_toggle_open">Bekijk de essentie</strong>
+          <span data-i18n="tldr_toggle_sub">7 kernfeiten in 20 seconden</span>
+        </span>
+        <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="tldr-panel" id="tldr-panel">
+        <div class="tldr-panel-inner">
+          <div class="tldr-grid">
+            <div class="tldr-item">
+              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></span>
+              <span class="tldr-body">
+                <span class="lbl" data-i18n="tldr_edu_lbl">Opleiding</span>
+                <span class="val" data-i18n="tldr_edu_val">3 diploma's, 2x met onderscheiding</span>
+                <span class="sub" data-i18n="tldr_edu_sub">Master Communicatiewetenschappen, UAntwerpen</span>
+              </span>
+            </div>
+            <div class="tldr-item">
+              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+              <span class="tldr-body">
+                <span class="lbl" data-i18n="tldr_role_lbl">Huidige rol</span>
+                <span class="val" data-i18n="tldr_role_val">Fondsenwerver bij Gekkoo</span>
+                <span class="sub" data-i18n="tldr_role_sub">Sinds september 2026</span>
+              </span>
+            </div>
+            <div class="tldr-item">
+              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></span>
+              <span class="tldr-body">
+                <span class="lbl" data-i18n="tldr_ksa_lbl">Leiderschap</span>
+                <span class="val" data-i18n="tldr_ksa_val">10+ jaar bij KSA Herentals</span>
+                <span class="sub" data-i18n="tldr_ksa_sub">Hoofdleider, 10.000+ bezoekers via evenementen</span>
+              </span>
+            </div>
+            <div class="tldr-item">
+              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span>
+              <span class="tldr-body">
+                <span class="lbl" data-i18n="tldr_thesis_lbl">Masterproef</span>
+                <span class="val" data-i18n="tldr_thesis_val">De Macht van Misleiding</span>
+                <span class="sub" data-i18n="tldr_thesis_sub">Kwantitatief onderzoek naar (des)informatie, 241 respondenten</span>
+              </span>
+            </div>
+            <div class="tldr-item">
+              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+              <span class="tldr-body">
+                <span class="lbl" data-i18n="tldr_domains_lbl">Sterk in</span>
+                <span class="val" data-i18n="tldr_domains_val">Communicatie, (web)design, psychologie &amp; leiderschap</span>
+                <span class="sub" data-i18n="tldr_domains_sub">De rode draad doorheen mijn opleiding en werkervaring</span>
+              </span>
+            </div>
+            <div class="tldr-item">
+              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+              <span class="tldr-body">
+                <span class="lbl" data-i18n="tldr_lang_lbl">Talen</span>
+                <span class="val" data-i18n="tldr_lang_val">NL (moedertaal) · EN (C2) · FR (A2)</span>
+                <span class="sub" data-i18n="tldr_lang_sub">Vlot inzetbaar in een internationale of tweetalige werkomgeving</span>
+              </span>
+            </div>
+            <div class="tldr-item">
+              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <span class="tldr-body">
+                <span class="lbl" data-i18n="tldr_avail_lbl">Beschikbaarheid</span>
+                <span class="val" data-i18n="tldr_avail_val">Halftijds · loondienst of freelance</span>
+                <span class="sub" data-i18n="tldr_avail_sub">Regio Herentals&ndash;Antwerpen</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- HIGHLIGHTS -->
   <section class="section-pad">
     <div class="wrap">
@@ -236,6 +319,18 @@
           <p data-i18n="card_lead_p">Jarenlange ervaring in het aansturen van teams en het organiseren van events vertaal ik moeiteloos naar nieuwe projecten en contexten.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  </div><!-- /#home -->
+
+  <!-- ============ WERK ============ -->
+  <!-- Het portfolio staat nu op zichzelf in plaats van onderaan de thuissectie:
+       zo krijgt het een eigen anker voor het menu en ziet de scroll-spy het als
+       een aparte halte. -->
+  <div class="sec" id="werk">
+  <section class="section-pad" style="padding-top:0">
+    <div class="wrap">
       <!-- Het balonnetje staat buiten de kaart: .glass klipt zijn inhoud, dus
            binnenin zou de punt van de tuit wegvallen. De wikkel geeft het een
            anker om zich aan op te hangen. -->
@@ -316,13 +411,132 @@
       </div>
     </div>
   </section>
+  </div><!-- /#werk -->
+  <!-- ============ ERVARING ============ -->
+  <div class="sec" id="ervaring">
+  <section class="page-hero wrap">
+    <span class="eyebrow reveal"><span class="ey-num">01</span> <span data-i18n="exp_eyebrow">Ervaring</span></span>
+    <h2 class="h-lg reveal" data-d="1" data-i18n="exp_h2">Een veelzijdig<br><span class="grad-text em-serif">parcours</span></h2>
+    <p class="lead reveal" data-d="2" data-i18n="exp_lead">Van communicatie en onderzoek tot (web)design, leiderschap en onderwijs: ervaring over verschillende vakgebieden heen, telkens met mensen in het middelpunt.</p>
+  </section>
 
-  </div><!-- /#home -->
+  <!-- CURRENT ROLE: GEKKOO -->
+  <section class="wrap section-pad" style="padding-top:40px;padding-bottom:0">
+    <!-- Alleen het labeltje: de kaart eronder noemt de werkgever en de functies
+         al, dus een kop en een inleiding zouden dat gewoon herhalen. Het label
+         hoeft enkel te zeggen wat de kaart zelf niet zegt, namelijk dat dit het
+         betaalde werk is en niet het vrijwilligerswerk dat volgt. -->
+    <!-- Overbrugging sep 2025 - mei 2026. Een lezer telt de maanden tussen het
+         einde van de master en de eerste job; als daar niets staat, vult hij dat
+         zelf in. Maar het is geen functie, dus het verdient ook geen blok: enkel
+         de periode staat er, en de uitleg zit in een balonnetje dat opengaat bij
+         hover, bij toetsenbordfocus en bij een tik. Dat laatste is waarom het
+         een knop is en geen los stukje tekst - op een telefoon bestaat hover
+         niet, en dan zou de uitleg onbereikbaar zijn. -->
+    <div class="gap-hint reveal">
+      <button type="button" class="gap-knop" aria-expanded="false" aria-controls="gap-tip">
+        <span>sep 2025 &ndash; mei 2026</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
+      </button>
+      <span class="gap-tip" id="gap-tip" role="tooltip" data-i18n="gap_2025_2026">Na mijn master nam ik de tijd om gericht te zoeken naar een plek waar communicatie, psychologie en jeugdwerk samenkomen. Ondertussen bleef ik hoofdleider bij KSA Herentals en beheerde ik hun website.</span>
+    </div>
+    <div class="job-label reveal">
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="job_eyebrow">Huidige werkgever</span></span>
+    </div>
+    <div class="glass tilt role-card reveal" data-d="1">
+      <div class="role-head">
+        <div>
+          <h3 style="font-size:1.25rem">Gekkoo</h3>
+          <p style="color:var(--ink-soft);font-size:.95rem" data-i18n="gekkoo_desc">Gekkoo organiseert speelpleinwerking en vakantiekampen voor kinderen in Vlaanderen en de Ardennen. <a href="https://gekkoo.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">gekkoo.be ↗</a></p>
+        </div>
+      </div>
+      <div class="role-list">
+        <div class="role-row">
+          <div class="rt"><h4 data-i18n="gekkoo_role1_h">Fondsenwerver <span class="now-badge"><span class="pulse"></span> <span data-i18n="gekkoo_role1_badge">Sinds sep 2026</span></span></h4><span class="rd" data-i18n="gekkoo_role1_date">sep 2026 – heden</span></div>
+          <p data-i18n="gekkoo_role1_p">Ik werf fondsen bij bedrijven en particulieren en via projectoproepen, om de werking van Gekkoo mee te financieren en verder uit te bouwen.</p>
+          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_fundraising">Fondsenwerving</span><span class="skill-tag" data-i18n="tag_corporate">Bedrijvenrelaties</span><span class="skill-tag" data-i18n="tag_grants">Projectoproepen &amp; subsidies</span></div>
+        </div>
+        <div class="role-row">
+          <div class="rt"><h4 data-i18n="gekkoo_role2_h">Inhoudelijk &amp; communicatiemedewerker, grafisch design</h4><span class="rd" data-i18n="gekkoo_role2_date">mei 2026 – sep 2026</span></div>
+          <p data-i18n="gekkoo_role2_p">Als inhoudelijk medewerker stond ik in voor contentcreatie, visuele en grafische vormgeving en externe communicatie. Ik onderhield de contacten met andere speelpleinwerkingen en bracht mijn achtergrond in communicatie, psychologie en jeugdwerk samen in één rol. In de zomer van 2026 was ik bovendien verantwoordelijk voor een eigen project in Essen.</p>
+          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_content">Inhoudelijke uitbouw</span><span class="skill-tag" data-i18n="chip_comm">Communicatie</span><span class="skill-tag" data-i18n="tag_graphic">Grafisch design</span><span class="skill-tag" data-i18n="tag_network">Netwerken</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- KSA HERENTALS -->
+  <section class="wrap section-pad" style="padding-top:68px;padding-bottom:0">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="ksa_eyebrow">10+ jaar engagement</span></span>
+      <h2 class="h-lg" data-i18n="ksa_h2">Meegegroeid met <span class="grad-text">KSA Herentals</span></h2>
+      <p class="lead" data-i18n="ksa_lead">Een jeugdbeweging leert je op sommige vlakken meer dan een diploma: samenwerken in een divers team, verantwoordelijkheid nemen en improviseren wanneer het plan verandert.</p>
+    </div>
+    <div class="glass tilt role-card reveal" data-d="1">
+      <div class="role-head">
+        <div>
+          <h3 style="font-size:1.25rem">KSA Herentals</h3>
+          <p style="color:var(--ink-soft);font-size:.95rem" data-i18n="ksa_desc">Dé jeugdbeweging met de blauwe hemden en oranje sjaaltjes in het hart van Herentals. <a href="https://www.ksaherentals.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be ↗</a></p>
+        </div>
+      </div>
+      <div class="role-list">
+        <div class="role-row">
+          <div class="rt"><h4 data-i18n="ksa_role1_h">Website Designer</h4><span class="rd" data-i18n="ksa_role1_date">2022 – heden</span></div>
+          <p data-i18n="ksa_role1_p">Ik richtte <a href="https://ksaherentals.be" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be ↗</a> zelfstandig op en beheer die als hoofdplatform voor de volledige werking: ledenplanning, activiteiten én een maandelijkse blog die ik zelf schrijf en publiceer.</p>
+          <div class="skill-tags"><span class="skill-tag">User Interface Design</span><span class="skill-tag">Website Building</span><span class="skill-tag" data-i18n="tag_webmgmt">Webbeheer</span></div>
+        </div>
+        <div class="role-row">
+          <div class="rt"><h4 data-i18n="ksa_role2_h">Hoofdleider</h4><span class="rd" data-i18n="ksa_role2_date">sep 2019 – sep 2026</span></div>
+          <p data-i18n="ksa_role2_p">Verantwoordelijk voor het leiden van de jeugdbeweging: ik coördineerde een team van gemiddeld 20 jongvolwassenen, organiseerde activiteiten en grootschalige events en vertegenwoordigde de organisatie in de lokale gemeenschap. Als hoofdverantwoordelijke organiseerde ik tientallen evenementen, samen goed voor meer dan 10.000 bezoekers.</p>
+          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_teammgmt">Teammanagement</span><span class="skill-tag">Event Planning</span><span class="skill-tag">Social media</span></div>
+        </div>
+        <div class="role-row">
+          <div class="rt"><h4 data-i18n="ksa_role3_h">Leider</h4><span class="rd" data-i18n="ksa_role3_date">sep 2015 – sep 2026</span></div>
+          <p data-i18n="ksa_role3_p">Naast het hoofdleiderschap stond ik wekelijks zelf voor de groep: activiteiten begeleiden voor de leden, met oog voor verhaal, verbeelding en groepsgevoel. Beide rollen liepen bewust parallel.</p>
+          <div class="skill-tags"><span class="skill-tag">Storytelling</span><span class="skill-tag" data-i18n="tag_creativity">Creativiteit</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGES & ONDERWIJS -->
+  <section class="wrap" style="padding-top:68px;padding-bottom:46px">
+    <div style="margin-bottom:16px" class="reveal">
+      <span class="eyebrow"><span class="dot"></span> <span data-i18n="stages_eyebrow">Stages &amp; studentenjobs</span></span>
+      <h3 class="h-md" style="margin-top:10px" data-i18n="stages_h2">In de <span class="grad-text">praktijk</span></h3>
+    </div>
+    <div class="glass stage-compact reveal" data-d="1">
+      <div class="stage-row">
+        <span class="stage-yr">2023</span>
+        <div class="stage-info"><strong>GITHO Nijlen</strong><span data-i18n="stage1_short">Leerkracht Engels (stage) · TEFL</span></div>
+        <span class="stage-loc">Nijlen</span>
+      </div>
+      <div class="stage-row">
+        <span class="stage-yr">2022</span>
+        <div class="stage-info"><strong>Sint-Lutgardisschool</strong><span data-i18n="stage2_short">Leerkracht wetenschappen (stage)</span></div>
+        <span class="stage-loc">Antwerpen</span>
+      </div>
+      <div class="stage-row">
+        <span class="stage-yr">2020</span>
+        <div class="stage-info"><strong>kOsh Campus Ieperstraat</strong><span data-i18n="stage3_short">Jeugdconsulent (stage) · Counseling</span></div>
+        <span class="stage-loc">Herentals</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK EXPERIENCE -->
+  <section class="wrap" style="padding-bottom:68px">
+    <p class="jobstudent-note reveal">
+      <span class="jobstudent-label" data-i18n="jobstudent_label">Studentenjobs</span>
+      <span data-i18n="jobstudent_text">Barista bij POP Coffee, Herentals (2023–2024) · Winkelmedewerker bij Van Eccelpoel, Herentals (2016–2018)</span>
+    </p>
+  </section>
+
+  </div><!-- /#ervaring -->
   <!-- ============ OVER MIJ ============ -->
   <div class="sec" id="over">
   <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">01</span> <span data-i18n="over_eyebrow">Over mij</span></span>
+    <span class="eyebrow reveal"><span class="ey-num">02</span> <span data-i18n="over_eyebrow">Over mij</span></span>
     <h2 class="h-lg reveal" data-d="1" data-i18n="over_h2">Analytisch van geest,<br><span class="grad-text em-serif">mensgericht</span> van nature</h2>
     <p class="lead reveal" data-d="2" data-i18n="over_lead">Dankzij drie diploma's die elk een ander deel van mijn passies aanscherpten, ontwikkelde ik me tot een enthousiaste, empathische en kritische geest op het snijvlak van psychologie, educatie en communicatie.</p>
   </section>
@@ -501,11 +715,10 @@
     </div>
   </section>
   </div><!-- /#over -->
-
   <!-- ============ OPLEIDING ============ -->
   <div class="sec" id="opleiding">
   <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">02</span> <span data-i18n="edu_eyebrow">Opleidingen</span></span>
+    <span class="eyebrow reveal"><span class="ey-num">03</span> <span data-i18n="edu_eyebrow">Opleidingen</span></span>
     <h2 class="h-lg reveal" data-d="1" data-i18n="edu_h2">Drie diploma's,<br>één <span class="grad-text em-serif">rode draad</span></h2>
     <p class="lead reveal" data-d="2" data-i18n="edu_lead">Psychologie, lerarenopleiding en communicatiewetenschappen, in die volgorde: elke stap bouwde inhoudelijk voort op de vorige.</p>
   </section>
@@ -626,129 +839,6 @@
     </div>
   </section>
   </div><!-- /#opleiding -->
-
-  <!-- ============ ERVARING ============ -->
-  <div class="sec" id="ervaring">
-  <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">03</span> <span data-i18n="exp_eyebrow">Ervaring</span></span>
-    <h2 class="h-lg reveal" data-d="1" data-i18n="exp_h2">Een veelzijdig<br><span class="grad-text em-serif">parcours</span></h2>
-    <p class="lead reveal" data-d="2" data-i18n="exp_lead">Van communicatie en onderzoek tot (web)design, leiderschap en onderwijs: ervaring over verschillende vakgebieden heen, telkens met mensen in het middelpunt.</p>
-  </section>
-
-  <!-- CURRENT ROLE: GEKKOO -->
-  <section class="wrap section-pad" style="padding-top:40px;padding-bottom:0">
-    <!-- Alleen het labeltje: de kaart eronder noemt de werkgever en de functies
-         al, dus een kop en een inleiding zouden dat gewoon herhalen. Het label
-         hoeft enkel te zeggen wat de kaart zelf niet zegt, namelijk dat dit het
-         betaalde werk is en niet het vrijwilligerswerk dat volgt. -->
-    <!-- Overbrugging sep 2025 - mei 2026. Een lezer telt de maanden tussen het
-         einde van de master en de eerste job; als daar niets staat, vult hij dat
-         zelf in. Maar het is geen functie, dus het verdient ook geen blok: enkel
-         de periode staat er, en de uitleg zit in een balonnetje dat opengaat bij
-         hover, bij toetsenbordfocus en bij een tik. Dat laatste is waarom het
-         een knop is en geen los stukje tekst - op een telefoon bestaat hover
-         niet, en dan zou de uitleg onbereikbaar zijn. -->
-    <div class="gap-hint reveal">
-      <button type="button" class="gap-knop" aria-expanded="false" aria-controls="gap-tip">
-        <span>sep 2025 &ndash; mei 2026</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
-      </button>
-      <span class="gap-tip" id="gap-tip" role="tooltip" data-i18n="gap_2025_2026">Na mijn master nam ik de tijd om gericht te zoeken naar een plek waar communicatie, psychologie en jeugdwerk samenkomen. Ondertussen bleef ik hoofdleider bij KSA Herentals en beheerde ik hun website.</span>
-    </div>
-    <div class="job-label reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="job_eyebrow">Huidige werkgever</span></span>
-    </div>
-    <div class="glass tilt role-card reveal" data-d="1">
-      <div class="role-head">
-        <div>
-          <h3 style="font-size:1.25rem">Gekkoo</h3>
-          <p style="color:var(--ink-soft);font-size:.95rem" data-i18n="gekkoo_desc">Gekkoo organiseert speelpleinwerking en vakantiekampen voor kinderen in Vlaanderen en de Ardennen. <a href="https://gekkoo.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">gekkoo.be ↗</a></p>
-        </div>
-      </div>
-      <div class="role-list">
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="gekkoo_role1_h">Fondsenwerver <span class="now-badge"><span class="pulse"></span> <span data-i18n="gekkoo_role1_badge">Sinds sep 2026</span></span></h4><span class="rd" data-i18n="gekkoo_role1_date">sep 2026 – heden</span></div>
-          <p data-i18n="gekkoo_role1_p">Ik werf fondsen bij bedrijven en particulieren en via projectoproepen, om de werking van Gekkoo mee te financieren en verder uit te bouwen.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_fundraising">Fondsenwerving</span><span class="skill-tag" data-i18n="tag_corporate">Bedrijvenrelaties</span><span class="skill-tag" data-i18n="tag_grants">Projectoproepen &amp; subsidies</span></div>
-        </div>
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="gekkoo_role2_h">Inhoudelijk &amp; communicatiemedewerker, grafisch design</h4><span class="rd" data-i18n="gekkoo_role2_date">mei 2026 – sep 2026</span></div>
-          <p data-i18n="gekkoo_role2_p">Als inhoudelijk medewerker stond ik in voor contentcreatie, visuele en grafische vormgeving en externe communicatie. Ik onderhield de contacten met andere speelpleinwerkingen en bracht mijn achtergrond in communicatie, psychologie en jeugdwerk samen in één rol. In de zomer van 2026 was ik bovendien verantwoordelijk voor een eigen project in Essen.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_content">Inhoudelijke uitbouw</span><span class="skill-tag" data-i18n="chip_comm">Communicatie</span><span class="skill-tag" data-i18n="tag_graphic">Grafisch design</span><span class="skill-tag" data-i18n="tag_network">Netwerken</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KSA HERENTALS -->
-  <section class="wrap section-pad" style="padding-top:68px;padding-bottom:0">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="ksa_eyebrow">10+ jaar engagement</span></span>
-      <h2 class="h-lg" data-i18n="ksa_h2">Meegegroeid met <span class="grad-text">KSA Herentals</span></h2>
-      <p class="lead" data-i18n="ksa_lead">Een jeugdbeweging leert je op sommige vlakken meer dan een diploma: samenwerken in een divers team, verantwoordelijkheid nemen en improviseren wanneer het plan verandert.</p>
-    </div>
-    <div class="glass tilt role-card reveal" data-d="1">
-      <div class="role-head">
-        <div>
-          <h3 style="font-size:1.25rem">KSA Herentals</h3>
-          <p style="color:var(--ink-soft);font-size:.95rem" data-i18n="ksa_desc">Dé jeugdbeweging met de blauwe hemden en oranje sjaaltjes in het hart van Herentals. <a href="https://www.ksaherentals.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be ↗</a></p>
-        </div>
-      </div>
-      <div class="role-list">
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="ksa_role1_h">Website Designer</h4><span class="rd" data-i18n="ksa_role1_date">2022 – heden</span></div>
-          <p data-i18n="ksa_role1_p">Ik richtte <a href="https://ksaherentals.be" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be ↗</a> zelfstandig op en beheer die als hoofdplatform voor de volledige werking: ledenplanning, activiteiten én een maandelijkse blog die ik zelf schrijf en publiceer.</p>
-          <div class="skill-tags"><span class="skill-tag">User Interface Design</span><span class="skill-tag">Website Building</span><span class="skill-tag" data-i18n="tag_webmgmt">Webbeheer</span></div>
-        </div>
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="ksa_role2_h">Hoofdleider</h4><span class="rd" data-i18n="ksa_role2_date">sep 2019 – sep 2026</span></div>
-          <p data-i18n="ksa_role2_p">Verantwoordelijk voor het leiden van de jeugdbeweging: ik coördineerde een team van gemiddeld 20 jongvolwassenen, organiseerde activiteiten en grootschalige events en vertegenwoordigde de organisatie in de lokale gemeenschap. Als hoofdverantwoordelijke organiseerde ik tientallen evenementen, samen goed voor meer dan 10.000 bezoekers.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_teammgmt">Teammanagement</span><span class="skill-tag">Event Planning</span><span class="skill-tag">Social media</span></div>
-        </div>
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="ksa_role3_h">Leider</h4><span class="rd" data-i18n="ksa_role3_date">sep 2015 – sep 2026</span></div>
-          <p data-i18n="ksa_role3_p">Naast het hoofdleiderschap stond ik wekelijks zelf voor de groep: activiteiten begeleiden voor de leden, met oog voor verhaal, verbeelding en groepsgevoel. Beide rollen liepen bewust parallel.</p>
-          <div class="skill-tags"><span class="skill-tag">Storytelling</span><span class="skill-tag" data-i18n="tag_creativity">Creativiteit</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STAGES & ONDERWIJS -->
-  <section class="wrap" style="padding-top:68px;padding-bottom:46px">
-    <div style="margin-bottom:16px" class="reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="stages_eyebrow">Stages &amp; studentenjobs</span></span>
-      <h3 class="h-md" style="margin-top:10px" data-i18n="stages_h2">In de <span class="grad-text">praktijk</span></h3>
-    </div>
-    <div class="glass stage-compact reveal" data-d="1">
-      <div class="stage-row">
-        <span class="stage-yr">2023</span>
-        <div class="stage-info"><strong>GITHO Nijlen</strong><span data-i18n="stage1_short">Leerkracht Engels (stage) · TEFL</span></div>
-        <span class="stage-loc">Nijlen</span>
-      </div>
-      <div class="stage-row">
-        <span class="stage-yr">2022</span>
-        <div class="stage-info"><strong>Sint-Lutgardisschool</strong><span data-i18n="stage2_short">Leerkracht wetenschappen (stage)</span></div>
-        <span class="stage-loc">Antwerpen</span>
-      </div>
-      <div class="stage-row">
-        <span class="stage-yr">2020</span>
-        <div class="stage-info"><strong>kOsh Campus Ieperstraat</strong><span data-i18n="stage3_short">Jeugdconsulent (stage) · Counseling</span></div>
-        <span class="stage-loc">Herentals</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK EXPERIENCE -->
-  <section class="wrap" style="padding-bottom:68px">
-    <p class="jobstudent-note reveal">
-      <span class="jobstudent-label" data-i18n="jobstudent_label">Studentenjobs</span>
-      <span data-i18n="jobstudent_text">Barista bij POP Coffee, Herentals (2023–2024) · Winkelmedewerker bij Van Eccelpoel, Herentals (2016–2018)</span>
-    </p>
-  </section>
-
-  </div><!-- /#ervaring -->
-
   <!-- ============ REFERENTIES (tijdelijk offline) ============
        Bewaard om later terug te zetten. Terugzetten = dit commentaar openen en
        de twee navigatie-items hierboven weer activeren (zoek op "referenties").
@@ -855,87 +945,6 @@
   </section>
   </div>
   ============ EINDE REFERENTIES ============ -->
-
-  <!-- ============ TL;DR ============ -->
-  <section class="wrap section-pad" id="tldr" style="padding-top:40px;padding-bottom:40px">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="tldr_eyebrow">TL;DR</span></span>
-      <h2 class="h-lg" data-i18n="tldr_h2">De essentie <span class="grad-text em-serif">in één oogopslag</span></h2>
-      <p class="lead" data-i18n="tldr_lead">Geen tijd om alles te lezen? Dit is wat je moet weten.</p>
-    </div>
-    <div class="glass tilt tldr-card reveal" data-d="1">
-      <button class="tldr-toggle" aria-expanded="false" aria-controls="tldr-panel">
-        <span class="tldr-toggle-txt">
-          <strong data-i18n="tldr_toggle_open">Bekijk de essentie</strong>
-          <span data-i18n="tldr_toggle_sub">7 kernfeiten in 20 seconden</span>
-        </span>
-        <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-      <div class="tldr-panel" id="tldr-panel" inert>
-        <div class="tldr-panel-inner">
-          <div class="tldr-grid">
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_edu_lbl">Opleiding</span>
-                <span class="val" data-i18n="tldr_edu_val">3 diploma's, 2x met onderscheiding</span>
-                <span class="sub" data-i18n="tldr_edu_sub">Master Communicatiewetenschappen, UAntwerpen</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_role_lbl">Huidige rol</span>
-                <span class="val" data-i18n="tldr_role_val">Fondsenwerver bij Gekkoo</span>
-                <span class="sub" data-i18n="tldr_role_sub">Sinds september 2026</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_ksa_lbl">Leiderschap</span>
-                <span class="val" data-i18n="tldr_ksa_val">10+ jaar bij KSA Herentals</span>
-                <span class="sub" data-i18n="tldr_ksa_sub">Hoofdleider, 10.000+ bezoekers via evenementen</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_thesis_lbl">Masterproef</span>
-                <span class="val" data-i18n="tldr_thesis_val">De Macht van Misleiding</span>
-                <span class="sub" data-i18n="tldr_thesis_sub">Kwantitatief onderzoek naar (des)informatie, 241 respondenten</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_domains_lbl">Sterk in</span>
-                <span class="val" data-i18n="tldr_domains_val">Communicatie, (web)design, psychologie &amp; leiderschap</span>
-                <span class="sub" data-i18n="tldr_domains_sub">De rode draad doorheen mijn opleiding en werkervaring</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_lang_lbl">Talen</span>
-                <span class="val" data-i18n="tldr_lang_val">NL (moedertaal) · EN (C2) · FR (A2)</span>
-                <span class="sub" data-i18n="tldr_lang_sub">Vlot inzetbaar in een internationale of tweetalige werkomgeving</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_avail_lbl">Beschikbaarheid</span>
-                <span class="val" data-i18n="tldr_avail_val">Halftijds · loondienst of freelance</span>
-                <span class="sub" data-i18n="tldr_avail_sub">Regio Herentals&ndash;Antwerpen</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ CONTACT ============ -->
   <div class="sec" id="contact">
   <section class="page-hero wrap" style="padding-bottom:0">
@@ -1001,6 +1010,9 @@
         <a href="https://linkedin.com/in/victorvansande" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 17V10.3H6.1V17zM7.22 9.27a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6zM18 17v-3.67c0-1.96-.42-3.47-2.71-3.47a2.38 2.38 0 0 0-2.14 1.18h-.03V10.3H10.9V17h2.23v-3.31c0-.88.16-1.72 1.25-1.72s1.1.99 1.1 1.78V17z"/></svg></a>
       </div>
     </div>
+    <!-- Colofon: de site is zelf het bewijsstuk bij de webdesign-claim, en zei
+         daar tot nu toe niets over. -->
+    <p class="colofon" data-i18n="colofon">Deze site bouwde ik zelf: handgeschreven HTML, CSS en JavaScript, zonder framework.</p>
   </footer>
 
   <!-- Lightbox -->

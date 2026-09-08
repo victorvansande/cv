@@ -1035,6 +1035,34 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 @media (max-width: 620px) { .nav-avatar { width: 24px; height: 24px; } }
 
 /* ---------- Footer ---------- */
+/* ---------- Skip-link ----------
+   Het eerste dat de tabtoets bereikt. Wie met een toetsenbord of een
+   schermlezer werkt, moet anders bij elk bezoek eerst door de hele navigatie,
+   de taalknop en het instellingenmenu voor hij bij de inhoud komt. Onzichtbaar
+   tot hij focus krijgt: dan schuift hij linksboven in beeld.
+   Niet display: none of visibility: hidden - dan zou hij ook geen focus meer
+   kunnen krijgen en was hij nutteloos. */
+.skip-link {
+  position: fixed; top: 10px; left: 10px; z-index: 10000;
+  transform: translateY(-160%);
+  padding: 11px 18px; border-radius: 999px;
+  background: var(--c2); color: #fff;
+  font-size: .85rem; font-weight: 700; text-decoration: none;
+  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, .5);
+  transition: transform .18s var(--ease);
+}
+.skip-link:focus { transform: none; outline: 2px solid var(--ink); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
+
+/* ---------- Colofon in de voettekst ---------- */
+.colofon {
+  margin: 14px auto 0; padding-top: 13px;
+  border-top: 1px solid var(--glass-bord);
+  max-width: var(--maxw); padding: 13px 24px 0;
+  font-size: .74rem; color: var(--ink-dim); text-align: center;
+}
+@media (max-width: 560px) { .colofon { font-size: .68rem; line-height: 1.5; } }
+
 .footer { border-top: 1px solid var(--glass-bord); padding: 24px 0; margin-top: 20px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
 .footer .muted { font-size: .9rem; }
@@ -1658,27 +1686,27 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
 :root.intro:not(.go) .intro-veil,
 :root.intro:not(.go) .intro-veil *,
 :root.intro:not(.go) .prism-host:not(.in-l) .grad-text { animation-play-state: paused; }
-
-/* De laag vangt zelf alle aanwijzers op: tijdens de intro is er niets anders
-   te bedienen, en touch-action: none zorgt dat een veeg die op de laag begint
-   de pagina niet meesleept. Dat is op iOS het enige wat werkt - overflow:
-   hidden op de body houdt daar geen touch-scroll tegen. */
+/* De laag laat aanwijzers door: de pagina eronder blijft gewoon bereikbaar,
+   ook terwijl de animatie loopt. Er staat dus geen slot meer op het scrollen. */
 :root.intro .intro-veil {
   display: block; position: fixed; inset: 0; z-index: 9998;
-  pointer-events: auto; touch-action: none;
+  pointer-events: none;
   animation: intro-end 6.6s linear .12s both;
 }
 .intro-blackout {
   position: absolute; inset: 0; background: #000;
   animation: intro-blackout 6.6s cubic-bezier(.42,0,.3,1) .12s both;
 }
-/* De pagina staat stil tot de animatie klaar is. Wie er middenin doorheen
-   scrolt, sleept de naamlagen mee het scherm uit en kijkt de rest van de
-   animatie naar een zwart vlak zonder naam; het effect is dan weg terwijl je
-   het maar één keer per sessie te zien krijgt. Dit staat al in het stijlblad
-   en dus vast vóór de eerste paint - main.js komt pas later en zou een venster
-   laten waarin er wel gescrold kan worden. */
-:root.intro, :root.intro body { overflow: hidden; }
+/* Wie tijdens de intro begint te scrollen wil de pagina, niet de animatie. De
+   laag dooft dan in een derde seconde uit in plaats van abrupt te verdwijnen.
+   De echte naam krijgt tegelijk zijn animatie weg, waardoor hij meteen zichtbaar
+   is: zo doven de witte lagen weg óver de naam heen, in plaats van dat er even
+   helemaal geen naam staat. Zonder dit zou je de naamlagen mee het scherm uit
+   zien schuiven en daarna seconden naar zwart kijken. */
+:root.intro.intro-afronden .intro-veil {
+  animation: none; opacity: 0; transition: opacity .32s var(--ease);
+}
+:root.intro.intro-afronden .prism-host:not(.in-l) .grad-text { animation: none; }
 /* De echte naam blijft verborgen tot de laag verdwijnt: zo kan er nooit een
    dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
    in plaats van een JS-klasse, zodat de naam ook terugkomt als het script faalt.
