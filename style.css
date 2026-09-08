@@ -1721,16 +1721,6 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
   position: absolute; inset: 0; background: #000;
   animation: intro-blackout 6.6s cubic-bezier(.42,0,.3,1) .12s both;
 }
-/* Wie tijdens de intro begint te scrollen wil de pagina, niet de animatie. De
-   laag dooft dan in een derde seconde uit in plaats van abrupt te verdwijnen.
-   De echte naam krijgt tegelijk zijn animatie weg, waardoor hij meteen zichtbaar
-   is: zo doven de witte lagen weg óver de naam heen, in plaats van dat er even
-   helemaal geen naam staat. Zonder dit zou je de naamlagen mee het scherm uit
-   zien schuiven en daarna seconden naar zwart kijken. */
-:root.intro.intro-afronden .intro-veil {
-  animation: none; opacity: 0; transition: opacity .32s var(--ease);
-}
-:root.intro.intro-afronden .prism-host:not(.in-l) .grad-text { animation: none; }
 /* De echte naam blijft verborgen tot de laag verdwijnt: zo kan er nooit een
    dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
    in plaats van een JS-klasse, zodat de naam ook terugkomt als het script faalt.

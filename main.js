@@ -141,7 +141,7 @@
      is immers display: none, dus er komt ook nooit een animationend. */
   if (matchMedia("(prefers-reduced-motion: reduce)").matches ||
       document.documentElement.dataset.motion === "reduce") {
-    document.documentElement.classList.remove("intro", "go", "intro-afronden");
+    document.documentElement.classList.remove("intro", "go");
     const stilleVeil = document.querySelector(".intro-veil");
     if (stilleVeil) stilleVeil.remove();
   }
@@ -213,35 +213,24 @@
         place();
         document.documentElement.classList.add("go");
       })));
-
-      /* De intro houdt de pagina niet meer tegen. Ze duurt bijna zeven seconden
-         en dat is lang voor wie haast heeft; een slot dwingt zo iemand te
-         wachten op iets waar hij niet om vroeg. Wie scrolt heeft zijn keuze
-         gemaakt, dus ronden we de animatie dan meteen af in plaats van ze te
-         laten doorlopen terwijl de naamlagen het scherm uit schuiven - dat
-         laatste was het rare beeld op een telefoon.
-         De drempel van dertig pixels laat een duwtje of het inklappen van de
-         adresbalk ongemoeid; alleen een echte veeg telt. */
-      let afgerond = false;
-      const startY = window.scrollY;
-      const onScrollAf = () => {
-        if (afgerond || Math.abs(window.scrollY - startY) < 30) return;
-        afgerond = true;
-        document.documentElement.classList.add("intro-afronden");
-        setTimeout(done, 340);          // net na het uitdoven van de laag
-      };
-      addEventListener("scroll", onScrollAf, { passive: true });
+      /* De intro houdt de pagina niet tegen en wordt ook niet afgekapt: er staat
+         geen slot op het scrollen, en wie toch scrolt laat de animatie gewoon
+         uitspelen. Ze duurt bijna zeven seconden en is bedoeld om gezien te
+         worden.
+         De naamlagen blijven daarbij op de echte naam liggen: onMove hierboven
+         meet bij elke scroll opnieuw waar de h1 staat en legt de lagen daarop.
+         Scrol je ver door, dan reist de animatie dus mee met de kop en verlaat
+         ze het beeld - ze speelt wel af, je kijkt er alleen niet meer naar. */
 
       const done = () => {
         tracking = false;
         live = false;
         removeEventListener("scroll", onMove);
         removeEventListener("resize", onMove);
-        removeEventListener("scroll", onScrollAf);
         veil.remove();
         /* Ook de klassen weg: anders houdt de pauzeregel de echte naam
            verborgen als de poort door een fout nooit geopend zou zijn. */
-        document.documentElement.classList.remove("intro", "go", "intro-afronden");
+        document.documentElement.classList.remove("intro", "go");
       };
       veil.addEventListener("animationend", (e) => { if (e.animationName === "intro-end") done(); });
       /* Vangnet, zodat de laag nooit blijft hangen als animationend uitblijft.
