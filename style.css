@@ -878,7 +878,17 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .tldr-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease); }
 .tldr-card.open .tldr-panel { grid-template-rows: 1fr; }
 .tldr-panel-inner { overflow: hidden; }
-.tldr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 10px; padding: 16px 0 22px; border-top: 1px solid var(--glass-bord); margin: 0 28px; }
+/* Twee kolommen, maar als kolommen en niet als raster. In een raster is elke
+   rij zo hoog als het langste item erin, en dan laat de kortere buur onder zich
+   een gat vallen - bij zeven feiten van ongelijke lengte werd dat rechts een
+   plas witruimte terwijl links alles tegen elkaar aan stond. Als kolommen
+   stroomt elk item gewoon door onder het vorige. break-inside houdt een feit
+   heel; het mag niet halverwege naar de volgende kolom springen. */
+.tldr-grid {
+  columns: 2; column-gap: 22px;
+  padding: 16px 0 22px; border-top: 1px solid var(--glass-bord); margin: 0 28px;
+}
+.tldr-grid > .tldr-item { break-inside: avoid; -webkit-column-break-inside: avoid; }
 .tldr-item { display: flex; align-items: flex-start; gap: 12px; padding: 9px 10px; border-radius: var(--r-md); min-width: 0; }
 .tldr-ic {
   width: 33px; height: 33px; flex: none; border-radius: 10px; display: grid; place-items: center; margin-top: 1px;
@@ -889,7 +899,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .tldr-body .lbl { display: block; font-size: .73rem; color: var(--ink-dim); margin-bottom: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
 .tldr-body .val { display: block; font-weight: 600; font-size: .95rem; color: var(--ink); }
 .tldr-body .sub { display: block; font-size: .84rem; color: var(--ink-soft); margin-top: 1px; font-weight: 400; }
-@media (max-width: 700px) { .tldr-grid { grid-template-columns: 1fr; margin: 0 22px; } .tldr-toggle { padding: 20px 22px; } }
+@media (max-width: 700px) { .tldr-grid { columns: 1; margin: 0 22px; } .tldr-toggle { padding: 20px 22px; } }
 
 /* ---------- Ontwerpwerk-luikje (hergebruikt .tldr-card/.tldr-toggle/.tldr-panel) ---------- */
 .designs-grid {
