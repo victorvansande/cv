@@ -777,7 +777,13 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
   background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
   border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--acc-text);
 }
+/* Het e-mailadres brak eerder af via een <wbr> in de tekst zelf. Een browser
+   leest dat als niets, maar de eenvoudigere uitleesprogrammas van sommige
+   vacatureportalen vervangen elke tag door een spatie - en dan staat er
+   victorvansande@ gmail.com in hun systeem. Het afbreken gebeurt nu in css.
+ */
 .contact-mini .cm-body { min-width: 0; }
+.contact-mini .cm-body .val { overflow-wrap: anywhere; }
 .contact-mini .lbl { display: block; font-size: .73rem; color: var(--ink-dim); margin-bottom: 1px; }
 /* Nooit midden in een woord afbreken: dat liet een losse letter op een tweede
    regel achter. De <wbr> in het adres geeft één net breekpunt na de @; pas als
@@ -1055,10 +1061,11 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 @media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
 
 /* ---------- Colofon in de voettekst ---------- */
+/* Geen eigen scheidingslijn: de voettekst heeft er al een, en drie lijnen
+   vlak onder elkaar maken van het einde van de pagina een rooster. */
 .colofon {
-  margin: 14px auto 0; padding-top: 13px;
-  border-top: 1px solid var(--glass-bord);
-  max-width: var(--maxw); padding: 13px 24px 0;
+  margin: 10px auto 0;
+  max-width: var(--maxw); padding: 0 24px;
   font-size: .74rem; color: var(--ink-dim); text-align: center;
 }
 @media (max-width: 560px) { .colofon { font-size: .68rem; line-height: 1.5; } }
@@ -1480,9 +1487,18 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .ey-num { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: .92rem; letter-spacing: 0;
   color: var(--acc-text); margin-right: 2px; text-transform: none; }
 
-/* alternating section bands so sections breathe */
+/* Om de andere sectie een licht vlak, zodat ze niet aan elkaar plakken.
+   De thuissectie en het portfolio horen visueel bij elkaar - het portfolio is
+   de uitwerking van de kaarten erboven - dus die twee blijven samen op de
+   gewone achtergrond staan en het ritme begint pas bij Ervaring. Zonder deze
+   uitzondering kreeg het portfolio een balk over zich heen die de voorbeelden
+   van hun aanleiding afsneed. */
 main > .sec { border-top: 1px solid transparent; }
-main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(--glass-bord); border-bottom: 1px solid var(--glass-bord); }
+main > .sec:nth-of-type(odd):not(:first-of-type) {
+  background: var(--panel);
+  border-top-color: var(--glass-bord);
+  border-bottom: 1px solid var(--glass-bord);
+}
 @media (max-width: 560px) {
   .bento { grid-template-columns: 1fr; }
   /* Hier is de brede kaart even breed als de andere twee, dus neemt ze ook hun
