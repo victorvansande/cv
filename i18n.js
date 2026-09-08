@@ -204,8 +204,7 @@ window.I18N = {
 
     /* certificates */
     cert_eyebrow: `Certificates`,
-    cert_h2: `Additional <span class="grad-text">qualifications</span>`,
-    cert_lead: `Certificates from Red Cross Flanders (Rode Kruis-Vlaanderen) (valid until 2028), together a partial qualification as Event First-Aider.`,
+    cert_note: `Together a partial qualification as Event First-Aider.`,
     cert1_h: `First Aid (basic course)`,
     cert1_p: `Certificate 2023/0469/00 · valid until 9 January 2028.`,
     cert2_h: `Helper (advanced course)`,

@@ -2335,3 +2335,10 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 .role-card { padding: 24px 30px; }
 .contact-final { padding: 42px 40px; }
 .glass.feature { padding: 30px !important; }
+
+/* Label en noot op een regel, zoals de studentenjobs onderaan Ervaring. Twee
+   losse blokjes van dertig pixels boven elkaar was voor deze twee kaarten net
+   iets te veel plechtigheid. */
+.cert-kop { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-bottom: 14px;
+  font-size: .82rem; color: var(--ink-dim); }
+.cert-kop .eyebrow { margin-bottom: 0; }
