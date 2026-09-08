@@ -560,6 +560,34 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .hero-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+/* De beschikbaarheidsregel in de hero. Bewust geen pil of badge: dit is de
+   enige harde afspraak op de pagina en moet als informatie lezen, niet als
+   versiering. Het accentrandje links haakt hem aan de kolom vast. */
+.hero-avail {
+  margin-top: 18px; padding: 11px 15px;
+  border-radius: var(--r-sm);
+  font-size: .88rem; line-height: 1.5; color: var(--ink-soft);
+  background: color-mix(in srgb, var(--c2) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c2) 24%, transparent);
+  border-left: 3px solid var(--c2);
+}
+.hero-avail strong { color: var(--ink); font-weight: 700; }
+
+/* Overbrugging in de tijdlijn: bewust lichter dan een rolkaart, want het is
+   geen functie. Een gestippelde lijn in plaats van een vlak: zo leest het als
+   een tussenstuk en niet als een baan die er ook was. */
+.gap-row {
+  display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline;
+  margin: 0 0 18px; padding: 14px 18px;
+  border-radius: var(--r-sm);
+  border: 1px dashed var(--glass-bord);
+}
+.gap-row .gap-date {
+  flex: none; font-size: .78rem; font-weight: 600; color: var(--ink-dim);
+  white-space: nowrap;
+}
+.gap-row p { flex: 1 1 260px; min-width: 0; font-size: .89rem; color: var(--ink-dim); line-height: 1.55; }
+
 .hero-stats { display: flex; gap: 34px; margin-top: 28px; flex-wrap: wrap; }
 .stat .num { font-size: 2.3rem; font-weight: 800; line-height: 1; }
 .stat .lbl { font-size: .85rem; color: var(--ink-dim); margin-top: 6px; }
@@ -677,12 +705,22 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .lang-pip:nth-child(4) i { transition-delay: .66s; }
 .lang-pip:nth-child(5) i { transition-delay: .88s; }
 .lang-pip:nth-child(6) i { transition-delay: 1.1s; }
-.lang-row.vult .lang-pips[data-level="1"] .lang-pip:nth-child(-n+1) i,
-.lang-row.vult .lang-pips[data-level="2"] .lang-pip:nth-child(-n+2) i,
-.lang-row.vult .lang-pips[data-level="3"] .lang-pip:nth-child(-n+3) i,
-.lang-row.vult .lang-pips[data-level="4"] .lang-pip:nth-child(-n+4) i,
-.lang-row.vult .lang-pips[data-level="5"] .lang-pip:nth-child(-n+5) i,
-.lang-row.vult .lang-pips[data-level="6"] .lang-pip:nth-child(-n+6) i { transform: scaleX(1); }
+/* Gevuld als uitgangspunt. Dit is wat er staat zonder javascript, wat een
+   tekstuitlezer oppikt, en wat blijft staan als de waarnemer nooit afgaat.
+   Eerder waren alle balkjes leeg tot javascript ze vulde: sprong je recht naar
+   #over, dan las de kaart "geen Nederlands, geen Engels, een beetje Frans".
+   Hoeveel balkjes vollopen leest css rechtstreeks uit data-level. */
+.lang-pips[data-level="1"] .lang-pip:nth-child(-n+1) i,
+.lang-pips[data-level="2"] .lang-pip:nth-child(-n+2) i,
+.lang-pips[data-level="3"] .lang-pip:nth-child(-n+3) i,
+.lang-pips[data-level="4"] .lang-pip:nth-child(-n+4) i,
+.lang-pips[data-level="5"] .lang-pip:nth-child(-n+5) i,
+.lang-pips[data-level="6"] .lang-pip:nth-child(-n+6) i { transform: scaleX(1); }
+/* Enkel wie de animatie krijgt, ziet ze eerst leeg. Die klasse wordt vóór de
+   eerste paint gezet, in het script in de head, zodat de balkjes niet eerst
+   vol in beeld springen om daarna leeg te klappen. Wie beweging beperkt, krijgt
+   de klasse niet en dus meteen het eindbeeld. */
+:root.pips-animeren .lang-row:not(.vult) .lang-pips .lang-pip i { transform: scaleX(0); }
 
 /* ---------- Timeline ---------- */
 .timeline { position: relative; padding-left: 34px; }
@@ -2102,3 +2140,77 @@ main > .sec:nth-of-type(even) { background: var(--panel); border-top-color: var(
   --acc-text: var(--ink);
   --grad-ink: linear-gradient(120deg, var(--ink), var(--ink));
 }
+/* ================================================================
+   Printstijl
+   ----------------------------------------------------------------
+   Ctrl+P gaf tot nu toe de site zoals ze op het scherm staat: donkere
+   vlakken, vaste balken over de tekst, dichtgeklapte luiken waarvan de
+   inhoud gewoon wegviel. Een cv hoort afdrukbaar te zijn, dus dit blok
+   maakt er een leesbaar document van.
+
+   Drie principes: alles wat enkel op een scherm werkt gaat weg (balken,
+   knoppen, cursor, achtergrondvlekken), alles wat inklapbaar is gaat
+   open, en de kleuren gaan naar zwart op wit zodat het ook op een
+   zwart-witprinter klopt.
+
+   Wie het verzorgde cv wil, heeft de PDF; dit is voor wie gewoon op
+   Ctrl+P duwt.
+   ================================================================ */
+@media print {
+  /* De donkere modus en de themakleuren wijken voor inkt op papier. */
+  :root, :root[data-mode="light"], :root[data-mode="dark"] {
+    --bg-0: #fff; --bg-1: #fff;
+    --ink: #000; --ink-soft: #1a1a1a; --ink-dim: #444;
+    --glass-bg: transparent; --glass-bord: #bbb; --glass-bord-hi: #999;
+    --glass-shadow: none;
+    --acc-text: #000;
+  }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #fff !important; color: #000; }
+  body { font-size: 10.5pt; }
+
+  /* Schermdingen: weg. De navigatiebalk staat vast bovenaan en zou op elke
+     pagina over de tekst vallen; de rest is versiering of bediening. */
+  .nav, .dock, .settings-pop, .settings-toggle, .burger, .nav-links,
+  .cursor-glow, .cursor-dot, .cursor-halo, .blob, .blobs, .noise,
+  .progress-bar, .scroll-cue, .tldr-nudge, .intro-veil, .lightbox, .docbox,
+  .to-top, .hero-cta, .lang-btn, .tldr-preview-stack, .tldr-chevron,
+  .werk-wenk { display: none !important; }
+
+  /* Alles wat dichtgeklapt kan staan, gaat open: anders drukt de pagina de
+     helft van de inhoud niet af. */
+  .tldr-panel { display: block !important; }
+  .tldr-panel[inert] { display: block !important; }
+  .tldr-panel-inner { overflow: visible !important; }
+  .tldr-toggle { padding-bottom: 0; }
+
+  /* De opbouwanimaties eindigen normaal in JavaScript; bij het afdrukken
+     mag er niets halverwege blijven staan. */
+  .reveal, .reveal.in, [class*="in-l"] { opacity: 1 !important; transform: none !important; }
+  .lang-pip i { transform: scaleX(1) !important; }
+
+  /* Kaarten mogen niet middenin over een paginarand vallen. */
+  .glass, .role-card, .tl-card, .tldr-item, .design-item, .stage-row,
+  .ref-card, .feature { break-inside: avoid; page-break-inside: avoid; }
+  h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+  section, .sec { break-before: auto; }
+
+  /* Ademruimte inkorten: op papier kost witruimte een blad. */
+  .section-pad { padding-top: 18px !important; padding-bottom: 18px !important; }
+  .wrap { max-width: none; padding-left: 0; padding-right: 0; }
+
+  /* Een link is op papier niets waard zonder zijn adres; alleen echte
+     verwijzingen naar buiten krijgen er een. */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: .8em; color: #555; word-break: break-all;
+  }
+  a { color: #000; text-decoration: underline; }
+
+  /* Beelden op een redelijk formaat: een poster over een hele bladzijde
+     helpt niemand. */
+  .diploma-thumb img, .design-item img { max-height: 90mm; object-fit: contain; }
+
+  @page { margin: 14mm; }
+}
+

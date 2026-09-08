@@ -357,23 +357,35 @@
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
-  /* ---- Animated number counters ---- */
+  /* ---- Animated number counters ----
+     Het eindgetal staat in de html, niet een nul. Dat is wat een bezoeker ziet
+     zonder javascript, wat een tekstuitlezer oppikt, en wat blijft staan als de
+     waarnemer om welke reden dan ook nooit afgaat. Eerder stond er letterlijk
+     <span data-count="241">0</span>, en dan las de pagina "0 respondenten".
+     Het optellen is nu een extraatje: alleen wie animatie wil, ziet het cijfer
+     even terugvallen naar nul om daarna op te lopen. */
+  const stilstaand = () =>
+    matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    document.documentElement.dataset.motion === "reduce";
   const countIO = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
       const el = e.target;
+      countIO.unobserve(el);
       const target = parseFloat(el.dataset.count);
       const suffix = el.dataset.suffix || "";
+      const eindstand = () => {
+        el.textContent = (Number.isInteger(target) ? target : target.toFixed(1)) + suffix;
+      };
+      if (stilstaand()) { eindstand(); return; }
       const dur = 2400; const start = performance.now();
       const step = (now) => {
         const p = Math.min((now - start) / dur, 1);
         const eased = 1 - Math.pow(1 - p, 3);
         el.textContent = (Number.isInteger(target) ? Math.round(target * eased) : (target * eased).toFixed(1)) + suffix;
-        if (p < 1) requestAnimationFrame(step);
+        if (p < 1) requestAnimationFrame(step); else eindstand();
       };
       requestAnimationFrame(step);
-      countIO.unobserve(el);
     });
   }, { threshold: 0.5 });
   document.querySelectorAll("[data-count]").forEach((el) => countIO.observe(el));
@@ -410,6 +422,13 @@
       });
     };
     window.addEventListener("scroll", langVangnet, { passive: true });
+    /* Het vangnet hing alleen aan het scrollen. Kom je via een link binnen op
+       #over, dan sta je meteen op de juiste hoogte en scrol je niet meer: een
+       rij die de waarnemer op dat moment miste, bleef dan leeg staan terwijl je
+       ernaar keek. Daarom kijkt het vangnet ook een tel na het laden een keer
+       zelf. Rijen die dan nog buiten beeld liggen blijft het met rust laten;
+       die krijgen hun opbouw gewoon bij het scrollen. */
+    addEventListener("load", () => setTimeout(langVangnet, 1200));
   }
 
   /* ---- Cursor spotlight on cards (rAF-throttled, GPU-cheap) ---- */
@@ -522,11 +541,28 @@
   /* ---- Language switch (NL / EN) ---- */
   const I18N = (window.I18N && window.I18N.en) || {};
   const langBtn = document.querySelector(".lang-toggle");
+  /* De kop van het document volgt de taal mee. Dat gebeurde niet: schakelde je
+     naar het Engels, dan bleef de tabtitel en de omschrijving Nederlands - en
+     dat is precies wat een gedeelde link laat zien. De Nederlandse waarden
+     worden één keer bewaard, zodat terugschakelen ze exact herstelt. */
+  const metaOmschrijving = document.querySelector('meta[name="description"]');
+  const metaLocale = document.querySelector('meta[property="og:locale"]');
+  const nlKop = {
+    titel: document.title,
+    omschrijving: metaOmschrijving ? metaOmschrijving.content : "",
+    locale: metaLocale ? metaLocale.content : "",
+  };
+  const zetKop = (en) => {
+    document.title = (en && I18N.doc_title) ? I18N.doc_title : nlKop.titel;
+    if (metaOmschrijving) metaOmschrijving.content = (en && I18N.doc_desc) ? I18N.doc_desc : nlKop.omschrijving;
+    if (metaLocale) metaLocale.content = en ? "en_GB" : nlKop.locale;
+  };
   const i18nEls = [...document.querySelectorAll("[data-i18n]")];
   i18nEls.forEach((el) => { el.dataset.nlHtml = el.innerHTML; });
   const applyLang = (lang) => {
     const en = lang === "en";
     document.documentElement.lang = en ? "en" : "nl";
+    zetKop(en);
     i18nEls.forEach((el) => {
       const key = el.dataset.i18n;
       el.innerHTML = (en && I18N[key] != null) ? I18N[key] : el.dataset.nlHtml;
