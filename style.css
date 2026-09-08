@@ -2288,3 +2288,46 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
   @page { margin: 14mm; }
 }
 
+
+/* ---------- Compacter zetten ----------
+   De pagina was elfeneenhalf schermen lang, en de koppen namen daar bijna een
+   kwart van in. Hieronder gaat de lucht eruit zonder dat er inhoud sneuvelt:
+   minder ruimte tussen de blokken, krappere kopblokken, en de emoji-pilletjes
+   en EHBO-kaarten een maat kleiner.
+   Deze regels staan achteraan het bestand zodat ze de oorspronkelijke waarden
+   overschrijven en je in één blok ziet wat er ingekort is. */
+
+/* Ruimte tussen secties: 68 was royaal, 44 is nog steeds ruim. */
+.section-pad { padding-top: 44px; padding-bottom: 44px; }
+
+/* Het kopblok van een sectie: nummer, titel en inleiding. */
+.page-hero { padding-top: 34px; padding-bottom: 16px; }
+.page-hero .lead { margin-top: 14px; }
+.section-head { margin-bottom: 30px; }
+.section-head .lead { margin-top: 12px; }
+
+/* De pilletjes onder de interessekaarten: kleiner, want ze zijn een staartje
+   en geen tweede opsomming. */
+.personal-strip { gap: 7px; margin-top: 22px; }
+.personal-chip { font-size: .76rem; padding: 4px 10px; gap: 5px; }
+.personal-label { font-size: .68rem; }
+
+/* De EHBO-kaarten: dezelfde kaart, een maat kleiner. Het icoon blijft, want
+   dat is wat ze leuk maakt; alleen de marges eromheen krimpen. */
+.ehbo-card { padding: 17px 19px !important; }
+.ehbo-card h3 { font-size: .98rem !important; gap: 9px !important; }
+.ehbo-card h3 .ic { width: 32px !important; height: 32px !important; border-radius: 10px !important; }
+.ehbo-card h3 .ic svg { width: 17px; height: 17px; }
+.ehbo-card p { font-size: .82rem !important; margin-top: 6px !important; }
+.ehbo-card .doc-btn { margin-top: 11px; padding: 5px 12px; font-size: .75rem; }
+
+/* Tweede ronde: de lucht binnen de kaarten zelf. Zelfde principe, alleen
+   marges - er verdwijnt geen woord. */
+.hero-card { padding: 42px 52px; }
+.hero-card .lead { margin-bottom: 18px; }
+.hero-card .hero-stats { padding-top: 18px; }
+.tl-item { margin-bottom: 20px; }
+.tl-card { padding: 21px 26px; }
+.role-card { padding: 24px 30px; }
+.contact-final { padding: 42px 40px; }
+.glass.feature { padding: 30px !important; }
