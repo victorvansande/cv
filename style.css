@@ -2326,14 +2326,19 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 .personal-chip { font-size: .76rem; padding: 4px 10px; gap: 5px; }
 .personal-label { font-size: .68rem; }
 
-/* De EHBO-kaarten: dezelfde kaart, een maat kleiner. Het icoon blijft, want
-   dat is wat ze leuk maakt; alleen de marges eromheen krimpen. */
-.ehbo-card { padding: 17px 19px !important; }
-.ehbo-card h3 { font-size: .98rem !important; gap: 9px !important; }
-.ehbo-card h3 .ic { width: 32px !important; height: 32px !important; border-radius: 10px !important; }
-.ehbo-card h3 .ic svg { width: 17px; height: 17px; }
-.ehbo-card p { font-size: .82rem !important; margin-top: 6px !important; }
-.ehbo-card .doc-btn { margin-top: 11px; padding: 5px 12px; font-size: .75rem; }
+/* De EHBO-kaarten. Het brevetnummer en de vervaldatum stonden erop, maar die
+   staan ook in het document zelf en de geldigheid staat al in de TL;DR. Wat
+   overblijft is de naam en de knop, en die passen samen op een regel: het
+   icoon en de titel links, de knop rechts. Het icoon blijft - dat is wat ze
+   leuk maakt. */
+.ehbo-card {
+  padding: 13px 16px !important;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px;
+}
+.ehbo-card h3 { font-size: .95rem !important; gap: 9px !important; margin: 0; min-width: 0; }
+.ehbo-card h3 .ic { width: 30px !important; height: 30px !important; border-radius: 9px !important; }
+.ehbo-card h3 .ic svg { width: 16px; height: 16px; }
+.ehbo-card .doc-btn { margin-top: 0; padding: 5px 12px; font-size: .74rem; flex: none; }
 
 /* Tweede ronde: de lucht binnen de kaarten zelf. Zelfde principe, alleen
    marges - er verdwijnt geen woord. */

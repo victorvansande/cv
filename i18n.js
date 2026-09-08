@@ -206,9 +206,7 @@ window.I18N = {
     cert_eyebrow: `Certificates`,
     cert_note: `Together a partial qualification as Event First-Aider.`,
     cert1_h: `First Aid (basic course)`,
-    cert1_p: `Certificate 2023/0469/00 · valid until 9 January 2028.`,
     cert2_h: `Helper (advanced course)`,
-    cert2_p: `Certificate 2023/0063/00 · valid until 9 January 2028.`,
     diploma_btn: `View diploma`,
     brevet_btn: `View certificate`,
 
@@ -290,7 +288,7 @@ window.I18N = {
     /* contact */
     contact_eyebrow: `Contact`,
     contact_final_h2: `Feel free to send me a <span class="grad-text em-serif">message</span>`,
-    contact_final_lead: `A question, a project or just getting to know each other? I am available part-time, employed or freelance, in the Herentals–Antwerp area. I usually reply quickly: one click and your mail window is ready.`,
+    contact_final_lead: `A question, a project or just getting to know each other? I am available part-time, employed or freelance, in the Herentals–Antwerp area. I usually reply quickly.`,
     contact_btn_mail: `Send me an email`,
     cm_email: `Email`,
     cm_phone: `Phone`,

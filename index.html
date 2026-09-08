@@ -37,8 +37,8 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=192" />
-  <script src="i18n.js?v=62" defer></script>
+  <link rel="stylesheet" href="style.css?v=194" />
+  <script src="i18n.js?v=63" defer></script>
   <script src="main.js?v=81" defer></script>
   <script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('cv-theme');d.dataset.theme=['indigo','teal','emerald','amber','rose','slate','violet'].indexOf(t)<0?'rose':t;d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(d.dataset.motion!=='reduce'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pips-animeren');if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
@@ -119,9 +119,10 @@
           </div>
           <div class="set-div"></div>
           <h4 data-i18n="set_download">Downloads</h4>
-          <!-- Twee versies, met een regel erbij die zegt wanneer je welke neemt.
-               Zonder die uitleg is "CV als PDF" naast "CV voor sollicitatie-
-               portalen" een raadseltje in plaats van een keuze. -->
+          <!-- De regel onder de titel zegt wanneer je deze versie neemt. Dat is er
+               vooral voor als de tweede download weer aanstaat: zonder uitleg is
+               "CV als PDF" naast "CV voor sollicitatieportalen" een raadseltje in
+               plaats van een keuze. -->
           <a href="assets/cv-victor-van-sande.pdf" download class="set-action">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>
             <span class="set-action-txt">
@@ -129,6 +130,10 @@
               <span class="set-action-sub" data-i18n="set_cv_pdf_sub">Om te mailen of af te drukken</span>
             </span>
           </a>
+          <!-- De ATS-versie staat tijdelijk offline. Terugzetten = dit commentaar
+               openen; het bestand, cv-print-ats.html en de vertalingen blijven
+               staan, dus er is verder niets voor nodig. -->
+          <!--
           <a href="assets/cv-victor-van-sande-ats.pdf" download class="set-action">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
             <span class="set-action-txt">
@@ -136,6 +141,7 @@
               <span class="set-action-sub" data-i18n="set_cv_ats_sub">Één kolom, voor scansoftware</span>
             </span>
           </a>
+          -->
         </div>
       </div>
       <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -860,15 +866,16 @@
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="cert_eyebrow">Certificaten</span></span>
       <span data-i18n="cert_note">Samen een deelkwalificatie Eventhulpverlener.</span>
     </p>
-    <div class="grid grid-2" style="max-width:680px">
+    <!-- Ruimer dan de 680 van vroeger: met de details eraf passen de titel en de
+         knop samen op een regel, maar alleen als de kaart daar breed genoeg voor
+         is. Bij 680 pixels braken ze alsnog in tweeen. -->
+    <div class="grid grid-2" style="max-width:900px">
       <div class="glass tilt feature reveal ehbo-card" data-d="1" style="padding:24px">
         <h3 style="display:flex;align-items:center;gap:10px;font-size:1.08rem"><span class="ic" style="width:38px;height:38px;margin-bottom:0;border-radius:11px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span> <span data-i18n="cert1_h">Eerste Hulp (basiscursus)</span></h3>
-        <p style="margin:8px 0 0;font-size:.88rem" data-i18n="cert1_p">Brevet 2023/0469/00 · geldig tot 9 januari 2028.</p>
         <button type="button" class="doc-btn" data-full="assets/diploma-ehbo-basis.jpg" data-alt="Brevet Eerste Hulp basiscursus, Rode Kruis-Vlaanderen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.1 7.5 22l4.5-2.6 4.5 2.6-1.1-7.9"/></svg> <span data-i18n="brevet_btn">Bekijk brevet</span></button>
       </div>
       <div class="glass tilt feature reveal ehbo-card" data-d="2" style="padding:24px">
         <h3 style="display:flex;align-items:center;gap:10px;font-size:1.08rem"><span class="ic" style="width:38px;height:38px;margin-bottom:0;border-radius:11px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span> <span data-i18n="cert2_h">Helper (vervolgcursus)</span></h3>
-        <p style="margin:8px 0 0;font-size:.88rem" data-i18n="cert2_p">Brevet 2023/0063/00 · geldig tot 9 januari 2028.</p>
         <button type="button" class="doc-btn" data-full="assets/diploma-ehbo-helper.jpg" data-alt="Brevet Helper vervolgcursus, Rode Kruis-Vlaanderen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.1 7.5 22l4.5-2.6 4.5 2.6-1.1-7.9"/></svg> <span data-i18n="brevet_btn">Bekijk brevet</span></button>
       </div>
     </div>
@@ -989,7 +996,7 @@
   <section class="wrap section-pad" style="padding-top:32px">
     <div class="glass contact-final reveal">
       <h2 class="h-lg" data-i18n="contact_final_h2">Stuur me gerust een <span class="grad-text em-serif">bericht</span></h2>
-      <p class="lead" style="margin:14px auto 28px" data-i18n="contact_final_lead">Een vraag, een project of gewoon kennismaken? Ik ben halftijds beschikbaar in loondienst of freelance, in de regio Herentals–Antwerpen. Ik antwoord doorgaans snel: één klik en je mailvenster staat klaar.</p>
+      <p class="lead" style="margin:14px auto 28px" data-i18n="contact_final_lead">Een vraag, een project of gewoon kennismaken? Ik ben halftijds beschikbaar in loondienst of freelance, in de regio Herentals–Antwerpen. Ik antwoord doorgaans snel.</p>
       <div class="contact-final-cta">
         <a href="mailto:victorvansande@gmail.com" class="btn btn-primary"><span data-i18n="contact_btn_mail">Stuur me een mail</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
