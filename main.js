@@ -948,6 +948,23 @@
     vertaalMee();
   }
 
+
+  /* ---- Het datumknopje in de tijdlijn ----
+     Openklappen bij hover en bij toetsenbordfocus regelt de css al. Op een
+     telefoon bestaat hover niet, en dan zou de uitleg onbereikbaar zijn; een
+     tik zet daarom dezelfde klasse. */
+  const gapHint = document.querySelector(".gap-hint");
+  if (gapHint) {
+    const gapKnop = gapHint.querySelector(".gap-knop");
+    const zetGap = (open) => {
+      gapHint.classList.toggle("open", open);
+      gapKnop.setAttribute("aria-expanded", String(open));
+    };
+    gapKnop.addEventListener("click", () => zetGap(!gapHint.classList.contains("open")));
+    document.addEventListener("click", (e) => { if (!gapHint.contains(e.target)) zetGap(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") zetGap(false); });
+  }
+
   /* ---- Inklapbare kaarten (TL;DR, ontwerpwerk-luikje, ...): dichtgeklapt tot geopend ---- */
   const accordionSetters = new Map();
   document.querySelectorAll(".tldr-card").forEach((card) => {

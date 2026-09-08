@@ -560,33 +560,55 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 }
 .hero-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
 .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
-/* De beschikbaarheidsregel in de hero. Bewust geen pil of badge: dit is de
-   enige harde afspraak op de pagina en moet als informatie lezen, niet als
-   versiering. Het accentrandje links haakt hem aan de kolom vast. */
-.hero-avail {
-  margin-top: 18px; padding: 11px 15px;
-  border-radius: var(--r-sm);
-  font-size: .88rem; line-height: 1.5; color: var(--ink-soft);
-  background: color-mix(in srgb, var(--c2) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--c2) 24%, transparent);
-  border-left: 3px solid var(--c2);
+/* Overbrugging in de tijdlijn. Eerder was dit een blok over de volle breedte,
+   en dat woog veel te zwaar voor wat het is: geen functie, alleen de periode
+   ertussen. Nu staat er enkel een klein datumknopje; de uitleg komt in een
+   balonnetje dat erboven verschijnt en dus geen ruimte inneemt in de pagina. */
+.gap-hint { position: relative; display: inline-block; margin-bottom: 14px; }
+.gap-knop {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 12px 6px; border-radius: 999px;
+  background: none; border: 1px dashed var(--glass-bord);
+  font: inherit; font-size: .74rem; font-weight: 600; color: var(--ink-dim);
+  cursor: help; transition: color .2s var(--ease), border-color .2s var(--ease);
 }
-.hero-avail strong { color: var(--ink); font-weight: 700; }
+.gap-knop svg { flex: none; opacity: .75; }
+.gap-hint:hover .gap-knop,
+.gap-hint:focus-within .gap-knop,
+.gap-hint.open .gap-knop {
+  color: var(--acc-text);
+  border-color: color-mix(in srgb, var(--c2) 42%, transparent);
+}
+/* Het balonnetje hangt bóven het knopje: daaronder begint meteen de rolkaart,
+   en dan zou het daar overheen vallen. Bottom in plaats van top, zodat het
+   groeit naar boven toe en de onderrand op zijn plek blijft staan. */
+.gap-tip {
+  position: absolute; bottom: calc(100% + 9px); left: 0; z-index: 6;
+  width: max-content; max-width: min(340px, 78vw);
+  padding: 10px 14px 11px; border-radius: var(--r-sm);
+  background: color-mix(in srgb, var(--c2) 11%, var(--bg-1));
+  border: 1px solid color-mix(in srgb, var(--c2) 32%, transparent);
+  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, .45);
+  font-size: .82rem; line-height: 1.5; color: var(--ink-soft);
+  opacity: 0; visibility: hidden; transform: translateY(4px);
+  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
+}
+/* Het tuitje: een vierkantje van 45 graden onder de rand, met dezelfde vulling
+   en enkel de twee onderranden, zodat de lijn rond het balonnetje doorloopt. */
+.gap-tip::after {
+  content: ""; position: absolute; left: 22px; bottom: -5px;
+  width: 9px; height: 9px; transform: rotate(45deg);
+  background: inherit;
+  border-right: 1px solid color-mix(in srgb, var(--c2) 32%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--c2) 32%, transparent);
+}
+.gap-hint:hover .gap-tip,
+.gap-hint:focus-within .gap-tip,
+.gap-hint.open .gap-tip { opacity: 1; visibility: visible; transform: none; }
+@media (prefers-reduced-motion: reduce) { .gap-tip, .gap-knop { transition: none; } }
+:root[data-motion="reduce"] .gap-tip,
+:root[data-motion="reduce"] .gap-knop { transition: none; }
 
-/* Overbrugging in de tijdlijn: bewust lichter dan een rolkaart, want het is
-   geen functie. Een gestippelde lijn in plaats van een vlak: zo leest het als
-   een tussenstuk en niet als een baan die er ook was. */
-.gap-row {
-  display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline;
-  margin: 0 0 18px; padding: 14px 18px;
-  border-radius: var(--r-sm);
-  border: 1px dashed var(--glass-bord);
-}
-.gap-row .gap-date {
-  flex: none; font-size: .78rem; font-weight: 600; color: var(--ink-dim);
-  white-space: nowrap;
-}
-.gap-row p { flex: 1 1 260px; min-width: 0; font-size: .89rem; color: var(--ink-dim); line-height: 1.55; }
 
 .hero-stats { display: flex; gap: 34px; margin-top: 28px; flex-wrap: wrap; }
 .stat .num { font-size: 2.3rem; font-weight: 800; line-height: 1; }

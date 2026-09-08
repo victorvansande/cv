@@ -35,9 +35,8 @@ window.I18N = {
 
     /* hero */
     hero_eyebrow: `Available part-time`,
-    hero_availability: `<strong>Available part-time</strong>, employed or freelance · Herentals–Antwerp area`,
     hero_hello: `Hi, I'm`,
-    hero_loc: `Lives and works in Antwerp`,
+    hero_loc: `Lives and works in the province of Antwerp`,
     hero_lead_1: `Communication scientist with expertise in`,
     hero_lead_2: `I combine an analytical, scientific outlook with the warmth and empathy that people-centred work deserves.`,
     hero_cta_work: `See my work`,
