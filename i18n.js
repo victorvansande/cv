@@ -9,7 +9,7 @@ window.I18N = {
     /* kop van het document; geen data-i18n-knooppunten maar sleutels die
        main.js zelf oppikt bij het wisselen van taal */
     skip_link: `Skip to the content`,
-    colofon: `I built this site myself: hand-written HTML, CSS and JavaScript, no framework.`,
+    colofon: `Site designed by Victor Van Sande`,
     doc_title: `Victor Van Sande · Communication Scientist`,
     doc_desc: `Portfolio of Victor Van Sande, communication scientist with expertise in communication, media, (web)design, psychology, technology and leadership.`,
     /* nav */

@@ -1011,9 +1011,12 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 @media (max-width: 560px) { .contact-final { padding: 40px 22px; } .contact-final-cta .btn { width: 100%; justify-content: center; } }
 
 /* ---------- Jobstudent footnote ---------- */
+/* Geen scheidingslijn: het stagesblok erboven staat al in een eigen kaart met
+   een eigen rand, en dan is een streep ertussen een tweede grens voor dezelfde
+   overgang. De witruimte doet het werk. */
 .jobstudent-note {
-  font-size: .85rem; color: var(--ink-dim); border-top: 1px solid var(--glass-bord);
-  padding-top: 18px; margin-top: 0;
+  font-size: .85rem; color: var(--ink-dim);
+  padding-top: 16px; margin-top: 0;
 }
 .jobstudent-label {
   display: inline-block; font-weight: 700; color: var(--ink-soft);
@@ -1066,9 +1069,15 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .colofon {
   margin: 10px auto 0;
   max-width: var(--maxw); padding: 0 24px;
-  font-size: .74rem; color: var(--ink-dim); text-align: center;
+  /* Kleiner dan de regel erboven: het is een ondertekening, geen mededeling. */
+  font-size: .66rem; color: var(--ink-dim); text-align: center;
 }
-@media (max-width: 560px) { .colofon { font-size: .68rem; line-height: 1.5; } }
+/* De regel erboven krimpt op smalle schermen mee met de vensterbreedte
+   (clamp), en een vaste maat hier zou daar dan bovenuit steken. Dezelfde
+   formule, maar overal een stukje kleiner. */
+@media (max-width: 560px) {
+  .colofon { font-size: clamp(.47rem, calc(3.44vw - 4.84px), .74rem); line-height: 1.5; }
+}
 
 .footer { border-top: 1px solid var(--glass-bord); padding: 24px 0; margin-top: 20px; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
