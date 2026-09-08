@@ -4,100 +4,155 @@
 <meta charset="UTF-8" />
 <title>Victor Van Sande — cv (ATS-versie)</title>
 <!--
-  ATS-versie van het cv: één kolom, standaardkoppen, geen zijbalk, geen kleur
-  die betekenis draagt, geen tekst in beeld, geen tabellen voor de opmaak.
+  ATS-versie van het cv: één kolom, standaardkoppen, geen zijbalk, geen tekst
+  in beeld, geen tabellen voor de opmaak.
 
   Waarom apart: het verzorgde cv zet de inhoud in twee kolommen met een
   zijbalk. Een mens leest dat prima, maar de inleessoftware van vacature-
-  portalen leest een pdf vaak regel voor regel van links naar rechts. Naast
-  elkaar staande kolommen raken dan door elkaar geweven: een functietitel
-  belandt tussen twee opsommingstekens uit de zijbalk.
+  portalen leest een pdf regel voor regel van links naar rechts. Naast elkaar
+  staande kolommen raken dan door elkaar geweven: in het verzorgde cv belandt
+  de datum "mei 2026 - sep 2026" middenin de functietitel, en raken de talen
+  los van hun niveaus.
 
-  Dit bestand houdt daarom één kolom aan van boven naar beneden, en gebruikt
-  koppen die zo'n programma herkent (Werkervaring, Opleiding, Vaardigheden,
-  Talen). De volgorde is de gebruikelijke: profiel, ervaring, opleiding, rest.
+  Wat hier WEL mag. ATS-veilig gaat over de structuur, niet over de vorm. Kleur,
+  lettertype, witruimte en lijnen zijn onzichtbaar voor zo'n programma: het
+  leest alleen de tekst en de volgorde. Dit bestand mag er dus gewoon uitzien
+  als een cv, in dezelfde huisstijl als de verzorgde versie.
+
+  Wat hier NIET mag, en waarom:
+  - twee kolommen naast elkaar: dat is precies wat de leesvolgorde breekt
+  - tekst in een afbeelding of een tekstvak: onleesbaar voor de parser
+  - een tabel om iets uit te lijnen: rijen en kolommen raken door elkaar
+  - grote letterspatiëring: sommige uitlezers zetten dan een spatie tussen elke
+    letter, en dan staat er "E R V A R I N G" in hun systeem
+  - kleur als enige drager van betekenis: kleur komt niet mee in de tekst
+  Datums staan rechts op dezelfde regel via flexbox. Dat is veilig: de
+  leesvolgorde volgt de broncode, niet de plek op de pagina.
 
   Inhoud gelijk aan cv-print.html; alleen de vorm verschilt. Wijzig je daar
   iets, wijzig het hier ook.
 -->
 <style>
-  @page { size: A4; margin: 13mm 16mm; }
+  @page { size: A4; margin: 13mm 15mm; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 10pt; line-height: 1.36; color: #000; background: #fff;
+  :root {
+    --red: #e11d2e; --ink: #1b1e2a; --soft: #4c5163; --dim: #8b90a1; --line: #e7e8ee;
   }
-  /* Geen letter-spacing of woordafbreking: dat kan de tekstextractie uit een
-     pdf letterlijk woord voor woord uit elkaar trekken. */
+  body {
+    font-family: "Segoe UI", "Inter", Arial, sans-serif;
+    font-size: 9.2pt; line-height: 1.42; color: var(--ink); background: #fff;
+  }
+  /* Geen woordafbreking: een afgebroken woord komt in twee stukken uit de pdf. */
   p, li { hyphens: none; }
 
-  h1 { font-size: 18pt; line-height: 1.2; margin-bottom: 1.5mm; letter-spacing: 0; }
-  .rol { font-size: 11pt; margin-bottom: 2.2mm; }
-  .contact { font-size: 9.5pt; margin-bottom: 4mm; }
-  .contact span { display: block; }
+  /* ---------- Kop ---------- */
+  .hd h1 { font-size: 21pt; font-weight: 700; line-height: 1.15; letter-spacing: -.3pt; }
+  .hd h1 .r { color: var(--red); }
+  .hd .role { color: var(--red); font-weight: 600; font-size: 11pt; margin-top: 4px; }
+  .contact {
+    margin-top: 6px; font-size: 8.8pt; color: var(--soft);
+    display: flex; flex-wrap: wrap; gap: 2px 14px;
+  }
+  .contact .sep { color: var(--line); }
+  .beschikbaar {
+    display: inline-block; margin-top: 7px; padding: 3px 10px 4px;
+    border: 1px solid var(--red); border-radius: 999px;
+    color: var(--red); font-size: 8.4pt; font-weight: 600;
+  }
+  .rule { height: 2.4px; background: var(--red); border-radius: 2px; margin-top: 4mm; }
 
+  /* ---------- Secties ---------- */
+  /* Letterspatiëring bewust klein: bij ruime spatiëring zetten sommige
+     uitleesprogramma's een spatie tussen elke letter van de kop. */
   h2 {
-    font-size: 11pt; text-transform: uppercase; letter-spacing: .04em;
-    margin: 3.2mm 0 1.5mm; padding-bottom: .8mm; border-bottom: 1px solid #000;
+    font-size: 8.6pt; font-weight: 700; letter-spacing: .5pt; text-transform: uppercase;
+    color: var(--red); margin: 4.4mm 0 1.8mm; padding-bottom: 1.2mm;
+    border-bottom: 1px solid var(--line);
     page-break-after: avoid;
   }
-  h3 { font-size: 10.5pt; margin-top: 2.6mm; page-break-after: avoid; }
-  /* Werkgever en periode op een regel: dat scheelt op papier een halve
-     bladzijde, en een inleesprogramma leest de regel gewoon in zijn geheel. */
-  .meta { font-size: 10pt; font-style: italic; }
-  p.tekst { margin-top: 1mm; }
-  .item { page-break-inside: avoid; margin-bottom: 1.4mm; }
+  h2:first-of-type { margin-top: 5mm; }
 
-  ul { margin: 1mm 0 0 5mm; }
-  li { margin-bottom: .3mm; }
-  .inline { margin-top: 1mm; }
+  /* ---------- Onderdelen ---------- */
+  .item { page-break-inside: avoid; margin-bottom: 2.2mm; padding-left: 3.6mm; border-left: 2px solid var(--line); }
+  .item:last-child { margin-bottom: 0; }
+  h3 { font-size: 10pt; font-weight: 700; line-height: 1.35; page-break-after: avoid; }
+  .meta {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 6mm;
+    font-size: 8.8pt; color: var(--soft); margin-top: .6mm;
+  }
+  .meta .datum { flex: none; color: var(--dim); white-space: nowrap; }
+  p.tekst { margin-top: 1.4mm; color: var(--soft); font-size: 9.2pt; }
+
+  /* ---------- Lijsten en chips ---------- */
+  ul { margin: 1mm 0 0 4.6mm; }
+  li { margin-bottom: .5mm; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px 5px; margin-top: 1mm; }
+  .chip {
+    font-size: 8pt; padding: 2.5px 8px; border: 1px solid var(--line); border-radius: 5px;
+    color: var(--soft); background: #fafafb;
+  }
+  .talen { display: flex; flex-wrap: wrap; gap: 2px 10mm; margin-top: 1mm; }
+  .taal { font-size: 9.2pt; }
+  .taal b { font-weight: 600; }
+  .taal span { color: var(--dim); }
+
+  /* ---------- Afsluiter met QR ---------- */
+  .qr-end { margin-top: 3mm; padding-top: 2.6mm; border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 6mm; page-break-inside: avoid; }
+  .qr { width: 15mm; height: 15mm; flex: none; shape-rendering: crispEdges; }
+  .qr-end-txt b { display: block; font-size: 9.2pt; font-weight: 700; }
+  .qr-end-txt p { color: var(--soft); font-size: 8.8pt; margin-top: 2px; line-height: 1.5; }
+  .qr-end-txt span { display: block; margin-top: 3px; color: var(--red); font-size: 8.6pt; font-weight: 600; }
 </style>
 </head>
 <body>
 
-  <h1>Victor Van Sande</h1>
-  <p class="rol">Communicatiewetenschapper — fondsenwerver bij Gekkoo</p>
-  <p class="contact">
-    <span>Provincie Antwerpen, België</span>
-    <span>Halftijds beschikbaar — loondienst of freelance — regio Herentals–Antwerpen</span>
-    <span>victorvansande@gmail.com</span>
-    <span>0479 87 81 52</span>
-    <span>linkedin.com/in/victorvansande</span>
-    <span>victorvansande.github.io/cv</span>
-  </p>
+  <header class="hd">
+    <h1>Victor <span class="r">Van Sande</span></h1>
+    <p class="role">Communicatiewetenschapper — fondsenwerver bij Gekkoo</p>
+    <p class="contact">
+      <span>victorvansande@gmail.com</span>
+      <span>0479 87 81 52</span>
+      <span>linkedin.com/in/victorvansande</span>
+      <span>victorvansande.github.io/cv</span>
+      <span>Provincie Antwerpen, België</span>
+    </p>
+    <p><span class="beschikbaar">Halftijds beschikbaar — loondienst of freelance — regio Herentals–Antwerpen</span></p>
+  </header>
+  <div class="rule"></div>
 
   <h2>Profiel</h2>
-  <p>Communicatiewetenschapper met expertise in communicatie, media, (web)design, psychologie, technologie en leiderschap. Ik combineer een analytische, wetenschappelijke kijk met de warmte en empathie die mensgericht werk verdient, en breng mensen, boodschappen en organisaties met elkaar in verbinding.</p>
+  <p class="tekst">Communicatiewetenschapper met expertise in communicatie, media, (web)design, psychologie, technologie en leiderschap. Ik combineer een analytische, wetenschappelijke kijk met de warmte en empathie die mensgericht werk verdient, en breng mensen, boodschappen en organisaties met elkaar in verbinding.</p>
 
   <h2>Werkervaring</h2>
 
   <div class="item">
     <h3>Fondsenwerver</h3>
-    <p class="meta">Gekkoo — speelpleinwerking en vakantiekampen · september 2026 – heden</p>
+    <p class="meta"><span>Gekkoo — speelpleinwerking en vakantiekampen</span><span class="datum">september 2026 – heden</span></p>
     <p class="tekst">Fondsen werven bij bedrijven en particulieren en via projectoproepen, om de werking van Gekkoo mee te financieren en verder uit te bouwen.</p>
   </div>
 
   <div class="item">
     <h3>Inhoudelijk en communicatiemedewerker, grafisch design</h3>
-    <p class="meta">Gekkoo — speelpleinwerking en vakantiekampen · mei 2026 – september 2026</p>
+    <p class="meta"><span>Gekkoo — speelpleinwerking en vakantiekampen</span><span class="datum">mei 2026 – september 2026</span></p>
     <p class="tekst">Verantwoordelijk voor contentcreatie, visuele en grafische vormgeving en externe communicatie. Ik onderhield de contacten met andere speelpleinwerkingen en bracht mijn achtergrond in communicatie, psychologie en jeugdwerk samen in één rol. In de zomer van 2026 was ik verantwoordelijk voor een eigen project in Essen.</p>
   </div>
 
   <div class="item">
     <h3>Hoofdleider</h3>
-    <p class="meta">KSA Herentals — jeugdbeweging · september 2019 – september 2026</p>
+    <p class="meta"><span>KSA Herentals — jeugdbeweging</span><span class="datum">september 2019 – september 2026</span></p>
     <p class="tekst">Een team van gemiddeld 20 jongvolwassenen gecoördineerd, grootschalige events georganiseerd en de organisatie vertegenwoordigd in de lokale gemeenschap. Als hoofdverantwoordelijke tientallen evenementen georganiseerd, samen goed voor meer dan 10.000 bezoekers.</p>
   </div>
 
   <div class="item">
     <h3>Website Designer</h3>
-    <p class="meta">KSA Herentals — jeugdbeweging · 2022 – heden</p>
+    <p class="meta"><span>KSA Herentals — jeugdbeweging</span><span class="datum">2022 – heden</span></p>
     <p class="tekst">ksaherentals.be zelfstandig opgezet en beheerd als centraal platform voor de hele werking: ledenplanning, activiteiten en een maandelijkse blog die ik zelf schrijf en publiceer.</p>
   </div>
 
   <div class="item">
     <h3>Leider</h3>
-    <p class="meta">KSA Herentals — jeugdbeweging · september 2015 – september 2026</p>
+    <p class="meta"><span>KSA Herentals — jeugdbeweging</span><span class="datum">september 2015 – september 2026</span></p>
     <p class="tekst">Wekelijks zelf voor de groep gestaan: activiteiten begeleiden voor leden, met oog voor verhaal en groepsgevoel. Naast het hoofdleiderschap; beide rollen liepen bewust parallel.</p>
   </div>
 
@@ -105,17 +160,17 @@
 
   <div class="item">
     <h3>Master in de communicatiewetenschappen</h3>
-    <p class="meta">Universiteit Antwerpen · 2023 – 2025 — met onderscheiding</p>
+    <p class="meta"><span>Universiteit Antwerpen — met onderscheiding</span><span class="datum">2023 – 2025</span></p>
   </div>
 
   <div class="item">
     <h3>Educatieve Bachelor: Wetenschappen en Engels</h3>
-    <p class="meta">Karel de Grote Hogeschool · 2020 – 2023 — met onderscheiding</p>
+    <p class="meta"><span>Karel de Grote Hogeschool — met onderscheiding</span><span class="datum">2020 – 2023</span></p>
   </div>
 
   <div class="item">
     <h3>Bachelor in de Toegepaste Psychologie</h3>
-    <p class="meta">Thomas More Hogeschool — titel psychologisch consulent · 2017 – 2020</p>
+    <p class="meta"><span>Thomas More Hogeschool — titel psychologisch consulent</span><span class="datum">2017 – 2020</span></p>
   </div>
 
   <h2>Masterproef</h2>
@@ -128,25 +183,25 @@
   <h2>Stages</h2>
   <div class="item">
     <h3>Leerkracht Engels (stage)</h3>
-    <p class="meta">GITHO Nijlen — TEFL · 2023</p>
+    <p class="meta"><span>GITHO Nijlen — TEFL</span><span class="datum">2023</span></p>
   </div>
   <div class="item">
     <h3>Leerkracht natuurwetenschappen (stage)</h3>
-    <p class="meta">Sint-Lutgardisschool, Antwerpen · 2022</p>
+    <p class="meta"><span>Sint-Lutgardisschool, Antwerpen</span><span class="datum">2022</span></p>
   </div>
   <div class="item">
     <h3>Jeugdconsulent (stage)</h3>
-    <p class="meta">kOsh Campus Ieperstraat, Herentals — counseling · 2020</p>
+    <p class="meta"><span>kOsh Campus Ieperstraat, Herentals — counseling</span><span class="datum">2020</span></p>
   </div>
 
   <h2>Studentenjobs</h2>
   <div class="item">
     <h3>Barista</h3>
-    <p class="meta">POP Coffee, Herentals · 2023 – 2024</p>
+    <p class="meta"><span>POP Coffee, Herentals</span><span class="datum">2023 – 2024</span></p>
   </div>
   <div class="item">
     <h3>Winkelmedewerker</h3>
-    <p class="meta">Van Eccelpoel, Herentals · 2016 – 2018</p>
+    <p class="meta"><span>Van Eccelpoel, Herentals</span><span class="datum">2016 – 2018</span></p>
   </div>
 
   <h2>Vaardigheden</h2>
@@ -170,14 +225,23 @@
   </ul>
 
   <h2>Tools</h2>
-  <p class="inline">Canva, DaVinci Resolve, Lightroom, Google Analytics, SPSS, Qualtrics, Office 365, Markdown en documentatie.</p>
+  <div class="chips">
+    <span class="chip">Canva</span>
+    <span class="chip">DaVinci Resolve</span>
+    <span class="chip">Lightroom</span>
+    <span class="chip">Google Analytics</span>
+    <span class="chip">SPSS</span>
+    <span class="chip">Qualtrics</span>
+    <span class="chip">Office 365</span>
+    <span class="chip">Markdown en documentatie</span>
+  </div>
 
   <h2>Talen</h2>
-  <ul>
-    <li>Nederlands — moedertaal</li>
-    <li>Engels — C2, volledig</li>
-    <li>Frans — A2, basis</li>
-  </ul>
+  <div class="talen">
+    <span class="taal"><b>Nederlands</b> <span>moedertaal</span></span>
+    <span class="taal"><b>Engels</b> <span>C2, volledig</span></span>
+    <span class="taal"><b>Frans</b> <span>A2, basis</span></span>
+  </div>
 
   <h2>Certificaten</h2>
   <ul>
