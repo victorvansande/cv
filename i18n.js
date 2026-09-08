@@ -261,7 +261,7 @@ window.I18N = {
     tldr_eyebrow: `TL;DR`,
     tldr_h2: `The essentials <span class="grad-text em-serif">at a glance</span>`,
     tldr_toggle_open: `Show the essentials`,
-    tldr_toggle_sub: `7 key facts in 20 seconds`,
+    tldr_toggle_sub: `8 key facts in 20 seconds`,
     tldr_edu_lbl: `Education`,
     tldr_edu_val: `3 degrees, 2 with distinction`,
     tldr_edu_sub: `Master in Communication Studies, University of Antwerp`,
@@ -283,6 +283,9 @@ window.I18N = {
     tldr_avail_lbl: `Availability`,
     tldr_avail_val: `Part-time · employed or freelance`,
     tldr_avail_sub: `Herentals–Antwerp area`,
+    tldr_ehbo_lbl: `First aid`,
+    tldr_ehbo_val: `First Aid & Helper, Red Cross Flanders`,
+    tldr_ehbo_sub: `Valid until 2028 · together a partial qualification as Event First-Aider`,
 
     /* contact */
     contact_eyebrow: `Contact`,
