@@ -14,7 +14,7 @@ window.I18N = {
     doc_desc: `Portfolio of Victor Van Sande, communication scientist with expertise in communication, media, (web)design, psychology, technology and leadership.`,
     /* nav */
     nav_home: `Home`,
-    nav_werk: `Work`,
+    nav_werk: `Portfolio`,
     nav_over: `About`,
     nav_opleiding: `Education`,
     nav_ervaring: `Experience`,

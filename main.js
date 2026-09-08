@@ -4,6 +4,59 @@
 (() => {
   "use strict";
 
+  /* ---- Navigatie opbouwen uit de secties zelf ----
+     De menubalk, de bolletjes rechts en de nummertjes bij de sectiekoppen
+     stonden alle drie apart in de html. Bij het verplaatsen van een sectie
+     moest je dus op vier plekken hetzelfde onthouden, en dat ging mis: de
+     volgorde in het menu liep niet meer gelijk met de volgorde op de pagina.
+
+     Nu is de pagina de enige bron. Elke sectie draagt zelf haar naam mee in
+     data-nav (de vertaalsleutel) en data-nav-nl (de Nederlandse tekst), en
+     hieronder worden beide navigaties in documentvolgorde opgebouwd. Verplaats
+     je een sectie, dan verhuizen het menu-item, het bolletje en het nummertje
+     vanzelf mee.
+
+     Dit moet vóór de vertaallus draaien: die maakt eenmalig een lijst van alle
+     [data-i18n]-knooppunten, en wat hier gemaakt wordt moet daarin zitten. */
+  const navSecties = [...document.querySelectorAll(".sec[data-nav]")];
+  const navLijst = document.querySelector(".nav-links");
+  const bolLijst = document.querySelector(".dot-nav");
+  if (navSecties.length && navLijst && bolLijst) {
+    navLijst.innerHTML = "";
+    bolLijst.innerHTML = "";
+    let nummer = 0;
+    navSecties.forEach((sec, i) => {
+      const sleutel = sec.dataset.nav;
+      const tekst = sec.dataset.navNl || sec.id;
+
+      const link = document.createElement("a");
+      link.href = "#" + sec.id;
+      link.dataset.i18n = sleutel;
+      link.textContent = tekst;
+      if (i === 0) link.className = "active";
+      navLijst.appendChild(link);
+
+      /* Het bolletje draagt zijn naam in een span: de css laat die bij hover en
+         bij het passeren van de sectie uit het bolletje poppen. */
+      const bol = document.createElement("a");
+      bol.href = "#" + sec.id;
+      bol.dataset.spy = sec.id;
+      if (i === 0) bol.className = "active";
+      const naam = document.createElement("span");
+      naam.dataset.i18n = sleutel;
+      naam.textContent = tekst;
+      bol.appendChild(naam);
+      bolLijst.appendChild(bol);
+
+      /* Het nummertje in de sectiekop telt mee met de volgorde. De thuissectie
+         en het portfolio hebben er geen: die kondigen zichzelf niet met een
+         nummer aan. */
+      const num = sec.querySelector(".ey-num");
+      if (num) num.textContent = String(++nummer).padStart(2, "0");
+    });
+  }
+
+
   const finePointer = window.matchMedia("(pointer:fine)").matches;
   let glowKick = null;
 
