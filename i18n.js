@@ -127,7 +127,7 @@ window.I18N = {
 
     /* about */
     over_eyebrow: `About me`,
-    over_h2: `Analytical in mind,<br><span class="grad-text em-serif">people-centred</span> by nature`,
+    over_h2: `Analytical in mind, <span class="grad-text em-serif">people-centred</span> by nature`,
     over_lead: `Thanks to three degrees that each sharpened a different part of my passions, I grew into an enthusiastic, empathetic and critical mind at the intersection of psychology, education and communication.`,
     over_bio1: `My academic background in communication, media, psychology and technology I combine with a sharp eye for design. Alongside that, I have spent years leading teams and projects, from a team of twenty group leaders to events for thousands of visitors.`,
     over_bio2: `For as long as I can remember I have been told I should &lsquo;do something with people&rsquo;: my studies gave that instinct a scientific footing, my youth movement a fast-track apprenticeship. Curious I remain regardless &mdash; you only really understand people once you understand the world around them.`,
@@ -167,7 +167,7 @@ window.I18N = {
 
     /* education */
     edu_eyebrow: `Education`,
-    edu_h2: `Three degrees,<br>one <span class="grad-text em-serif">common thread</span>`,
+    edu_h2: `Three degrees, one <span class="grad-text em-serif">common thread</span>`,
     edu_lead: `Psychology, teacher training and communication studies, in that order: each step built on the one before.`,
     edu1_sub: `Master in Communication Studies`,
     edu1_p: `This master’s fed my academic curiosity. I delved into journalism, media and the emerging technologies shaping those disciplines, and it confirmed my conviction that a scientific approach is indispensable in a fast-changing society. It broadened my view of media, politics and the discourse between them, while sharpening my communication skills further.`,
@@ -215,7 +215,7 @@ window.I18N = {
 
     /* experience */
     exp_eyebrow: `Experience`,
-    exp_h2: `A versatile<br><span class="grad-text em-serif">journey</span>`,
+    exp_h2: `A versatile <span class="grad-text em-serif">journey</span>`,
     exp_lead: `From communication and research to (web)design, leadership and education: experience across various fields, always with people at the centre.`,
     job_eyebrow: `Current employer`,
     gap_2025_2026: `After my master’s I took the time to look specifically for a place where communication, psychology and youth work come together. In the meantime I stayed on as head of KSA Herentals and kept running their website.`,
