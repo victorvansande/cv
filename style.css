@@ -506,7 +506,12 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .name-glow .gl-far .name-dot { background: hsl(190 88% 55%); }
 .lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
 .muted { color: var(--ink-dim); }
-.section-head { max-width: 64ch; margin-bottom: 46px; }
+/* Geen maximumbreedte op het kopblok zelf. Die stond op 64ch, wat hier zo'n
+   646 pixels is terwijl de kolom 1140 breed is - en dan brak een kop als
+   "Meegegroeid met KSA Herentals" af terwijl hij ruim naast elkaar past. De
+   leesbreedte hoort bij de inleiding, niet bij de kop, en die heeft met zijn
+   eigen 60ch al een grens. */
+.section-head { margin-bottom: 46px; }
 /* Losstaand labeltje boven een kaart, zonder kop eronder. Krap gehouden: het
    hoort bij de kaart die volgt, niet bij de sectie erboven, en de 46px van een
    volledige sectiekop zou het los doen zweven. */
