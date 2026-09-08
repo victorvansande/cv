@@ -1292,6 +1292,14 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .set-action svg { color: var(--acc-text); flex: none; }
 .set-action:hover { color: var(--acc-text); background: color-mix(in srgb, var(--c2) 10%, transparent);
   border-color: color-mix(in srgb, var(--c2) 38%, transparent); }
+/* Twee downloads onder elkaar, elk met een regel uitleg eronder. Het icoon
+   lijnt uit op de eerste regel in plaats van op het midden van het blok. */
+.set-action { align-items: flex-start; }
+.set-action svg { margin-top: 3px; }
+.set-action-txt { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.set-action-sub { font-size: .72rem; font-weight: 500; color: var(--ink-dim); line-height: 1.35; }
+.set-action:hover .set-action-sub { color: inherit; opacity: .82; }
+.set-action + .set-action { margin-top: 7px; }
 
 
 /* ---------- Knopje naar een bijlage (diploma, brevet) ----------

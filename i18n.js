@@ -311,6 +311,9 @@ window.I18N = {
     set_theme: `Colour theme`,
     set_download: `Downloads`,
     set_cv_pdf: `CV as PDF`,
+    set_cv_pdf_sub: `To email or print`,
+    set_cv_ats: `CV for application portals`,
+    set_cv_ats_sub: `Single column, machine-readable`,
     brand_sub: `Online CV`
   }
 };
