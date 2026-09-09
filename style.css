@@ -2328,7 +2328,7 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 
 /* De pilletjes onder de interessekaarten: kleiner, want ze zijn een staartje
    en geen tweede opsomming. */
-.personal-strip { gap: 7px; margin-top: 22px; }
+.personal-strip { gap: 7px; margin-top: 22px; justify-content: center; }
 .personal-chip { font-size: .76rem; padding: 4px 10px; gap: 5px; }
 .personal-label { font-size: .68rem; }
 
