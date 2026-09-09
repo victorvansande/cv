@@ -210,18 +210,18 @@
       <span class="eyebrow"><span class="dot"></span> <span data-i18n="tldr_eyebrow">TL;DR</span></span>
       <h2 class="h-lg" data-i18n="tldr_h2">De essentie <span class="grad-text em-serif">in één oogopslag</span></h2>
     </div>
-    <!-- Standaard open: dit is het eerste wat een bezoeker onder de hero ziet,
-         en het achter een klik zetten kost precies de twintig seconden die het
-         belooft te besparen. Inklappen kan nog wel. -->
-    <div class="glass tilt tldr-card reveal open" data-d="1">
-      <button class="tldr-toggle" aria-expanded="true" aria-controls="tldr-panel">
+    <!-- Standaard dicht, net als de andere luiken: wie de essentie wil, klapt
+         ze open. Zo blijft de pagina onder de hero rustig en houden alle
+         uitklapluiken dezelfde beginstand. -->
+    <div class="glass tilt tldr-card reveal" data-d="1">
+      <button class="tldr-toggle" aria-expanded="false" aria-controls="tldr-panel">
         <span class="tldr-toggle-txt">
           <strong data-i18n="tldr_toggle_open">Bekijk de essentie</strong>
           <span data-i18n="tldr_toggle_sub">8 kernfeiten in 20 seconden</span>
         </span>
         <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <div class="tldr-panel" id="tldr-panel">
+      <div class="tldr-panel" id="tldr-panel" inert>
         <div class="tldr-panel-inner">
           <div class="tldr-grid">
             <div class="tldr-item">
