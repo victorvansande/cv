@@ -129,13 +129,19 @@
   /* ---- Mobile nav ---- */
   const burger = document.querySelector(".burger");
   const links = document.querySelector(".nav-links");
+  /* Eén plek die de drie dingen gelijk houdt: de klasse die het menu in beeld
+     schuift, het kruisje van de burger, en aria-expanded - dat laatste is het
+     enige waaraan een schermlezer hoort of het menu openstaat. */
+  const zetMenu = (open) => {
+    if (!burger || !links) return;
+    links.classList.toggle("open", open);
+    burger.classList.toggle("on", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  };
   if (burger && links) {
-    burger.addEventListener("click", () => {
-      links.classList.toggle("open");
-      burger.classList.toggle("on");
-    });
+    burger.addEventListener("click", () => zetMenu(!links.classList.contains("open")));
     links.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => { links.classList.remove("open"); burger.classList.remove("on"); }));
+      a.addEventListener("click", () => zetMenu(false)));
   }
 
   /* ---- Balk klapt dicht zodra hij niet meer past ----
@@ -167,8 +173,7 @@
       wortel.classList.toggle("nav-compact", !past);
       // van uitgeklapt naar ingeklapt: een openstaand menu hoort dicht te gaan
       if (!past && !wasCompact && links && burger) {
-        links.classList.remove("open");
-        burger.classList.remove("on");
+        zetMenu(false);
       }
       wortel.classList.remove("nav-measuring");
     };
