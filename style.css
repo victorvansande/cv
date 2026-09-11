@@ -197,7 +197,7 @@ button { font-family: inherit; cursor: pointer; }
 main { overflow-x: clip; }
 .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 section { position: relative; }
-/* alleen verticaal — de shorthand wiste de horizontale .wrap-padding op
+/* alleen verticaal , de shorthand wiste de horizontale .wrap-padding op
    elementen met class="wrap section-pad" (tekst plakte tegen de schermrand) */
 .section-pad { padding-top: 68px; padding-bottom: 68px; }
 
@@ -397,7 +397,7 @@ section { position: relative; }
 .fx-circuit:hover .fx::after { animation: sweepfx 1.3s var(--ease) .1s; }
 @keyframes sweepfx { to { transform: translateX(100%); } }
 
-/* hoofdleider KSA: natuur — blaadjes dwarrelen over de kaart */
+/* hoofdleider KSA: natuur , blaadjes dwarrelen over de kaart */
 .fx-rally .fx { background: none; overflow: hidden; }
 .fx-rally .leaf {
   position: absolute; pointer-events: none;
@@ -428,7 +428,7 @@ section { position: relative; }
 .fx-neuro .neuro-svg { position: absolute; inset: 0; width: 100%; height: 100%;
   opacity: 0; transition: opacity .35s var(--ease); pointer-events: none; overflow: visible; }
 .fx-neuro:hover .neuro-svg { opacity: 1; }
-/* brain silhouette — faint, fades in behind the nodes */
+/* brain silhouette , faint, fades in behind the nodes */
 .brain-silhouette { opacity: 0; transition: opacity .55s var(--ease) .05s; }
 .fx-neuro:hover .brain-silhouette { opacity: 1; }
 .brain-outline { fill: color-mix(in srgb, var(--c2) 7%, transparent); stroke: color-mix(in srgb, var(--c2) 28%, transparent); stroke-width: 1.2; stroke-linejoin: round; }
@@ -764,7 +764,7 @@ h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-heigh
 .tl-sub { color: var(--ink); font-weight: 600; margin-bottom: 10px; font-size: .98rem; }
 .tl-card p { color: var(--ink-soft); font-size: .95rem; }
 .badge-hon { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: .82rem; font-weight: 600; color: #ffd479; }
-/* helder goud is te licht op de witte light mode — hier iets ingedonkerd, maar goudkleurig i.p.v. bruin */
+/* helder goud is te licht op de witte light mode , hier iets ingedonkerd, maar goudkleurig i.p.v. bruin */
 :root[data-mode="light"] .badge-hon { color: #b8860b; }
 :root[data-mode="light"] .lang-star { color: #b8860b; filter: none; }
 
@@ -1654,13 +1654,13 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 .dot-nav a.spy-pop span { opacity: 1; transform: translateY(-50%); }
 @media (max-width: 1180px) { .dot-nav { display: none; } }
 
-/* ---------- "Glim" sheen — only fires on mouseenter, not on leave ---------- */
+/* ---------- "Glim" sheen , only fires on mouseenter, not on leave ---------- */
 .chip, .skill-tag { position: relative; overflow: hidden; isolation: isolate; }
 .chip::after, .skill-tag::after {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
   background: linear-gradient(115deg, transparent 36%, color-mix(in srgb, var(--c2) 32%, transparent) 50%, transparent 64%);
   transform: translateX(-130%); }
-/* class toggled by JS on mouseenter only — no :hover so sweep never reverses on mouseleave */
+/* class toggled by JS on mouseenter only , no :hover so sweep never reverses on mouseleave */
 .chip.glim::after, .skill-tag.glim::after { animation: glimfx .65s var(--ease) forwards; }
 @keyframes glimfx { from { transform: translateX(-130%); } to { transform: translateX(130%); } }
 .skill-tag { transition: transform .25s var(--ease), border-color .25s, box-shadow .25s, color .25s; }
@@ -1711,13 +1711,13 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
    Nagebouwd naar het principe van de Sony-logoreveal: de kleur is
    niet de versiering maar het geboortemedium. Ze piekt VOOR de
    letters scherp zijn en is volledig weggetrokken zodra ze dat wel
-   zijn — daarna valt het licht binnen en verschijnt de pagina.
+   zijn , daarna valt het licht binnen en verschijnt de pagina.
 
    Alles speelt zich af op een zwarte laag bovenop de site, met een
    kopie van de naam exact over de echte (JS meet de positie). Zo
    hoeft er niets door de overflow/stacking-context van de glaskaart.
 
-   Prestatie: er animeren uitsluitend `opacity` en `transform` —
+   Prestatie: er animeren uitsluitend `opacity` en `transform` ,
    allebei volledig GPU-gecomposit. De scherptetrek is géén
    geanimeerde blur (die hapert omdat elk frame hergerasterd moet
    worden) maar een kruisvervaging tussen drie statisch vervaagde
@@ -1749,7 +1749,7 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
    dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
    in plaats van een JS-klasse, zodat de naam ook terugkomt als het script faalt.
    De :not(.in-l) is essentieel: de klonen dragen de klasse prism-host mee, en
-   zonder die uitzondering zou deze regel ook de kloonlagen verbergen — dan zie
+   zonder die uitzondering zou deze regel ook de kloonlagen verbergen , dan zie
    je tijdens de hele intro helemaal geen naam. */
 :root.intro .prism-host:not(.in-l) .grad-text { animation: intro-real-name 6.6s linear .12s both; }
 
@@ -1762,7 +1762,7 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 }
 /* De selector is bewust specifieker dan .h-xl: die zet in de mobiele media query
    zelf een !important-marge, en bij gelijke specificiteit zou de laatste regel
-   in het bestand winnen — dan zakt de kloon een paar pixels weg t.o.v. de
+   in het bestand winnen , dan zakt de kloon een paar pixels weg t.o.v. de
    echte naam en zie je op het eind een sprongetje. */
 .intro-stage .in-l {
   position: absolute; left: 0; top: 0;
@@ -1770,7 +1770,7 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
   opacity: 0; will-change: opacity;
 }
 /* alles behalve de naam wordt in de kloon onzichtbaar gezet, maar blijft wel
-   ruimte innemen — anders verschuift de regelval */
+   ruimte innemen , anders verschuift de regelval */
 /* Gebruikt door zowel de introlagen als de klikgloed: in een kloon blijft
    alles behalve de naam ruimte innemen, maar onzichtbaar - haal je het weg,
    dan verschuift de regelval. */
@@ -1781,7 +1781,7 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
    werd. Het rood komt nu pas na de flits terug, wanneer de echte naam
    eronder invloeit.
    De blur staat vast, dus elke laag wordt één keer gerasterd en daarna alleen
-   nog gecomposit — dat is wat het vloeiend houdt. */
+   nog gecomposit , dat is wat het vloeiend houdt. */
 .in-b3 .grad-text,
 .in-b1 .grad-text,
 .in-b0 .grad-text,
@@ -2028,7 +2028,7 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 @media (prefers-reduced-motion: reduce) { .name-glow { display: none; } }
 :root[data-motion="reduce"] .name-glow { display: none; }
 
-/* wie minder beweging wil, krijgt meteen de gewone pagina — en dus ook meteen
+/* wie minder beweging wil, krijgt meteen de gewone pagina , en dus ook meteen
    de echte naam, die anders door intro-real-name verborgen zou blijven */
 @media (prefers-reduced-motion: reduce) {
   :root.intro .intro-veil { display: none; }

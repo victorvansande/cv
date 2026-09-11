@@ -189,7 +189,7 @@
   /* ---- Prisma-intro: de naamlagen klonen uit de echte h1 ----
      De h1 gebruikt `text-wrap: balance`, die de regels verdeelt over de hele
      kop ("Hallo, ik ben" + de naam). Een kopie die alleen de naam bevat komt
-     daardoor op een andere regelval uit — vandaar dat er eerder een tweede
+     daardoor op een andere regelval uit, vandaar dat er eerder een tweede
      "Sande" op een eigen regel kon belanden. Door de volledige h1 te klonen en
      daarin alles behalve de naam onzichtbaar te zetten, is de zetting per
      definitie identiek: zelfde inhoud, zelfde breedte, zelfde balancering. */
@@ -665,12 +665,12 @@
     { q: "Either you repeat the same conventional doctrines everybody is saying, or else you say something true, and it will sound like it's from Neptune.", a: "Noam Chomsky" },
     { q: "Just because your voice reaches halfway around the world doesn't mean you are wiser than when it reached only to the end of the bar.", a: "Edward R. Murrow" },
     { q: "Facts do not cease to exist because they are ignored.", a: "Aldous Huxley" },
-    { q: "The greatest obstacle to discovery is not ignorance — it is the illusion of knowledge.", a: "Daniel J. Boorstin" },
+    { q: "The greatest obstacle to discovery is not ignorance, it is the illusion of knowledge.", a: "Daniel J. Boorstin" },
     { q: "The map is not the territory.", a: "Alfred Korzybski" },
     { q: "Half the money I spend on advertising is wasted; the trouble is I don't know which half.", a: "John Wanamaker" },
     { q: "There is nothing more deceptive than an obvious fact.", a: "Arthur Conan Doyle" },
     { q: "Those who cannot remember the past are condemned to repeat it.", a: "George Santayana" },
-    { q: "Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances.", a: "Viktor Frankl" },
+    { q: "Everything can be taken from a man but one thing: the last of the human freedoms: to choose one's attitude in any given set of circumstances.", a: "Viktor Frankl" },
     { q: "Creativity is just connecting things.", a: "Steve Jobs" },
     { q: "Simplicity is not the goal. It is the by-product of a good idea and modest expectations.", a: "Paul Rand" },
     { q: "A language is a dialect with an army and a navy.", a: "Max Weinreich" },
@@ -680,7 +680,7 @@
     { q: "The single biggest problem in communication is the illusion that it has taken place.", a: "George Bernard Shaw" },
     { q: "Without data, you're just another person with an opinion.", a: "W. Edwards Deming" },
     { q: "A picture is worth a thousand words, but only if you know the thousand words.", a: "Umberto Eco" },
-    { q: "The function of education is to teach one to think intensively and to think critically. Intelligence plus character — that is the goal of true education.", a: "Martin Luther King Jr." },
+    { q: "The function of education is to teach one to think intensively and to think critically. Intelligence plus character: that is the goal of true education.", a: "Martin Luther King Jr." },
     { q: "The most important thing in communication is hearing what isn't said.", a: "Peter Drucker" },
     { q: "We do not see things as they are, we see them as we are.", a: "Anaïs Nin" },
   ];
@@ -691,7 +691,7 @@
   if (qWrap && qText && qAuth) {
     const shuffled = [...QUOTES].sort(() => Math.random() - 0.5);
     let qi = 0;
-    const show = ({ q, a }) => { qText.textContent = q; qAuth.textContent = "— " + a; };
+    const show = ({ q, a }) => { qText.textContent = q; qAuth.textContent = "– " + a; };
     const rotate = () => {
       qWrap.classList.add("fading");
       setTimeout(() => {
