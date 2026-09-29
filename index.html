@@ -37,9 +37,9 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=196" />
-  <script src="i18n.js?v=64" defer></script>
-  <script src="main.js?v=83" defer></script>
+  <link rel="stylesheet" href="style.css?v=197" />
+  <script src="i18n.js?v=65" defer></script>
+  <script src="main.js?v=84" defer></script>
   <script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('cv-theme');d.dataset.theme=['indigo','teal','emerald','amber','rose','slate','violet'].indexOf(t)<0?'rose':t;d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(d.dataset.motion!=='reduce'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pips-animeren');if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
 </head>
 <body>
@@ -56,7 +56,7 @@
     </div>
     <!-- de naamlagen worden door main.js gekloond uit de echte h1, zodat de
          regelafbreking (text-wrap: balance) gegarandeerd identiek is -->
-    <div class="intro-stage"></div>
+    <div class="intro-stage" aria-hidden="true"></div>
   </div>
   <div class="bg-canvas"></div>
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="blob b5"></div>
@@ -180,7 +180,7 @@
              alleen op een eigen regel. Een word joiner helpt daar niet tegen:
              die geldt niet voor zo'n blokje. De naam mag nog wel afbreken, maar
              dan tussen "Van" en "Sande". -->
-        <p class="hero-loc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-i18n="hero_loc">Woont en werkt in provincie Antwerpen</span></p>
+        <p class="hero-loc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-i18n="hero_loc">Woont en werkt in de provincie Antwerpen</span></p>
         <p class="lead">
           <span data-i18n="hero_lead_1">Communicatiewetenschapper met expertise in</span>
           <strong data-rotate='["communicatie","(web)design","psychologie","media","technologie","journalistiek","leiderschap"]' data-rotate-en='["communication","(web)design","psychology","media","technology","journalism","leadership"]' class="em-serif" style="color:var(--ink);transition:.35s var(--ease);display:inline-block">communicatie</strong><br><span data-i18n="hero_lead_2">Ik benader communicatie op een analytische, wetenschappelijke manier, zonder daarbij de mens achter de boodschap uit het oog te verliezen.</span>
@@ -458,7 +458,7 @@
          niet, en dan zou de uitleg onbereikbaar zijn. -->
     <div class="gap-hint reveal">
       <button type="button" class="gap-knop" aria-expanded="false" aria-controls="gap-tip">
-        <span>sep 2025 &ndash; mei 2026</span>
+        <span data-i18n="gap_date">sep 2025 &ndash; mei 2026</span>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
       </button>
       <span class="gap-tip" id="gap-tip" role="tooltip" data-i18n="gap_2025_2026">Na mijn master nam ik de tijd om gericht te zoeken naar een plek waar communicatie, psychologie en jeugdwerk samenkomen. Ondertussen bleef ik hoofdleider bij KSA Herentals en beheerde ik hun website.</span>
@@ -504,14 +504,14 @@
       </div>
       <div class="role-list">
         <div class="role-row">
-          <div class="rt"><h4 data-i18n="ksa_role1_h">Website Designer</h4><span class="rd" data-i18n="ksa_role1_date">2022 – heden</span></div>
+          <div class="rt"><h4 data-i18n="ksa_role1_h">Webdesigner</h4><span class="rd" data-i18n="ksa_role1_date">2022 – heden</span></div>
           <p data-i18n="ksa_role1_p">Ik richtte <a href="https://ksaherentals.be" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be ↗</a> zelfstandig op en beheer die als hoofdplatform voor de volledige werking: ledenplanning, activiteiten én een maandelijkse blog die ik zelf schrijf en publiceer.</p>
-          <div class="skill-tags"><span class="skill-tag">User Interface Design</span><span class="skill-tag">Website Building</span><span class="skill-tag" data-i18n="tag_webmgmt">Webbeheer</span></div>
+          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_ui">UI-design</span><span class="skill-tag" data-i18n="tag_webbuild">Websites bouwen</span><span class="skill-tag" data-i18n="tag_webmgmt">Webbeheer</span></div>
         </div>
         <div class="role-row">
           <div class="rt"><h4 data-i18n="ksa_role2_h">Hoofdleider</h4><span class="rd" data-i18n="ksa_role2_date">sep 2019 – sep 2026</span></div>
           <p data-i18n="ksa_role2_p">Verantwoordelijk voor het leiden van de jeugdbeweging: ik coördineerde een team van gemiddeld 20 jongvolwassenen, organiseerde activiteiten en grootschalige events en vertegenwoordigde de organisatie in de lokale gemeenschap. Als hoofdverantwoordelijke organiseerde ik tientallen evenementen, samen goed voor meer dan 10.000 bezoekers.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_teammgmt">Teammanagement</span><span class="skill-tag">Event Planning</span><span class="skill-tag">Social media</span></div>
+          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_teammgmt">Teammanagement</span><span class="skill-tag" data-i18n="tag_events">Evenementen organiseren</span><span class="skill-tag" data-i18n="tag_social">Sociale media</span></div>
         </div>
         <div class="role-row">
           <div class="rt"><h4 data-i18n="ksa_role3_h">Leider</h4><span class="rd" data-i18n="ksa_role3_date">sep 2015 – sep 2026</span></div>
@@ -537,7 +537,7 @@
       <div class="stage-row">
         <span class="stage-yr">2022</span>
         <div class="stage-info"><strong>Sint-Lutgardisschool</strong><span data-i18n="stage2_short">Leerkracht wetenschappen (stage)</span></div>
-        <span class="stage-loc">Antwerpen</span>
+        <span class="stage-loc" data-i18n="loc_antwerpen">Antwerpen</span>
       </div>
       <div class="stage-row">
         <span class="stage-yr">2020</span>
@@ -617,7 +617,7 @@
             <span class="skill-tag">Google Analytics</span>
             <span class="skill-tag">SPSS</span>
             <span class="skill-tag">Qualtrics</span>
-            <span class="skill-tag">Office 365</span>
+            <span class="skill-tag">Microsoft 365</span>
             <span class="skill-tag" data-i18n="tool_markdown">Markdown &amp; documentatie</span>
           </div>
         </div>
@@ -766,7 +766,7 @@
 
         <div class="tl-item reveal">
           <div class="glass tilt tl-card">
-            <div class="tl-head"><h3>Universiteit Antwerpen</h3><span class="tl-date">sep 2023 – sep 2025</span></div>
+            <div class="tl-head"><h3 data-i18n="edu1_school">Universiteit Antwerpen</h3><span class="tl-date" data-i18n="edu1_date">sep 2023 – sep 2025</span></div>
             <p class="tl-sub grad-text" data-i18n="edu1_sub">Master in de communicatiewetenschappen</p>
             <p data-i18n="edu1_p">Deze master voedde mijn academische nieuwsgierigheid. Ik verdiepte me in journalistiek, media en de opkomende technologieën die deze vakgebieden vormgeven, en bevestigde mijn overtuiging dat een wetenschappelijke aanpak onmisbaar is in een snel veranderende samenleving. Het verbreedde mijn kijk op media, politiek en het discours daartussen, terwijl ik mijn communicatievaardigheden verder aanscherpte.</p>
             <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> <span data-i18n="edu1_badge">Afgestudeerd met onderscheiding</span></span>
@@ -776,7 +776,7 @@
 
         <div class="tl-item reveal" data-d="1">
           <div class="glass tilt tl-card">
-            <div class="tl-head"><h3>Karel de Grote Hogeschool</h3><span class="tl-date">sep 2020 – jun 2023</span></div>
+            <div class="tl-head"><h3>Karel de Grote Hogeschool</h3><span class="tl-date" data-i18n="edu2_date">sep 2020 – jun 2023</span></div>
             <p class="tl-sub grad-text" data-i18n="edu2_sub">Educatieve Bachelor: Wetenschappen &amp; Engels</p>
             <p data-i18n="edu2_p">Deze opleiding verdiepte mijn academische interesse, ditmaal in zowel Engels als de natuurwetenschappen. Ik leerde deze vakken aan jongeren overbrengen met hetzelfde enthousiasme waarmee ik ze zelf beleef. Dat versterkte mijn wetenschappelijke kennis, bevestigde mijn C2-niveau Engels en verbreedde bovendien mijn opties voor de toekomst.</p>
             <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> <span data-i18n="edu2_badge">Afgestudeerd met onderscheiding</span></span>
@@ -786,7 +786,7 @@
 
         <div class="tl-item reveal" data-d="2">
           <div class="glass tilt tl-card">
-            <div class="tl-head"><h3>Thomas More Hogeschool</h3><span class="tl-date">sep 2017 – jun 2020</span></div>
+            <div class="tl-head"><h3>Thomas More Hogeschool</h3><span class="tl-date" data-i18n="edu3_date">sep 2017 – jun 2020</span></div>
             <p class="tl-sub grad-text" data-i18n="edu3_sub">Bachelor in de Toegepaste Psychologie</p>
             <p data-i18n="edu3_p">Mijn eerste diploma leerde me doorzettingsvermogen en zelfstandigheid, en wekte mijn interesse in de academische wereld. Ik leerde zowel groepen als individuen begeleiden en verwierf diepgaand inzicht in de menselijke psyche, telkens toegepast in een reële context. Met de officiële titel psychologisch consulent kan ik hulpvragen inschatten, erover reflecteren en gericht feedback geven, op basis van actuele wetenschappelijke inzichten.</p>
             <span class="badge-hon" style="color:var(--acc-text)"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg> <span data-i18n="edu3_badge">Titel: psychologisch consulent</span></span>
@@ -827,7 +827,7 @@
         <div class="thesis-stat"><div class="n"><span data-count="241">241</span></div><div class="l" data-i18n="stat_respondents">respondenten</div></div>
         <div class="thesis-stat"><div class="n">18&ndash;65</div><div class="l" data-i18n="stat_age">jaar, Vlaanderen</div></div>
         <div class="thesis-stat"><div class="n">2</div><div class="l" data-i18n="stat_scales">meetschalen (ETMCQ + GCB-5)</div></div>
-        <div class="thesis-stat"><div class="n"><span data-count="14716">14716</span></div><div class="l" data-i18n="stat_words">woorden</div></div>
+        <div class="thesis-stat"><div class="n"><span data-count="14716">14.716</span></div><div class="l" data-i18n="stat_words">woorden</div></div>
       </div>
       <div class="thesis-bottom">
         <div class="thesis-findings">

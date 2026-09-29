@@ -116,6 +116,13 @@ button { font-family: inherit; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--c2); outline-offset: 3px; border-radius: 4px; }
 :root[data-mode="light"] :focus-visible { outline-color: var(--c1); }
 ::selection { background: color-mix(in srgb, var(--c1) 35%, transparent); color: #fff; }
+/* Kleine afwerking. De schuifbalk neemt de accentkleur van het gekozen thema
+   over. Alinea's laten geen los woord op de laatste regel staan (de koppen
+   krijgen al balance, verderop). En op een telefoon flitst er geen grijs vlak
+   bij een tik, aangezien knoppen hun eigen feedback al geven. */
+html { scrollbar-color: color-mix(in srgb, var(--c2) 55%, transparent) transparent; }
+p, li, figcaption { text-wrap: pretty; }
+a, button, summary, label { -webkit-tap-highlight-color: transparent; }
 
 /* ---------- Animated background ---------- */
 .bg-canvas {

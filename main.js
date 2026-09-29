@@ -412,6 +412,14 @@
   const stilstaand = () =>
     matchMedia("(prefers-reduced-motion: reduce)").matches ||
     document.documentElement.dataset.motion === "reduce";
+  /* Grote getallen krijgen een scheidingsteken volgens de taal van de pagina:
+     14.716 in het Nederlands, 14,716 in het Engels. */
+  const toonGetal = (n, suffix) =>
+    (Number.isInteger(n) ? n.toLocaleString(document.documentElement.lang === "en" ? "en" : "nl") : n.toFixed(1)) + suffix;
+  window.__hertelGetallen = () => document.querySelectorAll("[data-count]").forEach((el) => {
+    if (el.dataset.telt) return;
+    el.textContent = toonGetal(parseFloat(el.dataset.count), el.dataset.suffix || "");
+  });
   const countIO = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (!e.isIntersecting) return;
@@ -420,14 +428,16 @@
       const target = parseFloat(el.dataset.count);
       const suffix = el.dataset.suffix || "";
       const eindstand = () => {
-        el.textContent = (Number.isInteger(target) ? target : target.toFixed(1)) + suffix;
+        delete el.dataset.telt;
+        el.textContent = toonGetal(target, suffix);
       };
       if (stilstaand()) { eindstand(); return; }
+      el.dataset.telt = "1";
       const dur = 2400; const start = performance.now();
       const step = (now) => {
         const p = Math.min((now - start) / dur, 1);
         const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = (Number.isInteger(target) ? Math.round(target * eased) : (target * eased).toFixed(1)) + suffix;
+        el.textContent = toonGetal(Number.isInteger(target) ? Math.round(target * eased) : target * eased, suffix);
         if (p < 1) requestAnimationFrame(step); else eindstand();
       };
       requestAnimationFrame(step);
@@ -615,6 +625,7 @@
     try { localStorage.setItem("cv-lang", lang); } catch (e) {}
     if (langBtn) langBtn.setAttribute("aria-label", en ? "Schakel naar Nederlands · Switch to Dutch" : "Switch to English · Schakel naar Engels");
     if (window.__syncRotator) window.__syncRotator();
+    if (window.__hertelGetallen) window.__hertelGetallen();
     packSkillTags();
     // de menu-items worden langer of korter; de balk moet opnieuw nameten
     window.dispatchEvent(new Event("cv-layout"));
