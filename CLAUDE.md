@@ -16,6 +16,13 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   site draait op GitHub Pages vanaf de root van `main`, dus een push is
   tegelijk de publicatie. Push als laatste stap van een taak, niet per losse
   edit, en meld de commit-hash in de samenvatting.
+- **In een cloudsessie** krijgt Claude een eigen werkbranch toegewezen
+  (bijvoorbeeld `main-xxxxxx`). Victor heeft uitdrukkelijk toestemming gegeven
+  om daar niet op te blijven hangen: commit op de werkbranch, push die, en zet
+  `main` daarna meteen gelijk met `git push origin <werkbranch>:main`. Dat moet
+  een fast-forward zijn; lukt dat niet omdat `main` intussen verder staat, dan
+  eerst `git fetch origin main` en `git merge origin/main`, nooit force-pushen.
+  Pas na de push naar `main` staat de wijziging live. Geen pull request maken.
 - **Cache-versie ophogen** bij elke wijziging aan `style.css`, `main.js` of
   `i18n.js`: de `?v=N` in `index.html` (regels 40 tot 42). Anders zien
   bezoekers de oude versie.
@@ -53,7 +60,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   opgemaakt volgens de taal (14.716 / 14,716) via `toonGetal()` in `main.js`.
 - **Intro-animatie**: `main.js` kloont de `h1` in `.intro-stage`, die daarom
   `aria-hidden="true"` draagt.
-- **Regeleinden**: `main.js` staat in de werkmap op CRLF, de rest op LF. Bij
+- **Regeleinden**: in de repo staat alles op LF. Op Victors Windows-machine
+  staat `main.js` in de werkmap op CRLF, in de cloud is alles LF. Bij
   vervangingen met scripts rekening mee houden, en nooit bestanden in hun geheel
   van regeleinden laten wisselen.
 - **Codecommentaar** is in het Nederlands en legt vaak uit *waarom* iets zo
@@ -69,6 +77,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
 - In een verborgen of headless browser lopen transities, `IntersectionObserver`
   en `requestAnimationFrame` vaak niet. Forceer dan `.reveal.in` om secties te
   zien en verwar dat niet met een bug.
+- **In de cloud** staat Chromium klaar met Playwright (`/opt/pw-browsers`, nooit
+  `playwright install` draaien). `tools/shot.js` maakt screenshots op 1280 en
+  375 pixels en meldt consolefouten:
+  `NODE_PATH=$(npm root -g) node tools/shot.js <uitmap> [tijdstippen in s]`.
+  Met tijdstippen zet het alle animaties stil op die momenten, zodat je de
+  intro beeld per beeld kunt bekijken; zonder tijdstippen neemt het de pagina
+  na het laden. Zet de server eerst aan met `python3 -m http.server 4322`.
+  Screenshots horen in de scratchpad, niet in de repo.
 
 ## De PDF's en de linkafbeelding
 
@@ -79,13 +95,17 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   blijven.
   - Windows: headless Edge met `--headless=new --no-pdf-header-footer
     --print-to-pdf=<uit> file:///<bron>`.
-  - Linux/cloud: hetzelfde met `chromium` of `google-chrome`, indien
-    beschikbaar. Controleer met `pdftotext` (aantal pagina's = aantal `\f`).
-    Is er geen browser, laat de PDF dan staan en meld aan Victor dat hij ze
-    lokaal opnieuw moet laten genereren.
+  - Cloud: `/opt/pw-browsers/chromium-*/chrome-linux/chrome --headless=new
+    --no-sandbox --no-pdf-header-footer --print-to-pdf=<uit> file://$PWD/<bron>`
+    (getest, de dbus-foutmelding is onschuldig). Controleer met `pdftotext`:
+    `pdftotext <pdf> - | tr -cd '\f' | wc -c` moet `2` geven.
+  - Elders op Linux: hetzelfde met `chromium` of `google-chrome`. Is er geen
+    browser, laat de PDF dan staan en meld aan Victor dat hij ze lokaal
+    opnieuw moet laten genereren.
 - `assets/og-image.jpg` komt uit `assets/og-source.html` via
-  `assets/og-gen.ps1` (enkel Windows). Op Linux kan een headless Chromium-screenshot
-  op 1200x630 hetzelfde doen.
+  `assets/og-gen.ps1` (enkel Windows). In de cloud:
+  `NODE_PATH=$(npm root -g) node tools/og.js` (getest, webfonts laden mee).
+  Niet `chrome --screenshot` gebruiken: dat snijdt onderaan een strook af.
 
 ## Openstaande punten
 
