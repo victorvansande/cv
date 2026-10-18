@@ -1820,7 +1820,26 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
   animation: intro-burst 6.6s linear .12s both;
 }
 /* op zwart is additief blenden overbodig: geen mix-blend-mode = veel goedkoper */
-.pl { position: absolute; border-radius: 50%; will-change: transform; }
+.pl { position: absolute; border-radius: 50%; will-change: transform, opacity; }
+/* Het doorlopende spectrumveld. Klein geschaald, bij het opkomen, verraadden de
+   vijf lobben zich als losse gekleurde ovalen: elk heeft een eigen midden en een
+   eigen rand. Dit veld is één verloop met één zachte rand, dus daar valt niets
+   te onderscheiden. Het draagt de opkomst alleen; de lobben vloeien er pas in
+   wanneer de bloei groot genoeg is dat hun randen wegvallen, en geven dan de
+   vloeistofachtige beweging van het uitdijen. Het masker heeft meerdere stops,
+   zodat de rand geleidelijk uitdooft in plaats van op één lijn af te breken. */
+.pl-field {
+  position: absolute; left: -6%; top: 31%; width: 112%; height: 38%;
+  background: linear-gradient(90deg,
+    hsl(26 92% 56% / .74) 4%, hsl(332 84% 58% / .64) 30%, hsl(268 82% 62% / .66) 50%,
+    hsl(210 92% 57% / .72) 70%, hsl(190 88% 55% / .66) 96%);
+  -webkit-mask-image: radial-gradient(ellipse farthest-side at 50% 50%,
+    #000 0%, rgba(0,0,0,.82) 28%, rgba(0,0,0,.48) 55%, rgba(0,0,0,.16) 80%, transparent 100%);
+          mask-image: radial-gradient(ellipse farthest-side at 50% 50%,
+    #000 0%, rgba(0,0,0,.82) 28%, rgba(0,0,0,.48) 55%, rgba(0,0,0,.16) 80%, transparent 100%);
+  will-change: transform;
+  animation: pl-drift-c 6.6s cubic-bezier(.5,0,.3,1) .12s both;
+}
 /* de spectrale sweep uit de video: amber links -> magenta/violet -> azuur/cyaan rechts */
 /* `ellipse farthest-side` laat elke lob zijn eigen vak volledig vullen en pas
    aan de rand uitdoven; met deze overlap vloeien ze samen tot één doorlopend
@@ -1828,27 +1847,27 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 .pl-warm {
   left: -3%; top: 38%; width: 44%; height: 24%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(26 92% 56% / .80), hsl(26 92% 56% / 0));
-  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both;
+  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both, pl-in 6.6s linear .12s both;
 }
 .pl-magenta {
   left: 14%; top: 39%; width: 42%; height: 22%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(332 84% 58% / .68), hsl(332 84% 58% / 0));
-  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both;
+  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both, pl-in 6.6s linear .12s both;
 }
 .pl-violet {
   left: 30%; top: 37%; width: 44%; height: 26%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(268 82% 62% / .70), hsl(268 82% 62% / 0));
-  animation: pl-drift-c 6.6s cubic-bezier(.5,0,.3,1) .12s both;
+  animation: pl-drift-c 6.6s cubic-bezier(.5,0,.3,1) .12s both, pl-in 6.6s linear .12s both;
 }
 .pl-azure {
   left: 46%; top: 38%; width: 44%; height: 24%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(210 92% 57% / .78), hsl(210 92% 57% / 0));
-  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse;
+  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse, pl-in 6.6s linear .12s both;
 }
 .pl-cyan {
   left: 63%; top: 39%; width: 42%; height: 22%;
   background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(190 88% 55% / .70), hsl(190 88% 55% / 0));
-  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse;
+  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse, pl-in 6.6s linear .12s both;
 }
 
 /* De percentages zijn herrekend naar de langere duur, zodat het zwart op
@@ -1941,6 +1960,14 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
 /* De drift is meegecomprimeerd naar 86,4%: daar zijn de kleuren weg, en zonder
    die correctie zou de uitwaaiering trager lopen dan voorheen. Na dat punt
    staat alles stil, maar dat is toch niet meer zichtbaar. */
+/* De lobben komen pas op wanneer de bloei ruim een halve schermbreedte beslaat
+   (scale ~0,5 en meer): dan zijn hun randen breed genoeg om in het veld op te
+   gaan. Tot dan draagt het spectrumveld alleen de kleur. */
+@keyframes pl-in {
+  0%, 20% { opacity: 0; }
+  42%     { opacity: 1; }
+  100%    { opacity: 1; }
+}
 @keyframes pl-drift-a {
   0%     { transform: translate3d(-5%, 4%, 0) scale(1.26); }
   38.9%  { transform: translate3d(-1%, 0, 0) scale(1.36); }
