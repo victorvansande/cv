@@ -738,7 +738,21 @@
     try { localStorage.setItem("cv-theme", t); } catch (e) {}
     document.querySelectorAll(".swatch").forEach((s) =>
       s.classList.toggle("active", s.dataset.theme === t));
+    zetFavicon();
   };
+  /* Het punt in de favicon neemt de themakleur over, zoals het punt achter
+     "Van Sande." in de hero. De vorm is dezelfde als assets/icons/favicon.svg;
+     enkel de kleur van het punt wisselt. Safari toont de png en kleurt dus
+     niet mee, wat geen probleem is: daar staat gewoon het rode punt. */
+  function zetFavicon() {
+    const link = document.getElementById("favicon");
+    if (!link) return;
+    const kleur = getComputedStyle(document.documentElement).getPropertyValue("--c2").trim() || "#e11d2e";
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="24" fill="#12151f"/>' +
+      '<path d="M18 22H35L44 49L53 22H70L52 76H36Z" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>' +
+      '<circle cx="77" cy="69" r="7" fill="' + kleur + '"/></svg>';
+    link.href = "data:image/svg+xml," + encodeURIComponent(svg);
+  }
   document.querySelectorAll(".swatch").forEach((s) =>
     s.addEventListener("click", () => applyTheme(s.dataset.theme)));
   applyTheme((() => { try { return localStorage.getItem("cv-theme"); } catch (e) { return null; } })()

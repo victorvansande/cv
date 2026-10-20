@@ -17,7 +17,8 @@ Live: <https://victorvansande.github.io/cv/>
 | `over.html`, `opleiding.html`, `ervaring.html`, `contact.html` | Redirect-stubs die oude multi-page URL's doorsturen naar de juiste sectie van `index.html` |
 | `serve.ps1` | Lokale dev-server (PowerShell) |
 | `cv-print.html` | Print-geoptimaliseerde bron voor de downloadbare CV-PDF |
-| `assets/` | Profielfoto, diplomascans, CV-PDF, masterproef-PDF, og-image + bron/script |
+| `assets/` | Profielfoto, diplomascans, CV-PDF, masterproef-PDF, og-image + bron/script, favicon en app-iconen (`assets/icons`, script `icon-gen.ps1`) |
+| `manifest.webmanifest` | Naam en iconen voor wie de site aan het startscherm toevoegt |
 
 ## Functies
 

@@ -12,6 +12,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "4322"],
       "port": 4322
+    },
+    {
+      "name": "cv-windows",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-ExecutionPolicy", "Bypass", "-File", "serve.ps1"],
+      "port": 5180
     }
   ]
 }

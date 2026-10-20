@@ -106,6 +106,13 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `assets/og-gen.ps1` (enkel Windows). In de cloud:
   `NODE_PATH=$(npm root -g) node tools/og.js` (getest, webfonts laden mee).
   Niet `chrome --screenshot` gebruiken: dat snijdt onderaan een strook af.
+- **Favicon en app-icoon** (een witte V met een punt in de themakleur, zoals
+  "Van Sande." in de hero): de bronnen zijn `assets/icons/favicon.svg`
+  (afgeronde tegel) en `assets/icons/icon-full.svg` (vierkant, inhoud op 80 %
+  zodat Android er een cirkel uit kan knippen). De png's ernaast komen uit
+  `assets/icon-gen.ps1` (Windows). `main.js` (`zetFavicon`) kleurt het punt
+  mee met het gekozen thema en bevat dezelfde vorm: wie de vorm aanpast, past
+  ze op beide plaatsen aan. `manifest.webmanifest` verwijst naar de png's.
 
 ## Openstaande punten
 
