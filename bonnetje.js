@@ -17,7 +17,6 @@
   const blok = document.querySelector(".snap");
   if (!blok) return;
   const printKnop = blok.querySelector(".snap-print");
-  const bewaarKnop = blok.querySelector(".snap-save");
   const vak = blok.querySelector(".snap-area");
   const papier = blok.querySelector(".snap-sheet");  // wordt afgescheurd
   const cv = blok.querySelector(".snap-cv");
@@ -165,14 +164,20 @@
      vak (enkel onderaan). Zo verschuift er niets op de pagina; wie hier is,
      heeft wat erboven staat doorgaans al gelezen. */
   const feed = blok.querySelector(".snap-feed");
+  /* Het papier dat nog "in de printer" zit, staat onder de gleuf en is daar
+     onzichtbaar, maar telt wel mee voor de hoogte van de pagina: onderaan
+     verscheen dan een lege strook. Daarom staat het papier helemaal uit
+     zolang er niets geprint wordt of hangt. */
+  const vel = feed.querySelector(".snap-paper");
   const zetHoogte = (h) => {
-    feed.querySelector(".snap-paper").style.transform = "translateY(" + (hoogte - h).toFixed(1) + "px)";
+    vel.style.display = h > 0 || bezig ? "" : "none";
+    vel.style.transform = "translateY(" + (hoogte - h).toFixed(1) + "px)";
   };
   const zetVak = () => zetHoogte(geprint || bezig ? hoogte : 0);
   const print = () => {
     if (bezig) return;
     bezig = true;
-    printKnop.disabled = true; bewaarKnop.disabled = true;
+    printKnop.disabled = true;
     // eerst het lettertype van het bonnetje, anders tekent het canvas in een vervanglettertype
     const lt = document.fonts && document.fonts.load ? document.fonts.load('400 11px "IBM Plex Mono"').catch(() => {}) : Promise.resolve();
     Promise.race([lt, new Promise((r) => setTimeout(r, 1200))]).then(voeren);
@@ -185,8 +190,9 @@
     const klaar = () => {
       bezig = false; geprint = true;
       led.classList.remove("aan");
-      printKnop.disabled = false; bewaarKnop.disabled = false;
-      label(printKnop, sjabloon("opnieuw"));
+      printKnop.disabled = false;
+      printKnop.classList.add("bewaren");
+      label(printKnop, sjabloon("bewaar"));
       if (hint) hint.hidden = false;
     };
     if (rustig()) { zetHoogte(hoogte); klaar(); return; }
@@ -227,18 +233,24 @@
       setTimeout(() => { knop.style.width = ""; }, 380);
     }, 160);
   };
-  [printKnop, bewaarKnop].forEach((k) => k.addEventListener("animationend", (e) => { if (e.animationName === "bel-ring") k.classList.remove("belt"); }));
-  printKnop.addEventListener("click", () => { bel(printKnop); label(printKnop, sjabloon("bezig")); });
-  printKnop.addEventListener("click", print);
+  /* Eén knop: zolang er geen bonnetje uit de printer hangt, print hij er een;
+     daarna bewaart hij het als afbeelding. Wie het bonnetje afscheurt, krijgt
+     weer de printknop. */
+  printKnop.addEventListener("animationend", (e) => { if (e.animationName === "bel-ring") printKnop.classList.remove("belt"); });
+  printKnop.addEventListener("click", () => {
+    if (bezig) return;
+    bel(printKnop);
+    if (geprint) { bewaar(); return; }
+    label(printKnop, sjabloon("bezig"));
+    print();
+  });
   printKnop.querySelector(".bel-txt").textContent = sjabloon("print");
-  bewaarKnop.querySelector(".bel-txt").textContent = sjabloon("bewaar");
 
   let bewaardTimer = null;
-  bewaarKnop.addEventListener("click", () => {
-    bel(bewaarKnop);
-    label(bewaarKnop, sjabloon("bewaard"));
+  const bewaar = () => {
+    label(printKnop, sjabloon("bewaard"));
     clearTimeout(bewaardTimer);
-    bewaardTimer = setTimeout(() => label(bewaarKnop, sjabloon("bewaar")), 1800);
+    bewaardTimer = setTimeout(() => { if (geprint) label(printKnop, sjabloon("bewaar")); }, 1800);
     cv.toBlob((blob) => {
       if (!blob) return;
       const a = document.createElement("a");
@@ -247,7 +259,7 @@
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
     }, "image/png");
-  });
+  };
 
   /* ---- Afscheuren ----
      Zoals bij een echte kassabon: trek het bonnetje opzij of omhoog. Opzij
@@ -268,7 +280,9 @@
     papier.classList.remove("gescheurd");
   };
   const afgescheurd = () => {
-    geprint = false; bewaarKnop.disabled = true;
+    geprint = false;
+    clearTimeout(bewaardTimer);
+    printKnop.classList.remove("bewaren");
     if (hint) hint.hidden = true;
     label(printKnop, sjabloon("print"));
   };
@@ -343,8 +357,7 @@
 
   // bij een taalwissel staat het bonnetje er in de vorige taal: opnieuw tekenen
   addEventListener("cv-layout", () => {
-    printKnop.querySelector(".bel-txt").textContent = sjabloon(bezig ? "bezig" : (geprint ? "opnieuw" : "print"));
-    bewaarKnop.querySelector(".bel-txt").textContent = sjabloon("bewaar");
+    printKnop.querySelector(".bel-txt").textContent = sjabloon(bezig ? "bezig" : (geprint ? "bewaar" : "print"));
     if (geprint && !bezig) { maak(); zetVak(); }
   });
   // het lettertype van het bonnetje alvast ophalen

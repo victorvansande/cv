@@ -68,15 +68,15 @@
   --c-edge: 27 22 18; --c-track: #d8cfc4;
   color-scheme: light;
 }
-:root[data-mode="light"] .g-eclipse  { --g-bg: #f8f1e8; --g-ink: #1b1612; --g-soft: #4d453d; --g-dim: #776d63; --g-line: #e3d6c7; --g-acc: #9b6026; }
-:root[data-mode="light"] .g-schelde  { --g-bg: #edf1f5; --g-ink: #141a21; --g-soft: #46505b; --g-dim: #6c7783; --g-line: #d3dce5; --g-acc: #3a546a; }
-:root[data-mode="light"] .g-theater  { --g-bg: #faecec; --g-ink: #211113; --g-soft: #573d40; --g-dim: #82696b; --g-line: #ebd3d4; --g-acc: #ab2833; }
-:root[data-mode="light"] .g-herfst   { --g-bg: #f7f1e2; --g-ink: #1d1a10; --g-soft: #4f4835; --g-dim: #78705b; --g-line: #e4dabf; --g-acc: #925614; }
-:root[data-mode="light"] .g-bos      { --g-bg: #f2eff5; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd6e2; --g-acc: #6e6427; }
-:root[data-mode="light"] .g-centraal { --g-bg: #f6f0f4; --g-ink: #1b1219; --g-soft: #4f4049; --g-dim: #786871; --g-line: #e4d7df; --g-acc: #70582f; }
-:root[data-mode="light"] .g-gracht   { --g-bg: #edf4f1; --g-ink: #121a17; --g-soft: #42514b; --g-dim: #6b7a74; --g-line: #d2e0da; --g-acc: #b23a5a; }
-:root[data-mode="light"] .g-urbex    { --g-bg: #eef0f6; --g-ink: #131620; --g-soft: #444b5c; --g-dim: #6d7485; --g-line: #d6dae6; --g-acc: #a74221; }
-:root[data-mode="light"] .g-veld     { --g-bg: #edf4eb; --g-ink: #121a13; --g-soft: #445043; --g-dim: #6b7869; --g-line: #d3e0cf; --g-acc: #506e28; }
+:root[data-mode="light"] .g-eclipse  { --g-bg: #f7ecde; --g-ink: #1b1612; --g-soft: #4d453d; --g-dim: #776d63; --g-line: #e3d6c7; --g-acc: #9b6026; }
+:root[data-mode="light"] .g-schelde  { --g-bg: #e3ebf4; --g-ink: #141a21; --g-soft: #46505b; --g-dim: #6c7783; --g-line: #d3dce5; --g-acc: #3a546a; }
+:root[data-mode="light"] .g-theater  { --g-bg: #f8e2e2; --g-ink: #211113; --g-soft: #573d40; --g-dim: #82696b; --g-line: #ebd3d4; --g-acc: #ab2833; }
+:root[data-mode="light"] .g-herfst   { --g-bg: #f6edd8; --g-ink: #1d1a10; --g-soft: #4f4835; --g-dim: #78705b; --g-line: #e4dabf; --g-acc: #925614; }
+:root[data-mode="light"] .g-bos      { --g-bg: #ece5f3; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd6e2; --g-acc: #6e6427; }
+:root[data-mode="light"] .g-centraal { --g-bg: #f4e7f0; --g-ink: #1b1219; --g-soft: #4f4049; --g-dim: #786871; --g-line: #e4d7df; --g-acc: #70582f; }
+:root[data-mode="light"] .g-gracht   { --g-bg: #e3f3ec; --g-ink: #121a17; --g-soft: #42514b; --g-dim: #6b7a74; --g-line: #d2e0da; --g-acc: #b23a5a; }
+:root[data-mode="light"] .g-urbex    { --g-bg: #e4e8f5; --g-ink: #131620; --g-soft: #444b5c; --g-dim: #6d7485; --g-line: #d6dae6; --g-acc: #a74221; }
+:root[data-mode="light"] .g-veld     { --g-bg: #e5f3e1; --g-ink: #121a13; --g-soft: #445043; --g-dim: #6b7869; --g-line: #d3e0cf; --g-acc: #506e28; }
 /* het donkere zwart onder de doc-chip en de lichtbak blijft: dat is een
    overlay op beeld, geen achtergrond van de pagina */
 
@@ -87,6 +87,11 @@
 /* ---------- Basis ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+/* De ruimte voor de scrollbalk staat altijd vast. Zonder dit verdween de balk
+   zolang het vel openlag (overflow: hidden) en kwam hij terug op het moment dat
+   het vel wegging: de hele pagina schoof dan 15 px opzij (Windows), net als de
+   naam van de intro. */
+html { scrollbar-gutter: stable; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 :root[data-motion="reduce"] { scroll-behavior: auto; }
 body {
@@ -746,7 +751,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 .snap-slot { position: absolute; left: 14px; right: 14px; top: 8px; height: 5px; border-radius: 3px; background: #08080a; box-shadow: inset 0 1px 2px #000; }
 /* een bonnetje dat opzij wegzwiert, mag geen horizontale scrollbalk geven */
-#contact { overflow-x: clip; }
+/* ook verticaal: het deel van het papier dat tijdens het printen nog onder de
+   gleuf zit, maakt de pagina zo niet langer */
+#contact { overflow: clip; }
 /* de naam van de printer, gegraveerd in de kast: iets donkerder dan de kast,
    met een lichte rand eronder en een donkere erboven, zoals een uitgefreesde letter */
 .snap-merk {
@@ -1074,3 +1081,19 @@ a, button, summary, label { touch-action: manipulation; }
 h1, h2, h3, h4, .sec-title, .sec-sub, .contact-title, .stack-title { text-wrap: balance; }
 /* een tik op gsm licht kort op in het accent van de sectie, in plaats van grijs */
 a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(--g-acc, #e0a870) 22%, transparent); }
+
+/* ---------- Geen streep na het laatste item ----------
+   Een lijn onder het laatste item van een opsomming sluit niets af: er volgt
+   niets meer. Daarom valt die overal weg. In de twee kolommen van de
+   vaardigheden en de contactgegevens geldt dat voor de laatste rij van beide
+   kolommen, zolang ze naast elkaar staan. */
+.rows > :last-child, .langs > div:last-child, .list-2 > li:last-child,
+.findings li:last-child, .contact-list > div:last-child, .nav-links a:last-child { border-bottom: 0; }
+.fold { border-bottom: 0; }
+@media (min-width: 561px) {
+  .list-2 > li:nth-last-child(2):nth-child(odd),
+  .contact-list > div:nth-last-child(2):nth-child(odd) { border-bottom: 0; }
+}
+/* de bonnetjesknop toont het pictogram van wat hij nu doet */
+.snap-print .ic-bewaar, .snap-print.bewaren .ic-print { display: none; }
+.snap-print.bewaren .ic-bewaar { display: block; }
