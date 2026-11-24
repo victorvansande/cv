@@ -93,6 +93,73 @@
     });
   }
 
+  /* ---- Portret in een pil naast de naam ----
+     Rechts van "Victor" staat een pil met het portret, even hoog als de
+     hoofdletters en precies zo breed dat ze eindigt waar "Sande" eindigt.
+     De maten komen uit de tekst zelf: een Range geeft per regel de rechterrand,
+     en het canvas meet hoe hoog een hoofdletter is binnen de regel. Past de pil
+     niet (de naam breekt anders, of er is te weinig plaats), dan blijft ze weg.
+     Tijdens de intro staat de naam elders; de pil komt pas daarna. */
+  (() => {
+    const h1 = document.querySelector(".hero-name");
+    const hero = document.querySelector(".hero");
+    if (!h1 || !hero) return;
+    const pil = document.createElement("span");
+    pil.className = "hero-pil";
+    pil.setAttribute("aria-hidden", "true");
+    pil.innerHTML = '<img src="assets/victor-profiel.jpg" alt="" width="400" height="400" decoding="async" />';
+    hero.appendChild(pil);
+    const img = pil.firstChild;
+    const KOPX = 0.41, KOP = 0.33;          // plaats van het hoofd in de foto (0 tot 1)
+    const ZOOM = 1.25;
+    const meet = document.createElement("canvas").getContext("2d");
+    const zet = () => {
+      if (wortel.classList.contains("intro") || wortel.dataset.view === "compact") { pil.classList.remove("toon"); return; }
+      const cs = getComputedStyle(h1);
+      meet.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+      const m = meet.measureText("VICTOR");
+      const kap = m.actualBoundingBoxAscent, asc = m.fontBoundingBoxAscent;
+      // enkel de tekst van de naam zelf meten, niet het kader of de label van Tech Text
+      const regels = [], rects = [];
+      const tw = document.createTreeWalker(h1, NodeFilter.SHOW_TEXT);
+      for (let n = tw.nextNode(); n; n = tw.nextNode()) {
+        if (!n.textContent.trim() || n.parentElement.closest(".tch-kader, .tch-specks")) continue;
+        const r = document.createRange(); r.selectNodeContents(n);
+        rects.push(...r.getClientRects());
+      }
+      rects.forEach((q) => {
+        if (q.width < 2) return;
+        const rg = regels.find((x) => Math.abs(x.top - q.top) < q.height / 2);
+        if (rg) { rg.right = Math.max(rg.right, q.right); rg.left = Math.min(rg.left, q.left); }
+        else regels.push({ top: q.top, left: q.left, right: q.right });
+      });
+      regels.sort((a, b) => a.top - b.top);
+      if (regels.length < 2 || !kap || !asc) { pil.classList.remove("toon"); return; }
+      const fs = parseFloat(cs.fontSize);
+      const hr = hero.getBoundingClientRect();
+      const links = regels[0].right + fs * 0.14, rechts = Math.max(regels[1].right, regels[0].right);
+      const breed = rechts - links, hoog = kap;
+      if (breed < hoog * 1.3) { pil.classList.remove("toon"); return; }
+      pil.style.left = (links - hr.left).toFixed(1) + "px";
+      pil.style.top = (regels[0].top + asc - kap - hr.top).toFixed(1) + "px";
+      pil.style.width = breed.toFixed(1) + "px";
+      pil.style.height = hoog.toFixed(1) + "px";
+      // het hoofd in het midden van de pil: de foto staat iets ingezoomd en
+      // schuift zo dat het hoofd centraal staat, zonder dat er rand zichtbaar wordt
+      const z = Math.max(breed, hoog) * ZOOM;
+      const kl = (v, min) => Math.min(0, Math.max(min, v));
+      img.style.width = img.style.height = z.toFixed(1) + "px";
+      img.style.left = kl(breed / 2 - KOPX * z, breed - z).toFixed(1) + "px";
+      img.style.top = kl(hoog / 2 - KOP * z, hoog - z).toFixed(1) + "px";
+      pil.classList.add("toon");
+    };
+    const plan = () => requestAnimationFrame(zet);
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(plan);
+    addEventListener("resize", plan);
+    addEventListener("cv-layout", plan);
+    new MutationObserver(plan).observe(wortel, { attributes: true, attributeFilter: ["class", "data-view", "style"] });
+  })();
+
   /* ---- De naam na de intro: één lichtglans, daarna Tech Text bij hover ----
      Zodra alle animaties gespeeld hebben (de klasse intro is weg), schuift er
      één keer een lichtband over de naam. Daarna wordt de naam bij hover een
