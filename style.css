@@ -130,13 +130,30 @@ ul { padding: 0; list-style: none; }
   -webkit-backdrop-filter: blur(calc((1 - var(--vp, 0)) * 14px)) brightness(calc(.5 + var(--vp, 0) * .5));
   backdrop-filter: blur(calc((1 - var(--vp, 0)) * 14px)) brightness(calc(.5 + var(--vp, 0) * .5));
 }
+/* Zolang het vel alles bedekt, staat de waas uit. Een backdrop-filter over
+   het hele scherm wordt elk beeld opnieuw berekend zodra er iets boven
+   beweegt (de knipperende cursor, het schokje bij elke aanslag), en dat gaf
+   het haperen tijdens het typen. Pas als het vel beweegt, zet vel.js hem aan. */
+:root.vel-open:not(.vel-los) .vel-waas { display: none; }
 :root.vel-open .vel {
   position: fixed; inset: 0; z-index: 9999;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   background-color: #f4f3ef; color: #14110f;
   touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none;
-  box-shadow: 0 24px 50px -16px rgba(0, 0, 0, .45);
+  transform-origin: 50% 0;
   will-change: transform;
+}
+/* de schaduw onder de onderrand groeit terwijl het vel opgetild wordt; een
+   eigen laag met enkel opacity, zodat er niets opnieuw getekend moet worden */
+:root.vel-open .vel::after {
+  content: ""; position: absolute; left: 4%; right: 4%; top: 100%; height: 90px; pointer-events: none;
+  background: radial-gradient(60% 100% at 50% 0, rgba(0, 0, 0, .55), rgba(0, 0, 0, 0) 70%);
+  opacity: calc(.35 + var(--vp, 0) * 1.4);
+}
+/* de hero eronder komt van net iets dichterbij en zakt op zijn plaats */
+:root.vel-open.vel-los #home > .wrap {
+  transform: translate3d(0, calc((1 - var(--vp, 0)) * 28px), 0) scale(calc(1.04 - var(--vp, 0) * .04));
+  transform-origin: 50% 0; will-change: transform;
 }
 .vel:active { cursor: grabbing; }
 .vel:focus { outline: none; }
@@ -164,8 +181,12 @@ ul { padding: 0; list-style: none; }
   animation: vel-knip 1s steps(1) infinite;
 }
 @keyframes vel-knip { 50% { opacity: 0; } }
-.vel.schok { animation: vel-schok 90ms ease-out; }
-@keyframes vel-schok { 30% { translate: 0 1.2px; } }
+/* het schokje bij elke aanslag wisselt tussen twee gelijke animaties, zodat
+   het opnieuw kan starten zonder de layout te forceren (geen offsetWidth) */
+.vel.schok-a { animation: vel-schok-a 90ms ease-out; }
+.vel.schok-b { animation: vel-schok-b 90ms ease-out; }
+@keyframes vel-schok-a { 30% { translate: 0 1.2px; } }
+@keyframes vel-schok-b { 30% { translate: 0 1.2px; } }
 .vel-hint {
   position: absolute; z-index: 1; left: 50%; bottom: max(28px, env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);

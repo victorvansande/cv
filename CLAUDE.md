@@ -66,6 +66,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   wordt in Special Elite met een inktfilter (`#vel-inkt` in `index.html`). Het
   vel veeg je omhoog weg (ook scrollen, Enter, spatie, pijltjes), en de site
   eronder stelt scherp via een `backdrop-filter`-laag (`.vel-waas`, `--vp`).
+  Het inlinescript in de head zet `vel-open` al voor de eerste paint (anders zie
+  je eerst even de site); de waas staat enkel aan terwijl het vel beweegt
+  (`vel-los`), want een backdrop-filter onder een bewegend vel deed het typen
+  haperen. De cursor schuift achter de laatst getypte letter mee.
   `vel.js` laadt voor `main.js` en zet `window.__velWeg`; de Venster-intro
   start pas als die belofte afgaat. Geen vel bij minder beweging, in de
   compacte weergave of bij een herbezoek in dezelfde sessie.
