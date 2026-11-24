@@ -247,7 +247,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 
 /* ---------- Het breedbeeld ---------- */
 .frame { position: relative; }
-.frame img { width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; }
+.frame img { width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; border-radius: 6px; }
 /* De hero-foto is lager dan de andere: de naam eronder moet bij het laden
    volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
    van 800 pixels hoog viel ze anders half onder de rand. */
