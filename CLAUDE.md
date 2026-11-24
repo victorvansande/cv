@@ -86,7 +86,7 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
   tint). De masterproef is een eigen blok binnen Opleiding, met het gespiegelde MAS op
   zijn zij (een knipoog naar misinformatie) en een terracotta accent (`.g-urbex`,
-  de naam is gebleven). Over mij opent met de dauw (`.g-dauw`). De
+  de naam is gebleven). Over mij opent met de Amsterdamse grachtenpanden op film (`.g-gracht`). De
   zwart-witfoto van de fondsenwerving staat klein bij Gekkoo (`.org-foto`). Nieuwe foto's gaan op 1600 pixels en zonder
   metadata (geen GPS) in `assets/photos/`. Er is geen vrij kleurthema meer: dat zou dat systeem doorkruisen.
   Wel een lichte versie (knop `.mode-toggle` in de menubalk, `data-mode="light"`
