@@ -130,12 +130,12 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   onderdeel (`ACHTER` in `stapel.js`), opnieuw gekopieerd na een taalwissel. Geen intro in compacte weergave.
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
-  een canvas-bonnetje, te bewaren als PNG of af te scheuren door het omhoog te
-  slepen. De inhoud komt uit `.essentie .facts` en de contactgegevens in het
+  een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij
+  of omhoog te trekken (opzij draait het rond de hoek bij de gleuf, eigen ontwerp). De inhoud komt uit `.essentie .facts` en de contactgegevens in het
   script; wie de essentie aanpast, past dus ook het bonnetje aan. Het bonnetje
   rolt over de site erboven (het vak neemt geen plaats in), dus er verschuift niets. De twee knoppen
   hebben een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
-  IBM Plex Mono.
+  IBM Plex Mono. In de kast staat gegraveerd "CV Printer 9000" (`.snap-merk`).
 - **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de
   achtergrondkleur van de sectie erboven mee (`--vorige`, klasse `.vloeit`),
   zodat ze bovenaan zacht in elkaar overvloeien. Herberekend bij een wissel
@@ -145,7 +145,7 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder.
   Wie een datum aanpast, past ook `data-periode` aan.
 - **Vorige versie**: de site van voor de herwerking staat ongewijzigd in `v1/`
-  (bereikbaar via de link in de voettekst). Niet meer aanpassen, enkel bewaren.
+  (niet meer gelinkt vanuit de site, wel bereikbaar via `v1/`). Niet meer aanpassen, enkel bewaren.
 - **Regeleinden**: in de repo staat alles op LF. Op Victors Windows-machine
   staat `main.js` in de werkmap op CRLF, in de cloud is alles LF. Bij
   vervangingen met scripts rekening mee houden, en nooit bestanden in hun geheel
