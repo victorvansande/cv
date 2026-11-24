@@ -371,11 +371,22 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .org-head h3 { font-family: var(--font-head); font-weight: 700; font-size: 2.2rem; line-height: 1; text-transform: uppercase; margin: 8px 0 10px; }
 .org-head p:not(.label) { color: var(--g-soft); font-size: .92rem; }
 /* een foto bij de werkgever, klein onder de beschrijving; een klik opent de lichtbak */
-.org-foto { margin: 20px 0 0; max-width: 340px; }
+.org-foto { margin: 20px 0 0; }
 .org-foto .diploma-thumb { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
 .org-foto .diploma-thumb img { display: block; width: 100%; height: auto; aspect-ratio: auto; border-radius: 6px; }
 .org-foto figcaption { margin-top: 8px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim); }
 .org > .rows { grid-column: 5 / span 8; }
+/* Eén lijn bovenaan over beide kolommen, en links even veel ruimte als in een
+   rij: zo starten het label en de eerste datum op dezelfde hoogte. Eerder
+   begon de linkerkolom 22 px hoger dan de rechter, zonder lijn erboven, en dat
+   oogde als twee losse blokken. */
+.org { border-top: 1px solid var(--g-line); }
+.org > .rows { border-top: 0; }
+.org-head { padding-top: 22px; }
+/* een blok rijen onder een werkgever volgt hetzelfde raster: label links, rijen rechts */
+.org + .sub-block { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; border-top: 1px solid var(--g-line); }
+.org + .sub-block > .label { grid-column: 1 / span 4; padding-top: 14px; }
+.org + .sub-block > .rows { grid-column: 5 / span 8; border-top: 0; }
 .rows { border-top: 1px solid var(--g-line); }
 .row {
   display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px;
@@ -390,7 +401,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .row h4 + p, .row p + p { margin-top: 8px; }
 .row p { color: var(--g-soft); }
 .row-org { display: block; font-weight: 400; font-size: .92rem; color: var(--g-dim); margin-top: 2px; }
-.row-quiet p { font-size: .92rem; }
+.row-quiet p { color: var(--g-dim); }
 .row-place { color: var(--g-dim); margin-left: 10px; font-size: .88rem; }
 .rows-tight .row { padding: 14px 0; }
 .rows-tight .row > div { color: var(--g-soft); }
@@ -803,6 +814,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .hero, .sec-head, .org, .contact { grid-template-columns: minmax(0, 1fr); }
   .hero > *, .sec-head > :first-child, .sec-head > :last-child, .org-head, .org > .rows,
   .contact > :first-child, .contact > :last-child { grid-column: 1 / -1; }
+  .org + .sub-block { display: block; }
+  .org > .rows, .org + .sub-block > .rows { border-top: 1px solid var(--g-line); }
+  .org + .sub-block > .label { padding-top: 22px; margin-bottom: 14px; }
   .hero-name { font-size: clamp(3.6rem, 17vw, 6rem); }
   .cols-2, .cols-3 { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
