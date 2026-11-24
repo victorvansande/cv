@@ -59,6 +59,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   bezoeker zonder javascript of een schermlezer nooit "0" leest. Ze tellen niet
   meer op; `hertelGetallen()` in `main.js` zet enkel het scheidingsteken volgens
   de taal (14.716 / 14,716).
+- **Het vel papier** (`vel.js`, sinds nov 2026): bij het eerste bezoek in een
+  sessie ligt een vel papier over de site waarop "Victor Van Sande - CV" getypt
+  wordt in Special Elite met een inktfilter (`#vel-inkt` in `index.html`). Het
+  vel veeg je omhoog weg (ook scrollen, Enter, spatie, pijltjes), en de site
+  eronder stelt scherp via een `backdrop-filter`-laag (`.vel-waas`, `--vp`).
+  `vel.js` laadt voor `main.js` en zet `window.__velWeg`; de Venster-intro
+  start pas als die belofte afgaat. Geen vel bij minder beweging, in de
+  compacte weergave of bij een herbezoek in dezelfde sessie.
 - **Intro-animatie "Venster"** (sinds nov 2026, vervangt de regenboogintro):
   eenmaal per sessie (`sessionStorage` `vvs-intro-seen`, klasse `intro` op
   `<html>`). De echte `h1.hero-name` staat eerst groot over het scherm met de

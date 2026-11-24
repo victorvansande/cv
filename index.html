@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-title" content="Victor · cv" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&family=Special+Elite&display=swap" rel="stylesheet" />
   <!-- Intro "Venster": eenmalig per sessie, moet vóór de eerste paint vaststaan om flikkeren te vermijden -->
   <script>
     (function () {
@@ -42,9 +42,10 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=211" />
-  <script src="i18n.js?v=68" defer></script>
-  <script src="main.js?v=92" defer></script>
+  <link rel="stylesheet" href="style.css?v=213" />
+  <script src="i18n.js?v=69" defer></script>
+  <script src="vel.js?v=2" defer></script>
+  <script src="main.js?v=93" defer></script>
   <script src="galerij.js?v=1" defer></script>
   <script src="stapel.js?v=1" defer></script>
   <script src="bonnetje.js?v=1" defer></script>
@@ -56,6 +57,26 @@
 </head>
 <body>
   <a class="skip-link" href="#home" data-i18n="skip_link">Meteen naar de inhoud</a>
+  <!-- Het vel papier bij het eerste bezoek (vel.js). Zonder script, bij een
+       herbezoek in dezelfde sessie of bij minder beweging verschijnt het niet.
+       De inktfilter laat de randen van de getypte letters rafelen en laat hier
+       en daar wat inkt wegvallen. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="vel-inkt" x="-5%" y="-20%" width="110%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4" result="ruis"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruis" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="rafel"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="11" result="vlek"/>
+      <feColorMatrix in="vlek" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.62" result="masker"/>
+      <feComposite in="rafel" in2="masker" operator="in" result="inkt"/>
+      <feGaussianBlur in="inkt" stdDeviation=".3" result="zacht"/>
+      <feMerge><feMergeNode in="zacht"/><feMergeNode in="zacht"/></feMerge>
+    </filter>
+  </svg>
+  <div class="vel-waas" aria-hidden="true"></div>
+  <div class="vel" id="vel" role="dialog" aria-modal="true" aria-label="Victor Van Sande - CV">
+    <p class="vel-regel" aria-hidden="true"></p>
+    <button type="button" class="vel-hint"><span data-i18n="vel_hint">Veeg omhoog</span></button>
+  </div>
 
   <!-- NAV -->
   <header class="nav">
