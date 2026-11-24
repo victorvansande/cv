@@ -222,7 +222,7 @@ ul { padding: 0; list-style: none; }
 .lang-toggle, .settings-toggle, .burger, .mode-toggle {
   height: 36px; min-width: 36px; padding: 0 10px;
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  background: transparent; border: 1px solid rgb(var(--c-edge) / .22); border-radius: 2px;
+  background: transparent; border: 1px solid rgb(var(--c-edge) / .22); border-radius: 6px;
   cursor: pointer; font-size: .82rem; font-weight: 600; letter-spacing: .04em;
 }
 .lang-toggle span { color: var(--c-dim); }
@@ -252,7 +252,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .a11y-row input:checked + .sw::after { transform: translateX(16px); }
 .a11y-row input:focus-visible + .sw { outline: 2px solid var(--c-acc); outline-offset: 2px; }
 .zoom-ctl { display: flex; align-items: center; gap: 8px; }
-.zoom-btn { width: 30px; height: 30px; border: 1px solid rgb(var(--c-edge) / .22); background: transparent; cursor: pointer; border-radius: 2px; }
+.zoom-btn { width: 30px; height: 30px; border: 1px solid rgb(var(--c-edge) / .22); background: transparent; cursor: pointer; border-radius: 6px; }
 .zoom-btn:disabled { opacity: .35; cursor: default; }
 .zoom-val { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums; font-size: .85rem; }
 .set-action { display: block; padding: 10px 12px; border: 1px solid rgb(var(--c-edge) / .18); text-decoration: none; font-size: .92rem; font-weight: 600; }
@@ -316,7 +316,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .btn {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px;
-  background: var(--g-ink); color: var(--g-bg); border: 1px solid var(--g-ink); border-radius: 2px;
+  background: var(--g-ink); color: var(--g-bg); border: 1px solid var(--g-ink); border-radius: 6px;
   font-weight: 600; font-size: .92rem; text-decoration: none; cursor: pointer;
   transition: background .2s, color .2s, border-color .2s;
 }
@@ -339,19 +339,19 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* ---------- Sectiekop ---------- */
 .sec-head {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 16px;
-  padding-top: 40px; margin-bottom: 44px; align-items: end;
+  padding-top: 40px; margin-bottom: 44px; align-items: start;
 }
-/* Zoals de hero: de titel krijgt de linkerhelft en is even groot als de naam
-   bovenaan; de ondertitel en uitleg staan rechts, onderaan uitgelijnd. */
-.sec-head > :first-child { grid-column: 1 / span 7; }
-.sec-head > :last-child { grid-column: 8 / span 5; }
+/* De titel vult de linkerkolom; de ondertitel staat rechts, bovenaan
+   uitgelijnd met de hoofdletters van de titel. */
+.sec-head > :first-child { grid-column: 1 / span 4; }
+.sec-head > :last-child { grid-column: 5 / span 8; padding-top: .6vw; }
 .sec-title {
-  font-family: var(--font-head); font-weight: 800; font-size: clamp(4.2rem, 10.4vw, 9.6rem);
-  line-height: .86; text-transform: uppercase; color: var(--g-acc); letter-spacing: .005em;
+  font-family: var(--font-head); font-weight: 800; font-size: min(7.8vw, 6.6rem);
+  line-height: .84; text-transform: uppercase; color: var(--g-acc); letter-spacing: .005em;
 }
 /* een titel van twee regels (KSA Herentals) staat wat kleiner, zodat hij ruim
    wegblijft van de tekst ernaast */
-.sec-title.sec-title-lang { font-size: clamp(3.6rem, 7.6vw, 7rem); }
+.sec-title.sec-title-lang { font-size: min(5.8vw, 5.4rem); }
 .sec-sub { font-family: var(--font); font-weight: 600; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.2; letter-spacing: -.015em; }
 .sec-sub .em-serif { font-style: italic; font-weight: 500; }
 .sec-lead { margin-top: 12px; color: var(--g-soft); max-width: 62ch; }
@@ -428,7 +428,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .tags span {
   position: relative; isolation: isolate;
   font-size: .76rem; padding: 3px 9px; border: 1px solid var(--g-line); color: var(--g-soft);
-  border-radius: 2px; cursor: default;
+  border-radius: 4px; cursor: default;
   transition: color .25s, border-color .25s;
 }
 .tags span::after {
@@ -455,7 +455,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 
 .doc-btn {
   min-height: 34px; padding: 0 12px; background: transparent; cursor: pointer;
-  border: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); border-radius: 2px;
+  border: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); border-radius: 6px;
   font-size: .82rem; font-weight: 500;
 }
 .doc-btn:hover { border-color: var(--g-acc); color: var(--g-acc); }
@@ -476,7 +476,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .fold-txt span { font-size: .84rem; color: var(--g-dim); }
 .fold-peek { display: flex; gap: 6px; flex: none; }
 .fold-peek img {
-  width: 42px; height: 56px; object-fit: cover; border-radius: 2px;
+  width: 42px; height: 56px; object-fit: cover; border-radius: 4px;
   outline: 1px solid color-mix(in srgb, var(--g-ink) 12%, transparent); outline-offset: -1px;
   transition: opacity .2s;
 }
@@ -644,7 +644,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .gal-ui { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; padding-bottom: 28px; }
 .gal-btn {
   width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
-  background: transparent; border: 1px solid color-mix(in srgb, var(--g-ink) 28%, transparent); border-radius: 2px; cursor: pointer;
+  background: transparent; border: 1px solid color-mix(in srgb, var(--g-ink) 28%, transparent); border-radius: 6px; cursor: pointer;
 }
 .gal-btn:hover:not(:disabled) { border-color: var(--g-acc); color: var(--g-acc); }
 .gal-btn:disabled { opacity: .3; cursor: default; }
@@ -779,7 +779,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .lightbox.open { display: flex; }
 .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 30px 80px -20px #000; }
 .lightbox-close {
-  position: absolute; top: 16px; right: 16px; width: 44px; height: 44px;
+  position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 6px;
   background: transparent; border: 1px solid rgba(255, 255, 255, .3); color: #fff; font-size: 1.6rem; cursor: pointer;
 }
 

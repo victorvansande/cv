@@ -103,9 +103,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   Wie een nieuw palet `.g-*` toevoegt, voegt ook de lichte tegenhanger toe. Weinig beweging: enkel de intro en hovers. Alles staat open,
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
   `<details class="fold">` met een strookje van vier beelden als voorproef.
-  Geen secties die pas bij het scrollen verschijnen. De sectiekoppen volgen de hero: de titel
-  links over 7 kolommen, even groot als de naam, de ondertitel rechts onderaan
-  (`.sec-head`); een titel van twee regels krijgt `.sec-title-lang` (kleiner).
+  Geen secties die pas bij het scrollen verschijnen. De sectietitels vullen de linkerkolom
+  (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
+  `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).
+  Knoppen hebben zachte hoeken (6 px), labels en trefwoorden 4 px; geen
+  volledig ronde pillen (enkel het portret).
   Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
 - **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
   zonder hun code): de fotogalerij wordt een lenticulaire carrousel (kaart draait
