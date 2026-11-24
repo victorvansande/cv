@@ -1063,6 +1063,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .hero-name { position: relative; }
 .tch-w { white-space: nowrap; }
 .tch { display: inline-block; }
+/* na het opsplitsen gewone tekst: WebKit (iPhone) tekent background-clip: text
+   niet door in inline-block letters, en dan was de naam onzichtbaar */
+.hero-name .grad-text.gesplitst { background: none; color: var(--g-ink); -webkit-text-fill-color: currentColor; }
 .hero-name.tech .grad-text { background: none !important; color: var(--g-ink); -webkit-text-fill-color: currentColor; }
 .hero-name.tech .tch.lijn, .hero-name .tch.kick { -webkit-text-fill-color: transparent; -webkit-text-stroke: 1.5px var(--g-ink); }
 .tch.kick { animation: tch-kick .75s cubic-bezier(.3, 1.6, .5, 1) both; }

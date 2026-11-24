@@ -231,9 +231,22 @@
     };
     naamTekst.addEventListener("animationend", (e) => { if (e.animationName === "naam-glans") naamTekst.classList.remove("glans"); });
 
+    /* Eerst de lichtglans over de hele naam, pas daarna de letters opsplitsen.
+       Op iPhone en iPad (WebKit) tekent background-clip: text niet door in
+       losse inline-block letters: de naam werd daar onzichtbaar. Na het
+       opsplitsen is de naam daarom gewone tekst in de inktkleur (.gesplitst). */
     const zetKlaar = () => {
       if (klaar || wortel.classList.contains("intro")) return;
       klaar = true;
+      if (!geenBeweging()) {
+        glans();
+        let gedaan = false;
+        const verder = () => { if (gedaan) return; gedaan = true; splits(); };
+        naamTekst.addEventListener("animationend", verder, { once: true });
+        setTimeout(verder, 1500);
+      } else splits();
+    };
+    const splits = () => {
       // letters opsplitsen; woorden blijven bij elkaar, zodat de regels breken zoals voorheen
       const tekst = naamTekst.textContent;
       naamTekst.setAttribute("aria-label", tekst);
@@ -259,7 +272,7 @@
       const specks = document.createElement("span");
       specks.className = "tch-specks"; specks.setAttribute("aria-hidden", "true");
       naamH1.append(kader, specks);
-      if (!geenBeweging()) glans();
+      naamTekst.classList.add("gesplitst");
 
       let actief = null;
       const zaai = (l) => {
