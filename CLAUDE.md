@@ -5,7 +5,7 @@ Claude stonden, zodat een sessie op een andere machine of in de cloud er
 meteen mee verder kan. De repo is **publiek**: hier staat bewust niets dat niet
 ook al op de site zelf te vinden is.
 
-Over de site zelf (structuur, thema's, hosten) gaat [README.md](README.md). Over
+Over de site zelf (structuur, kleuren, hosten) gaat [README.md](README.md). Over
 de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
 
 ## Vaste afspraken
@@ -24,7 +24,7 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   eerst `git fetch origin main` en `git merge origin/main`, nooit force-pushen.
   Pas na de push naar `main` staat de wijziging live. Geen pull request maken.
 - **Cache-versie ophogen** bij elke wijziging aan `style.css`, `main.js` of
-  `i18n.js`: de `?v=N` in `index.html` (regels 40 tot 42). Anders zien
+  `i18n.js`: de `?v=N` in `index.html` (regels 45 tot 47). Anders zien
   bezoekers de oude versie.
 - **Alle tekst in Victors eigen schrijfstijl**: de site, beide cv's en de
   Engelse versie. Lees eerst [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md). De
@@ -53,13 +53,26 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   nieuwe zichtbare tekst krijgt dus een sleutel in beide bestanden, ook
   datums, plaatsnamen en skill-tags. `applyLang()` in `main.js` neemt bij de
   eerste wissel een momentopname van de Nederlandse innerHTML; daarna roept het
-  `__syncRotator`, `__hertelGetallen` en `packSkillTags()` aan en stuurt het
-  een `cv-layout`-event.
+  `hertelGetallen()` aan en stuurt het een `cv-layout`-event (dat het
+  voorproefvenster gebruikt om zijn zinnen mee te vertalen).
 - **Tellers** (`data-count`): het eindgetal staat al in de html, zodat een
-  bezoeker zonder javascript of een schermlezer nooit "0" leest. Getallen worden
-  opgemaakt volgens de taal (14.716 / 14,716) via `toonGetal()` in `main.js`.
-- **Intro-animatie**: `main.js` kloont de `h1` in `.intro-stage`, die daarom
-  `aria-hidden="true"` draagt.
+  bezoeker zonder javascript of een schermlezer nooit "0" leest. Ze tellen niet
+  meer op; `hertelGetallen()` in `main.js` zet enkel het scheidingsteken volgens
+  de taal (14.716 / 14,716).
+- **Intro-animatie**: `main.js` kloont de `h1.prism-host` in `.intro-stage`, die
+  daarom `aria-hidden="true"` draagt. De hele intro-css staat onderaan
+  `style.css` en is ongewijzigd overgenomen uit de vorige versie. De hero-foto
+  is bewust laag (`.frame-hero`): de naam moet bij het laden volledig in beeld
+  staan, want daar speelt de intro zich af.
+- **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
+  eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
+  `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
+  tint). Er is geen kleurthema en geen licht/donker meer: dat zou dat systeem
+  doorkruisen. Weinig beweging: enkel de intro en hovers. Alles staat open, er
+  zijn geen inklapbare luiken en geen secties die pas bij het scrollen
+  verschijnen. Houd dat zo.
+- **Vorige versie**: de site van voor de herwerking staat ongewijzigd in `v1/`
+  (bereikbaar via de link in de voettekst). Niet meer aanpassen, enkel bewaren.
 - **Regeleinden**: in de repo staat alles op LF. Op Victors Windows-machine
   staat `main.js` in de werkmap op CRLF, in de cloud is alles LF. Bij
   vervangingen met scripts rekening mee houden, en nooit bestanden in hun geheel
@@ -74,9 +87,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `powershell -ExecutionPolicy Bypass -File serve.ps1` (poort 5180).
 - Controleer na een wijziging beide talen (knop `.lang-toggle`), op 1280 en
   375 pixels breed: geen horizontale overloop, geen fouten in de console.
-- In een verborgen of headless browser lopen transities, `IntersectionObserver`
-  en `requestAnimationFrame` vaak niet. Forceer dan `.reveal.in` om secties te
-  zien en verwar dat niet met een bug.
+- In een headless browser laden afbeeldingen met `loading="lazy"` pas als je
+  erlangs scrolt; een volledige screenshot zonder scrollen toont dus lege
+  vakken. Dat is geen bug.
 - **In de cloud** staat Chromium klaar met Playwright (`/opt/pw-browsers`, nooit
   `playwright install` draaien). `tools/shot.js` maakt screenshots op 1280 en
   375 pixels en meldt consolefouten:
@@ -106,23 +119,20 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `assets/og-gen.ps1` (enkel Windows). In de cloud:
   `NODE_PATH=$(npm root -g) node tools/og.js` (getest, webfonts laden mee).
   Niet `chrome --screenshot` gebruiken: dat snijdt onderaan een strook af.
-- **Favicon en app-icoon** (een witte V met een punt in de themakleur, zoals
-  "Van Sande." in de hero): de bronnen zijn `assets/icons/favicon.svg`
+- **Favicon en app-icoon** (een witte V met een rood punt): de bronnen zijn `assets/icons/favicon.svg`
   (afgeronde tegel) en `assets/icons/icon-full.svg` (vierkant, inhoud op 80 %
   zodat Android er een cirkel uit kan knippen). De png's ernaast komen uit
-  `assets/icon-gen.ps1` (Windows). `main.js` (`zetFavicon`) kleurt het punt
-  mee met het gekozen thema en bevat dezelfde vorm: wie de vorm aanpast, past
-  ze op beide plaatsen aan. `manifest.webmanifest` verwijst naar de png's.
+  `assets/icon-gen.ps1` (Windows). `manifest.webmanifest` verwijst naar de png's.
+  (De nieuwe site kleurt het punt niet meer mee; `v1/main.js` deed dat nog.)
 
 ## Openstaande punten
 
 Bekend bij Victor, nog niet beslist:
 
-- De statistiek "40+ jaar motivatie" bovenaan valt uit de toon naast de drie
-  feitelijke cijfers.
 - Bij Fondsenwerver staat zowel een badge "Sinds sep 2026" als de datum
   "sep 2026 – heden".
 - "ETMCQ + GCB-5" bij de masterproef is vakjargon.
 - Een dertigtal afbeeldingen heeft geen `width`/`height`.
-- De namen van de themakleuren mengen Engels en Nederlands ("Rood").
+- De linkafbeelding (`assets/og-image.jpg`) is nog in de stijl van de vorige
+  versie.
 - Echt professioneel portfoliowerk (bijvoorbeeld uit Canva) toevoegen.

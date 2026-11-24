@@ -22,14 +22,15 @@
   <meta name="twitter:title" content="Victor Van Sande · Communicatiewetenschapper" />
   <meta name="twitter:description" content="Communicatiewetenschapper met expertise in communicatie, media, (web)design, psychologie, technologie en leiderschap." />
   <meta name="twitter:image" content="https://victorvansande.github.io/cv/assets/og-image.jpg" />
+  <meta name="theme-color" content="#0c0a0a" />
   <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png" />
-  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" id="favicon" />
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
   <meta name="apple-mobile-web-app-title" content="Victor · cv" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,400;1,6..72,500;1,6..72,600&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <!-- Prisma-intro: eenmalig per sessie, moet vóór de eerste paint vaststaan om flikkeren te vermijden -->
   <script>
     (function () {
@@ -41,15 +42,16 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=198" />
-  <script src="i18n.js?v=65" defer></script>
-  <script src="main.js?v=85" defer></script>
-  <script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('cv-theme');d.dataset.theme=['indigo','teal','emerald','amber','rose','slate','violet'].indexOf(t)<0?'rose':t;d.dataset.mode=localStorage.getItem('cv-mode')||'light';if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(d.dataset.motion!=='reduce'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pips-animeren');if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){d.dataset.theme='rose';d.dataset.mode='light';}})();</script>
+  <link rel="stylesheet" href="style.css?v=199" />
+  <script src="i18n.js?v=66" defer></script>
+  <script src="main.js?v=86" defer></script>
+  <!-- Voorkeuren al in de kop toepassen, zodat de pagina niet zichtbaar
+       verspringt. Kleurthema en licht/donker zijn weg: elke sectie haalt haar
+       kleuren nu uit haar eigen foto, en een vrij te kiezen thema zou dat
+       systeem doorkruisen. -->
+  <script>(function(){var d=document.documentElement;try{if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){}})();</script>
 </head>
 <body>
-  <!-- Skip-link: het eerste dat de tabtoets bereikt. Wie met een toetsenbord of
-       een schermlezer werkt, loopt anders bij elk bezoek eerst door de hele
-       navigatie voor hij bij de inhoud komt. Onzichtbaar tot hij focus krijgt. -->
   <a class="skip-link" href="#home" data-i18n="skip_link">Meteen naar de inhoud</a>
   <!-- Prisma-intro: zwart scherm waarop de naam uit een chromatische bloei ontstaat,
        waarna het licht binnenvalt. Volledig aria-hidden: de echte naam staat in de hero. -->
@@ -59,831 +61,471 @@
       <i class="pl-field"></i><i class="pl pl-warm"></i><i class="pl pl-magenta"></i><i class="pl pl-violet"></i><i class="pl pl-azure"></i><i class="pl pl-cyan"></i>
     </div>
     <!-- de naamlagen worden door main.js gekloond uit de echte h1, zodat de
-         regelafbreking (text-wrap: balance) gegarandeerd identiek is -->
+         regelafbreking gegarandeerd identiek is -->
     <div class="intro-stage" aria-hidden="true"></div>
   </div>
-  <div class="bg-canvas"></div>
-  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="blob b5"></div>
-  <div class="grain"></div>
-  <div class="cursor-glow"></div>
 
   <!-- NAV -->
   <header class="nav">
     <div class="wrap nav-inner">
-      <a href="#home" class="brand"><img src="assets/victor-profiel.jpg" alt="" class="nav-avatar" aria-hidden="true"><span class="brand-text">Victor Van Sande<span class="brand-sub" data-i18n="brand_sub">Online cv</span></span></a>
+      <a href="#home" class="brand">Victor Van Sande</a>
       <div class="nav-right">
-      <nav class="nav-links" id="hoofdmenu">
-        <a href="#home" class="active" data-i18n="nav_home">Home</a>
-        <a href="#werk" data-i18n="nav_werk">Werk</a>
-        <a href="#ervaring" data-i18n="nav_ervaring">Ervaring</a>
-        <a href="#over" data-i18n="nav_over">Over mij</a>
-        <a href="#opleiding" data-i18n="nav_opleiding">Opleiding</a>
-        <!-- <a href="#referenties" data-i18n="nav_referenties">Referenties</a> -->
-        <a href="#contact" data-i18n="nav_contact">Contact</a>
-      </nav>
-      <button class="lang-toggle" aria-label="Taal / Language" title="Nederlands / English">
-        <span class="lang-pill" aria-hidden="true"></span>
-        <span data-lang="nl">NL</span>
-        <span data-lang="en">EN</span>
-      </button>
-      <div class="settings-wrap">
-        <button class="settings-toggle" aria-label="Instellingen / Settings" title="Instellingen" aria-expanded="false" aria-haspopup="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <nav class="nav-links" id="hoofdmenu" aria-label="Hoofdmenu">
+          <a href="#werk" data-i18n="nav_werk">Werk</a>
+          <a href="#ervaring" data-i18n="nav_ervaring">Ervaring</a>
+          <a href="#over" data-i18n="nav_over">Over mij</a>
+          <a href="#opleiding" data-i18n="nav_opleiding">Opleiding</a>
+          <!-- <a href="#referenties" data-i18n="nav_referenties">Referenties</a> -->
+          <a href="#contact" data-i18n="nav_contact">Contact</a>
+        </nav>
+        <button class="lang-toggle" aria-label="Taal / Language" title="Nederlands / English">
+          <span data-lang="nl">NL</span><span data-lang="en">EN</span>
         </button>
-        <div class="settings-pop" role="group" aria-label="Instellingen">
-          <div class="set-row">
-            <button class="mode-toggle" aria-label="Schakel naar lichte modus" title="Licht / donker">
-              <span class="mode-pill" aria-hidden="true"></span>
-              <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-              <svg class="moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-            </button>
-          </div>
-          <div class="set-div"></div>
-          <h4 data-i18n="set_theme">Kleurthema</h4>
-          <div class="swatches">
-            <button class="swatch" data-theme="indigo" title="Indigo"><span style="background:linear-gradient(135deg,#6366f1,#818cf8)"></span></button>
-            <button class="swatch" data-theme="teal" title="Teal"><span style="background:linear-gradient(135deg,#0ea5e9,#2dd4bf)"></span></button>
-            <button class="swatch" data-theme="emerald" title="Emerald"><span style="background:linear-gradient(135deg,#10b981,#4ade80)"></span></button>
-            <button class="swatch" data-theme="amber" title="Amber"><span style="background:linear-gradient(135deg,#f59e0b,#fb923c)"></span></button>
-            <button class="swatch" data-theme="rose" title="Rood"><span style="background:linear-gradient(135deg,#c4172a,#f63b46)"></span></button>
-            <button class="swatch" data-theme="slate" title="Slate"><span style="background:linear-gradient(135deg,#7c8aa8,#9aa7c2)"></span></button>
-            <button class="swatch" data-theme="violet" title="Violet"><span style="background:linear-gradient(135deg,#7c5cff,#3ad6ff)"></span></button>
-          </div>
-          <div class="set-div"></div>
-          <h4 data-i18n="a11y_title">Toegankelijkheid</h4>
-          <label class="a11y-row"><span data-i18n="a11y_motion">Minder beweging</span><input type="checkbox" class="a11y-motion"><span class="sw"></span></label>
-          <label class="a11y-row"><span data-i18n="a11y_contrast">Hoger contrast</span><input type="checkbox" class="a11y-contrast"><span class="sw"></span></label>
-          <div class="zoom-row">
-            <span data-i18n="a11y_zoom">Tekstgrootte</span>
-            <div class="zoom-ctl">
-              <button type="button" class="zoom-btn zoom-out" aria-label="Kleiner">&minus;</button>
-              <span class="zoom-val" aria-live="polite">100%</span>
-              <button type="button" class="zoom-btn zoom-in" aria-label="Groter">+</button>
+        <div class="settings-wrap">
+          <button class="settings-toggle" aria-label="Instellingen / Settings" title="Instellingen" aria-expanded="false" aria-haspopup="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+          </button>
+          <div class="settings-pop" role="group" aria-label="Instellingen">
+            <h4 data-i18n="a11y_title">Toegankelijkheid</h4>
+            <label class="a11y-row"><span data-i18n="a11y_motion">Minder beweging</span><input type="checkbox" class="a11y-motion"><span class="sw" aria-hidden="true"></span></label>
+            <label class="a11y-row"><span data-i18n="a11y_contrast">Hoger contrast</span><input type="checkbox" class="a11y-contrast"><span class="sw" aria-hidden="true"></span></label>
+            <div class="zoom-row">
+              <span data-i18n="a11y_zoom">Tekstgrootte</span>
+              <div class="zoom-ctl">
+                <button type="button" class="zoom-btn zoom-out" aria-label="Kleiner">&minus;</button>
+                <span class="zoom-val" aria-live="polite">100%</span>
+                <button type="button" class="zoom-btn zoom-in" aria-label="Groter">+</button>
+              </div>
             </div>
-          </div>
-          <div class="set-div"></div>
-          <h4 data-i18n="set_download">Downloads</h4>
-          <!-- De regel onder de titel zegt wanneer je deze versie neemt. Dat is er
-               vooral voor als de tweede download weer aanstaat: zonder uitleg is
-               "CV als PDF" naast "CV voor sollicitatieportalen" een raadseltje in
-               plaats van een keuze. -->
-          <a href="assets/cv-victor-van-sande.pdf" download class="set-action">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>
-            <span class="set-action-txt">
+            <h4 data-i18n="set_download">Downloads</h4>
+            <a href="assets/cv-victor-van-sande.pdf" download class="set-action">
               <span data-i18n="set_cv_pdf">CV als PDF</span>
               <span class="set-action-sub" data-i18n="set_cv_pdf_sub">Om te mailen of af te drukken</span>
-            </span>
-          </a>
-          <!-- De ATS-versie staat tijdelijk offline. Terugzetten = dit commentaar
-               openen; het bestand, cv-print-ats.html en de vertalingen blijven
-               staan, dus er is verder niets voor nodig. -->
-          <!--
-          <a href="assets/cv-victor-van-sande-ats.pdf" download class="set-action">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
-            <span class="set-action-txt">
+            </a>
+            <!-- De ATS-versie staat tijdelijk offline. Terugzetten = dit commentaar
+                 openen; het bestand, cv-print-ats.html en de vertalingen blijven
+                 staan, dus er is verder niets voor nodig. -->
+            <!--
+            <a href="assets/cv-victor-van-sande-ats.pdf" download class="set-action">
               <span data-i18n="set_cv_ats">CV voor sollicitatieportalen</span>
               <span class="set-action-sub" data-i18n="set_cv_ats_sub">Één kolom, voor scansoftware</span>
-            </span>
-          </a>
-          -->
+            </a>
+            -->
+          </div>
         </div>
-      </div>
-      <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="hoofdmenu"><span></span><span></span><span></span></button>
+        <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="hoofdmenu"><span></span><span></span></button>
       </div>
     </div>
   </header>
 
-  <!-- SIDE DOT NAVIGATION -->
-  <nav class="dot-nav" aria-label="Sectienavigatie">
-    <a href="#home" class="active" data-spy="home"><span data-i18n="nav_home">Home</span></a>
-    <a href="#werk" data-spy="werk"><span data-i18n="nav_werk">Werk</span></a>
-    <a href="#ervaring" data-spy="ervaring"><span data-i18n="nav_ervaring">Ervaring</span></a>
-    <a href="#over" data-spy="over"><span data-i18n="nav_over">Over mij</span></a>
-    <a href="#opleiding" data-spy="opleiding"><span data-i18n="nav_opleiding">Opleiding</span></a>
-    <!-- <a href="#referenties" data-spy="referenties"><span data-i18n="nav_referenties">Referenties</span></a> -->
-    <a href="#contact" data-spy="contact"><span data-i18n="nav_contact">Contact</span></a>
-  </nav>
-
   <main>
 
-  <!-- ============ HOME ============ -->
-  <div class="sec" id="home" data-nav="nav_home" data-nav-nl="Home">
-  <section class="hero">
+  <!-- ============ HOME ============
+       Elke sectie opent met een eigen foto in breedbeeld, en haalt haar
+       kleuren uit die foto: de achtergrond uit de donkerste tint, het accent
+       uit een heldere. Zo krijgt de pagina een kleurverloop zonder dat er iets
+       beweegt. De tinten zijn gemeten op de foto's zelf (zie style.css). -->
+  <div class="sec grade g-eclipse" id="home">
     <div class="wrap">
-      <div class="glass tilt hero-card reveal">
-        <div class="hero-card-lead">
-          <div class="hero-avatar-wrap">
-            <img src="assets/victor-profiel.jpg" alt="Victor Van Sande" class="hero-avatar-img" />
-          </div>
-          <span class="eyebrow" style="margin-bottom:0"><span class="dot"></span> <span data-i18n="hero_eyebrow">Halftijds beschikbaar</span></span>
-        </div>
-        <h1 class="h-xl prism-host"><span data-i18n="hero_hello">Hallo, ik ben</span><br><span class="grad-text">Victor Van <span class="name-end">Sande<i class="name-dot" aria-hidden="true"></i></span></span></h1>
-        <!-- "Sande" en de punt zitten samen in een span die niet mag afbreken.
-             De browser ziet die punt als een los blokje en mag er dus vóór
-             afbreken; tussen 376 en 386 pixels kolombreedte belandde ze daardoor
-             alleen op een eigen regel. Een word joiner helpt daar niet tegen:
-             die geldt niet voor zo'n blokje. De naam mag nog wel afbreken, maar
-             dan tussen "Van" en "Sande". -->
-        <p class="hero-loc"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-i18n="hero_loc">Woont en werkt in de provincie Antwerpen</span></p>
-        <p class="lead">
-          <span data-i18n="hero_lead_1">Communicatiewetenschapper met expertise in</span>
-          <strong data-rotate='["communicatie","(web)design","psychologie","media","technologie","journalistiek","leiderschap"]' data-rotate-en='["communication","(web)design","psychology","media","technology","journalism","leadership"]' class="em-serif" style="color:var(--ink);transition:.35s var(--ease);display:inline-block">communicatie</strong><br><span data-i18n="hero_lead_2">Ik benader communicatie op een analytische, wetenschappelijke manier, zonder daarbij de mens achter de boodschap uit het oog te verliezen.</span>
-        </p>
-        <div class="hero-cta">
-          <a href="#ervaring" class="btn btn-primary"><span data-i18n="hero_cta_work">Bekijk mijn werk</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a href="assets/cv-victor-van-sande.pdf" download class="btn btn-ghost" style="gap:8px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v13M5 12l7 7 7-7"/><path d="M3 21h18"/></svg>
-            <span data-i18n="hero_cta_cv">Download/print CV</span>
-          </a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat"><div class="num"><span data-count="3">3</span></div><div class="lbl" data-i18n="stat_diplomas">diploma's</div></div>
-          <div class="stat"><div class="num"><span data-count="2" data-suffix="x">2x</span></div><div class="lbl" data-i18n="stat_distinction_hero">met onderscheiding</div></div>
-          <div class="stat"><div class="num"><span data-count="10" data-suffix="+">10+</span></div><div class="lbl" data-i18n="stat_leadership">jaar leiderschap</div></div>
-          <div class="stat"><div class="num"><span data-count="40" data-suffix="+">40+</span></div><div class="lbl" data-i18n="stat_motivation">jaar motivatie</div></div>
-        </div>
-        <div class="scroll-cue"><span class="mouse"></span> <span data-i18n="scroll_more">Scroll voor meer</span></div>
-      </div>
-    </div>
-  </section>
-  <!-- ============ TL;DR ============ -->
-  <section class="wrap section-pad" id="tldr" style="padding-top:26px;padding-bottom:40px">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="tldr_eyebrow">TL;DR</span></span>
-      <h2 class="h-lg" data-i18n="tldr_h2">De essentie <span class="grad-text em-serif">in één oogopslag</span></h2>
-    </div>
-    <!-- Standaard dicht, net als de andere luiken: wie de essentie wil, klapt
-         ze open. Zo blijft de pagina onder de hero rustig en houden alle
-         uitklapluiken dezelfde beginstand. -->
-    <div class="glass tilt tldr-card reveal" data-d="1">
-      <button class="tldr-toggle" aria-expanded="false" aria-controls="tldr-panel">
-        <span class="tldr-toggle-txt">
-          <strong data-i18n="tldr_toggle_open">Bekijk de essentie</strong>
-          <span data-i18n="tldr_toggle_sub">8 kernfeiten in 20 seconden</span>
-        </span>
-        <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-      <div class="tldr-panel" id="tldr-panel" inert>
-        <div class="tldr-panel-inner">
-          <div class="tldr-grid">
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_edu_lbl">Opleiding</span>
-                <span class="val" data-i18n="tldr_edu_val">3 diploma's, 2x met onderscheiding</span>
-                <span class="sub" data-i18n="tldr_edu_sub">Master Communicatiewetenschappen, UAntwerpen</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_role_lbl">Huidige rol</span>
-                <span class="val" data-i18n="tldr_role_val">Fondsenwerver bij Gekkoo</span>
-                <span class="sub" data-i18n="tldr_role_sub">Sinds september 2026</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_ksa_lbl">Leiderschap</span>
-                <span class="val" data-i18n="tldr_ksa_val">10+ jaar bij KSA Herentals</span>
-                <span class="sub" data-i18n="tldr_ksa_sub">Hoofdleider, 10.000+ bezoekers via evenementen</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_thesis_lbl">Masterproef</span>
-                <span class="val" data-i18n="tldr_thesis_val">De Macht van Misleiding</span>
-                <span class="sub" data-i18n="tldr_thesis_sub">Kwantitatief onderzoek naar (des)informatie, 241 respondenten</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_domains_lbl">Sterk in</span>
-                <span class="val" data-i18n="tldr_domains_val">Communicatie, (web)design, psychologie &amp; leiderschap</span>
-                <span class="sub" data-i18n="tldr_domains_sub">Terugkerend in zowel mijn opleiding als mijn werkervaring</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_lang_lbl">Talen</span>
-                <span class="val" data-i18n="tldr_lang_val">NL (moedertaal) · EN (C2) · FR (A2)</span>
-                <span class="sub" data-i18n="tldr_lang_sub">Voldoende om in een internationale of tweetalige omgeving te werken</span>
-              </span>
-            </div>
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_avail_lbl">Beschikbaarheid</span>
-                <span class="val" data-i18n="tldr_avail_val">Halftijds · loondienst of freelance</span>
-                <span class="sub" data-i18n="tldr_avail_sub">Regio Herentals&ndash;Antwerpen</span>
-              </span>
-            </div>
-            <!-- Achtste feit. Stond alleen onderaan bij de opleidingen, waar een
-                 haastige lezer nooit komt, terwijl een geldig brevet in jeugdwerk,
-                 kampen en onderwijs vaak een vereiste is. Maakt de twee kolommen
-                 bovendien even lang, zonder dat het paneel hoger wordt. -->
-            <div class="tldr-item">
-              <span class="tldr-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/><path d="M12 9.5v4M10 11.5h4"/></svg></span>
-              <span class="tldr-body">
-                <span class="lbl" data-i18n="tldr_ehbo_lbl">EHBO</span>
-                <span class="val" data-i18n="tldr_ehbo_val">Eerste Hulp &amp; Helper, Rode Kruis-Vlaanderen</span>
-                <span class="sub" data-i18n="tldr_ehbo_sub">Geldig tot 2028 &middot; samen een deelkwalificatie Eventhulpverlener</span>
-              </span>
-            </div>
+      <figure class="frame frame-hero">
+        <img src="assets/photos/zonsverduistering.jpg" alt="Close-up van een zonsverduistering met een gloeiende rand" width="1600" height="1200" fetchpriority="high" />
+        <figcaption data-i18n="photo_eclipse_t">Astrofotografie · Zonsverduistering</figcaption>
+      </figure>
+      <div class="hero">
+        <h1 class="hero-name prism-host"><span class="grad-text">Victor Van Sande</span></h1>
+        <div class="hero-side">
+          <p class="hero-lead"><span data-i18n="hero_role">Communicatiewetenschapper.</span> <span data-i18n="hero_lead_2">Ik benader communicatie op een analytische, wetenschappelijke manier, zonder daarbij de mens achter de boodschap uit het oog te verliezen.</span></p>
+          <p class="hero-meta"><span data-i18n="tldr_role_val">Fondsenwerver bij Gekkoo</span> · <span data-i18n="hero_eyebrow">Halftijds beschikbaar</span> · <span data-i18n="tldr_avail_sub">Regio Herentals&ndash;Antwerpen</span></p>
+          <div class="btn-row">
+            <a href="assets/cv-victor-van-sande.pdf" download class="btn"><span data-i18n="hero_cta_cv">Download/print CV</span></a>
+            <a href="#werk" class="btn btn-line"><span data-i18n="hero_cta_work">Bekijk mijn werk</span></a>
           </div>
         </div>
       </div>
+
+      <!-- De essentie staat open. Ze zat achter een knop, maar wie snel wil
+           weten wie dit is, hoort niet eerst te moeten klikken. -->
+      <section class="essentie" id="tldr" aria-labelledby="ess-kop">
+        <h2 class="label" id="ess-kop" data-i18n="ess_h">In één oogopslag</h2>
+        <dl class="facts">
+          <div><dt data-i18n="tldr_role_lbl">Huidige rol</dt><dd data-i18n="tldr_role_val">Fondsenwerver bij Gekkoo</dd><dd class="sub" data-i18n="tldr_role_sub">Sinds september 2026</dd></div>
+          <div><dt data-i18n="tldr_edu_lbl">Opleiding</dt><dd data-i18n="tldr_edu_val">3 diploma's, 2x met onderscheiding</dd><dd class="sub" data-i18n="tldr_edu_sub">Master Communicatiewetenschappen, UAntwerpen</dd></div>
+          <div><dt data-i18n="tldr_ksa_lbl">Leiderschap</dt><dd data-i18n="tldr_ksa_val">10+ jaar bij KSA Herentals</dd><dd class="sub" data-i18n="tldr_ksa_sub">Hoofdleider, 10.000+ bezoekers via evenementen</dd></div>
+          <div><dt data-i18n="tldr_thesis_lbl">Masterproef</dt><dd data-i18n="tldr_thesis_val">De Macht van Misleiding</dd><dd class="sub" data-i18n="tldr_thesis_sub">Kwantitatief onderzoek naar (des)informatie, 241 respondenten</dd></div>
+          <div><dt data-i18n="tldr_domains_lbl">Sterk in</dt><dd data-i18n="tldr_domains_val">Communicatie, (web)design, psychologie &amp; leiderschap</dd><dd class="sub" data-i18n="tldr_domains_sub">Terugkerend in zowel mijn opleiding als mijn werkervaring</dd></div>
+          <div><dt data-i18n="tldr_lang_lbl">Talen</dt><dd data-i18n="tldr_lang_val">NL (moedertaal) · EN (C2) · FR (A2)</dd><dd class="sub" data-i18n="tldr_lang_sub">Voldoende om in een internationale of tweetalige omgeving te werken</dd></div>
+          <div><dt data-i18n="tldr_avail_lbl">Beschikbaarheid</dt><dd data-i18n="tldr_avail_val">Halftijds · loondienst of freelance</dd><dd class="sub" data-i18n="tldr_avail_sub">Regio Herentals&ndash;Antwerpen</dd></div>
+          <div><dt data-i18n="tldr_ehbo_lbl">EHBO</dt><dd data-i18n="tldr_ehbo_val">Eerste Hulp &amp; Helper, Rode Kruis-Vlaanderen</dd><dd class="sub" data-i18n="tldr_ehbo_sub">Geldig tot 2028 &middot; samen een deelkwalificatie Eventhulpverlener</dd></div>
+        </dl>
+      </section>
     </div>
-  </section>
   </div><!-- /#home -->
 
   <!-- ============ WERK ============ -->
-  <!-- Het portfolio staat nu op zichzelf in plaats van onderaan de thuissectie:
-       zo krijgt het een eigen anker voor het menu en ziet de scroll-spy het als
-       een aparte halte. -->
-  <div class="sec" id="werk" data-nav="nav_werk" data-nav-nl="Portfolio">
-  <!-- De drie kaarten "Waar ik voor sta" en het portfolio horen bij elkaar: de
-       kaarten doen de belofte, het portfolio is het bewijs. Ze stonden eerder in
-       twee verschillende secties, waardoor "Home" een derde van de pagina besloeg
-       en "Werk" maar een paar honderd pixels duurde. -->
-  <!-- HIGHLIGHTS -->
-  <section class="section-pad">
+  <div class="sec grade g-schelde" id="werk">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow"><span class="dot"></span> <span data-i18n="hl_eyebrow">Waar ik voor sta</span></span>
-        <h2 class="h-lg" data-i18n="hl_h2">Vakgebieden die in elkaar <span class="grad-text em-serif">overlopen</span></h2>
-        <p class="lead" data-i18n="hl_lead">Communicatie, media en journalistiek, (web)design, psychologie, technologie en leiderschap: vakgebieden die in mijn parcours voortdurend in elkaar overlopen. Doorgaans zet ik ze dan ook samen in.</p>
+      <figure class="frame">
+        <img src="assets/photos/antwerpen-skyline-schelde.jpg" alt="Luchtfoto van de Antwerpse skyline met de Schelde en het Loodswezengebouw" width="1600" height="1200" loading="lazy" />
+        <figcaption data-i18n="photo_skyline_t">Luchtfoto · Antwerpse Schelde</figcaption>
+      </figure>
+      <div class="sec-head">
+        <h2 class="sec-title" data-i18n="nav_werk">Werk</h2>
+        <div>
+          <p class="sec-sub" data-i18n="hl_h2">Vakgebieden die in elkaar <span class="grad-text em-serif">overlopen</span></p>
+          <p class="sec-lead" data-i18n="hl_lead">Communicatie, media en journalistiek, (web)design, psychologie, technologie en leiderschap: vakgebieden die in mijn parcours voortdurend in elkaar overlopen. Doorgaans zet ik ze dan ook samen in.</p>
+        </div>
       </div>
-      <div class="bento">
-        <div class="glass fx-card feature feature-wide reveal fx-write" data-d="1">
-          <!-- Kernboodschap: verspreide stippen die bij hover samenkomen tot één
-               uitgelijnde rij. Elke stip staat al op zijn eindplek in die rij;
-               de verstrooiing is een verschuiving die bij hover naar nul gaat. -->
-          <div class="fx" aria-hidden="true">
-            <span class="msg">
-              <i style="--dx:-22px;--dy:-26px;--i:0"></i><i style="--dx:14px;--dy:18px;--i:1"></i>
-              <i style="--dx:-8px;--dy:-34px;--i:2"></i><i style="--dx:26px;--dy:-12px;--i:3"></i>
-              <i style="--dx:-30px;--dy:8px;--i:4"></i><i style="--dx:6px;--dy:30px;--i:5"></i>
-              <i style="--dx:20px;--dy:-28px;--i:6"></i><i style="--dx:-14px;--dy:22px;--i:7"></i>
-              <i style="--dx:30px;--dy:14px;--i:8"></i><i style="--dx:-26px;--dy:-10px;--i:9"></i>
-              <i style="--dx:10px;--dy:-20px;--i:10"></i><i style="--dx:-18px;--dy:32px;--i:11"></i>
-              <i style="--dx:24px;--dy:6px;--i:12"></i><i style="--dx:-6px;--dy:-16px;--i:13"></i>
-              <i style="--dx:16px;--dy:26px;--i:14"></i><i style="--dx:-12px;--dy:-6px;--i:15"></i>
-            </span>
-          </div>
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-          <h3 data-i18n="card_comm_h">Doelgerichte communicatie</h3>
-          <p data-i18n="card_comm_p">Tijdens mijn master lag de nadruk op strategische, heldere communicatie, met bijzondere aandacht voor data, gedrag en het discours in media en politiek.</p>
+      <div class="cols-3">
+        <div class="pillar"><h3 data-i18n="card_comm_h">Doelgerichte communicatie</h3><p data-i18n="card_comm_p">Tijdens mijn master lag de nadruk op strategische, heldere communicatie, met bijzondere aandacht voor data, gedrag en het discours in media en politiek.</p></div>
+        <div class="pillar"><h3 data-i18n="card_design_h">Design &amp; digitale content</h3><p data-i18n="card_design_p">Webdesign, visuele identiteit, fotografie en film. Een idee werk ik zelf uit tot beeld, en vaak ook tot de interface waarin dat beeld belandt.</p></div>
+        <div class="pillar"><h3 data-i18n="card_lead_h">Leiderschap &amp; organisatie</h3><p data-i18n="card_lead_p">Tien jaar ervaring in het aansturen van een team en het organiseren van evenementen. Die routine neem ik mee naar nieuwe projecten en contexten.</p></div>
+      </div>
+
+      <!-- Alle stukken staan meteen in beeld; een klik vergroot het beeld of
+           opent het voorproefvenster bij de documenten. -->
+      <h3 class="label label-gap" data-i18n="designs_toggle_sub">13 stukken: infographics, brochures, presentaties &amp; papers</h3>
+      <div class="gallery">
+        <div class="design-item">
+          <button type="button" class="diploma-thumb" data-full="assets/designs/poster-kokerjuffer.jpg"><img src="assets/designs/poster-kokerjuffer.jpg" alt="Infographic-poster 'De Kokerjuffer' over de levenscyclus van een insectensoort" loading="lazy" /></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_kokerjuffer_t">Infographic · De Kokerjuffer</span><span class="design-cap-s" data-i18n="design_kokerjuffer_s">Wetenschapscommunicatie, Karel de Grote Hogeschool</span></span>
         </div>
-        <div class="glass fx-card feature reveal fx-palette" data-d="2">
-          <span class="fx" aria-hidden="true"></span>
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-          <h3 data-i18n="card_design_h">Design &amp; digitale content</h3>
-          <p data-i18n="card_design_p">Webdesign, visuele identiteit, fotografie en film. Een idee werk ik zelf uit tot beeld, en vaak ook tot de interface waarin dat beeld belandt.</p>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb" data-full="assets/designs/infographic-ph-meting.jpg"><img src="assets/designs/infographic-ph-meting.jpg" alt="Infographic met stappenplan voor een pH-meting van waterlichamen" loading="lazy" /></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_ph_t">Infographic · pH-meting</span><span class="design-cap-s" data-i18n="design_ph_s">Stap-voor-stap uitleg van een meetproces</span></span>
         </div>
-        <div class="glass fx-card feature reveal fx-network" data-d="3">
-          <span class="fx" aria-hidden="true"><svg class="net" viewBox="0 0 150 110"><line x1="30" y1="30" x2="95" y2="20"/><line x1="95" y1="20" x2="120" y2="70"/><line x1="30" y1="30" x2="70" y2="85"/><line x1="70" y1="85" x2="120" y2="70"/><circle cx="30" cy="30" r="5"/><circle cx="95" cy="20" r="5"/><circle cx="120" cy="70" r="5"/><circle cx="70" cy="85" r="5"/></svg></span>
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div>
-          <h3 data-i18n="card_lead_h">Leiderschap &amp; organisatie</h3>
-          <p data-i18n="card_lead_p">Tien jaar ervaring in het aansturen van een team en het organiseren van evenementen. Die routine neem ik mee naar nieuwe projecten en contexten.</p>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb" data-full="assets/designs/poster-dune-voorbeeld.jpg"><img src="assets/designs/poster-dune-voorbeeld.jpg" alt="Zelf ontworpen voorbeeldposter over de film Dune, gemaakt als lesmateriaal" loading="lazy" /></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_dune_t">Voorbeeldposter · Dune</span><span class="design-cap-s" data-i18n="design_dune_s">Zelf ontworpen als lesvoorbeeld voor leerlingen</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb" data-full="assets/designs/brochure-licht-uit.jpg"><img src="assets/designs/brochure-licht-uit.jpg" alt="Drieluik-brochure 'Licht uit, oogjes toe' over schermlicht en slaap bij jongeren" loading="lazy" /></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_brochure_t">Brochure · Licht uit, oogjes toe</span><span class="design-cap-s" data-i18n="design_brochure_s">Informatieve drieluik-folder voor en door jongeren</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/struddy-pitch.pdf" data-doc-slug="struddy-pitch" data-doc-pages="18" data-doc-preview="5" data-doc-bytes="1815986"><img src="assets/designs/slides-struddy-pitch.jpg" alt="Titelslide van de conceptpitch 'Struddy', een stressapp op basis van wearabledata" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 18 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_struddy_t">Conceptpitch · Struddy</span><span class="design-cap-s" data-i18n="design_struddy_s">Stress + buddy: een app die op het juiste moment ingrijpt</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/struddy-campagnevoorstel.pdf" data-doc-slug="struddy-campagnevoorstel" data-doc-pages="22" data-doc-preview="5" data-doc-bytes="723917"><img src="assets/designs/paper-struddy-campagne.jpg" alt="Titelpagina van het campagnevoorstel 'Struddy: Right Time, Right Help with Wearable Data'" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 22 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_campagne_t">Campagnevoorstel · Struddy</span><span class="design-cap-s" data-i18n="design_campagne_s">Just-in-time interventie, uitgewerkt tot en met het onderzoeksopzet</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/framing-trump.pdf" data-doc-slug="framing-trump" data-doc-pages="25" data-doc-preview="5" data-doc-bytes="856095"><img src="assets/designs/paper-framing-trump.jpg" alt="Titelpagina van de paper over de framing van Trumps verkiezingsoverwinning in 2024" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 25 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_trump_t">Paper · Framing van Trumps verkiezingswinst</span><span class="design-cap-s" data-i18n="design_trump_s">Kritische discoursanalyse van De Morgen, Doorbraak en Apache</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/communicatiestrateeg.pdf" data-doc-slug="communicatiestrateeg" data-doc-pages="44" data-doc-preview="5" data-doc-bytes="5410817"><img src="assets/designs/slides-communicatiestrateeg.jpg" alt="Titelslide van het groepswerk 'Persona: De communicatiestrateeg'" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 44 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_strateeg_t">Presentatie · De communicatiestrateeg</span><span class="design-cap-s" data-i18n="design_strateeg_s">Persona van een beroep: takenpakket, werkdomeinen en skills</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/persona-mediagebruiker.pdf" data-doc-slug="persona-mediagebruiker" data-doc-pages="47" data-doc-preview="5" data-doc-bytes="5942470"><img src="assets/designs/slides-persona-dsmm.jpg" alt="Titelslide van de presentatie 'Persona: nieuwe technologieen, kansen en uitdagingen'" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 47 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_persona_t">Presentatie · Persona van een mediagebruiker</span><span class="design-cap-s" data-i18n="design_persona_s">Mediagedrag gelezen door het differential susceptibility-model</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/vr-in-fashion.pdf" data-doc-slug="vr-in-fashion" data-doc-pages="5" data-doc-preview="5" data-doc-bytes="3539402"><img src="assets/designs/slides-vr-in-fashion.jpg" alt="Titelslide van de presentatie 'VR in fashion?' voor Persuasive Technologies" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 5 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_vr_t">Presentatie · VR in fashion?</span><span class="design-cap-s" data-i18n="design_vr_s">Wat virtueel winkelen belooft, en wat het kost</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/beyond-the-buzz.pdf" data-doc-slug="beyond-the-buzz" data-doc-pages="14" data-doc-preview="5" data-doc-bytes="2061643"><img src="assets/designs/slides-beyond-the-buzz.jpg" alt="Titelslide van de presentatie 'Beyond the Buzz', Universiteit Antwerpen" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 14 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_beyond_t">Presentatie · Beyond the Buzz</span><span class="design-cap-s" data-i18n="design_beyond_s">Academische paper-presentatie, Universiteit Antwerpen</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/permanently-online.pdf" data-doc-slug="permanently-online" data-doc-pages="21" data-doc-preview="5" data-doc-bytes="2891491"><img src="assets/designs/slides-permanently-online.jpg" alt="Titelslide van de presentatie 'Permanently Online, Always Stressed Out?', Universiteit Antwerpen" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 21 p</span></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_permanently_t">Presentatie · Permanently Online</span><span class="design-cap-s" data-i18n="design_permanently_s">Academische paper-presentatie, Universiteit Antwerpen</span></span>
+        </div>
+        <div class="design-item">
+          <button type="button" class="diploma-thumb" data-full="assets/designs/slides-masterproef-seminarie.jpg"><img src="assets/designs/slides-masterproef-seminarie.jpg" alt="Titelslide van de presentatie van de masterproef 'De Macht van Misleiding'" loading="lazy" /></button>
+          <span class="design-cap"><span class="design-cap-t" data-i18n="design_masterproef_t">Presentatie · Masterproefseminarie</span><span class="design-cap-s" data-i18n="design_masterproef_s">Voorstelling van 'De Macht van Misleiding'</span></span>
         </div>
       </div>
     </div>
-  </section>
-  <section class="section-pad" style="padding-top:0">
-    <div class="wrap">
-      <!-- Het balonnetje staat buiten de kaart: .glass klipt zijn inhoud, dus
-           binnenin zou de punt van de tuit wegvallen. De wikkel geeft het een
-           anker om zich aan op te hangen. -->
-      <div class="werk-wikkel reveal" data-d="4" style="margin-top:18px">
-      <div class="glass tilt tldr-card">
-        <button class="tldr-toggle" aria-expanded="false" aria-controls="designs-panel">
-          <span class="tldr-toggle-txt">
-            <strong data-i18n="designs_toggle_open">Bekijk voorbeelden van mijn ontwerp- en projectwerk</strong>
-            <span data-i18n="designs_toggle_sub">13 stukken: infographics, brochures, presentaties &amp; papers</span>
-          </span>
-          <span class="tldr-preview-stack" aria-hidden="true">
-            <img src="assets/designs/poster-kokerjuffer.jpg" alt="" loading="lazy" />
-            <img src="assets/designs/slides-struddy-pitch.jpg" alt="" loading="lazy" />
-            <img src="assets/designs/slides-communicatiestrateeg.jpg" alt="" loading="lazy" />
-          </span>
-          <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="tldr-panel" id="designs-panel" inert>
-          <div class="tldr-panel-inner">
-            <div class="designs-grid">
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/designs/poster-kokerjuffer.jpg"><img src="assets/designs/poster-kokerjuffer.jpg" alt="Infographic-poster 'De Kokerjuffer' over de levenscyclus van een insectensoort" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_kokerjuffer_t">Infographic · De Kokerjuffer</span><span class="design-cap-s" data-i18n="design_kokerjuffer_s">Wetenschapscommunicatie, Karel de Grote Hogeschool</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/designs/infographic-ph-meting.jpg"><img src="assets/designs/infographic-ph-meting.jpg" alt="Infographic met stappenplan voor een pH-meting van waterlichamen" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_ph_t">Infographic · pH-meting</span><span class="design-cap-s" data-i18n="design_ph_s">Stap-voor-stap uitleg van een meetproces</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/designs/poster-dune-voorbeeld.jpg"><img src="assets/designs/poster-dune-voorbeeld.jpg" alt="Zelf ontworpen voorbeeldposter over de film Dune, gemaakt als lesmateriaal" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_dune_t">Voorbeeldposter · Dune</span><span class="design-cap-s" data-i18n="design_dune_s">Zelf ontworpen als lesvoorbeeld voor leerlingen</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/designs/brochure-licht-uit.jpg"><img src="assets/designs/brochure-licht-uit.jpg" alt="Drieluik-brochure 'Licht uit, oogjes toe' over schermlicht en slaap bij jongeren" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_brochure_t">Brochure · Licht uit, oogjes toe</span><span class="design-cap-s" data-i18n="design_brochure_s">Informatieve drieluik-folder voor en door jongeren</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/struddy-pitch.pdf" data-doc-slug="struddy-pitch" data-doc-pages="18" data-doc-preview="5" data-doc-bytes="1815986"><img src="assets/designs/slides-struddy-pitch.jpg" alt="Titelslide van de conceptpitch 'Struddy', een stressapp op basis van wearabledata" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 18 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_struddy_t">Conceptpitch · Struddy</span><span class="design-cap-s" data-i18n="design_struddy_s">Stress + buddy: een app die op het juiste moment ingrijpt</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/struddy-campagnevoorstel.pdf" data-doc-slug="struddy-campagnevoorstel" data-doc-pages="22" data-doc-preview="5" data-doc-bytes="723917"><img src="assets/designs/paper-struddy-campagne.jpg" alt="Titelpagina van het campagnevoorstel 'Struddy: Right Time, Right Help with Wearable Data'" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 22 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_campagne_t">Campagnevoorstel · Struddy</span><span class="design-cap-s" data-i18n="design_campagne_s">Just-in-time interventie, uitgewerkt tot en met het onderzoeksopzet</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/framing-trump.pdf" data-doc-slug="framing-trump" data-doc-pages="25" data-doc-preview="5" data-doc-bytes="856095"><img src="assets/designs/paper-framing-trump.jpg" alt="Titelpagina van de paper over de framing van Trumps verkiezingsoverwinning in 2024" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 25 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_trump_t">Paper · Framing van Trumps verkiezingswinst</span><span class="design-cap-s" data-i18n="design_trump_s">Kritische discoursanalyse van De Morgen, Doorbraak en Apache</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/communicatiestrateeg.pdf" data-doc-slug="communicatiestrateeg" data-doc-pages="44" data-doc-preview="5" data-doc-bytes="5410817"><img src="assets/designs/slides-communicatiestrateeg.jpg" alt="Titelslide van het groepswerk 'Persona: De communicatiestrateeg'" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 44 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_strateeg_t">Presentatie · De communicatiestrateeg</span><span class="design-cap-s" data-i18n="design_strateeg_s">Persona van een beroep: takenpakket, werkdomeinen en skills</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/persona-mediagebruiker.pdf" data-doc-slug="persona-mediagebruiker" data-doc-pages="47" data-doc-preview="5" data-doc-bytes="5942470"><img src="assets/designs/slides-persona-dsmm.jpg" alt="Titelslide van de presentatie 'Persona: nieuwe technologieen, kansen en uitdagingen'" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 47 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_persona_t">Presentatie · Persona van een mediagebruiker</span><span class="design-cap-s" data-i18n="design_persona_s">Mediagedrag gelezen door het differential susceptibility-model</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/vr-in-fashion.pdf" data-doc-slug="vr-in-fashion" data-doc-pages="5" data-doc-preview="5" data-doc-bytes="3539402"><img src="assets/designs/slides-vr-in-fashion.jpg" alt="Titelslide van de presentatie 'VR in fashion?' voor Persuasive Technologies" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 5 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_vr_t">Presentatie · VR in fashion?</span><span class="design-cap-s" data-i18n="design_vr_s">Wat virtueel winkelen belooft, en wat het kost</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/beyond-the-buzz.pdf" data-doc-slug="beyond-the-buzz" data-doc-pages="14" data-doc-preview="5" data-doc-bytes="2061643"><img src="assets/designs/slides-beyond-the-buzz.jpg" alt="Titelslide van de presentatie 'Beyond the Buzz', Universiteit Antwerpen" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 14 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_beyond_t">Presentatie · Beyond the Buzz</span><span class="design-cap-s" data-i18n="design_beyond_s">Academische paper-presentatie, Universiteit Antwerpen</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb doc-link" data-doc="assets/docs/permanently-online.pdf" data-doc-slug="permanently-online" data-doc-pages="21" data-doc-preview="5" data-doc-bytes="2891491"><img src="assets/designs/slides-permanently-online.jpg" alt="Titelslide van de presentatie 'Permanently Online, Always Stressed Out?', Universiteit Antwerpen" loading="lazy" /><span class="doc-chip" aria-hidden="true">PDF · 21 p</span></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_permanently_t">Presentatie · Permanently Online</span><span class="design-cap-s" data-i18n="design_permanently_s">Academische paper-presentatie, Universiteit Antwerpen</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/designs/slides-masterproef-seminarie.jpg"><img src="assets/designs/slides-masterproef-seminarie.jpg" alt="Titelslide van de presentatie van de masterproef 'De Macht van Misleiding'" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="design_masterproef_t">Presentatie · Masterproefseminarie</span><span class="design-cap-s" data-i18n="design_masterproef_s">Voorstelling van 'De Macht van Misleiding'</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        <span class="werk-wenk" aria-hidden="true" data-i18n="designs_wenk">Benieuwd naar mijn werk?</span>
-      </div>
-    </div>
-  </section>
   </div><!-- /#werk -->
+
   <!-- ============ ERVARING ============ -->
-  <div class="sec" id="ervaring" data-nav="nav_ervaring" data-nav-nl="Ervaring">
-  <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">01</span> <span data-i18n="exp_eyebrow">Ervaring</span></span>
-    <h2 class="h-lg reveal" data-d="1" data-i18n="exp_h2">Een veelzijdig <span class="grad-text em-serif">parcours</span></h2>
-    <p class="lead reveal" data-d="2" data-i18n="exp_lead">Communicatie, onderzoek, (web)design, leiderschap en onderwijs: ervaring die over verschillende vakgebieden heen loopt. In elk daarvan ging het uiteindelijk om mensen.</p>
-  </section>
-
-  <!-- CURRENT ROLE: GEKKOO -->
-  <section class="wrap section-pad" style="padding-top:26px;padding-bottom:0">
-    <!-- Alleen het labeltje: de kaart eronder noemt de werkgever en de functies
-         al, dus een kop en een inleiding zouden dat gewoon herhalen. Het label
-         hoeft enkel te zeggen wat de kaart zelf niet zegt, namelijk dat dit het
-         betaalde werk is en niet het vrijwilligerswerk dat volgt. -->
-    <!-- Overbrugging sep 2025 - mei 2026. Een lezer telt de maanden tussen het
-         einde van de master en de eerste job; als daar niets staat, vult hij dat
-         zelf in. Maar het is geen functie, dus het verdient ook geen blok: enkel
-         de periode staat er, en de uitleg zit in een balonnetje dat opengaat bij
-         hover, bij toetsenbordfocus en bij een tik. Dat laatste is waarom het
-         een knop is en geen los stukje tekst - op een telefoon bestaat hover
-         niet, en dan zou de uitleg onbereikbaar zijn. -->
-    <div class="gap-hint reveal">
-      <button type="button" class="gap-knop" aria-expanded="false" aria-controls="gap-tip">
-        <span data-i18n="gap_date">sep 2025 &ndash; mei 2026</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>
-      </button>
-      <span class="gap-tip" id="gap-tip" role="tooltip" data-i18n="gap_2025_2026">Na mijn master nam ik de tijd om gericht te zoeken naar een plek waar communicatie, psychologie en jeugdwerk samenkomen. Ondertussen bleef ik hoofdleider bij KSA Herentals en beheerde ik hun website.</span>
-    </div>
-    <div class="job-label reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="job_eyebrow">Huidige werkgever</span></span>
-    </div>
-    <div class="glass tilt role-card reveal" data-d="1">
-      <div class="role-head">
-        <div>
-          <h3 style="font-size:1.25rem">Gekkoo</h3>
-          <p style="color:var(--ink-soft);font-size:.95rem" data-i18n="gekkoo_desc">Gekkoo organiseert speelpleinwerking en vakantiekampen voor kinderen in Vlaanderen en de Ardennen. <a href="https://gekkoo.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">gekkoo.be ↗</a></p>
-        </div>
-      </div>
-      <div class="role-list">
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="gekkoo_role1_h">Fondsenwerver <span class="now-badge"><span class="pulse"></span> <span data-i18n="gekkoo_role1_badge">Sinds sep 2026</span></span></h4><span class="rd" data-i18n="gekkoo_role1_date">sep 2026 – heden</span></div>
-          <p data-i18n="gekkoo_role1_p">Ik werf fondsen bij bedrijven en particulieren en via projectoproepen, om de werking van Gekkoo mee te financieren en verder uit te bouwen.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_fundraising">Fondsenwerving</span><span class="skill-tag" data-i18n="tag_corporate">Bedrijvenrelaties</span><span class="skill-tag" data-i18n="tag_grants">Projectoproepen &amp; subsidies</span></div>
-        </div>
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="gekkoo_role2_h">Inhoudelijk &amp; communicatiemedewerker, grafisch design</h4><span class="rd" data-i18n="gekkoo_role2_date">mei 2026 – sep 2026</span></div>
-          <p data-i18n="gekkoo_role2_p">Als inhoudelijk medewerker stond ik in voor contentcreatie, visuele en grafische vormgeving en externe communicatie. Ik onderhield de contacten met andere speelpleinwerkingen en bracht mijn achtergrond in communicatie, psychologie en jeugdwerk samen in één rol. In de zomer van 2026 was ik bovendien verantwoordelijk voor een eigen project in Essen.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_content">Inhoudelijke uitbouw</span><span class="skill-tag" data-i18n="chip_comm">Communicatie</span><span class="skill-tag" data-i18n="tag_graphic">Grafisch design</span><span class="skill-tag" data-i18n="tag_network">Netwerken</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KSA HERENTALS -->
-  <section class="wrap section-pad" style="padding-top:44px;padding-bottom:0">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="ksa_eyebrow">10+ jaar engagement</span></span>
-      <h2 class="h-lg" data-i18n="ksa_h2">Meegegroeid met <span class="grad-text">KSA Herentals</span></h2>
-      <p class="lead" data-i18n="ksa_lead">Een jeugdbeweging leert je zaken die in geen enkele opleiding aan bod komen: samenwerken in een erg divers team, verantwoordelijkheid opnemen en improviseren zodra het plan verandert.</p>
-    </div>
-    <div class="glass tilt role-card reveal" data-d="1">
-      <div class="role-head">
-        <div>
-          <h3 style="font-size:1.25rem">KSA Herentals</h3>
-          <p style="color:var(--ink-soft);font-size:.95rem" data-i18n="ksa_desc">Dé jeugdbeweging met de blauwe hemden en oranje sjaaltjes in het hart van Herentals. <a href="https://www.ksaherentals.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be ↗</a></p>
-        </div>
-      </div>
-      <div class="role-list">
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="ksa_role1_h">Webdesigner</h4><span class="rd" data-i18n="ksa_role1_date">2022 – heden</span></div>
-          <p data-i18n="ksa_role1_p">Ik richtte <a href="https://ksaherentals.be" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be ↗</a> zelfstandig op en beheer die als hoofdplatform voor de volledige werking: ledenplanning, activiteiten én een maandelijkse blog die ik zelf schrijf en publiceer.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_ui">UI-design</span><span class="skill-tag" data-i18n="tag_webbuild">Websites bouwen</span><span class="skill-tag" data-i18n="tag_webmgmt">Webbeheer</span></div>
-        </div>
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="ksa_role2_h">Hoofdleider</h4><span class="rd" data-i18n="ksa_role2_date">sep 2019 – sep 2026</span></div>
-          <p data-i18n="ksa_role2_p">Verantwoordelijk voor het leiden van de jeugdbeweging: ik coördineerde een team van gemiddeld 20 jongvolwassenen, organiseerde activiteiten en grootschalige events en vertegenwoordigde de organisatie in de lokale gemeenschap. Als hoofdverantwoordelijke organiseerde ik tientallen evenementen, samen goed voor meer dan 10.000 bezoekers.</p>
-          <div class="skill-tags"><span class="skill-tag" data-i18n="tag_teammgmt">Teammanagement</span><span class="skill-tag" data-i18n="tag_events">Evenementen organiseren</span><span class="skill-tag" data-i18n="tag_social">Sociale media</span></div>
-        </div>
-        <div class="role-row">
-          <div class="rt"><h4 data-i18n="ksa_role3_h">Leider</h4><span class="rd" data-i18n="ksa_role3_date">sep 2015 – sep 2026</span></div>
-          <p data-i18n="ksa_role3_p">Naast het hoofdleiderschap stond ik wekelijks zelf voor de groep: activiteiten begeleiden voor de leden, met oog voor verhaal, verbeelding en groepsgevoel. Beide rollen liepen bewust parallel.</p>
-          <div class="skill-tags"><span class="skill-tag">Storytelling</span><span class="skill-tag" data-i18n="tag_creativity">Creativiteit</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STAGES & ONDERWIJS -->
-  <section class="wrap" style="padding-top:44px;padding-bottom:30px">
-    <div style="margin-bottom:16px" class="reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="stages_eyebrow">Stages &amp; studentenjobs</span></span>
-      <h3 class="h-md" style="margin-top:10px" data-i18n="stages_h2">In de <span class="grad-text">praktijk</span></h3>
-    </div>
-    <div class="glass stage-compact reveal" data-d="1">
-      <div class="stage-row">
-        <span class="stage-yr">2023</span>
-        <div class="stage-info"><strong>GITHO Nijlen</strong><span data-i18n="stage1_short">Leerkracht Engels (stage) · TEFL</span></div>
-        <span class="stage-loc">Nijlen</span>
-      </div>
-      <div class="stage-row">
-        <span class="stage-yr">2022</span>
-        <div class="stage-info"><strong>Sint-Lutgardisschool</strong><span data-i18n="stage2_short">Leerkracht wetenschappen (stage)</span></div>
-        <span class="stage-loc" data-i18n="loc_antwerpen">Antwerpen</span>
-      </div>
-      <div class="stage-row">
-        <span class="stage-yr">2020</span>
-        <div class="stage-info"><strong>kOsh Campus Ieperstraat</strong><span data-i18n="stage3_short">Jeugdconsulent (stage) · Counseling</span></div>
-        <span class="stage-loc">Herentals</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK EXPERIENCE -->
-  <section class="wrap" style="padding-bottom:44px">
-    <p class="jobstudent-note reveal">
-      <span class="jobstudent-label" data-i18n="jobstudent_label">Studentenjobs</span>
-      <span data-i18n="jobstudent_text">Barista bij POP Coffee, Herentals (2023–2024) · Winkelmedewerker bij Van Eccelpoel, Herentals (2016–2018)</span>
-    </p>
-  </section>
-
-  </div><!-- /#ervaring -->
-  <!-- ============ OVER MIJ ============ -->
-  <div class="sec" id="over" data-nav="nav_over" data-nav-nl="Over mij">
-  <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">02</span> <span data-i18n="over_eyebrow">Over mij</span></span>
-    <h2 class="h-lg reveal" data-d="1" data-i18n="over_h2">Een wetenschappelijke blik op <span class="grad-text em-serif">mensenwerk</span></h2>
-    <p class="lead reveal" data-d="2" data-i18n="over_lead">Drie opleidingen die elk een ander deel van mijn interesses aanscherpten: psychologie, onderwijs en communicatiewetenschappen. Samen leverden ze me een kritische kijk op mensen en media op, zonder dat het enthousiasme eronder leed.</p>
-  </section>
-
-  <!-- BIO + SKILLS -->
-  <section class="section-pad" style="padding-top:26px">
-    <div class="wrap grid grid-2" style="align-items:stretch">
-      <div class="bio-open reveal">
-        <p style="color:var(--ink-soft)" data-i18n="over_bio1">Mijn academische bagage in communicatie, media, psychologie en technologie combineer ik met een uitgesproken interesse in design. Daarnaast stuur ik al jaren teams en projecten aan: een leidingsploeg van twintig, en evenementen voor duizenden bezoekers.</p>
-        <p style="color:var(--ink-soft)" data-i18n="over_bio2">Van jongs af aan hoorde ik dat ik &lsquo;iets met mensen&rsquo; moest doen. Mijn opleidingen gaven dat instinct een wetenschappelijke onderbouw, mijn jeugdbeweging een versnelde praktijkopleiding. Die nieuwsgierigheid is gebleven, ook naar de omgeving waarin mensen zich bewegen: die valt er immers niet van los te koppelen.</p>
-        <!-- Talen staan in deze kolom en niet meer in een eigen sectie: de
-             vaardighedenkaart hiernaast is fors hoger dan de bio, waardoor hier
-             een groot leeg vlak viel. Op smalle schermen valt de kolom gewoon
-             onder de kaart en leest het blok als vanouds. -->
-        <div class="lang-inline">
-          <div class="lang-head">
-            <span class="eyebrow"><span class="dot"></span> <span data-i18n="lang_eyebrow">Talen</span></span>
-            <h3 class="h-md" data-i18n="lang_h2">Meertalig <span class="grad-text">communiceren</span></h3>
-          </div>
-          <div class="glass lang-card">
-            <div class="lang-row">
-              <div class="lang-top"><span class="lang-name"><span data-i18n="lang_nl_name">Nederlands</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_nl_lvl">Moedertaal</span></div>
-              <div class="lang-pips" data-level="6" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
-            </div>
-            <div class="lang-row">
-              <div class="lang-top"><span class="lang-name"><span data-i18n="lang_en_name">Engels</span> <span class="lang-star" title="Hoogste niveau">★</span></span><span class="lang-lvl" data-i18n="lang_en_lvl">C2 · volledige beheersing</span></div>
-              <div class="lang-pips" data-level="6" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
-            </div>
-            <div class="lang-row">
-              <div class="lang-top"><span class="lang-name" data-i18n="lang_fr_name">Frans</span><span class="lang-lvl" data-i18n="lang_fr_lvl">A2 · basis secundair onderwijs</span></div>
-              <div class="lang-pips" data-level="2" aria-hidden="true"><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span><span class="lang-pip"><i></i></span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="glass feature reveal" data-d="1" style="padding:38px">
-        <h2 class="h-md" style="margin-bottom:20px" data-i18n="skills_h">Vaardigheden</h2>
-        <div class="skill-list">
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><span data-i18n="skill_writing">Doelgericht schrijven</span></div>
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg></span><span data-i18n="skill_commskills">Communicatievaardigheden</span></div>
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span data-i18n="skill_leadership">Leiderschap &amp; coördinatie</span></div>
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg></span><span data-i18n="skill_projectmgmt">Projectmanagement</span></div>
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span><span data-i18n="skill_visual">Visuele contentcreatie</span></div>
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span><span data-i18n="skill_data">Kwantitatieve data-analyse</span></div>
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 15 2 2 4-4"/></svg></span><span data-i18n="skill_copy">Copywriting &amp; contentplanning</span></div>
-          <div class="skill-row"><span class="skill-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8Z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span data-i18n="skill_coffee">Multitasken met koffie</span></div>
-        </div>
-        <div style="margin-top:22px;border-top:1px solid var(--glass-bord);padding-top:16px">
-          <p style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px" data-i18n="tools_h">Tools</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Canva</span>
-            <span class="skill-tag">DaVinci Resolve</span>
-            <span class="skill-tag">Lightroom</span>
-            <span class="skill-tag">Google Analytics</span>
-            <span class="skill-tag">SPSS</span>
-            <span class="skill-tag">Qualtrics</span>
-            <span class="skill-tag">Microsoft 365</span>
-            <span class="skill-tag" data-i18n="tool_markdown">Markdown &amp; documentatie</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INTERESTS -->
-  <section class="section-pad" style="padding-top:0">
+  <div class="sec" id="ervaring">
+  <section class="grade g-theater">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow"><span class="dot"></span> <span data-i18n="int_eyebrow">Interesses &amp; hobby's</span></span>
-        <h2 class="h-lg" data-i18n="int_h2">Wat me <span class="grad-text">drijft</span></h2>
-        <p class="lead" data-i18n="int_lead">Wat ik buiten het werk doe, staat daar doorgaans niet los van.</p>
-      </div>
-      <div class="grid grid-2 int-grid">
-        <div class="glass fx-card feature reveal fx-flash" data-d="1"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><h3 data-i18n="int_photo_h">Fotografie &amp; film</h3><p data-i18n="int_photo_p">Fotografie en montage: beeld is voor mij een manier om iets te vertellen.</p></div>
-        <div class="glass fx-card feature reveal fx-circuit" data-d="2"><span class="fx" aria-hidden="true"></span><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3 data-i18n="int_tech_h">Tech-trends</h3><p data-i18n="int_tech_p">Nieuwe technologieën en hun impact op mens en samenleving.</p></div>
-        <div class="glass fx-card feature reveal fx-rally" data-d="3">
-          <div class="fx" aria-hidden="true">
-            <svg class="leaf l1" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/><line x1="10" y1="25" x2="10" y2="7" stroke="currentColor" stroke-width=".9" opacity=".45"/></svg>
-            <svg class="leaf l2" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/><line x1="10" y1="25" x2="10" y2="7" stroke="currentColor" stroke-width=".9" opacity=".45"/></svg>
-            <svg class="leaf l3" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/></svg>
-            <svg class="leaf l4" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/><line x1="10" y1="25" x2="10" y2="7" stroke="currentColor" stroke-width=".9" opacity=".45"/></svg>
-            <svg class="leaf l5" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/></svg>
-            <svg class="leaf l6" viewBox="0 0 20 28"><path d="M10 26C3 18 1 8 10 2c9 6 7 16 0 24z" fill="currentColor"/></svg>
-          </div>
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div>
-          <h3 data-i18n="int_ksa_h">Hoofdleider KSA Herentals</h3><p data-i18n="int_ksa_p">Jeugdwerk sinds 2015, waarvan zeven jaar als hoofdverantwoordelijke.</p>
-        </div>
-        <div class="glass fx-card feature reveal fx-neuro" data-d="4">
-          <svg class="neuro-svg" viewBox="0 0 180 140" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
-            <!-- brain silhouette -->
-            <g class="brain-silhouette">
-              <path class="brain-outline" d="M90,13C70,4 36,11 24,34C12,55 16,82 30,99C42,113 62,122 79,116C84,125 87,129 90,127C93,129 96,125 101,116C118,122 138,113 150,99C164,82 168,55 156,34C144,11 110,4 90,13Z"/>
-              <path class="brain-groove" d="M90,13C88,52 88,88 90,127"/>
-              <path class="brain-gyrus" d="M28,58Q46,46 62,58"/>
-              <path class="brain-gyrus" d="M118,44Q136,36 152,50"/>
-              <path class="brain-gyrus" d="M22,80Q44,73 60,82"/>
-              <path class="brain-gyrus" d="M120,74Q140,68 156,80"/>
-              <path class="brain-gyrus" d="M40,104Q58,98 74,106"/>
-              <path class="brain-gyrus" d="M106,104Q122,98 142,106"/>
-            </g>
-            <!-- neuron links -->
-            <line class="neuro-link" x1="90" y1="70" x2="38" y2="30"/>
-            <line class="neuro-link" x1="90" y1="70" x2="145" y2="28"/>
-            <line class="neuro-link" x1="90" y1="70" x2="155" y2="90"/>
-            <line class="neuro-link" x1="90" y1="70" x2="32" y2="105"/>
-            <line class="neuro-link" x1="90" y1="70" x2="90" y2="125"/>
-            <!-- neuron nodes -->
-            <circle class="neuro-node" cx="90" cy="70" r="7"/>
-            <circle class="neuro-node neuro-pulse" cx="38" cy="30" r="4.5"/>
-            <circle class="neuro-node" cx="145" cy="28" r="4.5"/>
-            <circle class="neuro-node" cx="155" cy="90" r="4.5"/>
-            <circle class="neuro-node" cx="32" cy="105" r="4.5"/>
-            <circle class="neuro-node" cx="90" cy="125" r="4.5"/>
-          </svg>
-          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2zM9 22h6"/></svg></div>
-          <h3 data-i18n="int_psych_h">Psychologie</h3><p data-i18n="int_psych_p">Hoe mensen denken en voelen blijft me fascineren, ook buiten het werk.</p>
+      <figure class="frame">
+        <img src="assets/photos/theaterzaal-rood-licht.jpg" alt="Theaterzaal in dramatisch rood licht met zicht op het lichtrig en de balkons" width="1600" height="1200" loading="lazy" />
+        <figcaption data-i18n="photo_theater_t">Sfeer · Theaterzaal</figcaption>
+      </figure>
+      <div class="sec-head">
+        <h2 class="sec-title" data-i18n="nav_ervaring">Ervaring</h2>
+        <div>
+          <p class="sec-sub" data-i18n="exp_h2">Een veelzijdig <span class="grad-text em-serif">parcours</span></p>
+          <p class="sec-lead" data-i18n="exp_lead">Communicatie, onderzoek, (web)design, leiderschap en onderwijs: ervaring die over verschillende vakgebieden heen loopt. In elk daarvan ging het uiteindelijk om mensen.</p>
         </div>
       </div>
-      <!-- De emoji-pilletjes stonden eerder bij de highlights bovenaan de
-           pagina, achthonderd pixels van deze kaarten vandaan, en somden
-           grotendeels hetzelfde op. Ze staan nu waar ze horen: als staartje
-           onder de vier kaarten die het uitleggen. -->
-      <div class="personal-strip">
-        <span class="personal-label" data-i18n="hl_personal_label">En verder nog</span>
-        <span class="personal-chip">📷 <span data-i18n="hl_personal_photo">Fotografie</span></span>
-        <span class="personal-chip">☕ <span data-i18n="hl_personal_coffee">Koffie</span></span>
-        <span class="personal-chip">📚 <span data-i18n="hl_personal_learn">Bijleren</span></span>
-        <span class="personal-chip">🎬 <span data-i18n="hl_personal_film">Films</span></span>
-        <span class="personal-chip">🤍 <span data-i18n="hl_personal_people">Tijd met vrienden</span></span>
-        <span class="personal-chip">🌿 <span data-i18n="hl_personal_nature">Natuur</span></span>
-        <span class="personal-chip">🤖 <span data-i18n="hl_personal_tech">Nieuwe technologie</span></span>
-      </div>
-      <div class="glass tilt tldr-card reveal" data-d="4" style="margin-top:18px">
-        <button class="tldr-toggle" aria-expanded="false" aria-controls="photos-panel">
-          <span class="tldr-toggle-txt">
-            <strong data-i18n="photos_toggle_open">Bekijk voorbeelden van mijn fotografie</strong>
-            <span data-i18n="photos_toggle_sub">9 foto's: architectuur, natuur &amp; astrofotografie</span>
-          </span>
-          <span class="tldr-preview-stack" aria-hidden="true">
-            <img src="assets/photos/urbex-lichtstraal-kamer.jpg" alt="" loading="lazy" />
-            <img src="assets/photos/antwerpen-skyline-schelde.jpg" alt="" loading="lazy" />
-            <img src="assets/photos/drone-zonsondergang-kampeerveld.jpg" alt="" loading="lazy" />
-          </span>
-          <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="tldr-panel" id="photos-panel" inert>
-          <div class="tldr-panel-inner">
-            <div class="designs-grid photos-grid">
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/urbex-lichtstraal-kamer.jpg"><img src="assets/photos/urbex-lichtstraal-kamer.jpg" alt="Verlaten kamer met brick muren en dramatische lichtstralen die over de vloer vallen" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_urbex_t">Urbex · Verlaten kamer</span><span class="design-cap-s" data-i18n="photo_urbex_s">Lichtstralen door hoge vensters in een leegstaand pand</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/antwerpen-skyline-schelde.jpg"><img src="assets/photos/antwerpen-skyline-schelde.jpg" alt="Luchtfoto van de Antwerpse skyline met de Schelde en het Loodswezengebouw" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_skyline_t">Luchtfoto · Antwerpse Schelde</span><span class="design-cap-s" data-i18n="photo_skyline_s">Skyline, Loodswezen en de haven vanuit de hoogte</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/drone-zonsondergang-kampeerveld.jpg"><img src="assets/photos/drone-zonsondergang-kampeerveld.jpg" alt="Dronefoto van een gouden zonsondergang boven een kampeerveld met tenten" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_drone_t">Drone · Zonsondergang</span><span class="design-cap-s" data-i18n="photo_drone_s">Gouden uur boven een kampeerveld</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/antwerpen-centraal-vensters.jpg"><img src="assets/photos/antwerpen-centraal-vensters.jpg" alt="Backlit gotische vensters van station Antwerpen-Centraal in gouden licht" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_centraal_t">Architectuur · Antwerpen-Centraal</span><span class="design-cap-s" data-i18n="photo_centraal_s">Symmetrie en tegenlicht in het station</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/theaterzaal-rood-licht.jpg"><img src="assets/photos/theaterzaal-rood-licht.jpg" alt="Theaterzaal in dramatisch rood licht met zicht op het lichtrig en de balkons" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_theater_t">Sfeer · Theaterzaal</span><span class="design-cap-s" data-i18n="photo_theater_s">Dramatische belichting tijdens een voorstelling</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/melkweg-sterrenhemel.jpg"><img src="assets/photos/melkweg-sterrenhemel.jpg" alt="Astrofoto van de Melkweg tegen een heldere sterrenhemel" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_melkweg_t">Astrofotografie · Melkweg</span><span class="design-cap-s" data-i18n="photo_melkweg_s">Lange sluitertijd onder een heldere hemel</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/zonsverduistering.jpg"><img src="assets/photos/zonsverduistering.jpg" alt="Close-up van een zonsverduistering met een gloeiende rand" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_eclipse_t">Astrofotografie · Zonsverduistering</span><span class="design-cap-s" data-i18n="photo_eclipse_s">Close-up door een telelens</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/lichtstraal-bos.jpg"><img src="assets/photos/lichtstraal-bos.jpg" alt="Zonlicht dat door het bladerdak van een bos breekt" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_bos_t">Natuur · Lichtstralen</span><span class="design-cap-s" data-i18n="photo_bos_s">Zon door het bladerdak</span></span>
-              </div>
-              <div class="design-item">
-                <button type="button" class="diploma-thumb" data-full="assets/photos/herfstbos-contrast.jpg"><img src="assets/photos/herfstbos-contrast.jpg" alt="Contrast tussen een groene naaldboom en oranje herfstbladeren in het bos" loading="lazy" /></button>
-                <span class="design-cap"><span class="design-cap-t" data-i18n="photo_herfst_t">Natuur · Herfstcontrast</span><span class="design-cap-s" data-i18n="photo_herfst_s">Groen tegen oranje in het herfstbos</span></span>
-              </div>
+
+      <div class="org">
+        <div class="org-head">
+          <p class="label" data-i18n="job_eyebrow">Huidige werkgever</p>
+          <h3>Gekkoo</h3>
+          <p data-i18n="gekkoo_desc">Gekkoo organiseert speelpleinwerking en vakantiekampen voor kinderen in Vlaanderen en de Ardennen. <a href="https://gekkoo.be/" target="_blank" rel="noopener">gekkoo.be ↗</a></p>
+        </div>
+        <div class="rows">
+          <article class="row">
+            <span class="row-date" data-i18n="gekkoo_role1_date">sep 2026 – heden</span>
+            <div>
+              <h4 data-i18n="gekkoo_role1_h">Fondsenwerver <span class="now-badge"><span class="pulse"></span> <span data-i18n="gekkoo_role1_badge">Sinds sep 2026</span></span></h4>
+              <p data-i18n="gekkoo_role1_p">Ik werf fondsen bij bedrijven en particulieren en via projectoproepen, om de werking van Gekkoo mee te financieren en verder uit te bouwen.</p>
+              <p class="tags"><span data-i18n="tag_fundraising">Fondsenwerving</span><span data-i18n="tag_corporate">Bedrijvenrelaties</span><span data-i18n="tag_grants">Projectoproepen &amp; subsidies</span></p>
             </div>
-          </div>
+          </article>
+          <article class="row">
+            <span class="row-date" data-i18n="gekkoo_role2_date">mei 2026 – sep 2026</span>
+            <div>
+              <h4 data-i18n="gekkoo_role2_h">Inhoudelijk &amp; communicatiemedewerker, grafisch design</h4>
+              <p data-i18n="gekkoo_role2_p">Als inhoudelijk medewerker stond ik in voor contentcreatie, visuele en grafische vormgeving en externe communicatie. Ik onderhield de contacten met andere speelpleinwerkingen en bracht mijn achtergrond in communicatie, psychologie en jeugdwerk samen in één rol. In de zomer van 2026 was ik bovendien verantwoordelijk voor een eigen project in Essen.</p>
+              <p class="tags"><span data-i18n="tag_content">Inhoudelijke uitbouw</span><span data-i18n="chip_comm">Communicatie</span><span data-i18n="tag_graphic">Grafisch design</span><span data-i18n="tag_network">Netwerken</span></p>
+            </div>
+          </article>
+          <!-- De periode tussen master en eerste job staat er gewoon bij, als
+               gewone rij en niet langer achter een knopje: een lezer telt die
+               maanden toch, en een ontbrekende uitleg vult hij anders zelf in. -->
+          <article class="row row-quiet">
+            <span class="row-date" data-i18n="gap_date">sep 2025 &ndash; mei 2026</span>
+            <div><p data-i18n="gap_2025_2026">Na mijn master nam ik de tijd om gericht te zoeken naar een plek waar communicatie, psychologie en jeugdwerk samenkomen. Ondertussen bleef ik hoofdleider bij KSA Herentals en beheerde ik hun website.</p></div>
+          </article>
         </div>
       </div>
     </div>
   </section>
+
+  <section class="grade g-herfst" id="ksa">
+    <div class="wrap">
+      <figure class="frame">
+        <img src="assets/photos/herfstbos-contrast.jpg" alt="Contrast tussen een groene naaldboom en oranje herfstbladeren in het bos" width="1050" height="1400" loading="lazy" />
+        <figcaption data-i18n="photo_herfst_t">Natuur · Herfstcontrast</figcaption>
+      </figure>
+      <div class="sec-head">
+        <h2 class="sec-title">KSA<br>Herentals</h2>
+        <div>
+          <p class="label" data-i18n="ksa_eyebrow">10+ jaar engagement</p>
+          <p class="sec-lead" data-i18n="ksa_lead">Een jeugdbeweging leert je zaken die in geen enkele opleiding aan bod komen: samenwerken in een erg divers team, verantwoordelijkheid opnemen en improviseren zodra het plan verandert.</p>
+          <p class="sec-lead sec-lead-small" data-i18n="ksa_desc">Dé jeugdbeweging met de blauwe hemden en oranje sjaaltjes in het hart van Herentals. <a href="https://www.ksaherentals.be/" target="_blank" rel="noopener">ksaherentals.be ↗</a></p>
+        </div>
+      </div>
+      <div class="rows">
+        <article class="row">
+          <span class="row-date" data-i18n="ksa_role2_date">sep 2019 – sep 2026</span>
+          <div>
+            <h4 data-i18n="ksa_role2_h">Hoofdleider</h4>
+            <p data-i18n="ksa_role2_p">Verantwoordelijk voor het leiden van de jeugdbeweging: ik coördineerde een team van gemiddeld 20 jongvolwassenen, organiseerde activiteiten en grootschalige events en vertegenwoordigde de organisatie in de lokale gemeenschap. Als hoofdverantwoordelijke organiseerde ik tientallen evenementen, samen goed voor meer dan 10.000 bezoekers.</p>
+            <p class="tags"><span data-i18n="tag_teammgmt">Teammanagement</span><span data-i18n="tag_events">Evenementen organiseren</span><span data-i18n="tag_social">Sociale media</span></p>
+          </div>
+        </article>
+        <article class="row">
+          <span class="row-date" data-i18n="ksa_role1_date">2022 – heden</span>
+          <div>
+            <h4 data-i18n="ksa_role1_h">Webdesigner</h4>
+            <p data-i18n="ksa_role1_p">Ik richtte <a href="https://ksaherentals.be" target="_blank" rel="noopener">ksaherentals.be ↗</a> zelfstandig op en beheer die als hoofdplatform voor de volledige werking: ledenplanning, activiteiten én een maandelijkse blog die ik zelf schrijf en publiceer.</p>
+            <p class="tags"><span data-i18n="tag_ui">UI-design</span><span data-i18n="tag_webbuild">Websites bouwen</span><span data-i18n="tag_webmgmt">Webbeheer</span></p>
+          </div>
+        </article>
+        <article class="row">
+          <span class="row-date" data-i18n="ksa_role3_date">sep 2015 – sep 2026</span>
+          <div>
+            <h4 data-i18n="ksa_role3_h">Leider</h4>
+            <p data-i18n="ksa_role3_p">Naast het hoofdleiderschap stond ik wekelijks zelf voor de groep: activiteiten begeleiden voor de leden, met oog voor verhaal, verbeelding en groepsgevoel. Beide rollen liepen bewust parallel.</p>
+            <p class="tags"><span>Storytelling</span><span data-i18n="tag_creativity">Creativiteit</span></p>
+          </div>
+        </article>
+      </div>
+
+      <div class="sub-block">
+        <h3 class="label" data-i18n="stages_eyebrow">Stages &amp; studentenjobs</h3>
+        <div class="rows rows-tight">
+          <div class="row"><span class="row-date">2023</span><div><strong>GITHO Nijlen</strong> <span data-i18n="stage1_short">Leerkracht Engels (stage) · TEFL</span><span class="row-place">Nijlen</span></div></div>
+          <div class="row"><span class="row-date">2022</span><div><strong>Sint-Lutgardisschool</strong> <span data-i18n="stage2_short">Leerkracht wetenschappen (stage)</span><span class="row-place" data-i18n="loc_antwerpen">Antwerpen</span></div></div>
+          <div class="row"><span class="row-date">2020</span><div><strong>kOsh Campus Ieperstraat</strong> <span data-i18n="stage3_short">Jeugdconsulent (stage) · Counseling</span><span class="row-place">Herentals</span></div></div>
+          <div class="row"><span class="row-date" data-i18n="jobstudent_label">Studentenjobs</span><div><span data-i18n="jobstudent_text">Barista bij POP Coffee, Herentals (2023–2024) · Winkelmedewerker bij Van Eccelpoel, Herentals (2016–2018)</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div><!-- /#ervaring -->
+
+  <!-- ============ OVER MIJ ============ -->
+  <div class="sec grade g-bos" id="over">
+    <div class="wrap">
+      <figure class="frame">
+        <img src="assets/photos/lichtstraal-bos.jpg" alt="Zonlicht dat door het bladerdak van een bos breekt" width="1050" height="1400" loading="lazy" />
+        <figcaption data-i18n="photo_bos_t">Natuur · Lichtstralen</figcaption>
+      </figure>
+      <div class="sec-head">
+        <h2 class="sec-title" data-i18n="nav_over">Over mij</h2>
+        <div>
+          <p class="sec-sub" data-i18n="over_h2">Een wetenschappelijke blik op <span class="grad-text em-serif">mensenwerk</span></p>
+          <p class="sec-lead" data-i18n="over_lead">Drie opleidingen die elk een ander deel van mijn interesses aanscherpten: psychologie, onderwijs en communicatiewetenschappen. Samen leverden ze me een kritische kijk op mensen en media op, zonder dat het enthousiasme eronder leed.</p>
+        </div>
+      </div>
+
+      <div class="cols-2">
+        <div class="prose">
+          <p data-i18n="over_bio1">Mijn academische bagage in communicatie, media, psychologie en technologie combineer ik met een uitgesproken interesse in design. Daarnaast stuur ik al jaren teams en projecten aan: een leidingsploeg van twintig, en evenementen voor duizenden bezoekers.</p>
+          <p data-i18n="over_bio2">Van jongs af aan hoorde ik dat ik &lsquo;iets met mensen&rsquo; moest doen. Mijn opleidingen gaven dat instinct een wetenschappelijke onderbouw, mijn jeugdbeweging een versnelde praktijkopleiding. Die nieuwsgierigheid is gebleven, ook naar de omgeving waarin mensen zich bewegen: die valt er immers niet van los te koppelen.</p>
+          <h3 class="label label-gap" data-i18n="lang_eyebrow">Talen</h3>
+          <dl class="langs">
+            <div><dt data-i18n="lang_nl_name">Nederlands</dt><dd data-i18n="lang_nl_lvl">Moedertaal</dd></div>
+            <div><dt data-i18n="lang_en_name">Engels</dt><dd data-i18n="lang_en_lvl">C2 · volledige beheersing</dd></div>
+            <div><dt data-i18n="lang_fr_name">Frans</dt><dd data-i18n="lang_fr_lvl">A2 · basis secundair onderwijs</dd></div>
+          </dl>
+        </div>
+        <div>
+          <h3 class="label" data-i18n="skills_h">Vaardigheden</h3>
+          <ul class="list-2">
+            <li data-i18n="skill_writing">Doelgericht schrijven</li>
+            <li data-i18n="skill_commskills">Communicatievaardigheden</li>
+            <li data-i18n="skill_leadership">Leiderschap &amp; coördinatie</li>
+            <li data-i18n="skill_projectmgmt">Projectmanagement</li>
+            <li data-i18n="skill_visual">Visuele contentcreatie</li>
+            <li data-i18n="skill_data">Kwantitatieve data-analyse</li>
+            <li data-i18n="skill_copy">Copywriting &amp; contentplanning</li>
+            <li data-i18n="skill_coffee">Multitasken met koffie</li>
+          </ul>
+          <h3 class="label label-gap" data-i18n="tools_h">Tools</h3>
+          <p class="tags tags-wide"><span>Canva</span><span>DaVinci Resolve</span><span>Lightroom</span><span>Google Analytics</span><span>SPSS</span><span>Qualtrics</span><span>Microsoft 365</span><span data-i18n="tool_markdown">Markdown &amp; documentatie</span></p>
+        </div>
+      </div>
+
+      <div class="sub-block">
+        <div class="sub-head">
+          <h3 class="sec-sub" data-i18n="int_h2">Wat me <span class="grad-text">drijft</span></h3>
+          <p class="sec-lead" data-i18n="int_lead">Wat ik buiten het werk doe, staat daar doorgaans niet los van.</p>
+        </div>
+        <div class="cols-4">
+          <div class="pillar"><h4 data-i18n="int_photo_h">Fotografie &amp; film</h4><p data-i18n="int_photo_p">Fotografie en montage: beeld is voor mij een manier om iets te vertellen.</p></div>
+          <div class="pillar"><h4 data-i18n="int_tech_h">Tech-trends</h4><p data-i18n="int_tech_p">Nieuwe technologieën en hun impact op mens en samenleving.</p></div>
+          <div class="pillar"><h4 data-i18n="int_ksa_h">Hoofdleider KSA Herentals</h4><p data-i18n="int_ksa_p">Jeugdwerk sinds 2015, waarvan zeven jaar als hoofdverantwoordelijke.</p></div>
+          <div class="pillar"><h4 data-i18n="int_psych_h">Psychologie</h4><p data-i18n="int_psych_p">Hoe mensen denken en voelen blijft me fascineren, ook buiten het werk.</p></div>
+        </div>
+        <p class="personal"><span class="personal-label" data-i18n="hl_personal_label">En verder nog</span> <span data-i18n="hl_personal_photo">Fotografie</span> · <span data-i18n="hl_personal_coffee">Koffie</span> · <span data-i18n="hl_personal_learn">Bijleren</span> · <span data-i18n="hl_personal_film">Films</span> · <span data-i18n="hl_personal_people">Tijd met vrienden</span> · <span data-i18n="hl_personal_nature">Natuur</span> · <span data-i18n="hl_personal_tech">Nieuwe technologie</span></p>
+      </div>
+
+      <!-- Fotografie onder "Wat me drijft", zoals afgesproken, en open: de foto's
+           die bovenaan de secties staan zijn er een deel van. -->
+      <div class="sub-block">
+        <h3 class="label" data-i18n="photos_toggle_sub">9 foto's: architectuur, natuur &amp; astrofotografie</h3>
+        <div class="gallery gallery-photos">
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/urbex-lichtstraal-kamer.jpg"><img src="assets/photos/urbex-lichtstraal-kamer.jpg" alt="Verlaten kamer met brick muren en dramatische lichtstralen die over de vloer vallen" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_urbex_t">Urbex · Verlaten kamer</span><span class="design-cap-s" data-i18n="photo_urbex_s">Lichtstralen door hoge vensters in een leegstaand pand</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/antwerpen-skyline-schelde.jpg"><img src="assets/photos/antwerpen-skyline-schelde.jpg" alt="Luchtfoto van de Antwerpse skyline met de Schelde en het Loodswezengebouw" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_skyline_t">Luchtfoto · Antwerpse Schelde</span><span class="design-cap-s" data-i18n="photo_skyline_s">Skyline, Loodswezen en de haven vanuit de hoogte</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/drone-zonsondergang-kampeerveld.jpg"><img src="assets/photos/drone-zonsondergang-kampeerveld.jpg" alt="Dronefoto van een gouden zonsondergang boven een kampeerveld met tenten" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_drone_t">Drone · Zonsondergang</span><span class="design-cap-s" data-i18n="photo_drone_s">Gouden uur boven een kampeerveld</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/antwerpen-centraal-vensters.jpg"><img src="assets/photos/antwerpen-centraal-vensters.jpg" alt="Backlit gotische vensters van station Antwerpen-Centraal in gouden licht" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_centraal_t">Architectuur · Antwerpen-Centraal</span><span class="design-cap-s" data-i18n="photo_centraal_s">Symmetrie en tegenlicht in het station</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/theaterzaal-rood-licht.jpg"><img src="assets/photos/theaterzaal-rood-licht.jpg" alt="Theaterzaal in dramatisch rood licht met zicht op het lichtrig en de balkons" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_theater_t">Sfeer · Theaterzaal</span><span class="design-cap-s" data-i18n="photo_theater_s">Dramatische belichting tijdens een voorstelling</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/melkweg-sterrenhemel.jpg"><img src="assets/photos/melkweg-sterrenhemel.jpg" alt="Astrofoto van de Melkweg tegen een heldere sterrenhemel" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_melkweg_t">Astrofotografie · Melkweg</span><span class="design-cap-s" data-i18n="photo_melkweg_s">Lange sluitertijd onder een heldere hemel</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/zonsverduistering.jpg"><img src="assets/photos/zonsverduistering.jpg" alt="Close-up van een zonsverduistering met een gloeiende rand" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_eclipse_t">Astrofotografie · Zonsverduistering</span><span class="design-cap-s" data-i18n="photo_eclipse_s">Close-up door een telelens</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/lichtstraal-bos.jpg"><img src="assets/photos/lichtstraal-bos.jpg" alt="Zonlicht dat door het bladerdak van een bos breekt" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_bos_t">Natuur · Lichtstralen</span><span class="design-cap-s" data-i18n="photo_bos_s">Zon door het bladerdak</span></span>
+          </div>
+          <div class="design-item">
+            <button type="button" class="diploma-thumb" data-full="assets/photos/herfstbos-contrast.jpg"><img src="assets/photos/herfstbos-contrast.jpg" alt="Contrast tussen een groene naaldboom en oranje herfstbladeren in het bos" loading="lazy" /></button>
+            <span class="design-cap"><span class="design-cap-t" data-i18n="photo_herfst_t">Natuur · Herfstcontrast</span><span class="design-cap-s" data-i18n="photo_herfst_s">Groen tegen oranje in het herfstbos</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div><!-- /#over -->
+
   <!-- ============ OPLEIDING ============ -->
-  <div class="sec" id="opleiding" data-nav="nav_opleiding" data-nav-nl="Opleiding">
-  <section class="page-hero wrap">
-    <span class="eyebrow reveal"><span class="ey-num">03</span> <span data-i18n="edu_eyebrow">Opleidingen</span></span>
-    <h2 class="h-lg reveal" data-d="1" data-i18n="edu_h2">Drie opleidingen die op elkaar <span class="grad-text em-serif">voortbouwen</span></h2>
-    <p class="lead reveal" data-d="2" data-i18n="edu_lead">Psychologie, lerarenopleiding en communicatiewetenschappen, in die volgorde. Elke opleiding bouwde inhoudelijk voort op de vorige.</p>
-  </section>
+  <div class="sec grade g-centraal" id="opleiding">
+    <div class="wrap">
+      <figure class="frame">
+        <img src="assets/photos/antwerpen-centraal-vensters.jpg" alt="Backlit gotische vensters van station Antwerpen-Centraal in gouden licht" width="1200" height="1600" loading="lazy" />
+        <figcaption data-i18n="photo_centraal_t">Architectuur · Antwerpen-Centraal</figcaption>
+      </figure>
+      <div class="sec-head">
+        <h2 class="sec-title" data-i18n="nav_opleiding">Opleiding</h2>
+        <div>
+          <p class="sec-sub" data-i18n="edu_h2">Drie opleidingen die op elkaar <span class="grad-text em-serif">voortbouwen</span></p>
+          <p class="sec-lead" data-i18n="edu_lead">Psychologie, lerarenopleiding en communicatiewetenschappen, in die volgorde. Elke opleiding bouwde inhoudelijk voort op de vorige.</p>
+        </div>
+      </div>
 
-  <section class="section-pad" style="padding-top:26px">
-    <div class="wrap" style="max-width:820px">
-      <div class="timeline">
-
-        <div class="tl-item reveal">
-          <div class="glass tilt tl-card">
-            <div class="tl-head"><h3 data-i18n="edu1_school">Universiteit Antwerpen</h3><span class="tl-date" data-i18n="edu1_date">sep 2023 – sep 2025</span></div>
-            <p class="tl-sub grad-text" data-i18n="edu1_sub">Master in de communicatiewetenschappen</p>
+      <div class="rows">
+        <article class="row">
+          <span class="row-date" data-i18n="edu1_date">sep 2023 – sep 2025</span>
+          <div>
+            <h4><span data-i18n="edu1_sub">Master in de communicatiewetenschappen</span> <span class="row-org" data-i18n="edu1_school">Universiteit Antwerpen</span></h4>
             <p data-i18n="edu1_p">Deze master voedde mijn academische nieuwsgierigheid. Ik verdiepte me in journalistiek, media en de opkomende technologieën die deze vakgebieden vormgeven, en bevestigde mijn overtuiging dat een wetenschappelijke aanpak onmisbaar is in een snel veranderende samenleving. Het verbreedde mijn kijk op media, politiek en het discours daartussen, terwijl ik mijn communicatievaardigheden verder aanscherpte.</p>
-            <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> <span data-i18n="edu1_badge">Afgestudeerd met onderscheiding</span></span>
-            <button type="button" class="doc-btn" data-full="assets/diploma-uantwerpen-master.jpg" data-alt="Getuigschrift Master in de communicatiewetenschappen, Universiteit Antwerpen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.1 7.5 22l4.5-2.6 4.5 2.6-1.1-7.9"/></svg> <span data-i18n="diploma_btn">Bekijk diploma</span></button>
+            <p class="row-foot"><span class="honour" data-i18n="edu1_badge">Afgestudeerd met onderscheiding</span><button type="button" class="doc-btn" data-full="assets/diploma-uantwerpen-master.jpg" data-alt="Getuigschrift Master in de communicatiewetenschappen, Universiteit Antwerpen"><span data-i18n="diploma_btn">Bekijk diploma</span></button></p>
           </div>
-        </div>
-
-        <div class="tl-item reveal" data-d="1">
-          <div class="glass tilt tl-card">
-            <div class="tl-head"><h3>Karel de Grote Hogeschool</h3><span class="tl-date" data-i18n="edu2_date">sep 2020 – jun 2023</span></div>
-            <p class="tl-sub grad-text" data-i18n="edu2_sub">Educatieve Bachelor: Wetenschappen &amp; Engels</p>
+        </article>
+        <article class="row">
+          <span class="row-date" data-i18n="edu2_date">sep 2020 – jun 2023</span>
+          <div>
+            <h4><span data-i18n="edu2_sub">Educatieve Bachelor: Wetenschappen &amp; Engels</span> <span class="row-org">Karel de Grote Hogeschool</span></h4>
             <p data-i18n="edu2_p">Deze opleiding verdiepte mijn academische interesse, ditmaal in zowel Engels als de natuurwetenschappen. Ik leerde deze vakken aan jongeren overbrengen met hetzelfde enthousiasme waarmee ik ze zelf beleef. Dat versterkte mijn wetenschappelijke kennis, bevestigde mijn C2-niveau Engels en verbreedde bovendien mijn opties voor de toekomst.</p>
-            <span class="badge-hon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg> <span data-i18n="edu2_badge">Afgestudeerd met onderscheiding</span></span>
-            <button type="button" class="doc-btn" data-full="assets/diploma-kdg-bachelor.jpg" data-alt="Diploma Educatieve Bachelor secundair onderwijs, Karel de Grote Hogeschool"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.1 7.5 22l4.5-2.6 4.5 2.6-1.1-7.9"/></svg> <span data-i18n="diploma_btn">Bekijk diploma</span></button>
+            <p class="row-foot"><span class="honour" data-i18n="edu2_badge">Afgestudeerd met onderscheiding</span><button type="button" class="doc-btn" data-full="assets/diploma-kdg-bachelor.jpg" data-alt="Diploma Educatieve Bachelor secundair onderwijs, Karel de Grote Hogeschool"><span data-i18n="diploma_btn">Bekijk diploma</span></button></p>
           </div>
-        </div>
-
-        <div class="tl-item reveal" data-d="2">
-          <div class="glass tilt tl-card">
-            <div class="tl-head"><h3>Thomas More Hogeschool</h3><span class="tl-date" data-i18n="edu3_date">sep 2017 – jun 2020</span></div>
-            <p class="tl-sub grad-text" data-i18n="edu3_sub">Bachelor in de Toegepaste Psychologie</p>
+        </article>
+        <article class="row">
+          <span class="row-date" data-i18n="edu3_date">sep 2017 – jun 2020</span>
+          <div>
+            <h4><span data-i18n="edu3_sub">Bachelor in de Toegepaste Psychologie</span> <span class="row-org">Thomas More Hogeschool</span></h4>
             <p data-i18n="edu3_p">Mijn eerste diploma leerde me doorzettingsvermogen en zelfstandigheid, en wekte mijn interesse in de academische wereld. Ik leerde zowel groepen als individuen begeleiden en verwierf diepgaand inzicht in de menselijke psyche, telkens toegepast in een reële context. Met de officiële titel psychologisch consulent kan ik hulpvragen inschatten, erover reflecteren en gericht feedback geven, op basis van actuele wetenschappelijke inzichten.</p>
-            <span class="badge-hon" style="color:var(--acc-text)"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/></svg> <span data-i18n="edu3_badge">Titel: psychologisch consulent</span></span>
-            <button type="button" class="doc-btn" data-full="assets/diploma-thomasmore-psychologie.jpg" data-alt="Diploma Bachelor Toegepaste Psychologie, Thomas More Hogeschool"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.1 7.5 22l4.5-2.6 4.5 2.6-1.1-7.9"/></svg> <span data-i18n="diploma_btn">Bekijk diploma</span></button>
+            <p class="row-foot"><span class="honour" data-i18n="edu3_badge">Titel: psychologisch consulent</span><button type="button" class="doc-btn" data-full="assets/diploma-thomasmore-psychologie.jpg" data-alt="Diploma Bachelor Toegepaste Psychologie, Thomas More Hogeschool"><span data-i18n="diploma_btn">Bekijk diploma</span></button></p>
+          </div>
+        </article>
+      </div>
+
+      <!-- De masterproef staat open: geen luik meer om eerst open te klikken. -->
+      <section class="thesis sub-block" id="masterproef" aria-labelledby="thesis-titel">
+        <p class="label" data-i18n="thesis_tag">Masterproef · Communicatiewetenschappen · UAntwerpen</p>
+        <div class="cols-2 thesis-grid">
+          <div>
+            <h3 class="sec-sub" id="thesis-titel" data-i18n="thesis_title">De Macht van Misleiding</h3>
+            <p class="sec-lead" data-i18n="thesis_sub">Een kwantitatieve analyse van epistemisch vertrouwen, mediavertrouwen en complotdenken bij Vlamingen. De studie gaat na hoe verschillende vormen van (wan)vertrouwen samenhangen met de vatbaarheid voor complottheorieën in een post-truth samenleving.</p>
+            <ul class="findings">
+              <li data-i18n="find1">Zowel algemeen wantrouwen als mediavertrouwen blijken significante voorspellers van complotdenken.</li>
+              <li data-i18n="find2">Vertrouwen en wantrouwen functioneren als aparte, niet als tegengestelde dimensies.</li>
+              <li data-i18n="find3">De resultaten onderstrepen de nood aan factchecking, mediawijsheid en transparante communicatie.</li>
+            </ul>
+          </div>
+          <div>
+            <dl class="numbers">
+              <div><dt><span data-count="241">241</span></dt><dd data-i18n="stat_respondents">respondenten</dd></div>
+              <div><dt>18&ndash;65</dt><dd data-i18n="stat_age">jaar, Vlaanderen</dd></div>
+              <div><dt>2</dt><dd data-i18n="stat_scales">meetschalen (ETMCQ + GCB-5)</dd></div>
+              <div><dt><span data-count="14716">14.716</span></dt><dd data-i18n="stat_words">woorden</dd></div>
+            </dl>
+            <p class="thesis-meta" data-i18n="thesis_meta">Promotor <b>Prof. dr. Philippe De Vries</b><br>Medebeoordelaar <b>Prof. dr. Karolien Poels</b></p>
+            <p class="tags"><span data-i18n="kw_misinfo">Misinformatie</span><span data-i18n="kw_conspiracy">Complotdenken</span><span data-i18n="kw_epistemic">Epistemisch vertrouwen</span><span data-i18n="kw_posttruth">Post-truth</span><span data-i18n="kw_medialit">Mediawijsheid</span></p>
+            <div class="btn-row"><a href="assets/thesis-de-macht-van-misleiding.pdf" target="_blank" rel="noopener" class="btn"><span data-i18n="thesis_btn_read">Lees de masterproef</span></a></div>
           </div>
         </div>
+      </section>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- THESIS -->
-  <section class="wrap section-pad" id="masterproef" style="padding-top:0;scroll-margin-top:84px">
-    <div class="section-head reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="thesis_eyebrow">Masterproef</span></span>
-      <h2 class="h-lg" data-i18n="thesis_h2">Mijn <span class="grad-text em-serif">onderzoek</span></h2>
-    </div>
-    <!-- Dichtgeklapt, net als het fotoluik: niet iedereen wil meteen de hele
-         masterproef doorlopen, en zo neemt hij hier geen halve pagina in.
-         De teaser bovenaan de bio klapt hem wel meteen open (main.js). -->
-    <div class="glass tilt tldr-card reveal">
-      <button class="tldr-toggle" aria-expanded="false" aria-controls="thesis-panel">
-        <span class="tldr-toggle-txt">
-          <strong data-i18n="thesis_toggle_open">Bekijk mijn masterproef</strong>
-          <span data-i18n="thesis_toggle_sub">De Macht van Misleiding · 241 respondenten · UAntwerpen</span>
-        </span>
-        <svg class="tldr-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
-      <div class="tldr-panel" id="thesis-panel" inert>
-        <div class="tldr-panel-inner">
-        <div class="thesis">
-      <div class="thesis-top">
-        <span class="thesis-tag"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14v7M5 11v4c0 1 3 3 7 3s7-2 7-3v-4"/></svg> <span data-i18n="thesis_tag">Masterproef · Communicatiewetenschappen · UAntwerpen</span></span>
-        <h3 data-i18n="thesis_title">De Macht van Misleiding</h3>
-        <p class="sub" data-i18n="thesis_sub">Een kwantitatieve analyse van epistemisch vertrouwen, mediavertrouwen en complotdenken bij Vlamingen. De studie gaat na hoe verschillende vormen van (wan)vertrouwen samenhangen met de vatbaarheid voor complottheorieën in een post-truth samenleving.</p>
-      </div>
-      <div class="thesis-stats">
-        <div class="thesis-stat"><div class="n"><span data-count="241">241</span></div><div class="l" data-i18n="stat_respondents">respondenten</div></div>
-        <div class="thesis-stat"><div class="n">18&ndash;65</div><div class="l" data-i18n="stat_age">jaar, Vlaanderen</div></div>
-        <div class="thesis-stat"><div class="n">2</div><div class="l" data-i18n="stat_scales">meetschalen (ETMCQ + GCB-5)</div></div>
-        <div class="thesis-stat"><div class="n"><span data-count="14716">14.716</span></div><div class="l" data-i18n="stat_words">woorden</div></div>
-      </div>
-      <div class="thesis-bottom">
-        <div class="thesis-findings">
-          <div class="thesis-find"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span> <span data-i18n="find1">Zowel algemeen wantrouwen als mediavertrouwen blijken significante voorspellers van complotdenken.</span></div>
-          <div class="thesis-find"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span> <span data-i18n="find2">Vertrouwen en wantrouwen functioneren als aparte, niet als tegengestelde dimensies.</span></div>
-          <div class="thesis-find"><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span> <span data-i18n="find3">De resultaten onderstrepen de nood aan factchecking, mediawijsheid en transparante communicatie.</span></div>
-        </div>
-        <div class="thesis-actions">
-          <a href="assets/thesis-de-macht-van-misleiding.pdf" target="_blank" rel="noopener" class="btn btn-primary"><span data-i18n="thesis_btn_read">Lees de masterproef</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          </a>
-          <div class="thesis-meta" data-i18n="thesis_meta">Promotor <b>Prof. dr. Philippe De Vries</b><br>Medebeoordelaar <b>Prof. dr. Karolien Poels</b></div>
-        </div>
-        <div class="thesis-kw">
-          <span class="chip" data-i18n="kw_misinfo">Misinformatie</span>
-          <span class="chip" data-i18n="kw_conspiracy">Complotdenken</span>
-          <span class="chip" data-i18n="kw_epistemic">Epistemisch vertrouwen</span>
-          <span class="chip" data-i18n="kw_posttruth">Post-truth</span>
-          <span class="chip" data-i18n="kw_medialit">Mediawijsheid</span>
-        </div>
-      </div>
-        </div><!-- /.thesis -->
+      <div class="sub-block">
+        <h3 class="label"><span data-i18n="cert_eyebrow">Certificaten</span> · <span data-i18n="cert_note">Samen een deelkwalificatie Eventhulpverlener.</span></h3>
+        <div class="rows rows-tight">
+          <div class="row"><span class="row-date">Rode Kruis</span><div class="row-split"><span data-i18n="cert1_h">Eerste Hulp (basiscursus)</span><button type="button" class="doc-btn" data-full="assets/diploma-ehbo-basis.jpg" data-alt="Brevet Eerste Hulp basiscursus, Rode Kruis-Vlaanderen"><span data-i18n="brevet_btn">Bekijk brevet</span></button></div></div>
+          <div class="row"><span class="row-date">Rode Kruis</span><div class="row-split"><span data-i18n="cert2_h">Helper (vervolgcursus)</span><button type="button" class="doc-btn" data-full="assets/diploma-ehbo-helper.jpg" data-alt="Brevet Helper vervolgcursus, Rode Kruis-Vlaanderen"><span data-i18n="brevet_btn">Bekijk brevet</span></button></div></div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- CERTIFICATES -->
-  <section class="wrap" style="padding-bottom:44px">
-    <!-- Geen eigen kopblok meer: de sectie "Opleidingen - Drie diploma's, een
-         rode draad" kondigt dit al aan, en een tweede kop met inleiding voor
-         twee brevetten was dubbelop. Alleen het labeltje blijft, in dezelfde
-         vorm als "Huidige werkgever" bij de ervaring: zonder dat lezen deze twee
-         kaarten als een vierde diploma in de tijdlijn erboven. -->
-    <p class="cert-kop reveal">
-      <span class="eyebrow"><span class="dot"></span> <span data-i18n="cert_eyebrow">Certificaten</span></span>
-      <span data-i18n="cert_note">Samen een deelkwalificatie Eventhulpverlener.</span>
-    </p>
-    <!-- Ruimer dan de 680 van vroeger: met de details eraf passen de titel en de
-         knop samen op een regel, maar alleen als de kaart daar breed genoeg voor
-         is. Bij 680 pixels braken ze alsnog in tweeen. -->
-    <div class="grid grid-2" style="max-width:900px">
-      <div class="glass tilt feature reveal ehbo-card" data-d="1" style="padding:24px">
-        <h3 style="display:flex;align-items:center;gap:10px;font-size:1.08rem"><span class="ic" style="width:38px;height:38px;margin-bottom:0;border-radius:11px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span> <span data-i18n="cert1_h">Eerste Hulp (basiscursus)</span></h3>
-        <button type="button" class="doc-btn" data-full="assets/diploma-ehbo-basis.jpg" data-alt="Brevet Eerste Hulp basiscursus, Rode Kruis-Vlaanderen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.1 7.5 22l4.5-2.6 4.5 2.6-1.1-7.9"/></svg> <span data-i18n="brevet_btn">Bekijk brevet</span></button>
-      </div>
-      <div class="glass tilt feature reveal ehbo-card" data-d="2" style="padding:24px">
-        <h3 style="display:flex;align-items:center;gap:10px;font-size:1.08rem"><span class="ic" style="width:38px;height:38px;margin-bottom:0;border-radius:11px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span> <span data-i18n="cert2_h">Helper (vervolgcursus)</span></h3>
-        <button type="button" class="doc-btn" data-full="assets/diploma-ehbo-helper.jpg" data-alt="Brevet Helper vervolgcursus, Rode Kruis-Vlaanderen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.6 14.1 7.5 22l4.5-2.6 4.5 2.6-1.1-7.9"/></svg> <span data-i18n="brevet_btn">Bekijk brevet</span></button>
-      </div>
-    </div>
-  </section>
   </div><!-- /#opleiding -->
   <!-- ============ REFERENTIES (tijdelijk offline) ============
        Bewaard om later terug te zetten. Terugzetten = dit commentaar openen en
@@ -992,77 +634,45 @@
   </div>
   ============ EINDE REFERENTIES ============ -->
   <!-- ============ CONTACT ============ -->
-  <div class="sec" id="contact" data-nav="nav_contact" data-nav-nl="Contact">
-  <section class="page-hero wrap" style="padding-bottom:0">
-    <span class="eyebrow reveal"><span class="ey-num">04</span> <span data-i18n="contact_eyebrow">Contact</span></span>
-  </section>
-
-  <section class="wrap section-pad" style="padding-top:32px">
-    <div class="glass contact-final reveal">
-      <h2 class="h-lg" data-i18n="contact_final_h2">Stuur me gerust een <span class="grad-text em-serif">bericht</span></h2>
-      <p class="lead" style="margin:14px auto 28px" data-i18n="contact_final_lead">Heb je een vraag of een project, of wil je gewoon eens kennismaken? Ik ben halftijds beschikbaar, in loondienst of freelance, in de regio Herentals–Antwerpen. Ik antwoord doorgaans snel.</p>
-      <div class="contact-final-cta">
-        <a href="mailto:victorvansande@gmail.com" class="btn btn-primary"><span data-i18n="contact_btn_mail">Stuur me een mail</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
-        </a>
-        <a href="assets/cv-victor-van-sande.pdf" download class="btn btn-ghost" style="gap:8px">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v13M5 12l7 7 7-7"/><path d="M3 21h18"/></svg>
-          <span data-i18n="hero_cta_cv">Download/print CV</span>
-        </a>
+  <div class="sec grade g-veld" id="contact">
+    <div class="wrap">
+      <figure class="frame">
+        <img src="assets/photos/drone-zonsondergang-kampeerveld.jpg" alt="Dronefoto van een gouden zonsondergang boven een kampeerveld met tenten" width="1600" height="1200" loading="lazy" />
+        <figcaption data-i18n="photo_drone_t">Drone · Zonsondergang</figcaption>
+      </figure>
+      <div class="contact">
+        <h2 class="contact-title" data-i18n="contact_final_h2">Stuur me gerust een <span class="grad-text em-serif">bericht</span></h2>
+        <div>
+          <p class="sec-lead" data-i18n="contact_final_lead">Heb je een vraag of een project, of wil je gewoon eens kennismaken? Ik ben halftijds beschikbaar, in loondienst of freelance, in de regio Herentals–Antwerpen. Ik antwoord doorgaans snel.</p>
+          <div class="btn-row">
+            <a href="mailto:victorvansande@gmail.com" class="btn"><span data-i18n="contact_btn_mail">Stuur me een mail</span></a>
+            <a href="assets/cv-victor-van-sande.pdf" download class="btn btn-line"><span data-i18n="hero_cta_cv">Download/print CV</span></a>
+          </div>
+        </div>
       </div>
-
-      <div class="contact-strip">
-      <a href="mailto:victorvansande@gmail.com" class="contact-mini">
-        <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span>
-        <span class="cm-body"><span class="lbl" data-i18n="cm_email">E-mail</span><span class="val">victorvansande@gmail.com</span></span>
-      </a>
-      <a href="tel:+32479878152" class="contact-mini">
-        <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg></span>
-        <span class="cm-body"><span class="lbl" data-i18n="cm_phone">Telefoon</span><span class="val">0479 87 81 52</span></span>
-      </a>
-      <div class="contact-mini">
-        <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-        <span class="cm-body"><span class="lbl" data-i18n="cm_location">Locatie</span><span class="val" data-i18n="cm_location_val">Antwerpen, België</span></span>
-      </div>
-      <a href="https://linkedin.com/in/victorvansande" target="_blank" rel="noopener" class="contact-mini">
-        <span class="ic"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 17V10.3H6.1V17zM7.22 9.27a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6zM18 17v-3.67c0-1.96-.42-3.47-2.71-3.47a2.38 2.38 0 0 0-2.14 1.18h-.03V10.3H10.9V17h2.23v-3.31c0-.88.16-1.72 1.25-1.72s1.1.99 1.1 1.78V17z"/></svg></span>
-        <span class="cm-body"><span class="lbl" data-i18n="cm_linkedin">LinkedIn</span><span class="val">in/victorvansande</span></span>
-      </a>
-      </div>
+      <dl class="contact-list">
+        <div><dt data-i18n="cm_email">E-mail</dt><dd><a href="mailto:victorvansande@gmail.com">victorvansande@gmail.com</a></dd></div>
+        <div><dt data-i18n="cm_phone">Telefoon</dt><dd><a href="tel:+32479878152">0479 87 81 52</a></dd></div>
+        <div><dt data-i18n="cm_location">Locatie</dt><dd data-i18n="cm_location_val">Antwerpen, België</dd></div>
+        <div><dt data-i18n="cm_linkedin">LinkedIn</dt><dd><a href="https://linkedin.com/in/victorvansande" target="_blank" rel="noopener">in/victorvansande</a></dd></div>
+      </dl>
     </div>
-  </section>
   </div><!-- /#contact -->
 
   </main>
 
-  <!-- FOOTER QUOTE -->
-  <div class="footer-quote">
-    <blockquote class="quote-block">
-<!-- Er staat een echte quote in de html en geen leeg vak. Wie de pagina
-           uitleest zonder scripts - een tekstuitlezer, een vacatureportaal dat
-           de pagina inleest, een linkvoorbeeld - ziet anders een leeg citaat
-           onderaan. JavaScript vervangt hem gewoon door de volgende. -->
-      <p class="quote-text" id="quoteText">The medium is the message.</p>
-      <cite class="quote-author" id="quoteAuthor">&ndash; Marshall McLuhan</cite>
-    </blockquote>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer grade g-veld">
     <div class="wrap footer-inner">
-      <p class="muted footer-meta">
+      <p class="footer-meta">
         <span data-i18n="footer_updated">Sep 2026</span>
         <span>Victor Van Sande</span>
         <span data-i18n="footer_place">Antwerpen, België</span>
       </p>
-      <div class="footer-soc">
-        <a href="mailto:victorvansande@gmail.com" aria-label="E-mail"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></a>
-        <a href="https://linkedin.com/in/victorvansande" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 17V10.3H6.1V17zM7.22 9.27a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6zM18 17v-3.67c0-1.96-.42-3.47-2.71-3.47a2.38 2.38 0 0 0-2.14 1.18h-.03V10.3H10.9V17h2.23v-3.31c0-.88.16-1.72 1.25-1.72s1.1.99 1.1 1.78V17z"/></svg></a>
-      </div>
+      <p class="footer-links">
+        <span data-i18n="colofon">Site ontworpen door Victor Van Sande</span>
+        <a href="v1/" data-i18n="v1_link">Vorige versie van deze site</a>
+      </p>
     </div>
-    <!-- Colofon: de site is zelf het bewijsstuk bij de webdesign-claim, en zei
-         daar tot nu toe niets over. -->
-    <p class="colofon" data-i18n="colofon">Site ontworpen door Victor Van Sande</p>
   </footer>
 
   <!-- Lightbox -->
@@ -1096,8 +706,5 @@
     <span class="docbox-sjabloon" data-sjabloon="pagina" data-i18n="doc_pagina" hidden>Pagina {n}</span>
     <span class="docbox-sjabloon" data-sjabloon="sluit" data-i18n="doc_sluit" hidden>Sluiten</span>
   </div>
-
-  <div class="progress-bar"></div>
-  <button class="to-top" aria-label="Naar boven"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
 </body>
 </html>

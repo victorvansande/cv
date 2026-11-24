@@ -1,1716 +1,411 @@
 /* ============================================================
-   Victor Van Sande - CV website
-   Modern glassmorphism design system
+   Victor Van Sande - CV website  ·  stijl
+   ------------------------------------------------------------
+   Het idee: elke sectie opent met een van mijn eigen foto's in
+   breedbeeld, en neemt daar haar kleuren van over, zoals je een
+   scène in DaVinci op één referentiebeeld afstemt. De achtergrond
+   komt uit de donkerste tint van de foto, het accent uit een
+   heldere tint. Zo loopt de pagina van warm goud naar staalblauw,
+   rood, amber, groen en weer goud, zonder dat er iets beweegt.
+
+   Er beweegt bewust bijna niets: enkel de intro bij het eerste
+   bezoek en een paar hovers. Alles staat open; er zijn geen
+   luiken en geen secties die pas bij het scrollen verschijnen.
    ============================================================ */
 
+/* ---------- Tokens ---------- */
 :root {
-  /* ----- Neutral surfaces (dark mode default) ----- */
-  --bg-0: #0a0c14;            /* base, calibrated deep slate (not pure black) */
-  --bg-1: #12151f;            /* elevated */
-  --panel: rgba(255,255,255,.022); /* faint alternating section tint */
-  --ink: #ecedf6;
-  --ink-soft: #b2b7cc;
-  --ink-dim: #8b92ac;
-  --blob-op: .28;
-  --grain-op: .04;
+  --font-head: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --font: "Libre Franklin", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --wrap: 1320px;
+  --gutter: 40px;
 
-  /* Accents (default theme: Rood) - overridden per data-theme below */
-  --c1: #c4172a;   /* diep rood */
-  --c2: #e11d2e;   /* helder rood */
-  --c3: #f63b46;   /* levendig rood */
-  --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3));
-  --grad-soft: linear-gradient(120deg, var(--c1), var(--c2));
-  /* Tekst-veilige accenten: in dark mode opgelicht zodat accent-tekst leesbaar
-     blijft op accent-getinte glaskaarten (bv. rood thema = rood-op-rood risico) */
-  --acc-text: color-mix(in srgb, var(--c2) 55%, #fff);
-  --grad-ink: linear-gradient(120deg, color-mix(in srgb, var(--c1) 58%, #fff), color-mix(in srgb, var(--c2) 58%, #fff));
+  /* standaardpalet = dat van de hero; elke .g-* hieronder overschrijft het */
+  --g-bg: #0c0a0a;
+  --g-ink: #efe9e2;
+  --g-soft: #c9c1b8;
+  --g-dim: #9a9087;
+  --g-line: #33291f;
+  --g-acc: #d9a877;
 
-  /* Glass / surfaces */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-bord: rgba(255, 255, 255, 0.10);
-  --glass-bord-hi: rgba(255, 255, 255, 0.22);
-  --glass-shadow: 0 20px 60px -22px rgba(0, 0, 0, 0.62);
-  --nav-bg: rgba(10, 12, 19, 0.6);
-  --nav-solid: rgba(11, 13, 21, 0.94);
-  --pop-bg: rgba(16, 19, 28, 0.92);
-  --field-bg: rgba(255,255,255,.04);
-  --ink-on-accent: #fff;
-
-  /* Geometry */
-  --r-lg: 26px;
-  --r-md: 18px;
-  --r-sm: 12px;
-  --maxw: 1140px;
-  --ease: cubic-bezier(.22, 1, .36, 1);
-
-  --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-head: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
-  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
-
+  /* de naam in de hero; de intro en de klikgloed werken met
+     background-clip: text, vandaar een verloop in plaats van een kleur */
+  --grad-ink: linear-gradient(var(--g-ink), var(--g-ink));
   color-scheme: dark;
 }
 
-/* ----- Light mode ----- */
-:root[data-mode="light"] {
-  --bg-0: #f4f5fa;
-  --bg-1: #ffffff;
-  --panel: rgba(22, 27, 51, .028);
-  --ink: #161a2b;
-  --ink-soft: #474d63;
-  --ink-dim: #5e6379;
-  --blob-op: .06;
-  --grain-op: .015;
+/* De paletten. Elk paar (achtergrond, accent) is gemeten op de foto
+   bovenaan de sectie: de achtergrond is de donkerste veelvoorkomende tint,
+   het accent een heldere tint uit hetzelfde beeld, waar nodig iets
+   opgehelderd zodat het op de achtergrond ruim leesbaar blijft. */
+.g-eclipse  { --g-bg: #0c0a0a; --g-ink: #efe9e2; --g-soft: #c9c1b8; --g-dim: #9a9087; --g-line: #33291f; --g-acc: #d9a877; }
+.g-schelde  { --g-bg: #14161d; --g-ink: #e8edf2; --g-soft: #bfc8d1; --g-dim: #8d98a4; --g-line: #2c323d; --g-acc: #a9bccb; }
+.g-theater  { --g-bg: #160407; --g-ink: #f5e4e2; --g-soft: #dcbfbc; --g-dim: #b08f8b; --g-line: #43181d; --g-acc: #ec6a6f; }
+.g-herfst   { --g-bg: #12130c; --g-ink: #f1e9dc; --g-soft: #d5c9b5; --g-dim: #a59880; --g-line: #383222; --g-acc: #dca463; }
+.g-bos      { --g-bg: #110e15; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2833; --g-acc: #c4b783; }
+.g-centraal { --g-bg: #0f0a09; --g-ink: #efeae2; --g-soft: #cfc8bd; --g-dim: #a0978b; --g-line: #352a24; --g-acc: #ddd6bd; }
+.g-veld     { --g-bg: #0f1a11; --g-ink: #eef1e9; --g-soft: #c9d2c4; --g-dim: #97a493; --g-line: #26382a; --g-acc: #ecd3b0; }
 
-  --glass-bg: rgba(255, 255, 255, 0.62);
-  --glass-bord: rgba(22, 27, 51, 0.10);
-  --glass-bord-hi: rgba(22, 27, 51, 0.20);
-  --glass-shadow: 0 22px 50px -26px rgba(28, 34, 72, 0.22);
-  --nav-bg: rgba(247, 248, 252, 0.72);
-  --nav-solid: rgba(248, 249, 253, 0.96);
-  --pop-bg: rgba(255, 255, 255, 0.94);
-  --field-bg: rgba(22,27,51,.035);
-  /* op licht juist verdonkeren voor contrast (o.a. amber-thema is anders te licht) */
-  --acc-text: color-mix(in srgb, var(--c1) 62%, #16202b);
-  --grad-ink: linear-gradient(120deg, color-mix(in srgb, var(--c1) 85%, #16202b), color-mix(in srgb, var(--c2) 72%, #16202b));
+/* Hoger contrast: de zachte tinten schuiven op naar de inktkleur. */
+:root[data-contrast="high"] .grade { --g-soft: var(--g-ink); --g-dim: var(--g-soft); }
+:root[data-contrast="high"] { --g-soft: var(--g-ink); }
 
-  color-scheme: light;
-}
-/* clean near-white on light mode with neutral cool depth (no pink wash) */
-:root[data-mode="light"] .bg-canvas {
-  background:
-    radial-gradient(1100px 760px at 12% -8%, color-mix(in srgb, var(--ink) 4%, transparent), transparent 60%),
-    radial-gradient(900px 820px at 50% 122%, color-mix(in srgb, var(--ink) 3%, transparent), transparent 62%),
-    var(--bg-0);
-}
-:root[data-mode="light"] .blob.b2 { display: none; }
-
-/* ---------- Color themes (set via data-theme on <html>) ---------- */
-:root[data-theme="indigo"] { --c1: #6366f1; --c2: #5b9dff; --c3: #818cf8; }
-:root[data-theme="teal"]   { --c1: #0ea5e9; --c2: #2dd4bf; --c3: #38bdf8; }
-:root[data-theme="emerald"]{ --c1: #10b981; --c2: #34d399; --c3: #4ade80; }
-:root[data-theme="amber"]  { --c1: #f59e0b; --c2: #f8b13c; --c3: #fb923c; }
-:root[data-theme="rose"]   { --c1: #c4172a; --c2: #e11d2e; --c3: #f63b46; }
-:root[data-theme="slate"]  { --c1: #7c8aa8; --c2: #9aa7c2; --c3: #8b96b4; }
-:root[data-theme="violet"] { --c1: #7c5cff; --c2: #3ad6ff; --c3: #ff6ad5; } /* het originele */
-
-:root[data-theme="grad"], :root:not([data-theme]) { --grad: linear-gradient(120deg, var(--c1), var(--c2) 60%, var(--c3)); }
-
-/* ---------- Reset ---------- */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; }
-.sec { scroll-margin-top: 84px; }
+/* ---------- Basis ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+:root[data-motion="reduce"] { scroll-behavior: auto; }
 body {
+  margin: 0;
+  background: var(--g-bg);
+  color: var(--g-ink);
   font-family: var(--font);
-  color: var(--ink);
-  background: var(--bg-0);
+  font-size: 1rem;
   line-height: 1.6;
-  min-height: 100vh;
-  letter-spacing: -0.01em;
-  transition: background-color .6s var(--ease), color .4s var(--ease);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
-ul { list-style: none; }
-button { font-family: inherit; cursor: pointer; }
-/* Zichtbare focus-ring voor toetsenbordnavigatie (niet bij muisklik) */
-:focus-visible { outline: 2px solid var(--c2); outline-offset: 3px; border-radius: 4px; }
-:root[data-mode="light"] :focus-visible { outline-color: var(--c1); }
-::selection { background: color-mix(in srgb, var(--c1) 35%, transparent); color: #fff; }
-/* Kleine afwerking. De schuifbalk neemt de accentkleur van het gekozen thema
-   over. Alinea's laten geen los woord op de laatste regel staan (de koppen
-   krijgen al balance, verderop). En op een telefoon flitst er geen grijs vlak
-   bij een tik, aangezien knoppen hun eigen feedback al geven. */
-html { scrollbar-color: color-mix(in srgb, var(--c2) 55%, transparent) transparent; }
-p, li, figcaption { text-wrap: pretty; }
-a, button, summary, label { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+a:hover { color: var(--g-acc); }
+button { font: inherit; color: inherit; }
+h1, h2, h3, h4, p, dl, dd, ul, figure { margin: 0; }
+ul { padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--g-acc); outline-offset: 3px; }
 
-/* ---------- Animated background ---------- */
-.bg-canvas {
-  position: fixed; inset: 0; z-index: -2;
-  transition: background 1s var(--ease);
-  background:
-    radial-gradient(1200px 800px at 12% -5%, color-mix(in srgb, var(--c1) 13%, transparent), transparent 60%),
-    radial-gradient(900px 700px at 100% 0%, color-mix(in srgb, var(--c2) 10%, transparent), transparent 55%),
-    radial-gradient(1000px 900px at 50% 120%, color-mix(in srgb, var(--c3) 9%, transparent), transparent 60%),
-    var(--bg-0);
-}
-/* subtle dot-grid texture for depth / midtones */
-.bg-canvas::after {
-  content: ""; position: absolute; inset: 0;
-  background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--ink) 18%, transparent) 1px, transparent 0);
-  background-size: 38px 38px;
-  -webkit-mask-image: radial-gradient(120% 100% at 50% 0%, #000 35%, transparent 78%);
-  mask-image: radial-gradient(120% 100% at 50% 0%, #000 35%, transparent 78%);
-}
-.blob {
-  position: fixed; z-index: -1; border-radius: 50%;
-  filter: blur(72px); opacity: var(--blob-op); pointer-events: none;
-  will-change: transform;
-}
-.blob.b1 { width: 460px; height: 460px; background: var(--c1); top: -120px; left: -80px; animation: float1 22s var(--ease) infinite; }
-.blob.b2 { width: 380px; height: 380px; background: var(--c2); bottom: -120px; right: -60px; animation: float2 26s var(--ease) infinite; }
-.blob.b3 { width: 320px; height: 320px; background: var(--c3); top: 45%; left: 55%; opacity: calc(var(--blob-op) * .42); animation: float3 30s var(--ease) infinite; }
-/* extra licht in het midden zodat glas in de contentkolom kleur oppikt */
-.blob.b4 { width: 400px; height: 400px; background: var(--c2); top: 16%; left: 30%; opacity: calc(var(--blob-op) * .42); animation: float4 28s var(--ease) infinite; }
-.blob.b5 { width: 340px; height: 340px; background: var(--c1); bottom: 6%; left: 38%; opacity: calc(var(--blob-op) * .4); animation: float5 34s var(--ease) infinite; }
-@keyframes float1 { 50% { transform: translate(120px, 80px) scale(1.15); } }
-@keyframes float2 { 50% { transform: translate(-100px, -70px) scale(1.1); } }
-@keyframes float3 { 50% { transform: translate(-140px, 60px) scale(1.2); } }
-@keyframes float4 { 50% { transform: translate(100px, -70px) scale(1.18); } }
-@keyframes float5 { 50% { transform: translate(-90px, 80px) scale(1.12); } }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.grade { background: var(--g-bg); color: var(--g-ink); }
 
-/* Grain overlay */
-.grain {
-  position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: var(--grain-op);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 10001;
+  padding: 10px 16px; background: var(--g-ink); color: var(--g-bg);
+  font-weight: 600; text-decoration: none;
 }
+.skip-link:focus { top: 12px; }
 
-/* Cursor glow */
-.cursor-glow {
-  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
-  width: 380px; height: 380px; border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--c1) 20%, transparent), transparent 65%);
-  transform: translate(-50%, -50%); transition: opacity .3s; opacity: 0;
-  mix-blend-mode: screen;
-}
-
-/* ---------- Custom cursor (desktop / fine pointer, via JS) ---------- */
-.cursor-dot, .cursor-halo {
-  position: fixed; top: 0; left: 0; pointer-events: none;
-  border-radius: 50%; will-change: transform;
-}
-.cursor-dot {
-  z-index: 10000; width: 7px; height: 7px; background: var(--c2);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--c2) 70%, transparent);
-}
-/* zachte halo die exact meebeweegt en subtiel ademt */
-.cursor-halo {
-  z-index: 9999; width: 30px; height: 30px;
-  background: radial-gradient(circle, color-mix(in srgb, var(--c2) 30%, transparent), transparent 68%);
-  animation: cursor-breathe 3.2s var(--ease) infinite;
-  transition: width .25s var(--ease), height .25s var(--ease), opacity .3s var(--ease);
-}
-
-@keyframes cursor-breathe { 0%, 100% { opacity: .65; } 50% { opacity: 1; } }
-.cursor-halo.is-hover { width: 46px; height: 46px; }
-.cursor-halo.is-down { width: 20px; height: 20px; }
-.cursor-dot.is-off, .cursor-halo.is-off { opacity: 0; animation: none; }
-@media (prefers-reduced-motion: reduce) { .cursor-halo { animation: none; } }
-:root[data-motion="reduce"] .cursor-halo { animation: none; }
-/* native cursor verbergen zodra de custom cursor actief is (alleen als JS draait) */
-:root.has-custom-cursor * { cursor: none; }
-
-/* ---------- Layout ---------- */
-main { overflow-x: clip; }
-.wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-section { position: relative; }
-/* alleen verticaal , de shorthand wiste de horizontale .wrap-padding op
-   elementen met class="wrap section-pad" (tekst plakte tegen de schermrand) */
-.section-pad { padding-top: 68px; padding-bottom: 68px; }
-
-/* ---------- Nav ---------- */
+/* ---------- Navigatie ---------- */
 .nav {
   position: sticky; top: 0; z-index: 100;
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  background: var(--nav-bg);
-  border-bottom: 1px solid var(--glass-bord);
-  transition: background .35s var(--ease), border-color .35s var(--ease),
-              box-shadow .35s var(--ease), transform .4s var(--ease);
+  background: rgba(12, 10, 10, .94);
+  border-bottom: 1px solid rgba(239, 233, 226, .1);
 }
-.nav.scrolled {
-  background: var(--nav-solid);
-  border-bottom-color: var(--glass-bord-hi);
-  box-shadow: 0 4px 28px -8px rgba(0,0,0,.30);
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+.brand {
+  font-family: var(--font-head); font-weight: 800; font-size: 1.35rem;
+  letter-spacing: .04em; text-transform: uppercase; text-decoration: none; white-space: nowrap;
 }
-:root[data-mode="light"] .nav.scrolled { box-shadow: 0 2px 18px -4px rgba(22,27,51,.16); }
-/* verbergt zich bij naar beneden scrollen, komt snel terug bij omhoog scrollen */
-.nav.nav-hidden { transform: translateY(-100%); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-.brand { display: flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -0.03em; font-size: 1.02rem; }
-/* Niets in de balk mag over twee regels vallen: een naam of een menu-item dat
-   middenin afbreekt leest als een fout, niet als een aanpassing. Liever laten we
-   de balk dichtklappen (zie .nav-compact) dan hem laten afbreken. */
-.brand-text { display: flex; flex-direction: column; line-height: 1.12; white-space: nowrap; }
-.brand-sub { font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--ink-dim); transition: color .25s var(--ease); }
-.brand:hover .brand-sub { color: var(--acc-text); }
-.nav-right { display: flex; align-items: center; gap: 12px; }
-.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-right { display: flex; align-items: center; gap: 6px; }
+.nav-links { display: flex; gap: 4px; }
 .nav-links a {
-  position: relative; padding: 9px 15px; border-radius: 999px; font-size: .92rem; white-space: nowrap;
-  color: var(--ink-soft); font-weight: 500; transition: color .25s, background .25s;
+  padding: 8px 12px; font-size: .9rem; text-decoration: none; color: #c9c1b8;
+  border-bottom: 2px solid transparent;
 }
-.nav-links a:hover { color: var(--ink); background: color-mix(in srgb, var(--c2) 14%, transparent); }
-.nav-links a.active { color: var(--ink); }
-.nav-links a.active::after {
-  content: ""; position: absolute; left: 15px; right: 15px; bottom: 3px; height: 2px;
-  background: var(--grad); border-radius: 2px;
+.nav-links a:hover { color: #efe9e2; }
+.nav-links a.active { color: #efe9e2; border-bottom-color: currentColor; }
+.lang-toggle, .settings-toggle, .burger {
+  height: 36px; min-width: 36px; padding: 0 10px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: transparent; border: 1px solid rgba(239, 233, 226, .22); border-radius: 2px;
+  cursor: pointer; font-size: .82rem; font-weight: 600; letter-spacing: .04em;
 }
-.burger { display: none; position: relative; width: 40px; height: 40px; background: none; border: 0; border-radius: 11px; transition: background .25s var(--ease); }
-.burger:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
-.burger span {
-  position: absolute; left: 50%; height: 2px;
-  background: var(--ink); border-radius: 2px;
-  transition: top .3s var(--ease), transform .3s var(--ease), opacity .25s var(--ease),
-    width .3s var(--ease), margin-left .3s var(--ease);
+.lang-toggle span { color: #8f8780; }
+html[lang="nl"] .lang-toggle [data-lang="nl"],
+html[lang="en"] .lang-toggle [data-lang="en"] { color: #efe9e2; }
+.lang-toggle:hover, .settings-toggle:hover, .burger:hover { border-color: rgba(239, 233, 226, .5); }
+
+.settings-wrap { position: relative; }
+.settings-pop {
+  position: absolute; right: 0; top: calc(100% + 10px); width: 270px;
+  padding: 18px; background: #151211; border: 1px solid rgba(239, 233, 226, .14);
+  box-shadow: 0 24px 48px -16px rgba(0, 0, 0, .7);
+  display: none;
 }
-/* bewust aflopend lang -> kort i.p.v. 3 gelijke streepjes */
-/* De hoogtes lopen licht op met de lengte. Ze waren alle drie exact 2px, maar
-   een langere lijn leest optisch dunner dan een kortere van dezelfde dikte;
-   met deze compensatie ogen ze even zwaar. */
-.burger span:nth-child(1) { top: 14px; width: 22px; margin-left: -11px; height: 2.4px; }
-.burger span:nth-child(2) { top: 19px; width: 16px; margin-left: -8px; height: 2.2px; }
-.burger span:nth-child(3) { top: 24px; width: 10px; margin-left: -5px; }
-/* in de kruis-stand zijn beide streepjes even lang, dus ook weer even dik */
-.burger.on span:nth-child(1) { top: 19px; width: 20px; margin-left: -10px; height: 2.3px; transform: rotate(45deg); }
-.burger.on span:nth-child(2) { opacity: 0; }
-.burger.on span:nth-child(3) { top: 19px; width: 20px; margin-left: -10px; height: 2.3px; transform: rotate(-45deg); }
-
-/* ---------- Buttons ---------- */
-.btn {
-  display: inline-flex; align-items: center; gap: 9px; padding: 14px 26px;
-  border-radius: 999px; font-weight: 600; font-size: .96rem; border: 1px solid transparent;
-  transition: transform .25s var(--ease), box-shadow .25s, background .25s;
+.settings-pop.open { display: block; }
+.settings-pop h4 {
+  font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: #9a9087; margin: 0 0 10px;
 }
-.btn-primary { background: var(--grad); color: var(--ink-on-accent); box-shadow: 0 16px 38px -14px color-mix(in srgb, var(--c1) 85%, transparent); }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 22px 46px -14px color-mix(in srgb, var(--c1) 95%, transparent); }
-.btn-ghost { background: var(--glass-bg); border-color: var(--glass-bord); color: var(--ink); backdrop-filter: blur(10px); }
-.btn-ghost:hover { border-color: var(--glass-bord-hi); transform: translateY(-2px); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.settings-pop h4:not(:first-child) { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(239, 233, 226, .1); }
+.a11y-row, .zoom-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: .9rem; cursor: pointer; }
+.a11y-row input { position: absolute; opacity: 0; pointer-events: none; }
+.a11y-row .sw { position: relative; width: 36px; height: 20px; border-radius: 10px; background: #3a332f; flex: none; transition: background .2s; }
+.a11y-row .sw::after { content: ""; position: absolute; left: 3px; top: 3px; width: 14px; height: 14px; border-radius: 50%; background: #efe9e2; transition: transform .2s; }
+.a11y-row input:checked + .sw { background: #d9a877; }
+.a11y-row input:checked + .sw::after { transform: translateX(16px); }
+.a11y-row input:focus-visible + .sw { outline: 2px solid #d9a877; outline-offset: 2px; }
+.zoom-ctl { display: flex; align-items: center; gap: 8px; }
+.zoom-btn { width: 30px; height: 30px; border: 1px solid rgba(239, 233, 226, .22); background: transparent; cursor: pointer; border-radius: 2px; }
+.zoom-btn:disabled { opacity: .35; cursor: default; }
+.zoom-val { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums; font-size: .85rem; }
+.set-action { display: block; padding: 10px 12px; border: 1px solid rgba(239, 233, 226, .18); text-decoration: none; font-size: .92rem; font-weight: 600; }
+.set-action-sub { display: block; font-weight: 400; font-size: .8rem; color: #9a9087; }
 
-/* ---------- Glass card ---------- */
-.glass {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-bord);
-  border-radius: var(--r-lg);
-  backdrop-filter: blur(22px) saturate(125%);
-  -webkit-backdrop-filter: blur(22px) saturate(125%);
-  /* scherpe lichtrand bovenaan + zachte schaduw = echte glas-diepte */
-  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,.09);
-  position: relative; overflow: hidden;
+.burger { display: none; flex-direction: column; gap: 5px; }
+.burger span { display: block; width: 16px; height: 1.5px; background: currentColor; transition: transform .2s; }
+.burger.on span:first-child { transform: translateY(3.25px) rotate(45deg); }
+.burger.on span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+
+/* ---------- Het breedbeeld ---------- */
+.frame { position: relative; }
+.frame img { width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; }
+/* De hero-foto is lager dan de andere: de naam eronder moet bij het laden
+   volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
+   van 800 pixels hoog viel ze anders half onder de rand. */
+.frame-hero img { aspect-ratio: auto; height: clamp(180px, 34vh, 400px); }
+.frame figcaption {
+  margin-top: 10px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim);
 }
-:root[data-mode="light"] .glass { backdrop-filter: blur(22px) saturate(135%); -webkit-backdrop-filter: blur(22px) saturate(135%); }
-.glass::before {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background:
-    linear-gradient(160deg, rgba(255,255,255,.10), transparent 42%),
-    radial-gradient(120% 80% at 50% -10%, rgba(255,255,255,.06), transparent 60%);
-}
-
-/* Tilt cards */
-/* Smooth lift + cursor spotlight (replaces heavy 3D tilt) */
-.tilt { transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
-.tilt::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 0;
-  opacity: 0; transition: opacity .4s var(--ease);
-  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c2) 20%, transparent), transparent 62%);
-}
-.tilt:hover { transform: translateY(-5px); box-shadow: 0 26px 60px -28px color-mix(in srgb, var(--c1) 60%, #000); }
-.tilt:hover::after { opacity: 1; }
-.tilt > * { position: relative; z-index: 1; }
-
-/* ===== Thematic card hover effects ===== */
-.fx-card { position: relative; overflow: hidden; transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
-.fx-card:hover { transform: translateY(-5px); box-shadow: 0 26px 60px -28px color-mix(in srgb, var(--c1) 60%, #000); }
-.fx-card .fx { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; overflow: hidden; z-index: 0; }
-.fx-card > *:not(.fx) { position: relative; z-index: 1; }
-
-/* Communicatie: kernboodschap.
-   De stippen liggen verstrooid en komen bij hover samen tot één uitgelijnde
-   rij: van verspreide input naar één heldere boodschap.
-
-   De rij zelf wordt door flexbox gemaakt, dus elke stip staat al op zijn
-   eindplek. De verstrooiing is enkel een verschuiving (--dx/--dy) die bij
-   hover naar nul loopt. Daardoor animeert er niets anders dan `transform` en
-   `opacity`, allebei door de compositor afgehandeld.
-
-   Het is een overgang en geen lus: de stippen komen aan en blijven staan
-   zolang je erop staat. Dat leest als aankomen in plaats van rondjes draaien.
-
-   Verticaal gecentreerd over de volle breedte, want de kaart klapt bij brede
-   vensters horizontaal uit en stapelt bij smalle; een vaste positie zou in de
-   ene of de andere indeling op de kop botsen. */
-.fx-write .msg {
-  position: absolute; left: 9%; right: 9%; top: 50%;
-  height: 76px; transform: translateY(-50%);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.fx-write .msg i {
-  width: 5px; height: 5px; flex: none; border-radius: 50%;
-  background: color-mix(in srgb, var(--c2) 85%, transparent);
-  opacity: .16;
-  transform: translate(var(--dx), var(--dy));
-  transition: transform .78s var(--ease), opacity .5s var(--ease);
-  transition-delay: calc(var(--i) * 16ms);
-}
-.fx-write:hover .msg i {
-  opacity: .6;
-  transform: translate(0, 0);
-}
-/* minder beweging: geen samenkomst, alleen het oplichten */
-@media (prefers-reduced-motion: reduce) {
-  .fx-write .msg i { transition: opacity .3s linear; }
-  .fx-write:hover .msg i { transform: translate(var(--dx), var(--dy)); }
-}
-:root[data-motion="reduce"] .fx-write .msg i { transition: opacity .3s linear; }
-:root[data-motion="reduce"] .fx-write:hover .msg i { transform: translate(var(--dx), var(--dy)); }
-
-/* design: soft gradient-mesh blooms */
-.fx-palette .fx { opacity: 0; transform: scale(1.25); transition: opacity .5s var(--ease), transform .6s var(--ease);
-  background:
-    radial-gradient(circle at 28% 30%, color-mix(in srgb, var(--c1) 55%, transparent), transparent 46%),
-    radial-gradient(circle at 78% 40%, color-mix(in srgb, var(--c3) 48%, transparent), transparent 46%),
-    radial-gradient(circle at 55% 88%, color-mix(in srgb, var(--c2) 42%, transparent), transparent 52%); }
-.fx-palette:hover .fx { opacity: .85; transform: scale(1); }
-.fx-palette:hover .ic { color: var(--ink-on-accent); border-color: transparent; background: var(--grad); }
-
-/* leiderschap: nodes connect + pulse travels the links */
-.fx-network .net { position: absolute; right: 12px; top: 12px; width: 160px; height: 116px; opacity: 0; transition: opacity .45s var(--ease); }
-.fx-network:hover .net { opacity: .9; }
-.fx-network .net line { stroke: var(--c2); stroke-width: 1.8; stroke-dasharray: 80; stroke-dashoffset: 80; transition: stroke-dashoffset .65s var(--ease) .05s; }
-.fx-network:hover .net line { stroke-dashoffset: 0; }
-.fx-network .net circle { fill: var(--c2); transform: scale(0); transform-origin: center; transition: transform .4s var(--ease);
-  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--c2) 70%, transparent)); }
-.fx-network:hover .net circle { transform: scale(1); }
-.fx-network:hover .net circle:nth-child(5) { animation: nodepulse 1.6s ease-in-out .55s infinite; }
-.fx-network:hover .net circle:nth-child(7) { animation: nodepulse 1.6s ease-in-out .95s infinite; }
-@keyframes nodepulse { 0%,100% { r: 5; } 50% { r: 7; } }
-
-/* Fotografie: cameraflits met sluiterring.
-   In donkere modus flitst wit, zoals een echte flits. Op een lichte kaart kan
-   dat niet - feller dan wit bestaat niet - dus daar krijgt de flits kleur:
-   een korte, verzadigde bloei in het accent. De kleuren dragen zelf hun alfa,
-   zodat dezelfde keyframes in beide modi kloppen. */
-.fx-flash {
-  --flash-core: #fff;
-  --flash-edge: color-mix(in srgb, #fff 70%, transparent);
-}
-:root[data-mode="light"] .fx-flash {
-  --flash-core: color-mix(in srgb, var(--c1) 74%, transparent);
-  --flash-edge: color-mix(in srgb, var(--c2) 30%, transparent);
-}
-.fx-flash .fx { opacity: 0; background:
-  radial-gradient(circle at 50% 42%, var(--flash-core), var(--flash-core) 38%, var(--flash-edge) 70%); }
-.fx-flash:hover .fx { animation: flashfx .9s var(--ease); }
-@keyframes flashfx { 0% { opacity: 0; } 6% { opacity: .98; } 16% { opacity: .9; } 30% { opacity: .35; } 46% { opacity: .8; } 70% { opacity: 0; } 100% { opacity: 0; } }
-
-/* tech: circuit board powers up */
-.fx-circuit .fx { background: var(--c2); opacity: 0; transition: opacity .4s var(--ease);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M8 22h28v24h34M18 92v-26h40V36h34M70 70h28'/%3E%3Ccircle cx='8' cy='22' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='70' cy='46' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='18' cy='92' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='98' cy='36' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='98' cy='70' r='4' fill='black' stroke='none'/%3E%3C/svg%3E") 0 0 / 112px 112px repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='112' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M8 22h28v24h34M18 92v-26h40V36h34M70 70h28'/%3E%3Ccircle cx='8' cy='22' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='70' cy='46' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='18' cy='92' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='98' cy='36' r='4' fill='black' stroke='none'/%3E%3Ccircle cx='98' cy='70' r='4' fill='black' stroke='none'/%3E%3C/svg%3E") 0 0 / 112px 112px repeat; }
-.fx-circuit:hover .fx { opacity: .4; }
-.fx-circuit .fx::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%);
-  background: linear-gradient(110deg, transparent, color-mix(in srgb, #fff 55%, transparent), transparent); }
-.fx-circuit:hover .fx::after { animation: sweepfx 1.3s var(--ease) .1s; }
-@keyframes sweepfx { to { transform: translateX(100%); } }
-
-/* hoofdleider KSA: natuur , blaadjes dwarrelen over de kaart */
-.fx-rally .fx { background: none; overflow: hidden; }
-.fx-rally .leaf {
-  position: absolute; pointer-events: none;
-  color: color-mix(in srgb, var(--c2) 62%, #86efac 38%);
-  opacity: 0; transform-origin: 50% 80%; }
-/* positie + individuele drift per blaadje */
-.fx-rally .l1 { width: 18px; height: 26px; bottom: 8%;  left: 10%; --dx: 18px;  --rot:  38deg; }
-.fx-rally .l2 { width: 14px; height: 20px; bottom: 18%; left: 38%; --dx:-16px;  --rot: -55deg; }
-.fx-rally .l3 { width: 20px; height: 28px; bottom: 6%;  left: 60%; --dx: 22px;  --rot:  62deg; }
-.fx-rally .l4 { width: 13px; height: 18px; bottom: 22%; left: 78%; --dx:-12px;  --rot: -42deg; }
-.fx-rally .l5 { width: 11px; height: 16px; bottom: 35%; left: 24%; --dx: 10px;  --rot:  28deg; }
-.fx-rally .l6 { width: 15px; height: 22px; bottom: 12%; left: 50%; --dx:-20px;  --rot: -30deg; }
-.fx-rally:hover .leaf { animation: leafdrift 1.55s cubic-bezier(.25,.46,.45,.94) forwards; }
-.fx-rally:hover .l1 { animation-delay: .00s; }
-.fx-rally:hover .l2 { animation-delay: .18s; }
-.fx-rally:hover .l3 { animation-delay: .10s; }
-.fx-rally:hover .l4 { animation-delay: .30s; }
-.fx-rally:hover .l5 { animation-delay: .44s; }
-.fx-rally:hover .l6 { animation-delay: .24s; }
-@keyframes leafdrift {
-  0%   { opacity: 0;   transform: translateY(12px) translateX(0) rotate(-10deg) scale(.55); }
-  16%  { opacity: .78; }
-  75%  { opacity: .45; }
-  100% { opacity: 0;   transform: translateY(-105px) translateX(var(--dx)) rotate(var(--rot)) scale(1); }
-}
-
-/* psychologie: brein + neuronen die elkaar linken */
-.fx-neuro .neuro-svg { position: absolute; inset: 0; width: 100%; height: 100%;
-  opacity: 0; transition: opacity .35s var(--ease); pointer-events: none; overflow: visible; }
-.fx-neuro:hover .neuro-svg { opacity: 1; }
-/* brain silhouette , faint, fades in behind the nodes */
-.brain-silhouette { opacity: 0; transition: opacity .55s var(--ease) .05s; }
-.fx-neuro:hover .brain-silhouette { opacity: 1; }
-.brain-outline { fill: color-mix(in srgb, var(--c2) 7%, transparent); stroke: color-mix(in srgb, var(--c2) 28%, transparent); stroke-width: 1.2; stroke-linejoin: round; }
-.brain-groove, .brain-gyrus { fill: none; stroke: color-mix(in srgb, var(--c2) 16%, transparent); stroke-width: .9; stroke-linecap: round; }
-/* neuron nodes & links */
-.neuro-node { fill: color-mix(in srgb, var(--c2) 80%, transparent);
-  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--c2) 60%, transparent)); }
-.neuro-link { stroke: color-mix(in srgb, var(--c2) 45%, transparent); stroke-width: 1.4; fill: none;
-  stroke-dasharray: 60; stroke-dashoffset: 60; }
-.fx-neuro:hover .neuro-link { animation: dendrite 1s var(--ease) forwards; }
-.fx-neuro:hover .neuro-link:nth-child(3) { animation-delay: .12s; }
-.fx-neuro:hover .neuro-link:nth-child(4) { animation-delay: .22s; }
-.fx-neuro:hover .neuro-link:nth-child(5) { animation-delay: .32s; }
-.fx-neuro:hover .neuro-link:nth-child(6) { animation-delay: .42s; }
-.neuro-node { transform: scale(0); transform-origin: center; }
-.fx-neuro:hover .neuro-node { animation: nodeIn .4s var(--ease) forwards; }
-.fx-neuro:hover .neuro-node:nth-child(7)  { animation-delay: .05s; }
-.fx-neuro:hover .neuro-node:nth-child(8)  { animation-delay: .18s; }
-.fx-neuro:hover .neuro-node:nth-child(9)  { animation-delay: .30s; }
-.fx-neuro:hover .neuro-node:nth-child(10) { animation-delay: .42s; }
-.fx-neuro:hover .neuro-node:nth-child(11) { animation-delay: .55s; }
-@keyframes dendrite { to { stroke-dashoffset: 0; } }
-@keyframes nodeIn   { to { transform: scale(1); } }
-.neuro-pulse { animation: npulse 2.2s ease-in-out .7s infinite; transform-origin: center; }
-@keyframes npulse { 0%,100% { transform: scale(1); opacity: .8; } 50% { transform: scale(1.55); opacity: .3; } }
-
-/* ---------- Headings & text ---------- */
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 600;
-  letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
-  padding: 6px 14px; border-radius: 999px; border: 1px solid var(--glass-bord);
-  /* dekkende achtergrond zodat de tekst altijd contrasteert, ook op de gekleurde hero */
-  background: color-mix(in srgb, var(--bg-1) 82%, transparent); margin-bottom: 22px;
-}
-.eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c2); box-shadow: 0 0 12px var(--c2); }
-h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.035em; line-height: 1.05; font-weight: 800; text-wrap: balance; }
-.h-xl { font-size: clamp(2.1rem, 4.6vw, 4rem); }
-.h-lg { font-size: clamp(2rem, 4.5vw, 3.2rem); }
-.h-md { font-size: clamp(1.4rem, 3vw, 2rem); }
-.grad-text { background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent; }
-
-/* Bij background-clip: text wordt alleen binnen het achtergrondvak geschilderd.
-   Cursieve letters steken met hun schuine uithalen buiten dat vak - gemeten tot
-   ruim 3px bij "rode draad" - en dat stuk bleef dus ongeschilderd, wat leest als
-   een bruusk afgesneden letter. De marge maakt het vak breder; de negatieve
-   marge haalt die ruimte weer weg zodat de tekstloop niet verschuift.
-   Symmetrisch, zodat het midden van de naam op zijn plek blijft: de klikgloed
-   en de introlagen worden op dat midden uitgelijnd. */
-.grad-text { padding-inline: .16em; margin-inline: -.16em; }
-
-/* Dikke punt achter de naam: een typografische punt zou meeschalen met het
-   lettertype en te dun uitvallen op deze grootte, dus is het een echte cirkel.
-   Maten in em, zodat hij meegroeit met de clamp() van .h-xl. Kleur is var(--ink)
-   en niet hard zwart: in donkere modus zou zwart op zwart verdwijnen. */
-/* De punt is voor de browser een los blokje, en daar mag hij vóór afbreken. Op
-   smalle kolommen viel ze zo alleen op een eigen regel. Samen met het laatste
-   woord in een span die niet afbreekt, blijft ze eraan vastzitten. */
-.name-end { white-space: nowrap; }
-.name-dot {
-  display: inline-block;
-  width: .2em; height: .2em;
-  margin-left: .07em;
-  border-radius: 50%;
-  background: var(--ink);
-  /* de baseline zelf ligt onder de x-hoogte; de punt hoort op de grondlijn te
-     rusten, dus geen extra verschuiving nodig behalve de optische correctie */
-  vertical-align: baseline;
-}
-/* In de introlagen en in de klikgloed is de naam wit respectievelijk vol in
-   spectrum; een inktzwarte punt zou daar als gat lezen. */
-.intro-stage .name-dot,
-.name-glow .gl-flash .name-dot { background: #fff; }
-.name-glow .gl-near .name-dot,
-.name-glow .gl-mid .name-dot,
-.name-glow .gl-far .name-dot { background: hsl(190 88% 55%); }
-.lead { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink-soft); max-width: 60ch; }
-.muted { color: var(--ink-dim); }
-/* Geen maximumbreedte op het kopblok zelf. Die stond op 64ch, wat hier zo'n
-   646 pixels is terwijl de kolom 1140 breed is - en dan brak een kop als
-   "Meegegroeid met KSA Herentals" af terwijl hij ruim naast elkaar past. De
-   leesbreedte hoort bij de inleiding, niet bij de kop, en die heeft met zijn
-   eigen 60ch al een grens. */
-.section-head { margin-bottom: 46px; }
-/* Losstaand labeltje boven een kaart, zonder kop eronder. Krap gehouden: het
-   hoort bij de kaart die volgt, niet bij de sectie erboven, en de 46px van een
-   volledige sectiekop zou het los doen zweven. */
-.job-label { margin-bottom: 16px; }
-.section-head > h1, .section-head > h2 { letter-spacing: -0.044em; }
-/* lead krijgt lucht onder de kop */
-.section-head .lead { margin-top: 15px; }
-/* lange leesprose uitgevuld + afbreken voor strakke randen (enkel hier: justify heeft
-   afbreekstreepjes nodig om grote woordspaties te vermijden; elders (ragged-right) niet) */
-/* Deze alinea's stonden als enige op de hele site uitgevuld, met automatische
-   woordafbreking erbij. Op een breed scherm viel dat nauwelijks op, maar in een
-   telefoonkolom moet elke regel dan met een handvol woorden de volle breedte
-   halen: gaten tussen de woorden en vijf afgebroken woorden in twee alinea's.
-   Pal onder de inleiding erboven, die gewoon links uitlijnt, las dat als twee
-   verschillende teksten. Links uitgelijnd is wat de rest van de site doet. */
-.bio-open p { hyphens: manual; }
-/* de reset zet alle marges op nul, dus opeenvolgende alinea's krijgen hier hun
-   eigen tussenruimte */
-.bio-open p + p { margin-top: 15px; }
+.sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 64px; padding-bottom: 88px; }
 
 /* ---------- Hero ---------- */
-.hero { padding: 52px 0 48px; }
-.hero-card { padding: 52px 60px; }
-.hero-card h1 { margin: 6px 0 10px; }
-.hero-loc { display: inline-flex; align-items: center; gap: 7px; font-size: .9rem;
-  font-weight: 500; color: var(--ink-soft); margin-bottom: 16px; }
-.hero-loc svg { color: var(--acc-text); flex: none; }
-.hero-card .lead { margin-bottom: 22px; max-width: 58ch; }
-.hero-card .hero-stats { border-top: 1px solid var(--glass-bord); padding-top: 22px; }
-.hero-card .scroll-cue { margin-top: 16px; }
-/* Persoonlijke strip: kort en luchtig, geeft warmte naast het professionele profiel */
-.personal-strip { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin-top:18px; }
-.personal-label { font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim); margin-right:2px; }
-.personal-chip { display:inline-flex; align-items:center; gap:6px; font-size:.82rem; font-weight:600;
-  color:var(--ink-soft); padding:6px 13px; border-radius:999px;
-  background:color-mix(in srgb, var(--ink) 5%, transparent); border:1px solid var(--glass-bord); }
-/* Compact stages list */
-.stage-compact { padding:6px 28px; }
-.stage-row { display:flex; align-items:baseline; gap:14px; padding:13px 0; border-bottom:1px solid var(--glass-bord); }
-.stage-row:last-child { border-bottom:none; }
-.stage-yr { font-size:.8rem; font-weight:700; color:var(--acc-text); min-width:36px; flex:none; }
-.stage-info { flex:1; }
-.stage-info strong { font-size:.92rem; font-weight:700; color:var(--ink); }
-.stage-info span { display:block; font-size:.84rem; color:var(--ink-soft); margin-top:2px; }
-.stage-loc { font-size:.78rem; color:var(--ink-dim); white-space:nowrap; }
-.hero-card-lead { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
-.hero-avatar-wrap {
-  width: 72px; height: 72px; border-radius: 50%; flex: none;
-  padding: 3px; background: var(--grad);
-  box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--c1) 70%, transparent);
+#home > .wrap { padding-top: 20px; padding-bottom: 72px; }
+.hero {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px;
+  align-items: end; padding-top: 24px;
 }
-.hero-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
-.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
-/* Overbrugging in de tijdlijn. Eerder was dit een blok over de volle breedte,
-   en dat woog veel te zwaar voor wat het is: geen functie, alleen de periode
-   ertussen. Nu staat er enkel een klein datumknopje; de uitleg komt in een
-   balonnetje dat erboven verschijnt en dus geen ruimte inneemt in de pagina. */
-.gap-hint { position: relative; display: inline-block; margin-bottom: 14px; }
-.gap-knop {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 5px 12px 6px; border-radius: 999px;
-  background: none; border: 1px dashed var(--glass-bord);
-  font: inherit; font-size: .74rem; font-weight: 600; color: var(--ink-dim);
-  cursor: help; transition: color .2s var(--ease), border-color .2s var(--ease);
+.hero-name {
+  grid-column: 1 / span 7;
+  font-family: var(--font-head); font-weight: 800;
+  font-size: clamp(4.2rem, 10.4vw, 9.6rem); line-height: .86; letter-spacing: .005em;
+  text-transform: uppercase; text-wrap: balance;
 }
-.gap-knop svg { flex: none; opacity: .75; }
-.gap-hint:hover .gap-knop,
-.gap-hint:focus-within .gap-knop,
-.gap-hint.open .gap-knop {
-  color: var(--acc-text);
-  border-color: color-mix(in srgb, var(--c2) 42%, transparent);
+.prism-host .grad-text {
+  background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent;
+  /* ruimte voor de uithalen bij background-clip: text, zonder dat de tekstloop verschuift */
+  padding-inline: .06em; margin-inline: -.06em;
 }
-/* Het balonnetje hangt bóven het knopje: daaronder begint meteen de rolkaart,
-   en dan zou het daar overheen vallen. Bottom in plaats van top, zodat het
-   groeit naar boven toe en de onderrand op zijn plek blijft staan. */
-.gap-tip {
-  position: absolute; bottom: calc(100% + 9px); left: 0; z-index: 6;
-  width: max-content; max-width: min(340px, 78vw);
-  padding: 10px 14px 11px; border-radius: var(--r-sm);
-  background: color-mix(in srgb, var(--c2) 11%, var(--bg-1));
-  border: 1px solid color-mix(in srgb, var(--c2) 32%, transparent);
-  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, .45);
-  font-size: .82rem; line-height: 1.5; color: var(--ink-soft);
-  opacity: 0; visibility: hidden; transform: translateY(4px);
-  transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
-}
-/* Het tuitje: een vierkantje van 45 graden onder de rand, met dezelfde vulling
-   en enkel de twee onderranden, zodat de lijn rond het balonnetje doorloopt. */
-.gap-tip::after {
-  content: ""; position: absolute; left: 22px; bottom: -5px;
-  width: 9px; height: 9px; transform: rotate(45deg);
-  background: inherit;
-  border-right: 1px solid color-mix(in srgb, var(--c2) 32%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--c2) 32%, transparent);
-}
-.gap-hint:hover .gap-tip,
-.gap-hint:focus-within .gap-tip,
-.gap-hint.open .gap-tip { opacity: 1; visibility: visible; transform: none; }
-@media (prefers-reduced-motion: reduce) { .gap-tip, .gap-knop { transition: none; } }
-:root[data-motion="reduce"] .gap-tip,
-:root[data-motion="reduce"] .gap-knop { transition: none; }
+.hero-side { grid-column: 8 / span 5; }
+.hero-lead { font-size: 1.13rem; color: var(--g-soft); max-width: 46ch; }
+.hero-lead [data-i18n="hero_role"] { color: var(--g-ink); font-weight: 600; }
+.hero-meta { margin-top: 14px; font-size: .88rem; color: var(--g-dim); }
 
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px;
+  background: var(--g-ink); color: var(--g-bg); border: 1px solid var(--g-ink); border-radius: 2px;
+  font-weight: 600; font-size: .92rem; text-decoration: none; cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.btn:hover { background: var(--g-acc); border-color: var(--g-acc); color: var(--g-bg); }
+.btn-line { background: transparent; color: var(--g-ink); border-color: color-mix(in srgb, var(--g-ink) 35%, transparent); }
+.btn-line:hover { background: transparent; color: var(--g-acc); border-color: var(--g-acc); }
 
-.hero-stats { display: flex; gap: 34px; margin-top: 28px; flex-wrap: wrap; }
-.stat .num { font-size: 2.3rem; font-weight: 800; line-height: 1; }
-.stat .lbl { font-size: .85rem; color: var(--ink-dim); margin-top: 6px; }
+/* ---------- Essentie ---------- */
+.essentie { margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--g-line); }
+.label {
+  font-family: var(--font); font-size: .74rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--g-acc);
+}
+.label-gap { margin-top: 44px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 24px; margin-top: 18px; }
+.facts dt { font-size: .78rem; color: var(--g-dim); }
+.facts dd { font-weight: 500; line-height: 1.4; margin-top: 2px; }
+.facts dd.sub { font-weight: 400; font-size: .84rem; color: var(--g-soft); margin-top: 4px; }
 
-/* ---------- Cards grid ---------- */
-.grid { display: grid; gap: 22px; }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-.feature { padding: 30px; }
-.feature .ic {
-  width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; margin-bottom: 18px;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
-  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--acc-text); font-size: 1.3rem;
+/* ---------- Sectiekop ---------- */
+.sec-head {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 16px;
+  padding-top: 40px; margin-bottom: 44px;
 }
-.feature h3 { font-size: 1.15rem; margin-bottom: 9px; }
-.feature p { color: var(--ink-soft); font-size: .95rem; }
+.sec-head > :first-child { grid-column: 1 / span 4; }
+.sec-head > :last-child { grid-column: 5 / span 8; }
+.sec-title {
+  font-family: var(--font-head); font-weight: 700; font-size: clamp(3rem, 5vw, 4.4rem);
+  line-height: .9; text-transform: uppercase; color: var(--g-acc); letter-spacing: .005em;
+}
+.sec-sub { font-family: var(--font); font-weight: 600; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.2; letter-spacing: -.015em; }
+.sec-sub .em-serif { font-style: italic; font-weight: 500; }
+.sec-lead { margin-top: 12px; color: var(--g-soft); max-width: 62ch; }
+.sec-lead-small { font-size: .9rem; }
+.sec-lead a, .org-head a, .row a { color: var(--g-acc); }
 
-/* ---------- Titel naast het icoon ----------
-   De titel stond onder het icoon, waardoor naast het icoon een lege strook
-   overbleef en elke kaart een regelhoogte extra innam. Titel en icoon staan nu
-   op één lijn. Dezelfde opbouw als de brede kaart in dit raster, dus het blijft
-   één taal op de pagina - die kaart deed dit al, de smalle ernaast niet, en dat
-   verschil viel op zodra ze naast elkaar stonden.
-   De tekst loopt bewust over de volle breedte door en niet in de kolom naast
-   het icoon: anders moet elke zin door een smallere koker en wint de kaart in
-   hoogte wat ze in breedte bespaart. De sfeeranimaties in deze kaarten staan
-   absoluut gepositioneerd en blijven dus buiten dit raster. */
-.int-grid > .feature,
-.bento > .feature:not(.feature-wide) {
-  display: grid; grid-template-columns: auto 1fr;
-  column-gap: 14px; align-items: center;
-  padding: 24px 26px;
-}
-.int-grid > .feature .ic,
-.bento > .feature:not(.feature-wide) .ic { margin-bottom: 0; width: 44px; height: 44px; border-radius: 13px; }
-.int-grid > .feature h3,
-.bento > .feature:not(.feature-wide) h3 { grid-column: 2; margin-bottom: 0; }
-.int-grid > .feature p,
-.bento > .feature:not(.feature-wide) p { grid-column: 1 / -1; margin-top: 13px; }
+/* ---------- Kolommen ---------- */
+.cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+.cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.cols-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 24px; }
+.pillar { border-top: 1px solid var(--g-line); padding-top: 16px; }
+.pillar h3, .pillar h4 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
+.pillar p { margin-top: 8px; color: var(--g-soft); font-size: .94rem; }
+.prose p + p { margin-top: 14px; }
+.prose p { color: var(--g-soft); }
+.sub-block { margin-top: 64px; }
+.sub-head { margin-bottom: 4px; }
 
-/* ---------- Skills (icoon + naam, geen niveau-claim) ---------- */
-.skill-list { display: flex; flex-direction: column; gap: 14px; }
-.skill-row { display: flex; align-items: center; gap: 12px; font-size: .95rem; }
-.skill-ic {
-  width: 32px; height: 32px; flex: none; border-radius: 10px; display: grid; place-items: center;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
-  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--acc-text);
+/* ---------- Rijen (ervaring, opleiding) ---------- */
+.org { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 20px; }
+.org-head { grid-column: 1 / span 4; }
+.org-head h3 { font-family: var(--font-head); font-weight: 700; font-size: 2.2rem; line-height: 1; text-transform: uppercase; margin: 8px 0 10px; }
+.org-head p:not(.label) { color: var(--g-soft); font-size: .92rem; }
+.org > .rows { grid-column: 5 / span 8; }
+.rows { border-top: 1px solid var(--g-line); }
+.row {
+  display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px;
+  padding: 22px 0; border-bottom: 1px solid var(--g-line);
 }
+.row-date { font-size: .86rem; color: var(--g-dim); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.row h4 { font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
+.row h4 + p, .row p + p { margin-top: 8px; }
+.row p { color: var(--g-soft); }
+.row-org { display: block; font-weight: 400; font-size: .92rem; color: var(--g-dim); margin-top: 2px; }
+.row-quiet p { font-size: .92rem; }
+.row-place { color: var(--g-dim); margin-left: 10px; font-size: .88rem; }
+.rows-tight .row { padding: 14px 0; }
+.rows-tight .row > div { color: var(--g-soft); }
+.rows-tight strong { color: var(--g-ink); font-weight: 600; }
+.row-split { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.row-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }
+.honour { font-size: .86rem; color: var(--g-acc); font-weight: 500; }
+.now-badge { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--g-acc); vertical-align: 2px; }
+.now-badge .pulse { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-/* ---------- Pills / chips ---------- */
-.chip {
-  padding: 9px 16px; border-radius: 999px; font-size: .9rem; font-weight: 500; color: var(--ink-soft);
-  background: var(--glass-bg); border: 1px solid var(--glass-bord); transition: .25s;
-}
-.chip:hover { border-color: var(--glass-bord-hi); color: var(--ink); transform: translateY(-2px); }
-
-/* Compact language list */
-.lang-card { max-width: 660px; margin: 0 auto; padding: 28px 32px; display: grid; gap: 20px; }
-
-/* ---------- Talen in de biokolom ----------
-   Het blok stond als eigen sectie over de volle breedte, terwijl er naast de
-   bio een groot gat viel: de vaardighedenkaart ernaast is fors hoger. Hier vult
-   het dat gat op.
-   De kaart moet dus meeschalen met een kolom in plaats van met de pagina: de
-   max-width en de auto-marges eraf, want die centreerden hem in een breedte die
-   hij nu niet meer heeft, en de binnenmaten iets kleiner zodat drie talen naast
-   een smallere kolom niet gaan verspringen. Alles in relatieve stappen, zodat
-   het bij het uitklappen van de kolom op mobiel gewoon meegroeit. */
-/* Het blok zakt naar de onderkant van de kolom, zodat het gelijk eindigt met de
-   vaardighedenkaart ernaast. De overgebleven ruimte komt dus bóven het blok te
-   staan, tussen de biotekst en de kop - dat leest als gewone tussenruimte.
-   Eerder rekte de kaart zelf mee, maar sinds de tussentitel weg is bleef er meer
-   ruimte over en werden de drie talen zichtbaar uit elkaar getrokken.
-   De padding blijft naast de automarge staan: die zorgt voor de minimumafstand
-   wanneer er niets te verdelen valt, zoals op mobiel. */
-.lang-inline { margin-top: auto; padding-top: 34px; display: flex; flex-direction: column; }
-.lang-inline .lang-head { margin-bottom: 18px; }
-.lang-inline .lang-head .eyebrow { margin-bottom: 11px; }
-.lang-inline .lang-card {
-  max-width: none; margin: 0;
-  padding: 24px 26px; gap: 17px;
-}
-.lang-inline .lang-name { font-size: 1rem; }
-.lang-inline .lang-lvl { font-size: .82rem; }
-/* Onder deze breedte staan naam en niveau naast elkaar zo krap dat het niveau
-   op een eigen regel valt; dan liever meteen onder elkaar, links uitgelijnd. */
-@media (max-width: 560px) {
-  .lang-inline .lang-card { padding: 20px 20px; }
-  .lang-inline .lang-top { display: block; margin-bottom: 11px; }
-  .lang-inline .lang-lvl { display: block; margin-top: 2px; }
-}
-.lang-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 9px; flex-wrap: wrap; }
-.lang-name { font-weight: 700; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 7px; }
-.lang-star { color: #ffd479; font-size: .95rem; filter: drop-shadow(0 0 6px rgba(255,212,121,.45)); }
-.lang-lvl { font-size: .85rem; color: var(--ink-dim); }
-.lang-pips { display: flex; gap: 4px; height: 9px; }
-.lang-pip {
-  flex: 1; height: 100%; border-radius: 999px; overflow: hidden;
-  background: color-mix(in srgb, var(--ink) 9%, transparent);
-}
-.lang-pip i {
-  display: block; width: 100%; height: 100%; border-radius: inherit; background: var(--grad);
-  transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
-}
-/* De balkjes bouwen trapsgewijs op, maar de trapjes zitten nu in css.
-   Eerder zette JavaScript per balkje apart een klasse via een eigen timer: zes
-   timers per rij, elk met een verwijzing naar één vast balkje. Ging er in die
-   ruim seconde iets mis met zo'n timer, dan bleef die rij voorgoed leeg - er
-   was geen tweede kans en niets dat controleerde of het gelukt was.
-   Nu zet JavaScript één klasse op de rij en doet transition-delay de rest. Eén
-   handeling per rij in plaats van zes, dus er valt niets meer te missen.
-   Hoeveel balkjes vollopen leest css rechtstreeks uit data-level, dezelfde bron
-   die JavaScript eerder uitlas. */
-.lang-pip:nth-child(2) i { transition-delay: .22s; }
-.lang-pip:nth-child(3) i { transition-delay: .44s; }
-.lang-pip:nth-child(4) i { transition-delay: .66s; }
-.lang-pip:nth-child(5) i { transition-delay: .88s; }
-.lang-pip:nth-child(6) i { transition-delay: 1.1s; }
-/* Gevuld als uitgangspunt. Dit is wat er staat zonder javascript, wat een
-   tekstuitlezer oppikt, en wat blijft staan als de waarnemer nooit afgaat.
-   Eerder waren alle balkjes leeg tot javascript ze vulde: sprong je recht naar
-   #over, dan las de kaart "geen Nederlands, geen Engels, een beetje Frans".
-   Hoeveel balkjes vollopen leest css rechtstreeks uit data-level. */
-.lang-pips[data-level="1"] .lang-pip:nth-child(-n+1) i,
-.lang-pips[data-level="2"] .lang-pip:nth-child(-n+2) i,
-.lang-pips[data-level="3"] .lang-pip:nth-child(-n+3) i,
-.lang-pips[data-level="4"] .lang-pip:nth-child(-n+4) i,
-.lang-pips[data-level="5"] .lang-pip:nth-child(-n+5) i,
-.lang-pips[data-level="6"] .lang-pip:nth-child(-n+6) i { transform: scaleX(1); }
-/* Enkel wie de animatie krijgt, ziet ze eerst leeg. Die klasse wordt vóór de
-   eerste paint gezet, in het script in de head, zodat de balkjes niet eerst
-   vol in beeld springen om daarna leeg te klappen. Wie beweging beperkt, krijgt
-   de klasse niet en dus meteen het eindbeeld. */
-:root.pips-animeren .lang-row:not(.vult) .lang-pips .lang-pip i { transform: scaleX(0); }
-
-/* ---------- Timeline ---------- */
-.timeline { position: relative; padding-left: 34px; }
-.timeline::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--c1), var(--c2), transparent); }
-.tl-item { position: relative; margin-bottom: 30px; }
-.tl-item::before {
-  content: ""; position: absolute; left: -34px; top: 6px; width: 16px; height: 16px; border-radius: 50%;
-  background: var(--bg-0); border: 3px solid var(--c2); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c2) 14%, transparent);
-}
-.tl-card { padding: 26px 28px; }
-.tl-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 6px; }
-.tl-head h3 { font-size: 1.2rem; }
-.tl-date { font-size: .82rem; color: var(--acc-text); font-weight: 600; white-space: nowrap; padding: 4px 12px; border-radius: 999px; background: var(--glass-bg); border: 1px solid var(--glass-bord); }
-.tl-sub { color: var(--ink); font-weight: 600; margin-bottom: 10px; font-size: .98rem; }
-.tl-card p { color: var(--ink-soft); font-size: .95rem; }
-.badge-hon { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: .82rem; font-weight: 600; color: #ffd479; }
-/* helder goud is te licht op de witte light mode , hier iets ingedonkerd, maar goudkleurig i.p.v. bruin */
-:root[data-mode="light"] .badge-hon { color: #b8860b; }
-:root[data-mode="light"] .lang-star { color: #b8860b; filter: none; }
-
-/* ---------- Contact ---------- */
-/* Compacte contact-strip: 4 items in 1 kaart (2x2) */
-.contact-strip { padding: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-.contact-mini {
-  display: flex; align-items: center; gap: 13px; padding: 13px 15px;
-  border-radius: var(--r-md); min-width: 0;
-  transition: background .2s var(--ease);
-}
-.contact-mini:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
-.contact-mini .ic {
-  width: 40px; height: 40px; flex: none; border-radius: 11px; display: grid; place-items: center;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
-  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--acc-text);
-}
-/* Het e-mailadres brak eerder af via een <wbr> in de tekst zelf. Een browser
-   leest dat als niets, maar de eenvoudigere uitleesprogrammas van sommige
-   vacatureportalen vervangen elke tag door een spatie - en dan staat er
-   victorvansande@ gmail.com in hun systeem. Het afbreken gebeurt nu in css.
- */
-.contact-mini .cm-body { min-width: 0; }
-.contact-mini .cm-body .val { overflow-wrap: anywhere; }
-.contact-mini .lbl { display: block; font-size: .73rem; color: var(--ink-dim); margin-bottom: 1px; }
-/* Nooit midden in een woord afbreken: dat liet een losse letter op een tweede
-   regel achter. De <wbr> in het adres geeft één net breekpunt na de @; pas als
-   zelfs dat niet past valt de browser terug op een gewone afbreking. */
-.contact-mini .val {
-  display: block; font-weight: 600; font-size: .94rem;
-  word-break: normal; overflow-wrap: break-word; hyphens: none;
-}
-@media (max-width: 560px) { .contact-strip { grid-template-columns: 1fr; } }
-
-/* ---------- Referenties ----------
-   Elke kaart heeft dezelfde opbouw: initialen, naam, functie(s) en
-   contactknoppen. Alleen de eerste heeft een citaat, en die krijgt daarom de
-   volle breedte - zo leest het verschil als een bewuste compositie in plaats
-   van als een kaart die toevallig langer is. */
-.ref-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; align-items: start; }
-.ref-quoted { grid-column: 1 / -1; }
-.ref-card { padding: 24px 26px; display: flex; flex-direction: column; gap: 16px; }
-.ref-head { display: flex; align-items: flex-start; gap: 14px; }
-.ref-avatar {
-  width: 42px; height: 42px; flex: none; border-radius: 12px;
-  display: grid; place-items: center;
-  font-size: .82rem; font-weight: 700; letter-spacing: .02em;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
-  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent);
-  color: var(--acc-text);
-}
-.ref-id { min-width: 0; }
-.ref-id h3 { font-size: 1.02rem; margin: 0 0 3px; }
-.ref-role { font-size: .84rem; color: var(--ink-dim); margin: 0; line-height: 1.45; }
-.ref-role + .ref-role { margin-top: 1px; }
-
-.ref-quote { margin: 0; position: relative; padding-left: 18px; }
-/* geen aanhalingsteken als plaatje maar een streep: rustiger, en hij groeit
-   mee met de hoogte van het citaat */
-.ref-quote::before {
-  content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 2px;
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tags span {
+  font-size: .76rem; padding: 3px 9px; border: 1px solid var(--g-line); color: var(--g-soft);
   border-radius: 2px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--c1) 70%, transparent), color-mix(in srgb, var(--c2) 25%, transparent));
 }
-.ref-quote p { margin: 0; color: var(--ink-soft); font-size: .95rem; line-height: 1.68; }
+.tags-wide { margin-top: 14px; }
 
-.ref-contact { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
-.ref-contact a {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 13px; border-radius: 999px;
-  background: var(--glass-bg); border: 1px solid var(--glass-bord);
-  color: var(--ink); font-size: .84rem; font-weight: 500;
-  text-decoration: none; word-break: break-word;
-  transition: border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
-}
-.ref-contact a:hover { border-color: var(--glass-bord-hi); background: color-mix(in srgb, var(--ink) 6%, transparent); transform: translateY(-1px); }
-.ref-contact svg { flex: none; color: var(--acc-text); }
-
-@media (max-width: 760px) {
-  .ref-grid { grid-template-columns: 1fr; }
-  .ref-card { padding: 22px 20px; }
-  .ref-contact a { font-size: .8rem; }
-}
-
-/* ---------- TL;DR summary (net voor Contact) ---------- */
-/* Standaard dichtgeklapt: enkel de knop is zichtbaar, zodat de sectie geen
-   ruimte inneemt tenzij een bezoeker er expliciet voor kiest. */
-.tldr-toggle {
-  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 19px 28px; background: none; border: none; text-align: left; cursor: pointer;
-  color: var(--ink); font-family: inherit;
-}
-.tldr-toggle:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
-.tldr-toggle-txt { display: flex; flex: 1 1 auto; flex-direction: column; gap: 2px; min-width: 0; }
-.tldr-toggle-txt strong { font-size: 1.02rem; font-weight: 700; }
-.tldr-toggle-txt span { font-size: .82rem; color: var(--ink-dim); font-weight: 500; }
-.tldr-chevron { flex: none; color: var(--acc-text); transition: transform .35s var(--ease); }
-.tldr-card.open .tldr-chevron { transform: rotate(180deg); }
-/* mini-voorproefje: gestapelde thumbnails naast de toggle-tekst, verdwijnt zodra het luik openstaat */
-.tldr-preview-stack { display: flex; flex: none; align-items: center; }
-.tldr-preview-stack img {
-  width: 34px; height: 34px; border-radius: 10px; object-fit: cover; display: block;
-  border: 2px solid rgba(127, 127, 127, .22); box-shadow: 0 3px 8px rgba(0,0,0,.14);
-  margin-left: -13px; background: var(--glass-bg);
-}
-.tldr-preview-stack img:first-child { margin-left: 0; }
-.tldr-card.open .tldr-preview-stack { opacity: 0; width: 0; margin-left: -16px; overflow: hidden; }
-.tldr-preview-stack { transition: opacity .25s var(--ease), width .35s var(--ease), margin-left .35s var(--ease); }
-@media (max-width: 560px) { .tldr-preview-stack img { width: 28px; height: 28px; } }
-/* grid-template-rows 0fr->1fr: vloeiend in-/uitklappen zonder JS-hoogtemeting */
-.tldr-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease); }
-.tldr-card.open .tldr-panel { grid-template-rows: 1fr; }
-.tldr-panel-inner { overflow: hidden; }
-/* Twee kolommen, maar als kolommen en niet als raster. In een raster is elke
-   rij zo hoog als het langste item erin, en dan laat de kortere buur onder zich
-   een gat vallen - bij zeven feiten van ongelijke lengte werd dat rechts een
-   plas witruimte terwijl links alles tegen elkaar aan stond. Als kolommen
-   stroomt elk item gewoon door onder het vorige. break-inside houdt een feit
-   heel; het mag niet halverwege naar de volgende kolom springen. */
-.tldr-grid {
-  columns: 2; column-gap: 22px;
-  padding: 16px 0 22px; border-top: 1px solid var(--glass-bord); margin: 0 28px;
-}
-.tldr-grid > .tldr-item { break-inside: avoid; -webkit-column-break-inside: avoid; }
-.tldr-item { display: flex; align-items: flex-start; gap: 12px; padding: 9px 10px; border-radius: var(--r-md); min-width: 0; }
-.tldr-ic {
-  width: 33px; height: 33px; flex: none; border-radius: 10px; display: grid; place-items: center; margin-top: 1px;
-  background: linear-gradient(140deg, color-mix(in srgb, var(--c1) 24%, transparent), color-mix(in srgb, var(--c2) 13%, transparent));
-  border: 1px solid color-mix(in srgb, var(--c2) 30%, transparent); color: var(--acc-text);
-}
-.tldr-body { min-width: 0; }
-.tldr-body .lbl { display: block; font-size: .73rem; color: var(--ink-dim); margin-bottom: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
-.tldr-body .val { display: block; font-weight: 600; font-size: .95rem; color: var(--ink); }
-.tldr-body .sub { display: block; font-size: .84rem; color: var(--ink-soft); margin-top: 1px; font-weight: 400; }
-@media (max-width: 700px) { .tldr-grid { columns: 1; margin: 0 22px; } .tldr-toggle { padding: 20px 22px; } }
-
-/* ---------- Ontwerpwerk-luikje (hergebruikt .tldr-card/.tldr-toggle/.tldr-panel) ---------- */
-.designs-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 18px;
-  padding: 20px 28px 26px; border-top: 1px solid var(--glass-bord);
-}
-.design-item { display: flex; flex-direction: column; min-width: 0; }
-.design-item .diploma-thumb { margin-top: 0; }
-.design-cap { display: block; margin-top: 9px; min-width: 0; }
-.design-cap-t { display: block; font-weight: 600; font-size: .88rem; color: var(--ink); }
-.design-cap-s { display: block; font-size: .78rem; color: var(--ink-dim); margin-top: 1px; }
-@media (max-width: 820px) { .designs-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .designs-grid { grid-template-columns: 1fr; padding: 20px 22px 22px; } }
-
-/* ---------- Wenkballonnetje bij het ontwerpluik ----------
-   Een klein tekstballonnetje dat boven de rechterbovenhoek van de kaart hangt
-   en met zijn tuitje naar de knop eronder wijst. Het vangt zelf geen klikken
-   op: de knop eronder is over zijn volle breedte al klikbaar, en een doelwit
-   dat er klikbaar uitziet maar niets doet is vervelender dan geen doelwit.
-   Zodra het luik opengaat is de vraag beantwoord en dooft het weg; dat werkt
-   zonder JavaScript doordat het balonnetje ná de kaart in de DOM staat. */
-.werk-wikkel { position: relative; }
-.werk-wenk {
-  position: absolute; top: -13px; right: 30px; z-index: 2;
-  pointer-events: none;
-  padding: 5px 12px 6px; border-radius: 999px;
-  background: color-mix(in srgb, var(--c2) 12%, var(--bg-1));
-  border: 1px solid color-mix(in srgb, var(--c2) 34%, transparent);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, .12);
-  color: var(--acc-text); font-size: .74rem; font-weight: 600;
-  white-space: nowrap;
-  animation: wenk-zweef 5.5s ease-in-out infinite;
-  transition: opacity .3s var(--ease), transform .3s var(--ease);
-}
-/* Het tuitje is een vierkantje van 45 graden dat onder de rand uitsteekt. Het
-   erft dezelfde vulling en krijgt enkel zijn twee onderranden, zodat de lijn
-   rond het balonnetje doorloopt en de rest onzichtbaar achter de vulling valt. */
-.werk-wenk::after {
-  content: ""; position: absolute; right: 17px; bottom: -5px;
-  width: 9px; height: 9px; transform: rotate(45deg);
-  background: inherit;
-  border-right: 1px solid color-mix(in srgb, var(--c2) 34%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--c2) 34%, transparent);
-}
-.tldr-card.open + .werk-wenk { opacity: 0; transform: translateY(-5px); }
-/* translate i.p.v. transform, zodat het zweven de fade-transform niet in de weg zit */
-@keyframes wenk-zweef { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
-@media (prefers-reduced-motion: reduce) { .werk-wenk { animation: none; } }
-:root[data-motion="reduce"] .werk-wenk { animation: none; }
-@media (max-width: 560px) { .werk-wenk { right: 16px; top: -12px; font-size: .69rem; padding: 4px 10px 5px; } }
-
-/* ---------- Fotografie-luik: masonry i.p.v. uniforme crop, toont elke foto op eigen verhouding ---------- */
-.photos-grid { display: block; columns: 3; column-gap: 18px; }
-.photos-grid .design-item { display: block; break-inside: avoid; margin-bottom: 18px; }
-.photos-grid .diploma-thumb img { height: auto; }
-@media (max-width: 820px) { .photos-grid { columns: 2; } }
-@media (max-width: 560px) { .photos-grid { columns: 1; } }
-@media (prefers-reduced-motion: reduce) { .tldr-panel, .tldr-chevron { transition: none; } }
-:root[data-motion="reduce"] .tldr-panel, :root[data-motion="reduce"] .tldr-chevron { transition: none; }
-
-/* Ludieke sprong-link in de hero naar de TL;DR: lichte pil i.p.v. losse tekst,
-   met genoeg marge om los te komen van de schaduw van de knoppen erboven */
-.tldr-nudge {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 22px;
-  padding: 7px 14px; border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 5%, transparent); border: 1px solid var(--glass-bord);
-  font-size: .8rem; font-weight: 600; color: var(--ink-dim); text-decoration: none;
-  transition: color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease); }
-.tldr-nudge:hover { color: var(--acc-text); border-color: color-mix(in srgb, var(--c2) 40%, transparent); transform: translateY(-2px); }
-.tldr-nudge svg { transition: transform .25s var(--ease); flex: none; }
-.tldr-nudge:hover svg { transform: translateY(2px); }
-
-/* Af en toe even oplichten, zodat een recruiter de snelle route opmerkt zonder
-   dat het als knipperende reclame leest. Eén rustige puls per cyclus: de rand
-   en de tekst krijgen kleur, en er trekt een zachte glans overheen. De pauze
-   is bewust lang - de aandacht komt van de zeldzaamheid, niet van de felheid.
-   Bij hover stopt de puls, anders vecht hij met de hoverstijl. */
-.tldr-nudge { position: relative; overflow: hidden; }
-.tldr-nudge.pulse { animation: nudge-glow 2.6s var(--ease); }
-.tldr-nudge:hover { animation: none; }
-/* de glans is een eigen laag, zodat de tekst zelf niet beweegt */
-.tldr-nudge.pulse::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(100deg,
-    transparent 30%,
-    color-mix(in srgb, var(--c2) 26%, transparent) 50%,
-    transparent 70%);
-  transform: translateX(-120%);
-  animation: nudge-sheen 2.6s var(--ease);
-}
-@keyframes nudge-glow {
-  0%, 100% { border-color: var(--glass-bord); color: var(--ink-dim); }
-  30%, 62% { border-color: color-mix(in srgb, var(--c2) 46%, transparent); color: var(--acc-text); }
-}
-@keyframes nudge-sheen {
-  0%, 18%  { transform: translateX(-120%); }
-  72%, 100% { transform: translateX(120%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .tldr-nudge.pulse, .tldr-nudge.pulse::after { animation: none; }
-}
-:root[data-motion="reduce"] .tldr-nudge.pulse,
-:root[data-motion="reduce"] .tldr-nudge.pulse::after { animation: none; }
-
-/* ---------- Lively contact closer ---------- */
-.contact-final { text-align: center; padding: 56px 44px; position: relative; overflow: hidden; }
-.contact-final .now-badge { margin: 0 0 18px; }
-.contact-final h2 { margin-bottom: 4px; }
-.contact-final-cta { display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; }
-.contact-final .contact-strip {
-  text-align: left; margin-top: 32px; padding: 20px 8px 0;
-  border-top: 1px solid var(--glass-bord);
-}
-.contact-final::after {
-  content: ""; position: absolute; left: 50%; top: -60%; width: 70%; height: 150%; z-index: 0; pointer-events: none;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--c2) 24%, transparent), transparent 70%);
-  opacity: .75; animation: contactGlow 9s ease-in-out infinite;
-}
-.contact-final > * { position: relative; z-index: 1; }
-@keyframes contactGlow {
-  0%, 100% { transform: translate(-72%, 0) scale(1); }
-  50% { transform: translate(-28%, 6%) scale(1.12); }
-}
-@media (max-width: 560px) { .contact-final { padding: 40px 22px; } .contact-final-cta .btn { width: 100%; justify-content: center; } }
-
-/* ---------- Jobstudent footnote ---------- */
-/* Geen scheidingslijn: het stagesblok erboven staat al in een eigen kaart met
-   een eigen rand, en dan is een streep ertussen een tweede grens voor dezelfde
-   overgang. De witruimte doet het werk. */
-.jobstudent-note {
-  font-size: .85rem; color: var(--ink-dim);
-  padding-top: 16px; margin-top: 0;
-}
-.jobstudent-label {
-  display: inline-block; font-weight: 700; color: var(--ink-soft);
-  margin-right: 10px; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
-}
-
-/* ---------- Footer quote rotator ---------- */
-.footer-quote { padding: 12px 24px 4px; text-align: center; }
-.quote-block { margin: 0 auto; max-width: 580px; }
-.quote-text { font-family: var(--font-display); font-style: italic;
-  font-size: clamp(.95rem, 1.5vw, 1.1rem); line-height: 1.65;
-  color: var(--ink-soft); transition: opacity .4s ease, transform .4s ease; }
-.quote-text::before { content: '\201C'; color: var(--acc-text); opacity: .65; }
-.quote-text::after  { content: '\201D'; color: var(--acc-text); opacity: .65; }
-.quote-author { display: block; margin-top: 12px; font-size: .72rem;
-  letter-spacing: .13em; text-transform: uppercase; color: var(--acc-text);
-  opacity: .65; transition: opacity .4s ease, transform .4s ease; }
-.footer-quote.fading .quote-text,
-.footer-quote.fading .quote-author { opacity: 0; transform: translateY(5px); }
-
-/* ---------- Nav avatar ---------- */
-.nav-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--c2) 60%, transparent);
-  object-fit: cover; flex: none; transition: border-color .3s; }
-.brand:hover .nav-avatar { border-color: var(--c2); }
-@media (max-width: 620px) { .nav-avatar { width: 24px; height: 24px; } }
-
-/* ---------- Footer ---------- */
-/* ---------- Skip-link ----------
-   Het eerste dat de tabtoets bereikt. Wie met een toetsenbord of een
-   schermlezer werkt, moet anders bij elk bezoek eerst door de hele navigatie,
-   de taalknop en het instellingenmenu voor hij bij de inhoud komt. Onzichtbaar
-   tot hij focus krijgt: dan schuift hij linksboven in beeld.
-   Niet display: none of visibility: hidden - dan zou hij ook geen focus meer
-   kunnen krijgen en was hij nutteloos. */
-.skip-link {
-  position: fixed; top: 10px; left: 10px; z-index: 10000;
-  transform: translateY(-160%);
-  padding: 11px 18px; border-radius: 999px;
-  background: var(--c2); color: #fff;
-  font-size: .85rem; font-weight: 700; text-decoration: none;
-  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, .5);
-  transition: transform .18s var(--ease);
-}
-.skip-link:focus { transform: none; outline: 2px solid var(--ink); outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
-
-/* ---------- Colofon in de voettekst ---------- */
-/* Geen eigen scheidingslijn: de voettekst heeft er al een, en drie lijnen
-   vlak onder elkaar maken van het einde van de pagina een rooster. */
-.colofon {
-  margin: 10px auto 0;
-  max-width: var(--maxw); padding: 0 24px;
-  /* Kleiner dan de regel erboven: het is een ondertekening, geen mededeling. */
-  font-size: .66rem; color: var(--ink-dim); text-align: center;
-}
-/* De regel erboven krimpt op smalle schermen mee met de vensterbreedte
-   (clamp), en een vaste maat hier zou daar dan bovenuit steken. Dezelfde
-   formule, maar overal een stukje kleiner. */
-@media (max-width: 560px) {
-  .colofon { font-size: clamp(.47rem, calc(3.44vw - 4.84px), .74rem); line-height: 1.5; }
-}
-
-.footer { border-top: 1px solid var(--glass-bord); padding: 24px 0; margin-top: 20px; }
-.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
-.footer .muted { font-size: .9rem; }
-/* De drie delen krijgen hun scheidingsteken uit CSS, zodat de tussenruimte
-   overal gelijk is; eerder plakte de datum tegen de naam terwijl er verderop
-   wel een punt stond. Het punt hoort bij het vólgende deel, zodat er bij het
-   afbreken naar een tweede regel nooit een losse punt achterblijft. */
-.footer-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 7px; margin: 0; }
-.footer-meta > span:not(:first-child)::before {
-  content: "·"; margin-right: 7px; opacity: .5;
-}
-.footer-soc { display: flex; gap: 12px; }
-.footer-soc a { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-soft); transition: .25s; }
-.footer-soc a:hover { color: var(--ink); border-color: var(--glass-bord-hi); transform: translateY(-2px); }
-/* Op telefoonformaat viel de regel uit elkaar over drie regels, naast de twee
-   iconen; samen maakte dat de voet onnodig hoog. Alles blijft nu op één regel:
-   de delen mogen niet meer afbreken en de tekst schaalt mee met het scherm tot
-   ze past. De iconen worden iets kleiner om die ruimte vrij te maken.
-   De maat is geen ronde gok maar de uitkomst van de meting: de regel is
-   ongeveer 23px breed per pixel lettergrootte, en naast de iconen blijft er
-   (schermbreedte - 134) over. Dat geeft ruwweg schermbreedte gedeeld door 24,
-   min een vaste correctie, met een paar pixels speling. Zo past het op elke
-   breedte precies, in plaats van net wel of net niet op één testformaat.
-   Onder 360px zou de tekst onleesbaar klein moeten worden om te passen, dus
-   daar breekt ze weer af: liever twee leesbare regels dan één die niemand
-   kan lezen. */
-@media (max-width: 560px) {
-  .footer-inner { flex-wrap: nowrap; gap: 12px; }
-  .footer .muted { font-size: clamp(.575rem, calc(4.2vw - 5.9px), .9rem); }
-  .footer-meta { flex-wrap: nowrap; white-space: nowrap; gap: 0 5px; }
-  .footer-meta > span:not(:first-child)::before { margin-right: 5px; }
-  .footer-soc { gap: 10px; }
-  .footer-soc a { width: 34px; height: 34px; border-radius: 10px; }
-  .footer-soc svg { width: 16px; height: 16px; }
-}
-/* Onder 360px past de regel echt niet meer; dan liever netjes onder elkaar en
-   de scheidingstekens weg, want het regeleinde scheidt de delen al. */
-@media (max-width: 359px) {
-  .footer-inner { flex-wrap: wrap; }
-  .footer-meta { flex-direction: column; flex-wrap: wrap; align-items: flex-start; gap: 3px; }
-  .footer-meta > span:not(:first-child)::before { content: none; }
-}
-
-/* ---------- Mode toggle (light / dark): zelfde schuifpil-patroon als de taalknop ---------- */
-.mode-toggle {
-  position: relative; height: 40px; width: 76px; padding: 4px; border-radius: 12px;
-  display: inline-flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord);
-  cursor: pointer; transition: border-color .25s, transform .25s;
-}
-.mode-toggle:hover { border-color: var(--glass-bord-hi); transform: translateY(-1px); }
-.mode-pill {
-  position: absolute; top: 4px; left: 4px; width: 34px; height: 30px; border-radius: 9px;
-  background: var(--grad); box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--c1) 70%, transparent);
-  transition: transform .32s var(--ease); z-index: 0;
-}
-:root[data-mode="dark"] .mode-pill { transform: translateX(34px); }
-.mode-toggle svg {
-  position: relative; z-index: 1; flex: 1; margin: 0 auto;
-  color: var(--ink-dim); transition: color .25s var(--ease);
-}
-:root[data-mode="light"] .mode-toggle .sun,
-:root[data-mode="dark"] .mode-toggle .moon { color: var(--ink-on-accent); }
-
-/* editorial serif accent */
-.em-serif { font-family: var(--font-display); font-style: italic; font-weight: 500; letter-spacing: -0.015em; }
-
-/* ---------- Light-mode finetuning ---------- */
-:root[data-mode="light"] .cursor-glow { display: none; }
-:root[data-mode="light"] .glass::before { background: linear-gradient(160deg, rgba(255,255,255,.14), transparent 42%); }
-:root[data-mode="light"] .nav { box-shadow: 0 1px 0 rgba(22,27,51,.04); }
-:root[data-mode="light"] .glass {
-  box-shadow: 0 2px 20px -6px rgba(22,27,51,.13), 0 0 0 1px rgba(22,27,51,.055);
-}
-:root[data-mode="light"] .tilt:hover {
-  box-shadow: 0 8px 32px -10px rgba(22,27,51,.2), 0 0 0 1px rgba(22,27,51,.11);
-}
-/* Cursor-spotlight is voor dark mode (licht de kaart op); in light mode
-   verdonkert een gekleurde overlay juist -> veel zachtere, bredere tint. */
-:root[data-mode="light"] .tilt::after {
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--c2) 8%, transparent), transparent 58%);
-}
-:root[data-mode="light"] .diploma-thumb::after { color: #fff; }
-:root[data-mode="light"] .burger span { background: var(--ink); }
-:root[data-mode="light"] ::selection { color: #fff; }
-:root[data-mode="light"] .thesis-stat { background: color-mix(in srgb, var(--c1) 6%, #fff); }
-:root[data-mode="light"] .now-badge { color: color-mix(in srgb, var(--c1) 72%, #2a2f45); }
-
-/* ---------- Settings menu (mode · language · theme · accessibility) ---------- */
-.settings-wrap { position: relative; }
-.settings-toggle {
-  width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
-  background: var(--glass-bg); border: 1px solid var(--glass-bord); color: var(--ink-soft);
-  transition: color .25s, border-color .25s, transform .25s, background .25s; position: relative;
-}
-.settings-toggle:hover { color: var(--acc-text); background: color-mix(in srgb, var(--c2) 10%, transparent);
-  border-color: color-mix(in srgb, var(--c2) 38%, transparent); transform: translateY(-1px); }
-.settings-toggle svg { transition: transform .55s cubic-bezier(.34, 1.4, .5, 1);
-  transform-origin: center; will-change: transform; backface-visibility: hidden; }
-.settings-toggle:hover svg { transform: rotate(90deg); }
-.settings-pop {
-  /* In rem i.p.v. px, anders groeit de inhoud wel mee met de tekstgrootte maar
-     het menu niet, en viel de zoomknop bij 130% buiten de rand. De max-width
-     houdt het menu op smalle schermen binnen beeld. */
-  position: absolute; right: 0; top: 52px;
-  width: 15.75rem; max-width: calc(100vw - 28px); padding: 1rem;
-  border-radius: var(--r-md); z-index: 200;
-  background: var(--pop-bg); border: 1px solid var(--glass-bord);
-  backdrop-filter: blur(20px) saturate(140%); box-shadow: var(--glass-shadow);
-  opacity: 0; visibility: hidden; transform: translateY(-8px) scale(.97); transform-origin: top right;
-  transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
-}
-.settings-pop.open { opacity: 1; visibility: visible; transform: none; }
-.settings-pop h4 { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 11px; font-weight: 700; }
-.set-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
-.set-row:last-of-type { margin-bottom: 0; }
-.set-label { font-size: .92rem; color: var(--ink-soft); font-weight: 500; }
-.set-div { height: 1px; background: var(--glass-bord); margin: 14px 0; }
-.swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.swatch {
-  aspect-ratio: 1; border-radius: 11px; border: 1.5px solid var(--glass-bord); cursor: pointer;
-  position: relative; transition: transform .2s var(--ease), border-color .2s; padding: 0;
-}
-.swatch:hover { transform: scale(1.08); }
-.swatch.active { border-color: #fff; }
-.swatch.active::after {
-  content: "✓"; position: absolute; inset: 0; display: grid; place-items: center;
-  color: #fff; font-size: .9rem; font-weight: 800; text-shadow: 0 1px 3px rgba(0,0,0,.5);
-}
-.swatch span { position: absolute; inset: 0; border-radius: inherit; }
-
-/* ---------- Taalschakelaar: strakke schuifknop met glijdende pil ---------- */
-.lang-toggle {
-  position: relative; height: 40px; width: 76px; padding: 4px; border-radius: 12px;
-  display: inline-flex; align-items: center; background: var(--glass-bg); border: 1px solid var(--glass-bord);
-  cursor: pointer; transition: border-color .25s, transform .25s;
-}
-.lang-toggle:hover { border-color: var(--glass-bord-hi); transform: translateY(-1px); }
-.lang-pill {
-  position: absolute; top: 4px; left: 4px; width: 34px; height: 30px; border-radius: 9px;
-  background: var(--grad); box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--c1) 70%, transparent);
-  transition: transform .32s var(--ease); z-index: 0;
-}
-:root[lang="en"] .lang-pill { transform: translateX(34px); }
-.lang-toggle [data-lang] {
-  position: relative; z-index: 1; flex: 1; text-align: center; font-size: .8rem; font-weight: 700;
-  letter-spacing: .02em; color: var(--ink-dim); transition: color .25s var(--ease);
-}
-:root[lang="nl"] .lang-toggle [data-lang="nl"],
-:root[lang="en"] .lang-toggle [data-lang="en"] { color: var(--ink-on-accent); }
-@media (max-width: 620px) { .lang-toggle { width: 68px; height: 38px; }
-  .lang-pill { width: 30px; height: 28px; } :root[lang="en"] .lang-pill { transform: translateX(30px); }
-  .lang-toggle [data-lang] { font-size: .74rem; } }
-
-/* De balk had minimaal 369px nodig, dus op 320- en 360-pixelschermen werd de
-   hamburger buiten beeld geduwd en kreeg de pagina een zijwaartse scrolbalk.
-   Hieronder wordt alleen ruimte teruggewonnen in marges en knopmaten; er
-   verdwijnt niets. */
-@media (max-width: 400px) {
-  .nav .nav-inner { padding-left: 13px; padding-right: 13px; gap: 6px; }
-  .nav-right { gap: 5px; flex: none; }
-  .brand { gap: 8px; min-width: 0; }
-  /* Bij een klein scherm én een grote tekstinstelling past de naam niet meer
-     naast de knoppen. Dan wijkt de naam - de knoppen moeten bereikbaar
-     blijven, en de volledige naam staat een stukje lager in de hero. */
-  .brand-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .brand-sub { overflow: hidden; text-overflow: ellipsis; }
-  .lang-toggle { width: 58px; height: 34px; }
-  .lang-pill { width: 25px; height: 26px; } :root[lang="en"] .lang-pill { transform: translateX(25px); }
-  .lang-toggle [data-lang] { font-size: .68rem; }
-  .settings-toggle { width: 34px; height: 34px; }
-  .burger { width: 34px; height: 34px; }
-  /* Het menu hangt met zijn rechterkant aan de instellingenknop, en die staat
-     zelf al een stuk van de schermrand. Alleen naar het venster kijken volstaat
-     dus niet: dan steekt het aan de linkerkant buiten beeld. */
-  .settings-pop { max-width: calc(100vw - 68px); }
-  .burger span:nth-child(1) { top: 11px; }
-  .burger span:nth-child(2) { top: 16px; }
-  .burger span:nth-child(3) { top: 21px; }
-}
-
-/* ---------- Accessibility switches (binnen settings-menu) ---------- */
-.a11y-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; cursor: pointer; font-size: .9rem; color: var(--ink-soft); }
-.a11y-row input { position: absolute; opacity: 0; width: 0; height: 0; }
-.a11y-row .sw { flex: none; width: 38px; height: 22px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 16%, transparent); border: 1px solid var(--glass-bord); position: relative; transition: background .25s var(--ease); }
-.a11y-row .sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .25s var(--ease); }
-.a11y-row input:checked ~ .sw { background: var(--grad); border-color: transparent; }
-.a11y-row input:checked ~ .sw::after { transform: translateX(16px); }
-.a11y-row:hover { color: var(--ink); }
-/* de echte checkbox is onzichtbaar (0x0) - de focus-ring moet dus op de zichtbare .sw komen */
-.a11y-row input:focus-visible ~ .sw { outline: 2px solid var(--c2); outline-offset: 3px; }
-:root[data-mode="light"] .a11y-row input:focus-visible ~ .sw { outline-color: var(--c1); }
-/* Tekstgrootte. De knoppen zetten de basislettergrootte op <html>; omdat de
-   site in rem meet, schaalt daarmee ook de witruimte netjes mee. De koppen
-   gebruiken clamp() met vw, dus die groeien beheerst mee in plaats van door te
-   schieten. */
-/* flex-wrap zodat de knoppen op een eigen regel zakken als het label en de
-   knoppen samen niet meer passen - bij een klein scherm met grote tekst liep
-   de rij anders buiten het menu. */
-.zoom-row { display: flex; align-items: center; justify-content: space-between; gap: 8px 12px; flex-wrap: wrap; padding: 7px 0; font-size: .9rem; color: var(--ink-soft); }
-.zoom-row > span { min-width: 0; }
-.zoom-ctl { display: flex; align-items: center; gap: 4px; flex: none; }
-.zoom-btn {
-  width: 26px; height: 26px; flex: none; border-radius: 8px; cursor: pointer;
-  display: grid; place-items: center; line-height: 1;
-  font-family: inherit; font-size: 1rem; font-weight: 700;
-  color: var(--ink); background: var(--glass-bg); border: 1px solid var(--glass-bord);
-  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
-}
-.zoom-btn:hover:not(:disabled) { color: var(--acc-text); border-color: color-mix(in srgb, var(--c2) 38%, transparent); background: color-mix(in srgb, var(--c2) 10%, transparent); }
-.zoom-btn:disabled { opacity: .35; cursor: default; }
-.zoom-btn:focus-visible { outline: 2px solid var(--c2); outline-offset: 2px; }
-:root[data-mode="light"] .zoom-btn:focus-visible { outline-color: var(--c1); }
-/* vaste breedte met tabellarische cijfers, anders verspringt de rij bij 90/100 */
-.zoom-val { min-width: 3.4em; text-align: center; font-size: .84rem; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
-
-.set-action { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border-radius: 10px;
-  font-size: .9rem; font-weight: 600; color: var(--ink); background: var(--glass-bg);
-  border: 1px solid var(--glass-bord); transition: background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); }
-.set-action svg { color: var(--acc-text); flex: none; }
-.set-action:hover { color: var(--acc-text); background: color-mix(in srgb, var(--c2) 10%, transparent);
-  border-color: color-mix(in srgb, var(--c2) 38%, transparent); }
-/* Twee downloads onder elkaar, elk met een regel uitleg eronder. Het icoon
-   lijnt uit op de eerste regel in plaats van op het midden van het blok. */
-.set-action { align-items: flex-start; }
-.set-action svg { margin-top: 3px; }
-.set-action-txt { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.set-action-sub { font-size: .72rem; font-weight: 500; color: var(--ink-dim); line-height: 1.35; }
-.set-action:hover .set-action-sub { color: inherit; opacity: .82; }
-.set-action + .set-action { margin-top: 7px; }
-
-
-/* ---------- Knopje naar een bijlage (diploma, brevet) ----------
-   De diploma's stonden als grote voorbeeldafbeelding in de kaart. Dat is veel
-   ruimte voor iets wat je hooguit één keer opent, en het beeld zelf is op die
-   maat toch niet leesbaar. Een klein knopje zegt hetzelfde en scheelt per kaart
-   ruim tweehonderd pixels hoogte. Meegenomen: de vijf schermvullende scans
-   worden niet meer geladen zolang je er niet op klikt.
-   Zelfde pilvorm als de sprong-link in de hero, zodat het als bekend element
-   leest. Op een eigen regel en zo breed als zijn inhoud, zodat hij niet naast
-   het onderscheidingslabel erboven gaat zweven. */
 .doc-btn {
-  display: flex; width: fit-content; align-items: center; gap: 8px;
-  margin-top: 14px; padding: 7px 14px; border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 5%, transparent);
-  border: 1px solid var(--glass-bord);
-  font: inherit; font-size: .8rem; font-weight: 600; color: var(--ink-dim);
-  cursor: zoom-in;
-  transition: color .25s var(--ease), border-color .25s var(--ease),
-              background .25s var(--ease), transform .25s var(--ease);
+  min-height: 34px; padding: 0 12px; background: transparent; cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); border-radius: 2px;
+  font-size: .82rem; font-weight: 500;
 }
-.doc-btn svg { flex: none; }
-.doc-btn:hover, .doc-btn:focus-visible {
-  color: var(--acc-text); transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--c2) 40%, transparent);
-  background: color-mix(in srgb, var(--c2) 9%, transparent);
-}
+.doc-btn:hover { border-color: var(--g-acc); color: var(--g-acc); }
 
-/* ---------- Diploma thumbnail + lightbox ---------- */
+/* ---------- Galerij (werk en foto's) ---------- */
+/* zeven kolommen: dertien stukken vallen dan uit op 7 + 6, zonder een eenzame laatste rij */
+.gallery { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 28px 16px; margin-top: 18px; }
+.gallery-photos { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.design-item { display: flex; flex-direction: column; min-width: 0; }
 .diploma-thumb {
-  margin-top: 16px; border-radius: var(--r-sm); overflow: hidden; cursor: zoom-in;
-  border: 1px solid var(--glass-bord); position: relative; background: #fff; display: block;
-  width: 100%; padding: 0; text-align: left; appearance: none; -webkit-appearance: none; font: inherit;
+  position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: zoom-in;
+  background: color-mix(in srgb, var(--g-ink) 6%, transparent);
 }
-.diploma-thumb img { width: 100%; height: 220px; object-fit: cover; object-position: top center; display: block; transition: transform .4s var(--ease); }
-.diploma-thumb.compact img { height: 128px; }
-.diploma-thumb:hover img { transform: scale(1.03); }
-.diploma-thumb::after {
-  content: "🔍 Klik om te vergroten"; position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 8px 12px; font-size: .78rem; font-weight: 600; color: #fff;
-  background: linear-gradient(transparent, rgba(0,0,0,.65)); opacity: 0; transition: opacity .25s;
-}
-.diploma-thumb:hover::after, .diploma-thumb:focus-visible::after { opacity: 1; }
-
-/* Een titelpagina die naar het volledige document leidt in plaats van naar een
-   uitvergroting. De hoveropschrift verandert mee, anders belooft de kaart een
-   vergrootglas en krijg je een PDF. */
-.diploma-thumb.doc-link { cursor: pointer; text-decoration: none; }
-.diploma-thumb.doc-link::after { content: "📄 Bekijk een voorproef"; }
-:root[lang="en"] .diploma-thumb::after { content: "🔍 Click to enlarge"; }
-:root[lang="en"] .diploma-thumb.doc-link::after { content: "📄 See a preview"; }
-/* Klein plaatje rechtsboven op de titelpagina: zegt vooraf wat je krijgt en
-   hoe dik het is, zodat niemand op goed geluk een document van 47 pagina's
-   opent. Het staat altijd zichtbaar, ook zonder hover, want op een telefoon
-   bestaat hover niet. */
+.diploma-thumb.doc-link { cursor: pointer; }
+.diploma-thumb img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transition: opacity .2s; }
+.gallery-photos .diploma-thumb img { aspect-ratio: 1; }
+.diploma-thumb:hover img { opacity: .82; }
 .doc-chip {
-  position: absolute; top: 9px; right: 9px;
-  padding: 3px 9px 4px; border-radius: 999px;
-  background: rgba(12, 14, 22, .74);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .02em;
-  white-space: nowrap; pointer-events: none;
+  position: absolute; left: 6px; bottom: 6px; padding: 2px 6px;
+  background: rgba(0, 0, 0, .72); color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .04em;
 }
+.design-cap { display: block; margin-top: 10px; font-size: .82rem; line-height: 1.4; }
+.design-cap-t { display: block; font-weight: 600; }
+.design-cap-s { display: block; color: var(--g-dim); margin-top: 2px; }
 
+/* ---------- Over mij ---------- */
+.langs div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--g-line); }
+.langs { margin-top: 12px; border-top: 1px solid var(--g-line); }
+.langs dt { font-weight: 600; }
+.langs dd { color: var(--g-soft); font-size: .92rem; text-align: right; }
+.list-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; margin-top: 12px; border-top: 1px solid var(--g-line); }
+.list-2 li { padding: 10px 0; border-bottom: 1px solid var(--g-line); color: var(--g-soft); }
+.personal { margin-top: 28px; color: var(--g-soft); font-size: .92rem; }
+.personal-label { color: var(--g-ink); font-weight: 600; margin-right: 6px; }
 
+/* ---------- Masterproef ---------- */
+.thesis { padding-top: 28px; border-top: 1px solid var(--g-line); }
+.thesis-grid { margin-top: 14px; }
+.findings { margin-top: 22px; border-top: 1px solid var(--g-line); }
+.findings li { padding: 12px 0 12px 22px; border-bottom: 1px solid var(--g-line); position: relative; color: var(--g-soft); }
+.findings li::before { content: ""; position: absolute; left: 0; top: 21px; width: 10px; height: 1px; background: var(--g-acc); }
+.numbers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 24px; }
+.numbers dt { font-family: var(--font-head); font-weight: 700; font-size: 3rem; line-height: 1; color: var(--g-ink); }
+.numbers dd { margin-top: 4px; font-size: .86rem; color: var(--g-soft); }
+.thesis-meta { margin-top: 24px; font-size: .88rem; color: var(--g-soft); }
+.thesis-meta b { color: var(--g-ink); font-weight: 600; }
+
+/* ---------- Contact en voet ---------- */
+.contact { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; padding-top: 40px; align-items: end; }
+.contact > :first-child { grid-column: 1 / span 7; }
+.contact > :last-child { grid-column: 8 / span 5; }
+.contact-title {
+  font-family: var(--font-head); font-weight: 800; font-size: clamp(3.2rem, 7vw, 6.4rem);
+  line-height: .88; text-transform: uppercase;
+}
+.contact-title .em-serif { color: var(--g-acc); }
+.contact-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--g-line); }
+.contact-list dt { font-size: .78rem; color: var(--g-dim); }
+.contact-list dd { margin-top: 2px; font-weight: 500; overflow-wrap: anywhere; }
+.contact-list a { text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--g-acc) 60%, transparent); }
+
+.footer .footer-inner { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; padding-top: 22px; padding-bottom: 32px; border-top: 1px solid var(--g-line); font-size: .82rem; color: var(--g-dim); }
+.footer-meta span + span::before, .footer-links > * + *::before { content: "·"; margin: 0 8px; }
+.footer-links a { text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
+
+/* ---------- Lightbox ---------- */
 .lightbox {
-  position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 28px;
-  background: rgba(4, 5, 12, 0.86); backdrop-filter: blur(8px);
-  opacity: 0; visibility: hidden; transition: opacity .3s var(--ease), visibility .3s;
+  position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center;
+  padding: 40px; background: rgba(6, 5, 5, .92);
 }
-.lightbox.open { opacity: 1; visibility: visible; }
-.lightbox img { max-width: min(960px, 94vw); max-height: 88vh; border-radius: var(--r-md);
-  box-shadow: 0 30px 90px -20px rgba(0,0,0,.8); transform: scale(.96); transition: transform .3s var(--ease); }
-.lightbox.open img { transform: none; }
-
-/* ================================================================
-   Voorproefvenster bij de volledige documenten
-   ----------------------------------------------------------------
-   Dezelfde laag als de lichtbak, maar met een scrollbaar blad in
-   plaats van één beeld: de eerste pagina's in verlaagde resolutie,
-   en onderaan pas de vraag of je het echte bestand wil.
-   ================================================================ */
-.docbox { display: none; }
-.docbox:not([hidden]) {
-  display: grid; place-items: center;
-  position: fixed; inset: 0; z-index: 1000; padding: 22px;
-  background: rgba(4, 6, 12, .78);
-  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-  opacity: 0; transition: opacity .25s var(--ease);
-}
-.docbox.open { opacity: 1; }
-.docbox-paneel {
-  display: flex; flex-direction: column;
-  width: min(860px, 100%); max-height: 100%;
-  border-radius: var(--r-lg); overflow: hidden;
-  background: var(--bg-1); border: 1px solid var(--glass-bord);
-  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .7);
-  transform: translateY(10px); transition: transform .28s var(--ease);
-}
-.docbox.open .docbox-paneel { transform: none; }
-
-.docbox-kop {
-  display: grid; grid-template-columns: 1fr auto; align-items: center;
-  gap: 2px 14px; padding: 16px 18px 15px 22px;
-  border-bottom: 1px solid var(--glass-bord);
-}
-.docbox-eyebrow {
-  grid-column: 1; font-size: .68rem; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--acc-text);
-}
-.docbox-kop h3 { grid-column: 1; font-size: 1.02rem; font-weight: 700; color: var(--ink); min-width: 0; }
-.docbox-sluit {
-  grid-column: 2; grid-row: 1 / span 2; align-self: center;
-  width: 36px; height: 36px; flex: none; display: grid; place-items: center;
-  border-radius: 50%; cursor: pointer; color: var(--ink-dim);
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
-  border: 1px solid var(--glass-bord);
-}
-.docbox-sluit:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 12%, transparent); }
-
-/* Het blad scrollt, de kop en de voet blijven staan. De pagina's krijgen een
-   witte ondergrond: een PDF-pagina is wit, ook in donkere modus. */
-.docbox-blad {
-  flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain;
-  padding: 18px; display: flex; flex-direction: column; gap: 14px;
-  background: color-mix(in srgb, var(--ink) 4%, transparent);
-}
-.docbox-pagina {
-  display: block; width: 100%; height: auto; background: #fff;
-  border-radius: var(--r-sm); border: 1px solid var(--glass-bord);
-  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, .5);
-}
-
-.docbox-voet {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: 10px 18px; padding: 15px 22px 17px;
-  border-top: 1px solid var(--glass-bord); background: var(--bg-1);
-}
-.docbox-vraag { font-size: .84rem; color: var(--ink-dim); min-width: 0; flex: 1 1 240px; }
-.docbox-dl { flex: none; font-size: .86rem; padding: 10px 18px; }
-.docbox-dl svg { flex: none; }
-
-@media (max-width: 560px) {
-  .docbox:not([hidden]) { padding: 0; }
-  .docbox-paneel { width: 100%; height: 100%; max-height: none; border-radius: 0; border: none; }
-  .docbox-blad { padding: 12px; }
-  .docbox-voet { padding: 13px 16px 15px; }
-  /* iets kleiner, zodat "Download het volledige document (5,2 MB)" op een
-     telefoon op een regel blijft en de maat niet alleen achterblijft */
-  /* De .btn-regel in de mobiele media query verderop staat later in het
-     bestand en zou anders winnen, vandaar de extra ouder in de selector. */
-  .docbox-voet .docbox-dl { width: 100%; justify-content: center; font-size: .78rem; padding: 11px 14px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .docbox:not([hidden]), .docbox-paneel { transition: none; }
-}
-:root[data-motion="reduce"] .docbox:not([hidden]),
-:root[data-motion="reduce"] .docbox-paneel { transition: none; }
-
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 30px 80px -20px #000; }
 .lightbox-close {
-  position: absolute; top: 22px; right: 26px; width: 46px; height: 46px; border-radius: 50%;
-  background: var(--glass-bg); border: 1px solid var(--glass-bord-hi); color: #fff; font-size: 1.4rem;
-  display: grid; place-items: center; backdrop-filter: blur(10px); transition: .25s;
+  position: absolute; top: 16px; right: 16px; width: 44px; height: 44px;
+  background: transparent; border: 1px solid rgba(255, 255, 255, .3); color: #fff; font-size: 1.6rem; cursor: pointer;
 }
-.lightbox-close:hover { background: rgba(255,255,255,.12); transform: rotate(90deg); }
 
-/* ---------- Current / "now" badge ---------- */
-.now-badge {
-  display: inline-flex; align-items: center; gap: 7px; font-size: .72rem; font-weight: 700;
-  letter-spacing: .04em; text-transform: uppercase; color: var(--acc-text);
-  padding: 4px 11px; border-radius: 999px; background: color-mix(in srgb, var(--c2) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--c2) 35%, transparent); margin-left: 8px;
+/* ---------- Voorproefvenster ---------- */
+.docbox { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(6, 5, 5, .9); opacity: 0; transition: opacity .25s; }
+.docbox.open { opacity: 1; }
+.docbox[hidden] { display: none; }
+.docbox-paneel { width: min(760px, 100%); max-height: 100%; display: flex; flex-direction: column; background: #151211; border: 1px solid rgba(239, 233, 226, .14); }
+.docbox-kop { position: relative; padding: 18px 64px 14px 22px; border-bottom: 1px solid rgba(239, 233, 226, .1); }
+.docbox-eyebrow { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #d9a877; }
+.docbox-kop h3 { font-size: 1.05rem; font-weight: 600; margin-top: 4px; }
+.docbox-sluit { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgba(239, 233, 226, .22); cursor: pointer; }
+.docbox-blad { overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; background: #0c0a0a; }
+.docbox-pagina { width: 100%; height: auto; background: #fff; }
+.docbox-voet { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 22px; border-top: 1px solid rgba(239, 233, 226, .1); }
+.docbox-vraag { font-size: .86rem; color: #c9c1b8; }
+.docbox-dl { --g-ink: #efe9e2; --g-bg: #0c0a0a; --g-acc: #d9a877; gap: 8px; }
+
+/* ---------- Responsief ---------- */
+@media (max-width: 1080px) {
+  .gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .gallery-photos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-.now-badge .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--c2); position: relative; }
-.now-badge .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--c2); animation: pulse 1.8s ease-out infinite; }
-@keyframes pulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(3.5); opacity: 0; } }
-
-/* bento grid for highlights */
-.bento { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
-.bento > .feature-wide { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; column-gap: 24px; align-items: center; }
-.bento > .feature-wide .ic { margin-bottom: 0; grid-row: 1 / 3; align-self: center; width: 56px; height: 56px; }
-.bento > .feature-wide h3 { grid-column: 2; grid-row: 1; font-size: 1.3rem; }
-.bento > .feature-wide p { grid-column: 2; grid-row: 2; max-width: 62ch; }
-
-/* open bio */
-/* Kolom in plaats van een gewone stapel blokken: de talenkaart onderaan moet de
-   hoogte kunnen opvullen die de vaardighedenkaart ernaast bepaalt, zodat beide
-   kolommen op dezelfde lijn eindigen. Op smalle schermen staan de kolommen
-   onder elkaar en is er geen speling, dus verandert er dan niets. */
-.bio-open { padding-top: 4px; display: flex; flex-direction: column; }
-
-/* section numbers in eyebrow */
-.ey-num { font-family: var(--font-display); font-style: italic; font-weight: 600; font-size: .92rem; letter-spacing: 0;
-  color: var(--acc-text); margin-right: 2px; text-transform: none; }
-
-/* Om de andere sectie een licht vlak, zodat ze niet aan elkaar plakken.
-   De thuissectie en het portfolio horen visueel bij elkaar - het portfolio is
-   de uitwerking van de kaarten erboven - dus die twee blijven samen op de
-   gewone achtergrond staan en het ritme begint pas bij Ervaring. Zonder deze
-   uitzondering kreeg het portfolio een balk over zich heen die de voorbeelden
-   van hun aanleiding afsneed. */
-main > .sec { border-top: 1px solid transparent; }
-main > .sec:nth-of-type(odd):not(:first-of-type) {
-  background: var(--panel);
-  border-top-color: var(--glass-bord);
-  border-bottom: 1px solid var(--glass-bord);
+@media (max-width: 900px) {
+  :root { --gutter: 22px; }
+  .nav-links {
+    position: fixed; inset: 60px 0 auto 0; flex-direction: column; gap: 0;
+    padding: 8px var(--gutter) 18px; background: #0c0a0a; border-bottom: 1px solid rgba(239, 233, 226, .12);
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 14px 0; font-size: 1.05rem; border-bottom: 1px solid rgba(239, 233, 226, .08); }
+  .nav-links a.active { border-bottom-color: rgba(239, 233, 226, .08); }
+  .burger { display: inline-flex; }
+  .hero, .sec-head, .org, .contact { grid-template-columns: minmax(0, 1fr); }
+  .hero > *, .sec-head > :first-child, .sec-head > :last-child, .org-head, .org > .rows,
+  .contact > :first-child, .contact > :last-child { grid-column: 1 / -1; }
+  .hero-name { font-size: clamp(3.6rem, 17vw, 6rem); }
+  .cols-2, .cols-3 { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 40px; padding-bottom: 64px; }
+  .frame img { aspect-ratio: 16 / 9; }
 }
 @media (max-width: 560px) {
-  .bento { grid-template-columns: 1fr; }
-  /* Hier is de brede kaart even breed als de andere twee, dus neemt ze ook hun
-     indeling over: icoon en titel op één regel, tekst eronder over de volle
-     breedte. Anders stond op mobiel als enige kaart het icoon bóven de titel. */
-  .bento > .feature-wide { column-gap: 14px; padding: 24px 26px; }
-  .bento > .feature-wide .ic { grid-row: auto; margin-bottom: 0; width: 44px; height: 44px; border-radius: 13px; }
-  .bento > .feature-wide h3 { grid-column: 2; grid-row: auto; margin-bottom: 0; font-size: 1.15rem; }
-  .bento > .feature-wide p { grid-column: 1 / -1; grid-row: auto; margin-top: 13px; }
+  .brand { font-size: 1.15rem; }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
+  .gallery-photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts, .cols-4, .list-2, .numbers { grid-template-columns: minmax(0, 1fr); }
+  .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .contact-list { grid-template-columns: minmax(0, 1fr); }
+  .frame img { aspect-ratio: 4 / 3; }
 }
 
-/* ---------- Skill tags ---------- */
-.skill-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
-.skill-tag {
-  font-size: .76rem; font-weight: 600; padding: 5px 11px; border-radius: 8px;
-  color: var(--acc-text); background: color-mix(in srgb, var(--c2) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--c2) 28%, transparent);
+/* ---------- Afdrukken ---------- */
+@media print {
+  .nav, .intro-veil, .lightbox, .docbox, .skip-link { display: none !important; }
+  .grade, body { background: #fff !important; color: #000 !important; --g-ink: #000; --g-soft: #222; --g-dim: #555; --g-line: #ccc; --g-acc: #000; }
+  .frame { display: none; }
 }
-
-/* ---------- Nested roles (KSA) ---------- */
-.role-card { padding: 30px 32px; }
-.role-head { display: flex; align-items: center; gap: 16px; margin-bottom: 6px; }
-.role-list { margin-top: 22px; display: grid; gap: 0; position: relative; padding-left: 26px; }
-.role-list::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 14px; width: 2px;
-  background: linear-gradient(var(--c1), var(--c2), transparent); }
-.role-row { position: relative; padding: 14px 0; border-bottom: 1px solid var(--glass-bord); }
-.role-row:last-child { border-bottom: 0; }
-.role-row::before { content: ""; position: absolute; left: -26px; top: 20px; width: 12px; height: 12px; border-radius: 50%;
-  background: var(--bg-0); border: 2.5px solid var(--c2); }
-.role-row .rt { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; align-items: baseline; }
-.role-row h4 { font-size: 1.05rem; }
-.role-row .rd { font-size: .8rem; color: var(--acc-text); font-weight: 600; white-space: nowrap; }
-.role-row p { color: var(--ink-soft); font-size: .92rem; margin-top: 4px; }
-
-/* ---------- Thesis showcase ---------- */
-.thesis { padding: 0; overflow: hidden; }
-/* De masterproef zit nu in een uitklapluik. De statistiekenband loopt van rand
-   tot rand, dus de kaart eromheen moet clippen, anders steekt die band buiten
-   de afgeronde hoeken uit. De bovenrand van het paneel krijgt een lijn, zodat de
-   knop erboven als eigen strook leest zoals bij de andere luiken, en de eerste
-   binnenmarge mag krapper: de knop levert al lucht. */
-#masterproef .tldr-card { overflow: hidden; }
-#masterproef .tldr-panel-inner > .thesis { border-top: 1px solid var(--glass-bord); }
-#masterproef .thesis-top { padding-top: 30px; }
-.thesis-top { padding: 38px 40px 30px; }
-.thesis-tag { display: inline-flex; align-items: center; gap: 8px; font-size: .76rem; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--acc-text); margin-bottom: 16px; }
-.thesis h3 { font-size: clamp(1.4rem, 2.6vw, 2rem); margin-bottom: 10px; line-height: 1.12; }
-.thesis .sub { color: var(--ink-soft); font-size: 1.02rem; max-width: 70ch; }
-.thesis-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--glass-bord);
-  border-top: 1px solid var(--glass-bord); border-bottom: 1px solid var(--glass-bord); }
-.thesis-stat { background: color-mix(in srgb, var(--c1) 5%, var(--bg-1)); padding: 24px 20px; text-align: center; }
-.thesis-stat .n { font-size: 1.9rem; font-weight: 800; line-height: 1; background: var(--grad-ink);
-  -webkit-background-clip: text; background-clip: text; color: transparent; }
-.thesis-stat .l { font-size: .8rem; color: var(--ink-dim); margin-top: 7px; }
-.thesis-bottom { padding: 30px 40px 36px; }
-.thesis-findings { display: grid; gap: 12px; margin-bottom: 26px; }
-.thesis-find { display: flex; gap: 13px; align-items: flex-start; color: var(--ink-soft); font-size: .96rem; }
-.thesis-find .ck { flex: none; width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center; margin-top: 1px;
-  background: color-mix(in srgb, var(--c2) 15%, transparent); color: var(--acc-text); }
-.thesis-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.thesis-meta { margin-left: auto; font-size: .85rem; color: var(--ink-dim); text-align: right; }
-.thesis-meta b { color: var(--ink-soft); font-weight: 600; }
-.thesis-kw { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
-
-/* ---------- Scroll progress bar ----------
-   Zoals de voortgangsbalk van YouTube: één zachte overgang die over de héle
-   afgelegde lengte loopt, zodat de kop van de balk altijd de eindtint heeft en
-   het begin altijd de accentkleur. Het verloop rekt dus mee met de balk in
-   plaats van vast op het scherm te liggen - vandaar dat background-size hier
-   op de balk zelf slaat en niet meer op 100vw.
-
-   De eindtint is de accentkleur met 35 graden hoekverdraaiing in oklch: dezelfde
-   helderheid en verzadiging, alleen wat opgeschoven. Bij het rode thema levert
-   dat vrijwel exact het roze van YouTube op (afwijking 31 op 255 per kanaal,
-   vooral omdat hun rood iets lichter is), en elk ander thema krijgt automatisch
-   zijn eigen variant in de juiste familie - geen zeven handmatige kleuren.
-   De eerste regel is de terugval voor browsers zonder relatieve kleuren: die
-   krijgen dezelfde overgang, maar dan naar de lichtste themakleur. */
-.progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 200;
-  background-image: linear-gradient(90deg, var(--c1) 0%, var(--c2) 55%, var(--c3) 100%);
-  background-image: linear-gradient(90deg,
-    var(--c1) 0%,
-    var(--c2) 55%,
-    oklch(from var(--c2) l c calc(h - 35)) 100%);
-  background-repeat: no-repeat;
-  box-shadow: 0 0 12px color-mix(in srgb, var(--c2) 80%, transparent); transition: width .1s linear; }
-
-/* ---------- Back to top ---------- */
-.to-top { position: fixed; right: 24px; bottom: 24px; z-index: 150; width: 48px; height: 48px; border-radius: 14px;
-  display: grid; place-items: center; color: var(--ink-on-accent); background: var(--grad); border: 0;
-  box-shadow: 0 12px 30px -10px color-mix(in srgb, var(--c1) 80%, transparent);
-  opacity: 0; visibility: hidden; transform: translateY(12px) scale(.9); transition: .3s var(--ease); }
-.to-top.show { opacity: 1; visibility: visible; transform: none; }
-.to-top:hover { transform: translateY(-3px); }
-
-/* ---------- Scroll cue ---------- */
-.scroll-cue { display: inline-flex; align-items: center; gap: 9px; margin-top: 40px; color: var(--ink-dim);
-  font-size: .82rem; letter-spacing: .04em; }
-.scroll-cue .mouse { width: 22px; height: 34px; border-radius: 12px; border: 2px solid var(--ink-dim); position: relative; }
-.scroll-cue .mouse::after { content: ""; position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; border-radius: 2px;
-  background: var(--c2); transform: translateX(-50%); animation: wheel 1.6s var(--ease) infinite; }
-@keyframes wheel { 0% { opacity: 0; transform: translate(-50%, 0); } 40% { opacity: 1; } 80% { opacity: 0; transform: translate(-50%, 9px); } }
-
-/* ---------- Side dot navigation (scroll indicator) ---------- */
-.dot-nav { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 90;
-  display: flex; flex-direction: column; gap: 16px; }
-.dot-nav a { width: 11px; height: 11px; border-radius: 50%; position: relative;
-  border: 2px solid color-mix(in srgb, var(--ink) 32%, transparent); transition: all .3s var(--ease); }
-.dot-nav a:hover { border-color: var(--c2); transform: scale(1.2); }
-.dot-nav a.active { border-color: var(--c2); background: var(--c2);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c2) 16%, transparent); }
-.dot-nav a span {
-  position: absolute; right: 24px; top: 50%; transform: translateY(-50%) translateX(6px);
-  white-space: nowrap; font-size: .76rem; font-weight: 600; color: var(--ink); pointer-events: none;
-  background: var(--pop-bg); border: 1px solid var(--glass-bord); padding: 5px 11px; border-radius: 9px;
-  opacity: 0; transition: opacity .25s var(--ease), transform .25s var(--ease);
-  backdrop-filter: blur(10px); box-shadow: var(--glass-shadow); }
-.dot-nav a:hover span { opacity: 1; transform: translateY(-50%); }
-/* label popt enkele seconden uit het bolletje bij het binnenscrollen van een sectie */
-.dot-nav a.spy-pop span { opacity: 1; transform: translateY(-50%); }
-@media (max-width: 1180px) { .dot-nav { display: none; } }
-
-/* ---------- "Glim" sheen , only fires on mouseenter, not on leave ---------- */
-.chip, .skill-tag { position: relative; overflow: hidden; isolation: isolate; }
-.chip::after, .skill-tag::after {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
-  background: linear-gradient(115deg, transparent 36%, color-mix(in srgb, var(--c2) 32%, transparent) 50%, transparent 64%);
-  transform: translateX(-130%); }
-/* class toggled by JS on mouseenter only , no :hover so sweep never reverses on mouseleave */
-.chip.glim::after, .skill-tag.glim::after { animation: glimfx .65s var(--ease) forwards; }
-@keyframes glimfx { from { transform: translateX(-130%); } to { transform: translateX(130%); } }
-.skill-tag { transition: transform .25s var(--ease), border-color .25s, box-shadow .25s, color .25s; }
-.skill-tag:hover { transform: translateY(-2px); color: var(--ink);
-  border-color: color-mix(in srgb, var(--c2) 55%, transparent);
-  box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--c2) 65%, transparent); }
-.chip:hover { box-shadow: 0 8px 20px -10px color-mix(in srgb, var(--c2) 55%, transparent); }
-
-/* ---------- "Load in" pops for stars/badges on scroll ---------- */
-@keyframes starpop {
-  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
-  60% { transform: scale(1.25) rotate(10deg); opacity: 1; }
-  100% { transform: scale(1) rotate(0); opacity: 1; }
-}
-@keyframes sparkfly {
-  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-  35% { opacity: 1; }
-  100% { transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(1); opacity: 0; }
-}
-.badge-hon svg, .lang-star { display: inline-block; transform-origin: center; }
-.reveal .badge-hon svg, .reveal .lang-star { opacity: 0; }
-.reveal.in .badge-hon svg { animation: starpop .6s var(--ease) .35s forwards; }
-/* Het sterretje hoort te verschijnen zodra de balk vol is, niet los daarvan.
-   Ook dat hing aan een eigen timer; nu wacht het gewoon op zijn beurt met een
-   animation-delay. Sterretjes staan alleen op volle rijen (zes balkjes), dus de
-   vertraging is die van het laatste balkje plus zijn vultijd. */
-.lang-row.vult .lang-star { animation: starpop .6s var(--ease) 1.6s forwards; }
-/* subtiele sparkles die samen met de ster verschijnen, voor de volledig gevulde talen */
-.lang-star { position: relative; }
-.lang-star::before, .lang-star::after {
-  content: "✦"; position: absolute; top: 50%; left: 50%; font-size: .55em; color: #ffd479;
-  opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(0);
-}
-.lang-row.vult .lang-star::before { animation: sparkfly .7s var(--ease) 1.68s forwards; --sx: -11px; --sy: -7px; }
-.lang-row.vult .lang-star::after { animation: sparkfly .7s var(--ease) 1.8s forwards; --sx: 10px; --sy: -8px; }
-
-/* ---------- Reveal animation ---------- */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
-.reveal[data-d="1"] { transition-delay: .08s; }
-.reveal[data-d="2"] { transition-delay: .16s; }
-.reveal[data-d="3"] { transition-delay: .24s; }
-.reveal[data-d="4"] { transition-delay: .32s; }
 
 /* ================================================================
    Prisma-intro (eenmalig per sessie)
@@ -2148,252 +843,3 @@ main > .sec:nth-of-type(odd):not(:first-of-type) {
   }
 }
 
-/* ---------- Page hero (sub pages) ---------- */
-.page-hero { padding-top: 52px; padding-bottom: 22px; text-align: center; }
-.page-hero .lead { margin: 18px auto 0; }
-
-/* ---------- Responsive ---------- */
-@media (max-width: 900px) {
-  .section-pad { padding-top: 72px; padding-bottom: 72px; }
-  .hero-card { padding: 40px 44px; }
-  .nav-links { position: fixed; inset: 68px 0 auto 0; flex-direction: column; align-items: stretch; gap: 8px;
-    background: var(--bg-1); border-bottom: 1px solid var(--glass-bord);
-    box-shadow: 0 18px 44px -14px rgba(0,0,0,.55);
-    padding: 12px 22px 20px; transform: translateY(-130%);
-    /* visibility erbij: anders blijft een dichtgeklapt menu bereikbaar met de
-       tabtoets, en tab je door zes links die niemand ziet staan. */
-    visibility: hidden; transition: transform .4s var(--ease), visibility 0s .4s; }
-  .nav-links.open { transform: none; visibility: visible; transition: transform .4s var(--ease), visibility 0s; }
-  .nav-links a { padding: 13px 18px; border-radius: 999px; }
-  .nav-links a { background: var(--glass-bg); border: 1px solid var(--glass-bord); }
-  .nav-links a.active::after { display: none; }
-  .burger { display: flex; }
-}
-
-/* Dezelfde ingeklapte balk, maar dan omdat de inhoud niet meer past in plaats
-   van omdat het venster smal is. Een mediaquery kan dat verschil niet zien: die
-   meet de vensterbreedte, niet wat erin past, en rekent bovendien met de
-   standaard lettergrootte van de browser. Wie de tekst vergroot via de
-   instellingen heeft dus een bredere balk in een even breed venster, en die
-   liep over twee regels. main.js meet en zet .nav-compact.
-   Het blok hierboven blijft staan als vangnet zonder JavaScript. */
-:root.nav-compact .nav-links { position: fixed; inset: 68px 0 auto 0; flex-direction: column; align-items: stretch; gap: 8px;
-  background: var(--bg-1); border-bottom: 1px solid var(--glass-bord);
-  box-shadow: 0 18px 44px -14px rgba(0,0,0,.55);
-  padding: 12px 22px 20px; transform: translateY(-130%);
-    /* visibility erbij: anders blijft een dichtgeklapt menu bereikbaar met de
-       tabtoets, en tab je door zes links die niemand ziet staan. */
-    visibility: hidden; transition: transform .4s var(--ease), visibility 0s .4s; }
-:root.nav-compact .nav-links.open { transform: none; visibility: visible; transition: transform .4s var(--ease), visibility 0s; }
-:root.nav-compact .nav-links a { padding: 13px 18px; border-radius: 999px;
-  background: var(--glass-bg); border: 1px solid var(--glass-bord); }
-:root.nav-compact .nav-links a.active::after { display: none; }
-:root.nav-compact .burger { display: flex; }
-/* Tijdens het meten wordt de klasse heel even weggehaald om te zien of alles
-   uitgeklapt past. Zonder deze regel zou dat de schuifanimatie starten. */
-:root.nav-measuring .nav-links { transition: none !important; }
-
-@media (max-width: 760px) {
-  .thesis-stats { grid-template-columns: repeat(2, 1fr); }
-  .thesis-top, .thesis-bottom { padding-left: 26px; padding-right: 26px; }
-  .thesis-meta { margin-left: 0; text-align: left; width: 100%; }
-  /* lighter background = smoother scroll on mobile */
-  .blob { filter: blur(52px); opacity: calc(var(--blob-op) * .8); animation: none; }
-  .blob.b3, .blob.b5 { display: none; }
-}
-@media (max-width: 620px) {
-  body { font-size: 15px; }
-  .wrap { padding: 0 22px; }
-  .nav-inner { gap: 10px; }
-  .brand { font-size: .94rem; white-space: nowrap; }
-  .nav-right { gap: 7px; }
-  .settings-toggle { width: 38px; height: 38px; }
-  .burger { padding: 7px 6px; }
-  .section-pad { padding-top: 46px; padding-bottom: 46px; }
-  .hero { padding: 34px 0 30px; }
-  .page-hero { padding-top: 40px; padding-bottom: 14px; text-align: left; }
-  .page-hero .lead { margin-left: 0; margin-right: 0; }
-  .h-xl { font-size: clamp(2.1rem, 11vw, 3rem); margin: 6px 0 16px !important; }
-  .h-lg { font-size: clamp(1.6rem, 7.5vw, 2.2rem); }
-  .h-md { font-size: 1.3rem; }
-  .lead { font-size: .97rem; }
-  .eyebrow { margin-bottom: 16px; font-size: .72rem; padding: 5px 12px; }
-  .grid-3, .grid-2 { grid-template-columns: 1fr; }
-  .grid { gap: 14px; }
-  .feature, .combine { padding: 24px; }
-  .tl-card { padding: 22px 22px; }
-  .role-card { padding: 24px 22px; }
-  .section-head { margin-bottom: 30px; }
-  .hero-card { padding: 28px 24px; }
-  .hero-card h1 { margin: 6px 0 10px; }
-  .hero .lead { margin-bottom: 18px; }
-  .hero-cta { gap: 10px; }
-  .btn { padding: 12px 20px; font-size: .92rem; }
-  /* vier tellers: twee kolommen geeft een sluitend 2x2 raster, drie zou een
-     losse teller op een eigen regel achterlaten */
-  .hero-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 12px; margin-top: 22px; }
-  .stat .num { font-size: 1.7rem; }
-  .stat .lbl { font-size: .76rem; }
-  .scroll-cue { margin-top: 18px; }
-  .exp-item { flex-wrap: wrap; padding: 18px 20px; gap: 14px; }
-  .exp-meta { text-align: left; }
-  .timeline { padding-left: 26px; }
-  .tl-item::before { left: -26px; }
-  .diploma-thumb img { height: 165px; }
-  .thesis-top { padding: 26px 22px 22px; }
-  .thesis-bottom { padding: 22px 22px 28px; }
-  .thesis-stat { padding: 18px 12px; }
-  .thesis-stat .n { font-size: 1.5rem; }
-  .to-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
-  .footer { padding: 20px 0; }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .reveal { opacity: 1; transform: none; }
-  .reveal .badge-hon svg, .reveal .lang-star { opacity: 1 !important; }
-}
-/* ---------- Toegankelijkheid: door gebruiker geforceerd ---------- */
-:root[data-motion="reduce"] *, :root[data-motion="reduce"] *::before, :root[data-motion="reduce"] *::after {
-  animation: none !important; transition: none !important; scroll-behavior: auto !important;
-}
-:root[data-motion="reduce"] .reveal { opacity: 1; transform: none; }
-:root[data-motion="reduce"] .reveal .badge-hon svg, :root[data-motion="reduce"] .reveal .lang-star { opacity: 1 !important; }
-:root[data-contrast="high"] {
-  --ink-soft: var(--ink);
-  --ink-dim: color-mix(in srgb, var(--ink) 80%, transparent);
-  --glass-bord: color-mix(in srgb, var(--ink) 40%, transparent);
-  --glass-bord-hi: color-mix(in srgb, var(--ink) 58%, transparent);
-  --acc-text: var(--ink);
-  --grad-ink: linear-gradient(120deg, var(--ink), var(--ink));
-}
-/* ================================================================
-   Printstijl
-   ----------------------------------------------------------------
-   Ctrl+P gaf tot nu toe de site zoals ze op het scherm staat: donkere
-   vlakken, vaste balken over de tekst, dichtgeklapte luiken waarvan de
-   inhoud gewoon wegviel. Een cv hoort afdrukbaar te zijn, dus dit blok
-   maakt er een leesbaar document van.
-
-   Drie principes: alles wat enkel op een scherm werkt gaat weg (balken,
-   knoppen, cursor, achtergrondvlekken), alles wat inklapbaar is gaat
-   open, en de kleuren gaan naar zwart op wit zodat het ook op een
-   zwart-witprinter klopt.
-
-   Wie het verzorgde cv wil, heeft de PDF; dit is voor wie gewoon op
-   Ctrl+P duwt.
-   ================================================================ */
-@media print {
-  /* De donkere modus en de themakleuren wijken voor inkt op papier. */
-  :root, :root[data-mode="light"], :root[data-mode="dark"] {
-    --bg-0: #fff; --bg-1: #fff;
-    --ink: #000; --ink-soft: #1a1a1a; --ink-dim: #444;
-    --glass-bg: transparent; --glass-bord: #bbb; --glass-bord-hi: #999;
-    --glass-shadow: none;
-    --acc-text: #000;
-  }
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  html, body { background: #fff !important; color: #000; }
-  body { font-size: 10.5pt; }
-
-  /* Schermdingen: weg. De navigatiebalk staat vast bovenaan en zou op elke
-     pagina over de tekst vallen; de rest is versiering of bediening. */
-  .nav, .dock, .settings-pop, .settings-toggle, .burger, .nav-links,
-  .cursor-glow, .cursor-dot, .cursor-halo, .blob, .blobs, .noise,
-  .progress-bar, .scroll-cue, .tldr-nudge, .intro-veil, .lightbox, .docbox,
-  .to-top, .hero-cta, .lang-btn, .tldr-preview-stack, .tldr-chevron,
-  .werk-wenk { display: none !important; }
-
-  /* Alles wat dichtgeklapt kan staan, gaat open: anders drukt de pagina de
-     helft van de inhoud niet af. */
-  .tldr-panel { display: block !important; }
-  .tldr-panel[inert] { display: block !important; }
-  .tldr-panel-inner { overflow: visible !important; }
-  .tldr-toggle { padding-bottom: 0; }
-
-  /* De opbouwanimaties eindigen normaal in JavaScript; bij het afdrukken
-     mag er niets halverwege blijven staan. */
-  .reveal, .reveal.in, [class*="in-l"] { opacity: 1 !important; transform: none !important; }
-  .lang-pip i { transform: scaleX(1) !important; }
-
-  /* Kaarten mogen niet middenin over een paginarand vallen. */
-  .glass, .role-card, .tl-card, .tldr-item, .design-item, .stage-row,
-  .ref-card, .feature { break-inside: avoid; page-break-inside: avoid; }
-  h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
-  section, .sec { break-before: auto; }
-
-  /* Ademruimte inkorten: op papier kost witruimte een blad. */
-  .section-pad { padding-top: 18px !important; padding-bottom: 18px !important; }
-  .wrap { max-width: none; padding-left: 0; padding-right: 0; }
-
-  /* Een link is op papier niets waard zonder zijn adres; alleen echte
-     verwijzingen naar buiten krijgen er een. */
-  a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: .8em; color: #555; word-break: break-all;
-  }
-  a { color: #000; text-decoration: underline; }
-
-  /* Beelden op een redelijk formaat: een poster over een hele bladzijde
-     helpt niemand. */
-  .diploma-thumb img, .design-item img { max-height: 90mm; object-fit: contain; }
-
-  @page { margin: 14mm; }
-}
-
-
-/* ---------- Compacter zetten ----------
-   De pagina was elfeneenhalf schermen lang, en de koppen namen daar bijna een
-   kwart van in. Hieronder gaat de lucht eruit zonder dat er inhoud sneuvelt:
-   minder ruimte tussen de blokken, krappere kopblokken, en de emoji-pilletjes
-   en EHBO-kaarten een maat kleiner.
-   Deze regels staan achteraan het bestand zodat ze de oorspronkelijke waarden
-   overschrijven en je in één blok ziet wat er ingekort is. */
-
-/* Ruimte tussen secties: 68 was royaal, 44 is nog steeds ruim. */
-.section-pad { padding-top: 44px; padding-bottom: 44px; }
-
-/* Het kopblok van een sectie: nummer, titel en inleiding. */
-.page-hero { padding-top: 34px; padding-bottom: 16px; }
-.page-hero .lead { margin-top: 14px; }
-.section-head { margin-bottom: 30px; }
-.section-head .lead { margin-top: 12px; }
-
-/* De pilletjes onder de interessekaarten: kleiner, want ze zijn een staartje
-   en geen tweede opsomming. */
-.personal-strip { gap: 7px; margin-top: 22px; justify-content: center; }
-.personal-chip { font-size: .76rem; padding: 4px 10px; gap: 5px; }
-.personal-label { font-size: .68rem; }
-
-/* De EHBO-kaarten. Het brevetnummer en de vervaldatum stonden erop, maar die
-   staan ook in het document zelf en de geldigheid staat al in de TL;DR. Wat
-   overblijft is de naam en de knop, en die passen samen op een regel: het
-   icoon en de titel links, de knop rechts. Het icoon blijft - dat is wat ze
-   leuk maakt. */
-.ehbo-card {
-  padding: 13px 16px !important;
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px;
-}
-.ehbo-card h3 { font-size: .95rem !important; gap: 9px !important; margin: 0; min-width: 0; }
-.ehbo-card h3 .ic { width: 30px !important; height: 30px !important; border-radius: 9px !important; }
-.ehbo-card h3 .ic svg { width: 16px; height: 16px; }
-.ehbo-card .doc-btn { margin-top: 0; padding: 5px 12px; font-size: .74rem; flex: none; }
-
-/* Tweede ronde: de lucht binnen de kaarten zelf. Zelfde principe, alleen
-   marges - er verdwijnt geen woord. */
-.hero-card { padding: 42px 52px; }
-.hero-card .lead { margin-bottom: 18px; }
-.hero-card .hero-stats { padding-top: 18px; }
-.tl-item { margin-bottom: 20px; }
-.tl-card { padding: 21px 26px; }
-.role-card { padding: 24px 30px; }
-.contact-final { padding: 42px 40px; }
-.glass.feature { padding: 30px !important; }
-
-/* Label en noot op een regel, zoals de studentenjobs onderaan Ervaring. Twee
-   losse blokjes van dertig pixels boven elkaar was voor deze twee kaarten net
-   iets te veel plechtigheid. */
-.cert-kop { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-bottom: 14px;
-  font-size: .82rem; color: var(--ink-dim); }
-.cert-kop .eyebrow { margin-bottom: 0; }
