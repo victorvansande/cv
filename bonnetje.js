@@ -178,8 +178,7 @@
     Promise.race([lt, new Promise((r) => setTimeout(r, 1200))]).then(voeren);
   };
   const voeren = () => {
-    papier.classList.remove("gescheurd");
-    papier.style.transition = "none"; papier.style.transform = "";
+    reset();
     maak();
     zetHoogte(0);
     led.classList.add("aan");
@@ -250,34 +249,97 @@
     }, "image/png");
   });
 
-  // afscheuren: omhoog slepen voorbij een drempel, of een snelle veeg
-  const sleep = { actief: false, y0: 0, t0: 0 };
+  /* ---- Afscheuren ----
+     Zoals bij een echte kassabon: trek het bonnetje opzij of omhoog. Opzij
+     draait het papier rond de hoek bij de gleuf aan de kant waar je naartoe
+     trekt; de andere hoek komt los van de scheurrand, zodat de scheur van die
+     kant naar binnen loopt. Voorbij de drempel scheurt het af: de laatste
+     millimeters gaan in één ruk, de printer schokt even, en het papier zwiert
+     weg in de richting van je beweging. Niet ver genoeg getrokken, dan veert
+     het terug. Omhoog trekken blijft ook werken. */
+  const printer = blok.querySelector(".snap-printer");
+  const sleep = { actief: false, x0: 0, y0: 0, t0: 0, modus: null, hoek: 0, dy: 0, vx: 0, lx: 0, lt: 0 };
+  const MAX = 18;                                    // grootste hoek tijdens het trekken
+  const zetPapier = (t) => { papier.style.transform = t; };
+  const reset = () => {
+    papier.getAnimations().forEach((a) => a.cancel());
+    papier.style.transition = "none"; zetPapier(""); papier.style.transformOrigin = "";
+    papier.style.opacity = ""; feed.style.clipPath = "";
+    papier.classList.remove("gescheurd");
+  };
+  const afgescheurd = () => {
+    geprint = false; bewaarKnop.disabled = true;
+    if (hint) hint.hidden = true;
+    label(printKnop, sjabloon("print"));
+  };
+  const scheurOpzij = (dir) => {
+    afgescheurd();
+    const w = papier.offsetWidth, h = papier.offsetHeight;
+    // het papier mag nu buiten het vak zwieren; enkel onder de gleuf blijft het weg
+    feed.style.clipPath = "inset(-4000px -4000px 0 -4000px)";
+    const van = sleep.hoek;
+    if (rustig()) { reset(); zetVak(); return; }
+    const a = papier.animate([
+      { transform: "rotate(" + van + "deg)", opacity: 1, offset: 0 },
+      { transform: "rotate(" + (dir * 24) + "deg)", opacity: 1, offset: 0.2, easing: "cubic-bezier(.5,0,.9,.5)" },
+      { transform: "translate(" + (dir * w * 0.35) + "px," + (-h * 0.04) + "px) rotate(" + (dir * 30) + "deg)", opacity: 1, offset: 0.42 },
+      { transform: "translate(" + (dir * w * 1.5) + "px," + (h * 0.22) + "px) rotate(" + (dir * 52) + "deg)", opacity: 0, offset: 1 },
+    ], { duration: 820, easing: "cubic-bezier(.3,.1,.6,1)", fill: "forwards" });
+    // het moment van de ruk: de printer schokt even mee
+    setTimeout(() => printer.animate([
+      { transform: "none" }, { transform: "translate(" + (dir * 1.5) + "px, 1.5px)" }, { transform: "none" },
+    ], { duration: 160, easing: "ease-out" }), 150);
+    a.onfinish = () => { reset(); zetVak(); };
+  };
+  const scheurOmhoog = () => {
+    afgescheurd();
+    papier.style.transition = "";
+    papier.classList.add("gescheurd");
+    setTimeout(() => { reset(); zetVak(); }, 650);
+  };
+  const terug = () => {
+    const van = papier.style.transform || "none";
+    papier.style.transition = "none";
+    const a = papier.animate([{ transform: van }, { transform: "none" }], { duration: 520, easing: "cubic-bezier(.3,1.5,.5,1)" });
+    zetPapier("");
+    a.onfinish = () => { papier.style.transformOrigin = ""; };
+  };
+
   papier.addEventListener("pointerdown", (e) => {
     if (!geprint || bezig) return;
-    sleep.actief = true; sleep.y0 = e.clientY; sleep.t0 = performance.now();
+    Object.assign(sleep, { actief: true, x0: e.clientX, y0: e.clientY, t0: performance.now(), modus: null, hoek: 0, dy: 0, vx: 0, lx: e.clientX, lt: performance.now() });
     papier.setPointerCapture(e.pointerId);
     papier.style.transition = "none";
   });
   papier.addEventListener("pointermove", (e) => {
     if (!sleep.actief) return;
-    const dy = Math.min(0, e.clientY - sleep.y0);
-    papier.style.transform = "translateY(" + (dy * 0.6).toFixed(1) + "px) rotate(" + (dy * -0.02).toFixed(2) + "deg)";
-  });
-  papier.addEventListener("pointerup", (e) => {
-    if (!sleep.actief) return;
-    sleep.actief = false;
-    const dy = e.clientY - sleep.y0, snel = dy / Math.max(1, performance.now() - sleep.t0);
-    papier.style.transition = "";
-    if (dy < -70 || snel < -0.8) {
-      papier.classList.add("gescheurd");
-      geprint = false; bewaarKnop.disabled = true;
-      if (hint) hint.hidden = true;
-      label(printKnop, sjabloon("print"));
-      setTimeout(() => { papier.style.transition = "none"; papier.style.transform = ""; papier.classList.remove("gescheurd"); zetVak(); }, 650);
-    } else {
-      papier.style.transform = "";
+    const dx = e.clientX - sleep.x0, dy = e.clientY - sleep.y0, nu = performance.now();
+    sleep.vx = (e.clientX - sleep.lx) / Math.max(1, nu - sleep.lt); sleep.lx = e.clientX; sleep.lt = nu;
+    if (!sleep.modus && Math.hypot(dx, dy) > 6) sleep.modus = Math.abs(dx) > Math.abs(dy) ? "zij" : "op";
+    if (sleep.modus === "zij") {
+      // draaien rond de hoek aan de kant waar je naartoe trekt, met toenemende weerstand
+      papier.style.transformOrigin = dx > 0 ? "100% 100%" : "0% 100%";
+      sleep.hoek = MAX * Math.tanh(dx / 260);
+      zetPapier("rotate(" + sleep.hoek.toFixed(2) + "deg)");
+    } else if (sleep.modus === "op") {
+      sleep.dy = Math.min(0, dy);
+      zetPapier("translateY(" + (sleep.dy * 0.6).toFixed(1) + "px) rotate(" + (sleep.dy * -0.02).toFixed(2) + "deg)");
     }
   });
+  const los = (e) => {
+    if (!sleep.actief) return;
+    sleep.actief = false;
+    if (sleep.modus === "zij") {
+      const dir = Math.sign(sleep.hoek) || 1;
+      if (Math.abs(sleep.hoek) > 8 || Math.abs(sleep.vx) > 0.7) scheurOpzij(Math.sign(sleep.vx) && Math.abs(sleep.vx) > 0.7 ? Math.sign(sleep.vx) : dir);
+      else terug();
+    } else if (sleep.modus === "op") {
+      const snel = sleep.dy / Math.max(1, performance.now() - sleep.t0);
+      if (sleep.dy < -70 || snel < -0.8) scheurOmhoog(); else terug();
+    }
+  };
+  papier.addEventListener("pointerup", los);
+  papier.addEventListener("pointercancel", los);
 
   // bij een taalwissel staat het bonnetje er in de vorige taal: opnieuw tekenen
   addEventListener("cv-layout", () => {
