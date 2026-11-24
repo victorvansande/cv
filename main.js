@@ -577,8 +577,28 @@
   const lb = document.querySelector(".lightbox");
   if (lb) {
     const lbImg = lb.querySelector("img");
-    const open = (src, alt) => { lbImg.src = src; lbImg.alt = alt || ""; lb.classList.add("open"); document.body.style.overflow = "hidden"; };
-    const close = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
+    /* De lichtbak is een venster: de focus gaat naar de sluitknop en blijft
+       daar tot je sluit, en keert dan terug naar de knop waarmee je opende.
+       Zo weet een toetsenbord- of schermlezergebruiker dat er iets openging. */
+    const lbSluit = lb.querySelector(".lightbox-close");
+    lb.setAttribute("role", "dialog");
+    lb.setAttribute("aria-modal", "true");
+    let lbTerug = null;
+    const isEnLb = () => document.documentElement.lang === "en";
+    const open = (src, alt) => {
+      lbImg.src = src; lbImg.alt = alt || "";
+      lb.setAttribute("aria-label", alt || (isEnLb() ? "Image" : "Afbeelding"));
+      lbSluit.setAttribute("aria-label", isEnLb() ? "Close" : "Sluiten");
+      lbTerug = document.activeElement;
+      lb.classList.add("open"); document.body.style.overflow = "hidden";
+      lbSluit.focus({ preventScroll: true });
+    };
+    const close = () => {
+      if (!lb.classList.contains("open")) return;
+      lb.classList.remove("open"); document.body.style.overflow = "";
+      if (lbTerug && lbTerug.focus) lbTerug.focus({ preventScroll: true });
+    };
+    lb.addEventListener("keydown", (e) => { if (e.key === "Tab") { e.preventDefault(); lbSluit.focus(); } });
     // .doc-btn is de kleine knop bij de diplomas: die heeft geen voorbeeldbeeld,
     // dus komen pad en omschrijving daar uit data-attributen.
     // .doc-link is geen vergrootglas maar een echte link naar een volledig

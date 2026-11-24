@@ -1013,3 +1013,23 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    main.js geeft elke sectie de achtergrondkleur van de sectie erboven mee
    (--vorige); bovenaan vloeit die over in de eigen kleur. */
 .grade.vloeit { background-image: linear-gradient(to bottom, var(--vorige) 0, var(--g-bg) min(26vh, 240px)); }
+
+/* ---------- Toegankelijkheid zonder zichtbaar verschil (audit) ----------
+   Grotere raakvlakken: een onzichtbare laag rond kleine knoppen, zodat ze op
+   een gsm minstens 44 px hoog zijn, zonder dat ze er anders uitzien. */
+.brand, .lang-toggle, .settings-toggle, .burger, .mode-toggle, .gal-btn, .doc-btn { position: relative; }
+.brand::after, .lang-toggle::after, .settings-toggle::after, .burger::after, .mode-toggle::after, .gal-btn::after, .doc-btn::after {
+  content: ""; position: absolute; inset: -5px -3px;
+}
+.brand::after { inset: -8px -4px; }
+/* de streepjes onder de fotogalerij: 44 px hoog raakvlak, de lijn blijft even dun */
+.gal-seg { height: 44px; margin: -13px 0; }
+.gal-seg::after { top: 21px; }
+/* geen vertraging bij een tik (dubbeltik-zoom) op knoppen en links */
+a, button, summary, label { touch-action: manipulation; }
+/* vensters: scrollen binnenin loopt niet door naar de pagina erachter */
+.lightbox, .docbox { overscroll-behavior: contain; }
+/* afbeeldingen met width en height houden hun verhouding vrij (geen
+   verspringen bij het laden); :where houdt dit zwakker dan elke andere regel */
+:where(img[width][height]) { height: auto; }
+:root[data-motion="reduce"] .stack-hoek a, :root[data-motion="reduce"] .stack-hoek a span { transition: none; }
