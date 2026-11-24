@@ -289,8 +289,6 @@
   const scheurOpzij = (dir) => {
     afgescheurd();
     const w = papier.offsetWidth, h = papier.offsetHeight;
-    // het papier mag nu buiten het vak zwieren; enkel onder de gleuf blijft het weg
-    feed.style.clipPath = "inset(-4000px -4000px 0 -4000px)";
     const van = sleep.hoek;
     if (rustig()) { reset(); zetVak(); return; }
     const a = papier.animate([
