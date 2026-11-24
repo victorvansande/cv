@@ -156,7 +156,7 @@ window.I18N = {
     photo_heuvels_t: `Nature · Sunset`,
     photo_heuvels_s: `Last light behind a wooded ridge`,
     photo_mas_t: `Architecture · MAS`,
-    photo_mas_s: `Upside down, with the reflection on top`,
+    photo_mas_s: `On its side, with the reflection on the right`,
     photo_dauw_t: `Nature · Morning dew`,
     photo_dauw_s: `Droplets on the grass, up close`,
     photo_bozar_t: `Street · Bozar Café Victor`,

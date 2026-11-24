@@ -84,10 +84,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
-  tint). De masterproef is een eigen blok binnen Opleiding, met het gespiegelde MAS
-  en een terracotta accent (`.g-urbex`, de naam is gebleven). Ervaring opent met
-  de zwart-witfoto van de fondsenwerving (`.g-podium`, grijswaarden), Over mij
-  met de dauw (`.g-dauw`). Nieuwe foto's gaan op 1600 pixels en zonder
+  tint). De masterproef is een eigen blok binnen Opleiding, met het gespiegelde MAS op
+  zijn zij (een knipoog naar misinformatie) en een terracotta accent (`.g-urbex`,
+  de naam is gebleven). Over mij opent met de dauw (`.g-dauw`). De
+  zwart-witfoto van de fondsenwerving staat klein bij Gekkoo (`.org-foto`). Nieuwe foto's gaan op 1600 pixels en zonder
   metadata (geen GPS) in `assets/photos/`. Er is geen vrij kleurthema meer: dat zou dat systeem doorkruisen.
   Wel een lichte versie (knop `.mode-toggle` in de menubalk, `data-mode="light"`
   op `<html>`): per sectie een lichte tint uit dezelfde foto en een dieper
