@@ -136,7 +136,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   rolt over de site erboven (het vak neemt geen plaats in), dus er verschuift niets. Eén knop print het
   bonnetje en wordt daarna "Bewaar als afbeelding"; afscheuren zet hem terug. Hij
   heeft een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
-  IBM Plex Mono. In de kast staat gegraveerd "CV Printer 9000" (`.snap-merk`).
+  IBM Plex Mono. In de kast staat gegraveerd "CV Printer 9000" (`.snap-merk`). In de
+  streepjescode zit een easter egg: "VVS" uitgespaard in een dicht blok balkjes.
 - **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de
   achtergrondkleur van de sectie erboven mee (`--vorige`, klasse `.vloeit`),
   zodat ze bovenaan zacht in elkaar overvloeien. Herberekend bij een wissel

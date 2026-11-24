@@ -112,17 +112,32 @@
         }
         y += 15;
       } else if (g.t === "streep") {
-        // streepjescode uit de tekens van de link: telkens dezelfde voor dezelfde link
+        // streepjescode uit de tekens van de link: telkens dezelfde voor dezelfde link.
+        // Easter egg: op één plek lopen de balkjes samen tot een dicht blok, en
+        // daaruit zijn de initialen VVS in negative space uitgespaard (in de letter
+        // van de naam). Het blok wordt apart getekend, zodat het uitsparen de rest
+        // van het bonnetje niet raakt.
         if (teken) {
-          ctx.fillStyle = INKT;
+          const st = document.createElement("canvas");
+          st.width = B * SCHAAL; st.height = 48 * SCHAAL;
+          const k = st.getContext("2d");
+          k.scale(SCHAAL, SCHAAL);
+          k.fillStyle = INKT;
           let x = PAD + 10; const eind = B - PAD - 10;
           let i = 0;
           while (x < eind) {
             const c = g.s.charCodeAt(i % g.s.length) + i * 7;
             const w = 1 + (c % 3), gat = 1 + ((c >> 2) % 3);
-            ctx.fillRect(x, y + 4, w, 38);
+            k.fillRect(x, 4, w, 38);
             x += w + gat; i++;
           }
+          k.font = '800 30px "Big Shoulders Display", "Arial Narrow", sans-serif';
+          k.textBaseline = "middle"; k.textAlign = "center";
+          const tw = k.measureText("VVS").width, bw = Math.round(tw + 14), bx = Math.round(PAD + 10 + (eind - PAD - 10) * 0.62 - bw / 2);
+          k.fillRect(bx, 4, bw, 38);
+          k.globalCompositeOperation = "destination-out";
+          k.fillText("VVS", bx + bw / 2, 4 + 19 + 1);
+          ctx.drawImage(st, 0, y, B, 48);
         }
         y += 48;
       } else if (g.t === "ruimte") {
@@ -179,7 +194,7 @@
     bezig = true;
     printKnop.disabled = true;
     // eerst het lettertype van het bonnetje, anders tekent het canvas in een vervanglettertype
-    const lt = document.fonts && document.fonts.load ? document.fonts.load('400 11px "IBM Plex Mono"').catch(() => {}) : Promise.resolve();
+    const lt = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('400 11px "IBM Plex Mono"'), document.fonts.load('800 30px "Big Shoulders Display"')]).catch(() => {}) : Promise.resolve();
     Promise.race([lt, new Promise((r) => setTimeout(r, 1200))]).then(voeren);
   };
   const voeren = () => {
