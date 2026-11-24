@@ -341,6 +341,31 @@
     });
   }
 
+  /* ---- Lichte versie ----
+     De kop zet data-mode al voor de eerste paint; hier enkel de knop, het
+     bewaren en de kleur van de adresbalk op een telefoon. Het label zegt waar
+     de knop naartoe gaat, en volgt de taal. */
+  const modeBtn = document.querySelector(".mode-toggle");
+  if (modeBtn) {
+    const themaKleur = document.querySelector('meta[name="theme-color"]');
+    const zetLabel = () => {
+      const licht = document.documentElement.dataset.mode === "light";
+      const en = document.documentElement.lang === "en";
+      modeBtn.setAttribute("aria-pressed", String(licht));
+      modeBtn.setAttribute("aria-label", licht ? (en ? "Dark version" : "Donkere versie") : (en ? "Light version" : "Lichte versie"));
+    };
+    const zetModus = (licht) => {
+      if (licht) document.documentElement.dataset.mode = "light";
+      else document.documentElement.removeAttribute("data-mode");
+      if (themaKleur) themaKleur.content = licht ? "#f6f1ea" : "#0c0a0a";
+      try { localStorage.setItem("cv-modus", licht ? "light" : "dark"); } catch (e) {}
+      zetLabel();
+    };
+    modeBtn.addEventListener("click", () => zetModus(document.documentElement.dataset.mode !== "light"));
+    window.addEventListener("cv-layout", zetLabel);
+    zetLabel();
+  }
+
   /* ---- Welke sectie is in beeld: het menu-item onderlijnen ----
      De sectie waar een leeslijn iets boven het midden van het scherm door
      loopt. Onderaan gekomen wint de laatste sectie, ook als ze korter is dan
