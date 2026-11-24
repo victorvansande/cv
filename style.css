@@ -310,6 +310,20 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
    van 800 pixels hoog viel ze anders half onder de rand. */
 .frame-hero img { aspect-ratio: auto; height: clamp(180px, 34vh, 400px); }
+/* Twee lagen in het accent achter de foto; bij hover schuiven ze na elkaar een
+   stukje rechts uit (de tweede iets later en verder), zoals de gekleurde
+   voorlagen van een Staggered Menu. Terug gaat het in omgekeerde volgorde. */
+.frame-lagen { position: relative; display: block; isolation: isolate; }
+.frame-lagen > img { position: relative; z-index: 2; display: block; }
+.frame-lagen .laag { position: absolute; inset: 0; z-index: 0; border-radius: 6px; transform: translateX(0);
+  transition: transform .55s cubic-bezier(.76, 0, .24, 1); }
+.frame-lagen .l1 { z-index: 1; background: color-mix(in srgb, var(--g-acc) 45%, var(--g-bg)); transition-delay: .06s; }
+.frame-lagen .l2 { background: var(--g-acc); transition-delay: 0s; }
+.frame:hover .frame-lagen .l1 { transform: translateX(7px); transition-delay: 0s; }
+.frame:hover .frame-lagen .l2 { transform: translateX(14px); transition-delay: .08s; }
+@media (hover: none) { .frame-lagen .laag { display: none; } }
+@media (prefers-reduced-motion: reduce) { .frame-lagen .laag { transition: none; } }
+:root[data-motion="reduce"] .frame-lagen .laag { transition: none; }
 .frame figcaption {
   margin-top: 10px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim);
 }
@@ -367,6 +381,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   font-family: var(--font); font-size: .74rem; font-weight: 600; letter-spacing: .14em;
   text-transform: uppercase; color: var(--g-acc);
 }
+/* een label boven een lijst rijen krijgt wat lucht tot de lijn eronder, zoals
+   bij de vaardigheden (behalve waar het label links naast de rijen staat) */
+.sub-block > .label + .rows { margin-top: 12px; }
+.org + .sub-block > .label + .rows { margin-top: 0; }
 .label-gap { margin-top: 44px; }
 /* In één oogopslag: elk item onder een dun lijntje, met een klein nummer in
    het accent (via css, zodat de tekst zelf en het bonnetje ongemoeid blijven) */
@@ -410,6 +428,15 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .prose p { color: var(--g-soft); }
 .sub-block { margin-top: 48px; }
 .sub-head { margin-bottom: 4px; }
+/* een kop binnen een sectie (Wat me drijft) in de letter van de sectietitel,
+   kleiner, zodat je ziet dat hij eronder hoort */
+.sub-head > .sec-sub {
+  font-family: var(--font-head); font-weight: 800; font-size: min(5vw, 4rem); line-height: .9;
+  text-transform: uppercase; letter-spacing: .005em; color: var(--g-acc);
+}
+.sub-head > .sec-sub .grad-text { color: inherit; }
+.sub-head > .sec-sub + .sec-lead { margin-top: 10px; }
+@media (max-width: 900px) { .sub-head > .sec-sub { font-size: clamp(2.4rem, 12vw, 4rem); } }
 
 /* ---------- Rijen (ervaring, opleiding) ---------- */
 .org { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 20px; }
