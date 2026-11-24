@@ -197,7 +197,7 @@
       bezig = false; geprint = true;
       led.classList.remove("aan");
       printKnop.disabled = false; bewaarKnop.disabled = false;
-      printKnop.textContent = sjabloon("opnieuw");
+      label(printKnop, sjabloon("opnieuw"));
       if (hint) hint.hidden = false;
     };
     if (rustig()) { zetHoogte(hoogte); klaar(); return; }
@@ -211,10 +211,45 @@
     };
     requestAnimationFrame(stap);
   };
+  /* ---- Bel-knoppen (eigen bouw naar de Bell Toggle van React Bits) ----
+     Bij een klik "belt" het pictogram met twee geluidsgolfjes, vloeit het
+     label over in het nieuwe, en schuift de knop mee naar de nieuwe breedte:
+     de oude breedte wordt vastgezet, het label gewisseld, de nieuwe breedte
+     gemeten, en daartussen loopt een overgang. */
+  const bel = (knop) => {
+    if (rustig()) return;
+    knop.classList.remove("belt"); void knop.offsetWidth; knop.classList.add("belt");
+  };
+  const label = (knop, tekst) => {
+    const t = knop.querySelector(".bel-txt");
+    if (!t || t.textContent === tekst) return;
+    if (rustig()) { t.textContent = tekst; return; }
+    const oud = knop.getBoundingClientRect().width;
+    knop.style.width = oud + "px";
+    t.classList.add("weg");
+    setTimeout(() => {
+      t.textContent = tekst;
+      knop.style.width = "auto";
+      const nieuw = knop.getBoundingClientRect().width;
+      knop.style.width = oud + "px";
+      void knop.offsetWidth;
+      knop.style.width = nieuw + "px";
+      t.classList.remove("weg");
+      setTimeout(() => { knop.style.width = ""; }, 380);
+    }, 160);
+  };
+  [printKnop, bewaarKnop].forEach((k) => k.addEventListener("animationend", (e) => { if (e.animationName === "bel-ring") k.classList.remove("belt"); }));
+  printKnop.addEventListener("click", () => { bel(printKnop); label(printKnop, sjabloon("bezig")); });
   printKnop.addEventListener("click", print);
-  printKnop.textContent = sjabloon("print");
+  printKnop.querySelector(".bel-txt").textContent = sjabloon("print");
+  bewaarKnop.querySelector(".bel-txt").textContent = sjabloon("bewaar");
 
+  let bewaardTimer = null;
   bewaarKnop.addEventListener("click", () => {
+    bel(bewaarKnop);
+    label(bewaarKnop, sjabloon("bewaard"));
+    clearTimeout(bewaardTimer);
+    bewaardTimer = setTimeout(() => label(bewaarKnop, sjabloon("bewaar")), 1800);
     cv.toBlob((blob) => {
       if (!blob) return;
       const a = document.createElement("a");
@@ -247,7 +282,7 @@
       papier.classList.add("gescheurd");
       geprint = false; bewaarKnop.disabled = true;
       if (hint) hint.hidden = true;
-      printKnop.textContent = sjabloon("print");
+      label(printKnop, sjabloon("print"));
       setTimeout(() => { papier.style.transition = "none"; papier.style.transform = ""; papier.classList.remove("gescheurd"); zetVak(); }, 650);
     } else {
       papier.style.transform = "";
@@ -256,7 +291,8 @@
 
   // bij een taalwissel staat het bonnetje er in de vorige taal: opnieuw tekenen
   addEventListener("cv-layout", () => {
-    printKnop.textContent = sjabloon(geprint ? "opnieuw" : "print");
+    printKnop.querySelector(".bel-txt").textContent = sjabloon(bezig ? "bezig" : (geprint ? "opnieuw" : "print"));
+    bewaarKnop.querySelector(".bel-txt").textContent = sjabloon("bewaar");
     if (geprint && !bezig) { maak(); zetVak(); }
   });
   // het lettertype van het bonnetje alvast ophalen

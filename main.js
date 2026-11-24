@@ -93,21 +93,123 @@
     });
   }
 
-  /* ---- Lichtglans over de naam ----
-     Bij hover of een tik schuift er één lichtband over de letters (de css
-     staat onder "Lichtglans"). Zolang de intro loopt, gebeurt er niets. */
-  const glansNaam = document.querySelector(".prism-host .grad-text");
-  if (glansNaam) {
+  /* ---- De naam na de intro: één lichtglans, daarna Tech Text bij hover ----
+     Zodra alle animaties gespeeld hebben (de klasse intro is weg), schuift er
+     één keer een lichtband over de naam. Daarna wordt de naam bij hover een
+     "Tech Text", eigen bouw naar die van React Bits: de letter onder de cursor
+     wordt een lijnletter, een dun kader glijdt van letter naar letter met de
+     letter en zijn grootte als label, er knipperen kleine vierkantjes rond, en
+     een klik laat de letter opspringen met een golf door de buren.
+     Css kan de lijn van een tekstletter niet stippelen; de lijnletter krijgt
+     daarom een doorlopende lijn, een van de stijlen die de component zelf ook
+     kent. Zolang de naam in deze modus staat, verliest hij tijdelijk zijn
+     background-clip (anders kan één letter niet hol worden). */
+  const naamTekst = document.querySelector(".hero-name .grad-text");
+  const naamH1 = document.querySelector(".hero-name");
+  const geenBeweging = () => matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
+  if (naamTekst && naamH1) {
+    let klaar = false;
     const glans = () => {
-      if (wortel.classList.contains("intro")) return;
-      glansNaam.classList.remove("glans");
-      void glansNaam.offsetWidth;          // reflow, anders herstart de animatie niet
-      glansNaam.classList.add("glans");
+      naamTekst.classList.remove("glans");
+      void naamTekst.offsetWidth;          // reflow, anders herstart de animatie niet
+      naamTekst.classList.add("glans");
     };
-    glansNaam.addEventListener("pointerenter", glans);
-    glansNaam.addEventListener("click", glans);
-    glansNaam.addEventListener("animationend", (e) => { if (e.animationName === "naam-glans") glansNaam.classList.remove("glans"); });
+    naamTekst.addEventListener("animationend", (e) => { if (e.animationName === "naam-glans") naamTekst.classList.remove("glans"); });
+
+    const zetKlaar = () => {
+      if (klaar || wortel.classList.contains("intro")) return;
+      klaar = true;
+      // letters opsplitsen; woorden blijven bij elkaar, zodat de regels breken zoals voorheen
+      const tekst = naamTekst.textContent;
+      naamTekst.setAttribute("aria-label", tekst);
+      naamTekst.textContent = "";
+      const letters = [];
+      tekst.split(/(\s+)/).forEach((stuk) => {
+        if (!stuk) return;
+        if (/^\s+$/.test(stuk)) { naamTekst.appendChild(document.createTextNode(stuk)); return; }
+        const woord = document.createElement("span");
+        woord.className = "tch-w"; woord.setAttribute("aria-hidden", "true");
+        [...stuk].forEach((c) => {
+          const l = document.createElement("span");
+          l.className = "tch"; l.textContent = c;
+          woord.appendChild(l); letters.push(l);
+        });
+        naamTekst.appendChild(woord);
+      });
+      // het kader met label en de vierkantjes leven in de kop zelf
+      const kader = document.createElement("span");
+      kader.className = "tch-kader"; kader.setAttribute("aria-hidden", "true");
+      kader.innerHTML = '<i class="tch-h tl"></i><i class="tch-h tr"></i><i class="tch-h bl"></i><i class="tch-h br"></i><b class="tch-label"></b>';
+      const label = kader.querySelector(".tch-label");
+      const specks = document.createElement("span");
+      specks.className = "tch-specks"; specks.setAttribute("aria-hidden", "true");
+      naamH1.append(kader, specks);
+      if (!geenBeweging()) glans();
+
+      let actief = null;
+      const zaai = (l) => {
+        specks.textContent = "";
+        if (geenBeweging()) return;
+        const r = l.getBoundingClientRect(), h = naamH1.getBoundingClientRect();
+        for (let i = 0; i < 12; i++) {
+          const sp = document.createElement("i");
+          const x = r.left - h.left + (Math.random() * 1.6 - .3) * r.width;
+          const y = r.top - h.top + (Math.random() * 1.4 - .2) * r.height;
+          sp.style.left = x.toFixed(0) + "px"; sp.style.top = y.toFixed(0) + "px";
+          sp.style.animationDelay = (Math.random() * 1.2).toFixed(2) + "s";
+          specks.appendChild(sp);
+        }
+      };
+      const kies = (l) => {
+        if (l === actief) return;
+        if (actief) actief.classList.remove("lijn");
+        actief = l;
+        if (!l) { naamH1.classList.remove("tech"); return; }
+        naamH1.classList.add("tech");
+        l.classList.add("lijn");
+        const r = l.getBoundingClientRect(), h = naamH1.getBoundingClientRect();
+        kader.style.transform = "translate(" + (r.left - h.left).toFixed(1) + "px," + (r.top - h.top).toFixed(1) + "px)";
+        kader.style.width = r.width.toFixed(1) + "px";
+        kader.style.height = r.height.toFixed(1) + "px";
+        label.textContent = l.textContent + " · " + Math.round(parseFloat(getComputedStyle(l).fontSize)) + "px";
+        zaai(l);
+      };
+      naamH1.addEventListener("pointermove", (e) => {
+        const l = e.target.closest && e.target.closest(".tch");
+        if (l) kies(l);
+      });
+      naamH1.addEventListener("pointerleave", () => kies(null));
+      // klik: de letter springt op en een golf loopt door de buren, die tijdens
+      // het bewegen ook even hun lijn tonen
+      naamH1.addEventListener("click", (e) => {
+        const l = e.target.closest && e.target.closest(".tch");
+        if (!l || geenBeweging()) return;
+        kies(l);
+        const i = letters.indexOf(l);
+        letters.forEach((x, k) => {
+          const d = Math.abs(k - i);
+          if (d > 4) return;
+          x.style.setProperty("--kick", (1 - d * 0.22).toFixed(2));
+          x.style.animationDelay = (d * 55) + "ms";
+          x.classList.remove("kick"); void x.offsetWidth; x.classList.add("kick");
+        });
+      });
+      letters.forEach((x) => x.addEventListener("animationend", (e) => { if (e.animationName === "tch-kick") x.classList.remove("kick"); }));
+    };
+    zetKlaar();
+    new MutationObserver(zetKlaar).observe(wortel, { attributes: true, attributeFilter: ["class"] });
   }
+
+  /* ---- Grainient op de knoppen in de hero ----
+     Het korrelige verloop volgt de cursor een beetje: de lichtste vlek staat
+     waar de muis is. De rest (de kleuren, de korrel, het drijven) zit in css. */
+  document.querySelectorAll(".hero-side .btn").forEach((b) => {
+    b.addEventListener("pointermove", (e) => {
+      const r = b.getBoundingClientRect();
+      b.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+      b.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+    });
+  });
 
   /* ---- Zachte overgang tussen secties ----
      Elke sectie krijgt de achtergrondkleur van de sectie erboven mee, zodat
