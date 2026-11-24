@@ -19,7 +19,6 @@
   const printKnop = blok.querySelector(".snap-print");
   const bewaarKnop = blok.querySelector(".snap-save");
   const vak = blok.querySelector(".snap-area");
-  const voer = blok.querySelector(".snap-paper");   // komt uit de printer
   const papier = blok.querySelector(".snap-sheet");  // wordt afgescheurd
   const cv = blok.querySelector(".snap-cv");
   const led = blok.querySelector(".snap-led");
@@ -160,7 +159,26 @@
 
   /* ---- printen, scheuren, bewaren ---- */
   let bezig = false, geprint = false;
-  const zetVak = () => { vak.style.setProperty("--papier-h", (geprint || bezig ? hoogte : 0) + "px"); };
+  /* Het vak groeit mee met het papier dat uit de printer komt. Zonder meer
+     zou dat de printer en alles eronder naar beneden duwen; daarom wordt de
+     pagina even ver mee gescrold, zodat de printer stil op het scherm blijft
+     staan en het bonnetje eruit lijkt te rijzen. Gemeten aan de printer zelf:
+     dan klopt het ook als het vak eerst binnen de rij van de tekst groeit en
+     er niets verschuift. */
+  const feed = blok.querySelector(".snap-feed");
+  const printer = blok.querySelector(".snap-printer");
+  let zicht = 0;
+  const zetHoogte = (h) => {
+    const voor = printer.getBoundingClientRect().top;
+    feed.style.height = h.toFixed(1) + "px";
+    zicht = h;
+    const na = printer.getBoundingClientRect().top;
+    const r = printer.getBoundingClientRect();
+    // meteen, niet vloeiend: de pagina staat op scroll-behavior: smooth, en dan
+    // zou elke correctie een trage animatie worden die de volgende onderbreekt
+    if (na !== voor && r.bottom > 0 && r.top < innerHeight) scrollBy({ top: na - voor, behavior: "instant" });
+  };
+  const zetVak = () => zetHoogte(geprint || bezig ? hoogte : 0);
   const print = () => {
     if (bezig) return;
     bezig = true;
@@ -173,7 +191,7 @@
     papier.classList.remove("gescheurd");
     papier.style.transition = "none"; papier.style.transform = "";
     maak();
-    zetVak();
+    zetHoogte(0);
     led.classList.add("aan");
     const klaar = () => {
       bezig = false; geprint = true;
@@ -182,16 +200,15 @@
       printKnop.textContent = sjabloon("opnieuw");
       if (hint) hint.hidden = false;
     };
-    if (rustig()) { voer.style.setProperty("--uit", "1"); klaar(); return; }
-    // het papier komt met kleine schokjes naar buiten, zoals een thermische printer regel per regel voedt
+    if (rustig()) { zetHoogte(hoogte); klaar(); return; }
+    // het papier komt gelijkmatig naar buiten, met een zachte aanloop en uitloop
     const duur = Math.max(1600, hoogte * 4.2), t0 = performance.now();
+    const glad = (t) => t * t * (3 - 2 * t);
     const stap = (nu) => {
       const p = Math.min(1, (nu - t0) / duur);
-      const schok = Math.floor(p * hoogte / 6) * 6 / hoogte;
-      voer.style.setProperty("--uit", Math.min(1, schok + (p === 1 ? 1 : 0)).toFixed(4));
+      zetHoogte(glad(p) * hoogte);
       if (p < 1) requestAnimationFrame(stap); else klaar();
     };
-    voer.style.setProperty("--uit", "0");
     requestAnimationFrame(stap);
   };
   printKnop.addEventListener("click", print);
@@ -231,7 +248,7 @@
       geprint = false; bewaarKnop.disabled = true;
       if (hint) hint.hidden = true;
       printKnop.textContent = sjabloon("print");
-      setTimeout(() => { papier.style.transition = "none"; papier.style.transform = ""; papier.classList.remove("gescheurd"); voer.style.setProperty("--uit", "0"); zetVak(); }, 650);
+      setTimeout(() => { papier.style.transition = "none"; papier.style.transform = ""; papier.classList.remove("gescheurd"); zetVak(); }, 650);
     } else {
       papier.style.transform = "";
     }
