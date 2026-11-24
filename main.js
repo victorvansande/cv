@@ -102,7 +102,7 @@
      hover schuiven ze kort na elkaar een paar pixels rechts onder de foto
      uit, zoals de gekleurde voorlagen van dat menu. Het effect zit in css;
      hier worden enkel de foto en de lagen in een omhulsel gezet. */
-  document.querySelectorAll(".frame > img").forEach((img) => {
+  document.querySelectorAll(".frame > picture, .frame > img").forEach((img) => {
     const om = document.createElement("span");
     om.className = "frame-lagen";
     img.before(om);
@@ -451,6 +451,10 @@
     try { localStorage.setItem("cv-lang", lang); } catch (e) {}
     if (langBtn) langBtn.setAttribute("aria-label", en ? "Schakel naar Nederlands · Switch to Dutch" : "Switch to English · Schakel naar Engels");
     hertelGetallen();
+    // wie de site in het Engels leest, downloadt ook het Engelse cv
+    document.querySelectorAll('a[href$="cv-victor-van-sande.pdf"], a[href$="cv-victor-van-sande-en.pdf"]').forEach((a) => {
+      a.setAttribute("href", en ? "assets/cv-victor-van-sande-en.pdf" : "assets/cv-victor-van-sande.pdf");
+    });
     // het voorproefvenster vertaalt zijn eigen ingevulde zinnen mee
     window.dispatchEvent(new Event("cv-layout"));
   };

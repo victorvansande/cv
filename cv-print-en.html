@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Victor Van Sande, CV (English)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Dezelfde vormgeving als de site, maar op wit papier: een donkere achtergrond
+     kost bij het afdrukken een hele cartridge en leest op papier slechter.
+     Wat van de site meekomt: de namen en koppen in Big Shoulders, een smalle
+     foto in breedbeeld bovenaan elk blad, en per onderdeel het accent van de
+     bijhorende sectie op de site, donkerder gezet zodat het op wit leesbaar
+     blijft (contrast ruim boven 4,5:1). -->
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  :root {
+    --head: "Big Shoulders Display", "Arial Narrow", sans-serif;
+    --ink: #17130f; --soft: #4a443d; --dim: #7d756c; --line: #e2ddd6;
+    /* accenten, afgeleid van de foto's op de site */
+    --a-eclipse: #9a6430;   /* zonsverduistering: goud */
+    --a-theater: #a8323a;   /* theaterzaal: rood */
+    --a-herfst: #8f5a1e;    /* herfstbos: amber */
+    --a-centraal: #6f5a36;  /* Antwerpen-Centraal: steen */
+    --a-schelde: #3f5568;   /* Schelde: staalblauw */
+    --a-urbex: #a74221;     /* masterproef: terracotta van de baksteen van het MAS */
+  }
+  html, body { background: #fff; }
+  body {
+    font-family: "Libre Franklin", "Segoe UI", Arial, sans-serif;
+    color: var(--ink); font-size: 8.9pt; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sheet { width: 210mm; height: 297mm; padding: 11mm 14mm 11mm; position: relative; overflow: hidden; background: #fff; }
+  .sheet + .sheet { page-break-before: always; }
+
+  /* ---------- Breedbeeld bovenaan ---------- */
+  .band { width: 100%; height: 18mm; object-fit: cover; display: block; border-radius: 1.6mm; }
+  .band-cap { font-size: 6.6pt; letter-spacing: .5pt; color: var(--dim); margin-top: 1.6mm; }
+
+  /* ---------- Kop ---------- */
+  .hd { display: flex; justify-content: space-between; align-items: flex-end; gap: 8mm; margin-top: 4.5mm; }
+  .hd h1 { font-family: var(--head); font-weight: 800; font-size: 40pt; line-height: .86; text-transform: uppercase; letter-spacing: .2pt; }
+  .hd .role { font-weight: 600; font-size: 10.4pt; margin-top: 2.6mm; }
+  .hd .role span { color: var(--a-eclipse); }
+  .hd-right { text-align: right; font-size: 8.3pt; color: var(--soft); line-height: 1.75; }
+  .hd-right b { color: var(--ink); font-weight: 500; }
+  /* portret in een pil rechts van "Victor", even hoog als de hoofdletters en
+     tot waar "Sande" eindigt; het script onderaan zet de maten */
+  .hd h1 { position: relative; }
+  .pil { position: absolute; border-radius: 99mm; overflow: hidden; display: none; }
+  .pil img { position: absolute; display: block; max-width: none; }
+  .rule { height: 1px; background: var(--ink); margin-top: 4mm; }
+
+  /* ---------- Kolommen ---------- */
+  .cols { display: flex; gap: 10mm; margin-top: 6mm; }
+  .side { width: 52mm; flex: none; }
+  .main { flex: 1; min-width: 0; }
+
+  .lbl { font-size: 7pt; font-weight: 600; letter-spacing: 1.3pt; text-transform: uppercase; color: var(--a-eclipse); margin-bottom: 2.4mm; }
+  .side .block { margin-bottom: 5mm; }
+  .side .block:last-child { margin-bottom: 0; }
+
+  .slist { list-style: none; border-top: 1px solid var(--line); }
+  .slist li { padding: 1.15mm 0; border-bottom: 1px solid var(--line); font-size: 8.3pt; color: var(--soft); line-height: 1.4; }
+  .slist li b { color: var(--ink); font-weight: 600; }
+  .lang { display: flex; justify-content: space-between; align-items: baseline; padding: 1.15mm 0; border-bottom: 1px solid var(--line); font-size: 8.4pt; }
+  .langs { border-top: 1px solid var(--line); }
+  .lang b { font-weight: 600; }
+  .lang span { color: var(--dim); font-size: 7.8pt; }
+  /* geen streep onder het laatste item van een opsomming, zoals op de site */
+  .slist li:last-child, .langs .lang:last-child, .roles .item:last-child { border-bottom: 0; }
+  .tools { display: flex; flex-wrap: wrap; gap: 1.2mm; }
+  .tool { font-size: 7.4pt; padding: .5mm 2mm; border: 1px solid var(--line); color: var(--soft); border-radius: 1.1mm; }
+
+  /* ---------- Hoofdkolom ---------- */
+  .blk { margin-bottom: 6mm; }
+  .blk:last-child { margin-bottom: 0; }
+  .profiel { font-size: 9.2pt; color: var(--soft); line-height: 1.6; }
+  .profiel b { color: var(--ink); font-weight: 600; }
+
+  .sec-h { display: flex; align-items: baseline; gap: 3mm; margin-bottom: 3mm; }
+  .sec-h h2 { font-family: var(--head); font-weight: 700; font-size: 19pt; line-height: .9; text-transform: uppercase; letter-spacing: .2pt; }
+  .sec-h .ln { flex: 1; height: 1px; background: var(--line); align-self: center; }
+
+  .org { display: flex; align-items: baseline; gap: 2.4mm; margin: 1mm 0 2mm; }
+  .org b { font-family: var(--head); font-weight: 700; font-size: 12pt; text-transform: uppercase; letter-spacing: .3pt; }
+  .org span { font-size: 7.9pt; color: var(--dim); }
+  .roles { border-top: 1px solid var(--line); margin-bottom: 4mm; }
+  .roles:last-child { margin-bottom: 0; }
+  .item { display: grid; grid-template-columns: 27mm minmax(0, 1fr); gap: 3mm; padding: 2.2mm 0; border-bottom: 1px solid var(--line); page-break-inside: avoid; }
+  .item .yr { font-size: 7.8pt; color: var(--dim); padding-top: .4mm; font-variant-numeric: tabular-nums; }
+  .item .t { font-weight: 600; font-size: 9.3pt; line-height: 1.35; }
+  .item .s { font-size: 8.3pt; color: var(--soft); margin-top: .4mm; }
+  .item .p { font-size: 8.5pt; color: var(--soft); margin-top: .8mm; line-height: 1.5; }
+  .hon { font-size: 7.8pt; font-weight: 600; margin-top: .8mm; }
+
+  .acc-theater { --acc: var(--a-theater); }
+  .acc-herfst { --acc: var(--a-herfst); }
+  .acc-centraal { --acc: var(--a-centraal); }
+  .acc-schelde { --acc: var(--a-schelde); }
+  .acc-urbex { --acc: var(--a-urbex); }
+  [class*="acc-"] .sec-h h2, [class*="acc-"] .org b, [class*="acc-"] .hon, [class*="acc-"] .lbl { color: var(--acc); }
+
+  .thesis-t { font-weight: 600; font-size: 10.6pt; }
+  .thesis-p { color: var(--soft); font-size: 8.6pt; margin-top: 1mm; line-height: 1.55; }
+  .thesis-nums { display: flex; gap: 7mm; margin-top: 3mm; }
+  .thesis-nums div b { display: block; font-family: var(--head); font-weight: 700; font-size: 17pt; line-height: 1; color: var(--acc); }
+  .thesis-nums div span { font-size: 7.6pt; color: var(--dim); }
+  .thesis-meta { color: var(--dim); font-size: 7.9pt; margin-top: 3mm; }
+  .thesis-meta b { color: var(--soft); font-weight: 600; }
+  .thesis { border-top: 1px solid var(--line); padding-top: 3mm; }
+
+  /* ---------- Blad 2 ---------- */
+  .mini-hd { display: flex; justify-content: space-between; align-items: baseline; margin-top: 4mm; }
+  .mini-hd .nm { font-family: var(--head); font-weight: 800; font-size: 16pt; text-transform: uppercase; letter-spacing: .3pt; }
+  .mini-hd .pg { color: var(--dim); font-size: 7.8pt; letter-spacing: .3pt; }
+  .two { display: flex; gap: 10mm; }
+  .two > div { flex: 1; min-width: 0; }
+
+  /* QR naar het online cv, als afsluiter onderaan blad 2.
+     De code is 37 modules breed (29 plus de stille zone); op 24mm is één module
+     0,65mm, ruim boven de halve millimeter waaronder scannen wisselvallig wordt.
+     shape-rendering: crispEdges houdt de modules hard begrensd, zodat de printer
+     ze niet met een grijze antialiasrand uitsmeert. */
+  .qr-end { position: absolute; left: 14mm; right: 14mm; bottom: 11mm;
+    padding-top: 4mm; border-top: 1px solid var(--ink);
+    display: flex; align-items: center; gap: 6mm; }
+  .qr { width: 24mm; height: 24mm; flex: none; shape-rendering: crispEdges; }
+  .qr-end-txt b { display: block; font-family: var(--head); font-weight: 700; font-size: 14pt; text-transform: uppercase; letter-spacing: .3pt; line-height: 1; }
+  .qr-end-txt p { color: var(--soft); font-size: 8.5pt; margin-top: 1.4mm; line-height: 1.5; }
+  .qr-end-txt span { display: block; margin-top: 1mm; color: var(--a-eclipse); font-size: 8.4pt; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 (Engelse versie van cv-print.html: wie de inhoud aanpast, past beide aan) ============ -->
+<section class="sheet">
+  <img class="band" src="assets/photos/zonsverduistering.jpg" alt="">
+  <header class="hd">
+    <div>
+      <h1><span class="nm-1">Victor</span><br><span class="nm-2">Van Sande</span><span class="pil"><img src="assets/victor-profiel.jpg" alt=""></span></h1>
+      <p class="role">Communication scientist <span>· Fundraiser at Gekkoo</span></p>
+    </div>
+    <div class="hd-right">
+      Province of Antwerp · available part-time<br>
+      <b>victorvansande@gmail.com</b><br>
+      <b>0479 87 81 52</b><br>
+      linkedin.com/in/victorvansande
+    </div>
+  </header>
+  <div class="rule"></div>
+
+  <div class="cols">
+    <aside class="side">
+      <div class="block">
+        <div class="lbl">Core skills</div>
+        <ul class="slist">
+          <li>Purposeful writing</li>
+          <li>Communication skills</li>
+          <li>Leadership &amp; coordination</li>
+          <li>Project management</li>
+          <li>Visual content creation</li>
+          <li>Quantitative data analysis</li>
+          <li>Copywriting &amp; content planning</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="lbl">Languages</div>
+        <div class="langs">
+          <div class="lang"><b>Dutch</b><span>Native</span></div>
+          <div class="lang"><b>English</b><span>C2 · full proficiency</span></div>
+          <div class="lang"><b>French</b><span>A2 · basic</span></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="lbl">Tools</div>
+        <div class="tools">
+          <span class="tool">Canva</span>
+          <span class="tool">DaVinci Resolve</span>
+          <span class="tool">Lightroom</span>
+          <span class="tool">Google Analytics</span>
+          <span class="tool">SPSS</span>
+          <span class="tool">Qualtrics</span>
+          <span class="tool">Microsoft 365</span>
+          <span class="tool">Markdown &amp; documentation</span>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="lbl">Certificates</div>
+        <ul class="slist">
+          <li><b>First Aid</b>: basic course, Red Cross Flanders (valid until 2028)</li>
+          <li><b>Helper</b>: follow-up course, Red Cross Flanders (valid until 2028)</li>
+          <li>Together a partial qualification as <b>event first aider</b></li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="lbl">Key areas</div>
+        <ul class="slist">
+          <li>Communication &amp; strategy</li>
+          <li>Media &amp; journalism</li>
+          <li>(Web)design &amp; visual creation</li>
+          <li>Psychology &amp; people-centred work</li>
+          <li>Leadership &amp; youth work</li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="blk">
+        <div class="lbl">Profile</div>
+        <p class="profiel">Communication scientist with expertise in communication, media, (web)design, psychology, technology and leadership. I approach these fields in an <b>analytical, scientific</b> way, without losing sight of the person behind the message.</p>
+      </div>
+
+      <div class="blk acc-theater">
+        <div class="sec-h"><h2>Experience</h2><span class="ln"></span></div>
+
+        <div class="org"><b>Gekkoo</b><span>playground programmes &amp; holiday camps</span></div>
+        <div class="roles">
+          <div class="item">
+            <div class="yr">Sep 2026 – present</div>
+            <div><div class="t">Fundraiser</div>
+            <p class="p">Raising funds from companies and private donors and through project calls, to help finance and grow Gekkoo’s operations.</p></div>
+          </div>
+          <div class="item">
+            <div class="yr">May – Sep 2026</div>
+            <div><div class="t">Content &amp; communication officer, graphic design</div>
+            <p class="p">As content officer I handled content creation, visual and graphic design, and external communication. I kept up the contacts with other playground programmes and brought together my background in communication, psychology and youth work in one role.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="blk acc-herfst">
+        <div class="org"><b>KSA Herentals</b><span>youth movement · 10+ years of commitment</span></div>
+        <div class="roles">
+          <div class="item">
+            <div class="yr">Sep 2019 – Sep 2026</div>
+            <div><div class="t">Head leader</div>
+            <p class="p">Coordinated a team of around 20 young adults, organised large-scale events and represented the organisation in the local community. As head leader I organised dozens of events, together drawing over 10,000 visitors.</p></div>
+          </div>
+          <div class="item">
+            <div class="yr">2022 – present</div>
+            <div><div class="t">Web designer</div>
+            <p class="p">Independently set up and manage ksaherentals.be as the central platform for the entire operation: member planning, activities and a monthly blog I write and publish myself.</p></div>
+          </div>
+          <div class="item">
+            <div class="yr">Sep 2015 – Sep 2026</div>
+            <div><div class="t">Leader</div>
+            <p class="p">Ran weekly activities for members myself, with an eye for story and group spirit. This ran in parallel with the head role by choice.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLAD 2 ============ -->
+<section class="sheet">
+  <img class="band" src="assets/photos/antwerpen-centraal-vensters.jpg" alt="" style="object-position: 50% 30%">
+  <div class="mini-hd">
+    <div class="nm">Victor Van Sande</div>
+    <div class="pg">Curriculum vitae · page 2</div>
+  </div>
+  <div class="rule"></div>
+
+  <div style="margin-top:6mm">
+    <div class="blk acc-centraal">
+      <div class="sec-h"><h2>Education</h2><span class="ln"></span></div>
+      <div class="roles">
+        <div class="item">
+          <div class="yr">2023 – 2025</div>
+          <div><div class="t">Master in Communication Studies</div><div class="s">University of Antwerp</div><div class="hon">With distinction</div></div>
+        </div>
+        <div class="item">
+          <div class="yr">2020 – 2023</div>
+          <div><div class="t">Bachelor of Education (Science &amp; English)</div><div class="s">Karel de Grote University of Applied Sciences</div><div class="hon">With distinction</div></div>
+        </div>
+        <div class="item">
+          <div class="yr">2017 – 2020</div>
+          <div><div class="t">Bachelor in Applied Psychology</div><div class="s">Thomas More University of Applied Sciences · title of psychological consultant</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blk acc-urbex">
+      <div class="sec-h"><h2>Master’s thesis</h2><span class="ln"></span></div>
+      <div class="thesis">
+        <div class="thesis-t">De Macht van Misleiding</div>
+        <p class="thesis-p">A quantitative analysis of epistemic trust, media trust and conspiracy thinking among Flemish adults (241 respondents, two validated questionnaires). Both general distrust and media trust prove to be significant predictors of conspiracy thinking.</p>
+        <div class="thesis-nums">
+          <div><b>241</b><span>respondents</span></div>
+          <div><b>18–65</b><span>years, Flanders</span></div>
+          <div><b>14,716</b><span>words</span></div>
+        </div>
+        <p class="thesis-meta">Supervisor <b>Prof. Philippe De Vries</b> · Second reader <b>Prof. Karolien Poels</b> · Communication Studies, University of Antwerp</p>
+      </div>
+    </div>
+
+    <div class="two acc-schelde">
+      <div class="blk">
+        <div class="sec-h"><h2>Internships</h2><span class="ln"></span></div>
+        <div class="roles">
+          <div class="item"><div class="yr">2023</div><div><div class="t">GITHO Nijlen</div><div class="s">English teacher (internship) · TEFL</div></div></div>
+          <div class="item"><div class="yr">2022</div><div><div class="t">Sint-Lutgardisschool</div><div class="s">Science teacher (internship) · Antwerp</div></div></div>
+          <div class="item"><div class="yr">2020</div><div><div class="t">kOsh Campus Ieperstraat</div><div class="s">Youth consultant (internship) · Counselling · Herentals</div></div></div>
+        </div>
+      </div>
+      <div class="blk">
+        <div class="sec-h"><h2>Student jobs</h2><span class="ln"></span></div>
+        <div class="roles">
+          <div class="item"><div class="yr">2023 – 2024</div><div><div class="t">POP Coffee</div><div class="s">Barista · Herentals</div></div></div>
+          <div class="item"><div class="yr">2016 – 2018</div><div><div class="t">Van Eccelpoel</div><div class="s">Shop assistant · Herentals</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Afsluiter: eerst lezen, dan doorklikken. Statisch ingebakken svg: geen
+       script en geen internetverbinding nodig om af te drukken. De stille zone
+       van vier modules zit in de viewBox verwerkt. -->
+  <div class="qr-end">
+    <svg class="qr" viewBox="0 0 37 37" role="img" aria-label="QR code to victorvansande.github.io/cv">
+      <rect width="37" height="37" fill="#fff"/>
+      <path fill="#1b1e2a" d="M4 4h7v1h-7zM13 4h1v1h-1zM17 4h1v1h-1zM19 4h1v1h-1zM21 4h3v1h-3zM26 4h7v1h-7zM4 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM15 5h1v1h-1zM17 5h5v1h-5zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM4 6h1v1h-1zM6 6h3v1h-3zM10 6h1v1h-1zM12 6h2v1h-2zM15 6h3v1h-3zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h3v1h-3zM32 6h1v1h-1zM4 7h1v1h-1zM6 7h3v1h-3zM10 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM18 7h1v1h-1zM21 7h1v1h-1zM26 7h1v1h-1zM28 7h3v1h-3zM32 7h1v1h-1zM4 8h1v1h-1zM6 8h3v1h-3zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h2v1h-2zM22 8h3v1h-3zM26 8h1v1h-1zM28 8h3v1h-3zM32 8h1v1h-1zM4 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM19 9h1v1h-1zM21 9h1v1h-1zM26 9h1v1h-1zM32 9h1v1h-1zM4 10h7v1h-7zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM18 10h1v1h-1zM20 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h7v1h-7zM12 11h1v1h-1zM15 11h1v1h-1zM18 11h1v1h-1zM20 11h1v1h-1zM24 11h1v1h-1zM4 12h1v1h-1zM6 12h5v1h-5zM13 12h4v1h-4zM19 12h3v1h-3zM26 12h5v1h-5zM4 13h3v1h-3zM8 13h2v1h-2zM11 13h1v1h-1zM13 13h6v1h-6zM20 13h9v1h-9zM32 13h1v1h-1zM5 14h1v1h-1zM10 14h3v1h-3zM16 14h5v1h-5zM22 14h1v1h-1zM26 14h1v1h-1zM28 14h1v1h-1zM5 15h3v1h-3zM9 15h1v1h-1zM11 15h2v1h-2zM15 15h1v1h-1zM17 15h1v1h-1zM23 15h2v1h-2zM26 15h4v1h-4zM31 15h1v1h-1zM4 16h1v1h-1zM8 16h1v1h-1zM10 16h2v1h-2zM13 16h1v1h-1zM16 16h1v1h-1zM18 16h2v1h-2zM21 16h1v1h-1zM23 16h1v1h-1zM27 16h1v1h-1zM29 16h2v1h-2zM4 17h1v1h-1zM6 17h4v1h-4zM11 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM23 17h2v1h-2zM26 17h3v1h-3zM32 17h1v1h-1zM5 18h3v1h-3zM10 18h1v1h-1zM14 18h1v1h-1zM16 18h1v1h-1zM19 18h2v1h-2zM24 18h2v1h-2zM27 18h1v1h-1zM29 18h2v1h-2zM7 19h1v1h-1zM15 19h2v1h-2zM18 19h1v1h-1zM20 19h1v1h-1zM22 19h1v1h-1zM25 19h2v1h-2zM28 19h1v1h-1zM31 19h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM10 20h1v1h-1zM12 20h1v1h-1zM14 20h2v1h-2zM21 20h1v1h-1zM29 20h2v1h-2zM4 21h2v1h-2zM7 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM15 21h1v1h-1zM17 21h2v1h-2zM21 21h4v1h-4zM26 21h3v1h-3zM30 21h1v1h-1zM32 21h1v1h-1zM4 22h1v1h-1zM6 22h6v1h-6zM15 22h6v1h-6zM22 22h1v1h-1zM24 22h1v1h-1zM27 22h2v1h-2zM30 22h1v1h-1zM4 23h1v1h-1zM9 23h1v1h-1zM11 23h2v1h-2zM15 23h3v1h-3zM20 23h1v1h-1zM22 23h2v1h-2zM25 23h2v1h-2zM31 23h1v1h-1zM4 24h1v1h-1zM6 24h1v1h-1zM8 24h3v1h-3zM14 24h1v1h-1zM18 24h1v1h-1zM21 24h1v1h-1zM24 24h5v1h-5zM30 24h3v1h-3zM12 25h1v1h-1zM15 25h1v1h-1zM20 25h1v1h-1zM23 25h2v1h-2zM28 25h5v1h-5zM4 26h7v1h-7zM14 26h1v1h-1zM16 26h1v1h-1zM19 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h3v1h-3zM4 27h1v1h-1zM10 27h1v1h-1zM12 27h1v1h-1zM18 27h2v1h-2zM23 27h2v1h-2zM28 27h1v1h-1zM31 27h1v1h-1zM4 28h1v1h-1zM6 28h3v1h-3zM10 28h1v1h-1zM12 28h2v1h-2zM16 28h1v1h-1zM21 28h1v1h-1zM24 28h5v1h-5zM30 28h1v1h-1zM4 29h1v1h-1zM6 29h3v1h-3zM10 29h1v1h-1zM12 29h1v1h-1zM14 29h3v1h-3zM18 29h1v1h-1zM20 29h1v1h-1zM22 29h1v1h-1zM24 29h1v1h-1zM29 29h4v1h-4zM4 30h1v1h-1zM6 30h3v1h-3zM10 30h1v1h-1zM12 30h1v1h-1zM19 30h1v1h-1zM21 30h11v1h-11zM4 31h1v1h-1zM10 31h1v1h-1zM13 31h3v1h-3zM20 31h1v1h-1zM22 31h1v1h-1zM24 31h2v1h-2zM29 31h1v1h-1zM31 31h1v1h-1zM4 32h7v1h-7zM12 32h1v1h-1zM15 32h3v1h-3zM21 32h3v1h-3zM27 32h4v1h-4z"/>
+    </svg>
+    <div class="qr-end-txt">
+      <b>Prefer the full version?</b>
+      <p>Scan the code for my online CV: more detailed, with images and always up to date.</p>
+      <span>victorvansande.github.io/cv</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* Dezelfde meting als op de site (main.js): de pil begint net na "Victor",
+     eindigt waar "Sande" eindigt, en is even hoog als een hoofdletter. */
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    const h1 = document.querySelector(".hd h1"), pil = h1.querySelector(".pil"), img = pil.firstChild;
+    const r1 = h1.querySelector(".nm-1").getBoundingClientRect(), r2 = h1.querySelector(".nm-2").getBoundingClientRect(), h = h1.getBoundingClientRect();
+    const cs = getComputedStyle(h1), c = document.createElement("canvas").getContext("2d");
+    c.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+    const m = c.measureText("VICTOR"), kap = m.actualBoundingBoxAscent, asc = m.fontBoundingBoxAscent;
+    const fs = parseFloat(cs.fontSize), links = r1.right + fs * .14, breed = r2.right - links;
+    const top = r1.top + (r1.height - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 + asc - kap;
+    Object.assign(pil.style, { display: "block", left: (links - h.left) + "px", top: (top - h.top) + "px", width: breed + "px", height: kap + "px" });
+    const z = Math.max(breed, kap), kl = (v, min) => Math.min(0, Math.max(min, v));
+    Object.assign(img.style, { width: z + "px", height: z + "px", left: kl(breed / 2 - .41 * z, breed - z) + "px", top: kl(kap / 2 - .33 * z, kap - z) + "px" });
+  });
+</script>
+</body>
+</html>
