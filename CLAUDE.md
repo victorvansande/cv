@@ -73,9 +73,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   zonsverduistering in de letters en krimpt dan naar zijn plaats; de rest van
   de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
   de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
-  `main.js`. Er wordt niets gekloond. Op de naam zit geen regenboog meer: bij hover
-  of een tik schuift er een lichtglans over de letters (`.glans`, css onder
-  "Lichtglans").
+  `main.js`. Er wordt niets gekloond. Na de intro schuift er één lichtglans over de naam;
+  daarna is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
+  letter onder de cursor wordt een lijnletter met een glijdend kader en label,
+  een klik laat letters opspringen. De heroknoppen krijgen bij hover een
+  korrelig verloop ("Grainient", css onder die naam).
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
@@ -103,12 +105,15 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `<html>`, onthouden onder `cv-weergave`). De kaarten staan als gewone html in
   `#compact` en hergebruiken bestaande vertaalsleutels; wie een onderdeel
   toevoegt of hernoemt, past ook de kaart aan. "Lees verder" zet de gewone
-  weergave terug en springt naar de sectie. Geen intro in compacte weergave.
+  weergave terug en springt naar de sectie. Elke kaart is om te draaien
+  ("Draai om"); de achterkant is een kopie van de echte inhoud van dat
+  onderdeel (`ACHTER` in `stapel.js`), opnieuw gekopieerd na een taalwissel. Geen intro in compacte weergave.
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het omhoog te
   slepen. De inhoud komt uit `.essentie .facts` en de contactgegevens in het
-  script; wie de essentie aanpast, past dus ook het bonnetje aan. Lettertype:
+  script; wie de essentie aanpast, past dus ook het bonnetje aan. De twee knoppen
+  hebben een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
   IBM Plex Mono.
 - **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de
   achtergrondkleur van de sectie erboven mee (`--vorige`, klasse `.vloeit`),

@@ -463,6 +463,32 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   will-change: transform;
 }
 .stack-card img { width: 100%; height: 100%; object-fit: cover; }
+/* omdraaien: de kaart zelf is enkel nog het draaipunt; de achtergrond, de
+   ronde hoeken en de schaduw zitten op de twee kanten */
+.stack-card { perspective: 1400px; background: none !important; box-shadow: none; overflow: visible; display: block; }
+.stack-flip { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.3, 1.35, .5, 1); }
+.stack-card.gedraaid .stack-flip { transform: rotateY(180deg); }
+.stack-face {
+  position: absolute; inset: 0; border-radius: 22px; overflow: hidden;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  background: var(--g-bg);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .75), 0 0 0 1px color-mix(in srgb, var(--g-ink) 8%, transparent);
+}
+.stack-front { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.stack-back { transform: rotateY(180deg); display: flex; flex-direction: column; padding: clamp(20px, 2.6vw, 34px); gap: 14px; }
+.stack-back-kop { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 16px; row-gap: 4px; }
+.stack-back-kop .label { grid-column: 1 / -1; }
+.stack-back-kop .stack-title { font-size: clamp(1.5rem, 2.4vw, 2.1rem); }
+.stack-back-inhoud { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 6px; font-size: .9rem; }
+.stack-back-inhoud > * + * { margin-top: 18px; }
+.stack-back-inhoud .row { grid-template-columns: 120px minmax(0, 1fr); gap: 14px; padding: 12px 0; }
+.stack-back-inhoud .row h4 { font-size: 1rem; }
+.stack-back-inhoud .facts, .stack-back-inhoud .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 20px; margin-top: 0; padding-top: 0; border: 0; }
+.stack-back-inhoud .cols-3 { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.stack-back-inhoud .numbers dt { font-size: 2.2rem; }
+.stack-back-inhoud .tags { display: none; }
+@media (prefers-reduced-motion: reduce) { .stack-flip { transition: none; } }
+:root[data-motion="reduce"] .stack-flip { transition: none; }
 .stack-body { padding: clamp(22px, 3vw, 40px); display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; min-width: 0; }
 .stack-title { font-family: var(--font-head); font-weight: 800; font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: .92; text-transform: uppercase; }
 .stack-title .em-serif { color: var(--g-acc); }
@@ -472,7 +498,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-rail { width: 140px; height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
 .stack-rail i { display: block; height: 100%; background: var(--g-acc); transform-origin: 0 50%; transform: scaleX(0); }
 @media (max-width: 700px) {
-  .stack-card { grid-template-columns: minmax(0, 1fr); grid-template-rows: 40% minmax(0, 1fr); top: 3vh; height: calc((100vh - 60px) * .8); }
+  .stack-card { top: 3vh; height: calc((100vh - 60px) * .8); }
+  .stack-front { grid-template-columns: minmax(0, 1fr); grid-template-rows: 40% minmax(0, 1fr); }
+  .stack-back-inhoud .facts, .stack-back-inhoud .contact-list { grid-template-columns: minmax(0, 1fr); }
+  .stack-back-inhoud .row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .stack-body { justify-content: flex-start; padding-top: 20px; }
   .stack-text { font-size: .9rem; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
 }
@@ -610,6 +639,28 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .footer-meta span + span::before, .footer-links > * + *::before { content: "·"; margin: 0 8px; }
 .footer-links a { text-decoration: none; }
 .footer-links a:hover { text-decoration: underline; }
+
+/* ---------- Bel-knoppen bij het bonnetje ----------
+   Het pictogram slingert uit rond een punt bovenaan en dooft uit, twee
+   boogjes golven weg, en het label vloeit over (bonnetje.js). */
+.btn.bel { gap: 9px; transition: background .2s, color .2s, border-color .2s, width .35s cubic-bezier(.3, 1.3, .5, 1); white-space: nowrap; overflow: hidden; }
+.bel-ic { position: relative; display: inline-flex; transform-origin: 50% 16%; }
+.btn.belt .bel-ic { animation: bel-ring .82s ease-out; }
+@keyframes bel-ring {
+  0% { transform: rotate(0); } 12% { transform: rotate(17deg); } 26% { transform: rotate(-14deg); }
+  40% { transform: rotate(10deg); } 54% { transform: rotate(-7deg); } 68% { transform: rotate(4deg); }
+  82% { transform: rotate(-2deg); } 100% { transform: rotate(0); }
+}
+.bel-golf { position: absolute; top: 50%; width: 8px; height: 12px; margin-top: -6px; border: 1.5px solid currentColor; border-radius: 50%; opacity: 0; pointer-events: none; }
+.bel-golf.g1 { left: -7px; border-right-color: transparent; border-top-color: transparent; border-bottom-color: transparent; }
+.bel-golf.g2 { right: -7px; border-left-color: transparent; border-top-color: transparent; border-bottom-color: transparent; }
+.btn.belt .bel-golf { animation: bel-golf .7s ease-out; }
+.btn.belt .bel-golf.g2 { animation-delay: .06s; }
+@keyframes bel-golf { 0% { opacity: .9; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.6); } }
+.bel-txt { display: inline-block; transition: opacity .16s, transform .16s; }
+.bel-txt.weg { opacity: 0; transform: translateY(4px); }
+@media (prefers-reduced-motion: reduce) { .btn.belt .bel-ic, .btn.belt .bel-golf { animation: none; } }
+:root[data-motion="reduce"] .btn.belt .bel-ic, :root[data-motion="reduce"] .btn.belt .bel-golf { animation: none; }
 
 /* ---------- Lightbox ---------- */
 .lightbox {
@@ -785,6 +836,71 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 @media (prefers-reduced-motion: reduce) { .prism-host:not(.in-l) .grad-text.glans { animation: none; } }
 :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text.glans { animation: none; }
+
+/* ---------- Tech Text op de naam ----------
+   main.js splitst de naam na de intro in letters. In de hover-modus (.tech)
+   valt de background-clip weg, zodat één letter hol kan worden. */
+.hero-name { position: relative; }
+.tch-w { white-space: nowrap; }
+.tch { display: inline-block; }
+.hero-name.tech .grad-text { background: none !important; color: var(--g-ink); -webkit-text-fill-color: currentColor; }
+.hero-name.tech .tch.lijn, .hero-name .tch.kick { -webkit-text-fill-color: transparent; -webkit-text-stroke: 1.5px var(--g-ink); }
+.tch.kick { animation: tch-kick .75s cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes tch-kick {
+  0% { transform: none; }
+  30% { transform: translateY(calc(var(--kick, 1) * -.22em)); }
+  100% { transform: none; }
+}
+.tch-kader {
+  position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none;
+  border: 1px solid var(--g-acc); opacity: 0;
+  transition: transform .28s cubic-bezier(.2, .8, .2, 1), width .28s cubic-bezier(.2, .8, .2, 1), height .28s cubic-bezier(.2, .8, .2, 1), opacity .2s;
+}
+.hero-name.tech .tch-kader { opacity: 1; }
+.tch-h { position: absolute; width: 6px; height: 6px; background: var(--g-bg); border: 1px solid var(--g-acc); }
+.tch-h.tl { left: -4px; top: -4px; } .tch-h.tr { right: -4px; top: -4px; }
+.tch-h.bl { left: -4px; bottom: -4px; } .tch-h.br { right: -4px; bottom: -4px; }
+.tch-label {
+  position: absolute; left: -1px; bottom: calc(100% + 6px); white-space: nowrap;
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; font-weight: 400; letter-spacing: .02em;
+  text-transform: none; line-height: 1; padding: 3px 5px; color: var(--g-bg); background: var(--g-acc);
+}
+.tch-specks { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .2s; }
+.hero-name.tech .tch-specks { opacity: 1; }
+.tch-specks i { position: absolute; width: 4px; height: 4px; background: var(--g-acc); animation: tch-speck 1.4s steps(1) infinite; }
+@keyframes tch-speck { 0% { opacity: 1; } 35% { opacity: 0; } 70% { opacity: .6; } }
+@media (prefers-reduced-motion: reduce) { .tch-kader { transition: none; } .tch-specks i { animation: none; } }
+:root[data-motion="reduce"] .tch-kader { transition: none; }
+:root[data-motion="reduce"] .tch-specks i { animation: none; }
+
+/* ---------- Grainient op de knoppen in de hero ----------
+   Bij hover vloeit er een korrelig verloop in schemerkleuren onder de tekst:
+   diep paars, rozerood en amber, met een lichte vlek waar de cursor is (--mx,
+   --my, gezet door main.js). Het verloop drijft traag; de korrel is een vaste
+   laag ruis die bij hover verschuift. */
+.hero-side .btn { position: relative; overflow: hidden; isolation: isolate; }
+.hero-side .btn > * { position: relative; z-index: 2; }
+.hero-side .btn::before, .hero-side .btn::after { content: ""; position: absolute; inset: -2px; z-index: 0; opacity: 0; transition: opacity .35s; pointer-events: none; }
+.hero-side .btn::before {
+  background:
+    radial-gradient(circle at var(--mx, 30%) var(--my, 50%), rgba(255, 196, 140, .85) 0, rgba(255, 196, 140, 0) 42%),
+    radial-gradient(120% 140% at 90% 110%, #c2416c 0, rgba(194, 65, 108, 0) 60%),
+    linear-gradient(55deg, #1b1022 0%, #4b1e52 40%, #a53a63 75%, #e0814a 100%);
+  background-size: 100% 100%, 160% 160%, 220% 220%;
+  animation: grain-drijf 7s ease-in-out infinite alternate paused;
+}
+.hero-side .btn::after {
+  z-index: 1; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  animation: grain-korrel .5s steps(2) infinite paused;
+}
+.hero-side .btn:hover { color: #fff; border-color: transparent; background: #1b1022; }
+.hero-side .btn:hover::before { opacity: 1; animation-play-state: running; }
+.hero-side .btn:hover::after { opacity: .55; animation-play-state: running; }
+@keyframes grain-drijf { from { background-position: 0 0, 0% 0%, 0% 50%; } to { background-position: 0 0, 100% 100%, 100% 50%; } }
+@keyframes grain-korrel { 50% { transform: translate(-6px, 4px); } }
+@media (prefers-reduced-motion: reduce) { .hero-side .btn::before, .hero-side .btn::after { animation: none; } }
+:root[data-motion="reduce"] .hero-side .btn::before, :root[data-motion="reduce"] .hero-side .btn::after { animation: none; }
 
 /* ---------- Zachte overgang tussen secties ----------
    main.js geeft elke sectie de achtergrondkleur van de sectie erboven mee
