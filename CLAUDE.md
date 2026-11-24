@@ -83,7 +83,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
   de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
   `main.js`. Er wordt niets gekloond. Na de intro schuift er één lichtglans over de naam;
-  daarna is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
+  daarna worden de letters opgesplitst en is de naam gewone tekst in de
+  inktkleur (`.gesplitst`): WebKit (iPhone) tekent background-clip: text niet
+  door in inline-block letters, en dan was de naam onzichtbaar. Daarna
+  is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
   letter onder de cursor wordt een lijnletter met een glijdend kader en label,
   een klik laat letters opspringen. De heroknoppen krijgen bij hover een
   korrelig verloop ("Grainient", css onder die naam). Rechts van "Victor" staat een
