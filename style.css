@@ -339,14 +339,19 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* ---------- Sectiekop ---------- */
 .sec-head {
   display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 16px;
-  padding-top: 40px; margin-bottom: 44px;
+  padding-top: 40px; margin-bottom: 44px; align-items: end;
 }
-.sec-head > :first-child { grid-column: 1 / span 4; }
-.sec-head > :last-child { grid-column: 5 / span 8; }
+/* Zoals de hero: de titel krijgt de linkerhelft en is even groot als de naam
+   bovenaan; de ondertitel en uitleg staan rechts, onderaan uitgelijnd. */
+.sec-head > :first-child { grid-column: 1 / span 7; }
+.sec-head > :last-child { grid-column: 8 / span 5; }
 .sec-title {
-  font-family: var(--font-head); font-weight: 700; font-size: clamp(3rem, 5vw, 4.4rem);
-  line-height: .9; text-transform: uppercase; color: var(--g-acc); letter-spacing: .005em;
+  font-family: var(--font-head); font-weight: 800; font-size: clamp(4.2rem, 10.4vw, 9.6rem);
+  line-height: .86; text-transform: uppercase; color: var(--g-acc); letter-spacing: .005em;
 }
+/* een titel van twee regels (KSA Herentals) staat wat kleiner, zodat hij ruim
+   wegblijft van de tekst ernaast */
+.sec-title.sec-title-lang { font-size: clamp(3.6rem, 7.6vw, 7rem); }
 .sec-sub { font-family: var(--font); font-weight: 600; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.2; letter-spacing: -.015em; }
 .sec-sub .em-serif { font-style: italic; font-weight: 500; }
 .sec-lead { margin-top: 12px; color: var(--g-soft); max-width: 62ch; }
@@ -382,7 +387,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    oogde als twee losse blokken. */
 .org { border-top: 1px solid var(--g-line); }
 .org > .rows { border-top: 0; }
-.org-head { padding-top: 22px; }
+.org-head { padding-top: 22px; padding-right: clamp(24px, 5vw, 72px); }
 /* een blok rijen onder een werkgever volgt hetzelfde raster: label links, rijen rechts */
 .org + .sub-block { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; border-top: 1px solid var(--g-line); }
 .org + .sub-block > .label { grid-column: 1 / span 4; padding-top: 14px; }
@@ -568,7 +573,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    label staat altijd in de html, dus een schermlezer leest het gewoon. */
 .stack-hoek { position: absolute; top: 16px; right: 16px; z-index: 5; display: flex; gap: 8px; }
 .stack-hoek a {
-  display: inline-flex; align-items: center; height: 42px; max-width: 42px; padding: 0 12px; overflow: hidden;
+  display: inline-flex; align-items: center; height: 44px; max-width: 44px; padding: 0 13px; overflow: hidden;
   border-radius: 999px; background: var(--g-acc); color: var(--g-bg); text-decoration: none;
   font-weight: 600; font-size: .84rem; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .6);
   transition: max-width .4s cubic-bezier(.2, .7, .2, 1);
@@ -815,9 +820,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .hero > *, .sec-head > :first-child, .sec-head > :last-child, .org-head, .org > .rows,
   .contact > :first-child, .contact > :last-child { grid-column: 1 / -1; }
   .org + .sub-block { display: block; }
+  .org-head { padding-right: 0; }
   .org > .rows, .org + .sub-block > .rows { border-top: 1px solid var(--g-line); }
   .org + .sub-block > .label { padding-top: 22px; margin-bottom: 14px; }
   .hero-name { font-size: clamp(3.6rem, 17vw, 6rem); }
+  .sec-title { font-size: clamp(3.6rem, 19vw, 7rem); }
+  .sec-title.sec-title-lang { font-size: clamp(3.2rem, 15vw, 5.6rem); }
   .cols-2, .cols-3 { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 40px; padding-bottom: 64px; }
@@ -1033,3 +1041,16 @@ a, button, summary, label { touch-action: manipulation; }
    verspringen bij het laden); :where houdt dit zwakker dan elke andere regel */
 :where(img[width][height]) { height: auto; }
 :root[data-motion="reduce"] .stack-hoek a, :root[data-motion="reduce"] .stack-hoek a span { transition: none; }
+
+/* ---------- Na de audit: kleine zichtbare verfijningen ----------
+   De fotogalerij toont op een smal scherm een teller in plaats van de 23
+   streepjes; op een groot scherm blijven de streepjes. */
+.is-lenti .gal-count { display: none; }
+@media (max-width: 560px) {
+  .is-lenti .gal-rail { display: none; }
+  .is-lenti .gal-count { display: block; }
+}
+/* titels verdelen hun woorden gelijkmatig over de regels (geen los woord onderaan) */
+h1, h2, h3, h4, .sec-title, .sec-sub, .contact-title, .stack-title { text-wrap: balance; }
+/* een tik op gsm licht kort op in het accent van de sectie, in plaats van grijs */
+a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(--g-acc, #e0a870) 22%, transparent); }

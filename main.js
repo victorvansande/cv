@@ -111,7 +111,7 @@
     hero.appendChild(pil);
     const img = pil.firstChild;
     const KOPX = 0.41, KOP = 0.33;          // plaats van het hoofd in de foto (0 tot 1)
-    const ZOOM = 1.25;
+    const ZOOM = 1;                         // zo ver mogelijk uitgezoomd: de foto vult net de breedte van de pil
     const meet = document.createElement("canvas").getContext("2d");
     const zet = () => {
       if (wortel.classList.contains("intro") || wortel.dataset.view === "compact") { pil.classList.remove("toon"); return; }
@@ -144,8 +144,7 @@
       pil.style.top = (regels[0].top + asc - kap - hr.top).toFixed(1) + "px";
       pil.style.width = breed.toFixed(1) + "px";
       pil.style.height = hoog.toFixed(1) + "px";
-      // het hoofd in het midden van de pil: de foto staat iets ingezoomd en
-      // schuift zo dat het hoofd centraal staat, zonder dat er rand zichtbaar wordt
+      // het hoofd zo centraal als de foto toelaat, zonder dat er rand zichtbaar wordt
       const z = Math.max(breed, hoog) * ZOOM;
       const kl = (v, min) => Math.min(0, Math.max(min, v));
       img.style.width = img.style.height = z.toFixed(1) + "px";

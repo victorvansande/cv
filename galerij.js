@@ -75,7 +75,12 @@
       rail.appendChild(s);
       return s;
     });
-    ui.append(vorige, rail, volgende);
+    // op een smal scherm vervangt een teller ("3 / 23") het spoor met streepjes:
+    // bij veel foto's worden die streepjes daar te smal om te raken (zie style.css)
+    const teller = document.createElement("span");
+    teller.className = "gal-count";
+    teller.setAttribute("aria-live", "polite");
+    ui.append(vorige, rail, teller, volgende);
     gal.append(view, ui);
 
     const kaarten = items.map((it) => {
@@ -205,6 +210,7 @@
         if (!a) k.doel = 0;
       });
       segmenten.forEach((s, i) => s.setAttribute("aria-current", i === idx ? "true" : "false"));
+      teller.textContent = (idx + 1) + " / " + items.length;
       vorige.disabled = idx === 0;
       volgende.disabled = idx === items.length - 1;
       if (geenHover) kaarten[idx].doel = 1;  // op aanraakschermen draait de kaart in het midden zelf om
