@@ -59,11 +59,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   bezoeker zonder javascript of een schermlezer nooit "0" leest. Ze tellen niet
   meer op; `hertelGetallen()` in `main.js` zet enkel het scheidingsteken volgens
   de taal (14.716 / 14,716).
-- **Intro-animatie**: `main.js` kloont de `h1.prism-host` in `.intro-stage`, die
-  daarom `aria-hidden="true"` draagt. De hele intro-css staat onderaan
-  `style.css` en is ongewijzigd overgenomen uit de vorige versie. De hero-foto
-  is bewust laag (`.frame-hero`): de naam moet bij het laden volledig in beeld
-  staan, want daar speelt de intro zich af.
+- **Intro-animatie "Venster"** (sinds nov 2026, vervangt de regenboogintro):
+  eenmaal per sessie (`sessionStorage` `vvs-intro-seen`, klasse `intro` op
+  `<html>`). De echte `h1.hero-name` staat eerst groot over het scherm met de
+  zonsverduistering in de letters en krimpt dan naar zijn plaats; de rest van
+  de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
+  de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
+  `main.js`. Er wordt niets gekloond. De klikgloed en de spectrumhover op de
+  naam zijn van de vorige intro overgebleven en werken nog.
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere

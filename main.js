@@ -27,127 +27,61 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") zetMenu(false); });
   }
 
-  /* ---- Prisma-intro: de naamlagen klonen uit de echte h1 ----
-     De h1 gebruikt `text-wrap: balance`, die de regels verdeelt over de hele
-     kop ("Hallo, ik ben" + de naam). Een kopie die alleen de naam bevat komt
-     daardoor op een andere regelval uit, vandaar dat er eerder een tweede
-     "Sande" op een eigen regel kon belanden. Door de volledige h1 te klonen en
-     daarin alles behalve de naam onzichtbaar te zetten, is de zetting per
-     definitie identiek: zelfde inhoud, zelfde breedte, zelfde balancering. */
-  /* Wie beweging beperkt krijgt de intro niet te zien: de CSS verbergt de laag.
-     Dan moet de klasse ook meteen weg. Zonder dit blijft het scrollslot ruim
-     negen seconden dicht voor een animatie die helemaal niet speelt - de laag
-     is immers display: none, dus er komt ook nooit een animationend. */
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      document.documentElement.dataset.motion === "reduce") {
-    document.documentElement.classList.remove("intro", "go");
-    const stilleVeil = document.querySelector(".intro-veil");
-    if (stilleVeil) stilleVeil.remove();
+  /* ---- Intro "Venster" ----
+     De animatie zelf staat volledig in style.css; hier enkel de startpoort en
+     het opruimen. Wie minder beweging wil, krijgt geen intro: dan gaat de
+     klasse meteen weg en staat de hero er gewoon.
+     De poort gaat pas open als het lettertype en de foto binnen zijn. De foto
+     vult de letters; zonder foto zouden ze doorzichtig zijn, en een lettertype
+     dat halverwege binnenkomt verandert de breedte van de naam. Er zit een dop
+     op het wachten, zodat een trage verbinding de intro nooit tegenhoudt. */
+  const wortel = document.documentElement;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce") {
+    wortel.classList.remove("intro", "go");
   }
-  if (document.documentElement.classList.contains("intro")) {
-    const veil = document.querySelector(".intro-veil");
-    const stage = veil && veil.querySelector(".intro-stage");
-    const host = document.querySelector(".prism-host");
-    const real = host && host.querySelector(".grad-text");
-    if (veil && stage && host && real) {
-      // de flitslaag komt als laatste, dus bovenop de scherpe letters
-      const copies = ["in-b3", "in-b1", "in-b0", "in-flash"].map((cls) => {
-        const clone = host.cloneNode(true);
-        clone.classList.add("in-l", cls);
-        clone.removeAttribute("id");
-        // i18n moet de klonen negeren: ze leven maar een paar seconden
-        clone.querySelectorAll("[data-i18n]").forEach((el) => el.removeAttribute("data-i18n"));
-        // alles behalve de naam onzichtbaar, maar wel ruimte latend innemen
-        clone.querySelectorAll(":scope > *:not(.grad-text)").forEach((el) => el.classList.add("intro-hidden"));
-        stage.appendChild(clone);
-        return clone;
-      });
-      let last = "";
-      const place = () => {
-        const h = host.getBoundingClientRect();
-        const r = real.getBoundingClientRect();
-        const key = h.left + "|" + h.top + "|" + h.width + "|" + r.top + "|" + r.height;
-        if (key === last) return;
-        last = key;
-        // de klonen liggen op de h1 zelf, niet op de naam: zo klopt de regelval
-        stage.style.left = h.left + "px";
-        stage.style.top = h.top + "px";
-        stage.style.width = h.width + "px";
-        stage.style.height = h.height + "px";
-        copies.forEach((c) => { c.style.width = h.width + "px"; });
-        // explosie en lichtspill centreren op het midden van de naam
-        veil.style.setProperty("--nx", r.left + r.width / 2 + "px");
-        veil.style.setProperty("--ny", r.top + r.height / 2 + "px");
-      };
-      /* De echte naam beweegt vooral in het begin: de hero-kaart schuift omhoog
-         (.reveal, 0.8s) en het webfont kan later binnenkomen. Daarvoor volgen we
-         elk frame. Elke meting dwingt de browser tot een layout-herberekening,
-         dus dat doen we enkel zolang er nog iets kan schuiven; daarna volstaan
-         scroll- en resize-events, die alleen vuren als er echt iets verandert. */
-      let tracking = true, live = true;
-      const track = () => { if (!tracking) return; place(); requestAnimationFrame(track); };
-      place();
-      requestAnimationFrame(track);
-      setTimeout(() => { tracking = false; }, 1800);
-      const onMove = () => { if (live) place(); };
-      addEventListener("scroll", onMove, { passive: true });
-      addEventListener("resize", onMove, { passive: true });
-      /* rAF ligt stil in een achtergrondtab; deze hermetingen vuren wél en vangen
-         het uitklappen van de hero-kaart en het laden van het webfont op, zodat
-         de laag ook dan exact blijft liggen. */
-      [80, 260, 520, 900, 1400].forEach((ms) => setTimeout(place, ms));
-
-      /* De startpoort openen. Wachten op het webfont is niet alleen netjes voor
-         de uitlijning: als het lettertype halverwege binnenkomt, moeten de drie
-         vervaagde naamlagen opnieuw gerasterd worden, en dat is midden in de
-         animatie goed zichtbaar. De twee frames erna geven de browser de kans
-         het eerste beeld rustig neer te zetten. Het scherm is zwart, dus dit
-         wachten kost visueel niets - maar er zit een dop op, zodat een traag
-         lettertype de intro nooit tegenhoudt. */
-      const ready = Promise.race([
+  if (wortel.classList.contains("intro")) {
+    const foto = new Image();
+    foto.src = "assets/photos/zonsverduistering.jpg";
+    const klaar = Promise.race([
+      Promise.all([
         document.fonts ? document.fonts.ready : Promise.resolve(),
-        new Promise((r) => setTimeout(r, 900)),
-      ]);
-      ready.then(() => requestAnimationFrame(() => requestAnimationFrame(() => {
-        place();
-        document.documentElement.classList.add("go");
-      })));
-      /* De intro houdt de pagina niet tegen en wordt ook niet afgekapt: er staat
-         geen slot op het scrollen, en wie toch scrolt laat de animatie gewoon
-         uitspelen. Ze duurt bijna zeven seconden en is bedoeld om gezien te
-         worden.
-         De naamlagen blijven daarbij op de echte naam liggen: onMove hierboven
-         meet bij elke scroll opnieuw waar de h1 staat en legt de lagen daarop.
-         Scrol je ver door, dan reist de animatie dus mee met de kop en verlaat
-         ze het beeld - ze speelt wel af, je kijkt er alleen niet meer naar. */
-
-      const done = () => {
-        tracking = false;
-        live = false;
-        removeEventListener("scroll", onMove);
-        removeEventListener("resize", onMove);
-        veil.remove();
-        /* Ook de klassen weg: anders houdt de pauzeregel de echte naam
-           verborgen als de poort door een fout nooit geopend zou zijn. */
-        document.documentElement.classList.remove("intro", "go");
-      };
-      veil.addEventListener("animationend", (e) => { if (e.animationName === "intro-end") done(); });
-      /* Vangnet, zodat de laag nooit blijft hangen als animationend uitblijft.
-         De teller start pas als de pagina zichtbaar is: in een achtergrondtab
-         bevriest de browser de animatie, en dan mag de intro niet al weggegooid
-         zijn tegen dat de bezoeker gaat kijken. */
-      // ruim na het einde van de animatie (6,6s + 0,12s aanloop), anders zou dit
-      // vangnet de intro voortijdig afkappen
-      const arm = () => setTimeout(done, 9000);
-      if (document.visibilityState === "visible") arm();
-      else {
-        document.addEventListener("visibilitychange", function onVis() {
-          if (document.visibilityState !== "visible") return;
-          document.removeEventListener("visibilitychange", onVis);
-          arm();
-        });
-      }
-    }
+        foto.decode ? foto.decode().catch(() => {}) : Promise.resolve(),
+      ]),
+      new Promise((r) => setTimeout(r, 1400)),
+    ]);
+    const naam = document.querySelector(".hero-name");
+    /* Beginstand per scherm: de naam zo groot mogelijk (hoogstens 2,4 keer),
+       met marge links en rechts, en verticaal gecentreerd in de ruimte onder
+       de menubalk. Gemeten zonder de animatie, anders meet je de vergroting. */
+    const plaats = () => {
+      if (!naam || wortel.classList.contains("go")) return;
+      const anim = naam.style.animation;
+      naam.style.animation = "none";
+      const r = naam.querySelector(".grad-text").getBoundingClientRect();
+      const n = naam.getBoundingClientRect();
+      naam.style.animation = anim;
+      const balk = (document.querySelector(".nav") || { offsetHeight: 0 }).offsetHeight;
+      const marge = Math.max(16, innerWidth * 0.04);
+      const sc = Math.max(1, Math.min(2.4, (innerWidth - 2 * marge) / r.width, (innerHeight - balk - 2 * marge) / r.height));
+      const doelL = (innerWidth - r.width * sc) / 2;
+      const doelT = balk + (innerHeight - balk - r.height * sc) / 2;
+      wortel.style.setProperty("--vs", sc.toFixed(3));
+      wortel.style.setProperty("--vtx", (doelL - n.left - (r.left - n.left) * sc).toFixed(1) + "px");
+      wortel.style.setProperty("--vty", (doelT - n.top - (r.top - n.top) * sc).toFixed(1) + "px");
+    };
+    plaats();
+    klaar.then(() => { plaats(); requestAnimationFrame(() => requestAnimationFrame(() => wortel.classList.add("go"))); });
+    const done = () => wortel.classList.remove("intro", "go");
+    if (naam) naam.addEventListener("animationend", (e) => { if (e.animationName === "v-name") done(); });
+    /* vangnet als animationend uitblijft; het telt pas wanneer de pagina
+       zichtbaar is, want in een achtergrondtab staat de animatie stil */
+    const arm = () => setTimeout(done, 6000);
+    if (document.visibilityState === "visible") arm();
+    else document.addEventListener("visibilitychange", function onVis() {
+      if (document.visibilityState !== "visible") return;
+      document.removeEventListener("visibilitychange", onVis);
+      arm();
+    });
   }
 
   /* ---- Klik op de naam: de letters stralen kleur uit ----
