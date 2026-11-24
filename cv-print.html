@@ -27,6 +27,7 @@
     --a-herfst: #8f5a1e;    /* herfstbos: amber */
     --a-centraal: #6f5a36;  /* Antwerpen-Centraal: steen */
     --a-schelde: #3f5568;   /* Schelde: staalblauw */
+    --a-urbex: #a74221;     /* masterproef: terracotta van de baksteen van het MAS */
   }
   html, body { background: #fff; }
   body {
@@ -38,7 +39,7 @@
   .sheet + .sheet { page-break-before: always; }
 
   /* ---------- Breedbeeld bovenaan ---------- */
-  .band { width: 100%; height: 18mm; object-fit: cover; display: block; }
+  .band { width: 100%; height: 18mm; object-fit: cover; display: block; border-radius: 1.6mm; }
   .band-cap { font-size: 6.6pt; letter-spacing: .5pt; color: var(--dim); margin-top: 1.6mm; }
 
   /* ---------- Kop ---------- */
@@ -48,6 +49,11 @@
   .hd .role span { color: var(--a-eclipse); }
   .hd-right { text-align: right; font-size: 8.3pt; color: var(--soft); line-height: 1.75; }
   .hd-right b { color: var(--ink); font-weight: 500; }
+  /* portret in een pil rechts van "Victor", even hoog als de hoofdletters en
+     tot waar "Sande" eindigt; het script onderaan zet de maten */
+  .hd h1 { position: relative; }
+  .pil { position: absolute; border-radius: 99mm; overflow: hidden; display: none; }
+  .pil img { position: absolute; display: block; max-width: none; }
   .rule { height: 1px; background: var(--ink); margin-top: 4mm; }
 
   /* ---------- Kolommen ---------- */
@@ -66,8 +72,10 @@
   .langs { border-top: 1px solid var(--line); }
   .lang b { font-weight: 600; }
   .lang span { color: var(--dim); font-size: 7.8pt; }
+  /* geen streep onder het laatste item van een opsomming, zoals op de site */
+  .slist li:last-child, .langs .lang:last-child, .roles .item:last-child { border-bottom: 0; }
   .tools { display: flex; flex-wrap: wrap; gap: 1.2mm; }
-  .tool { font-size: 7.4pt; padding: .5mm 2mm; border: 1px solid var(--line); color: var(--soft); border-radius: 1px; }
+  .tool { font-size: 7.4pt; padding: .5mm 2mm; border: 1px solid var(--line); color: var(--soft); border-radius: 1.1mm; }
 
   /* ---------- Hoofdkolom ---------- */
   .blk { margin-bottom: 6mm; }
@@ -95,6 +103,7 @@
   .acc-herfst { --acc: var(--a-herfst); }
   .acc-centraal { --acc: var(--a-centraal); }
   .acc-schelde { --acc: var(--a-schelde); }
+  .acc-urbex { --acc: var(--a-urbex); }
   [class*="acc-"] .sec-h h2, [class*="acc-"] .org b, [class*="acc-"] .hon, [class*="acc-"] .lbl { color: var(--acc); }
 
   .thesis-t { font-weight: 600; font-size: 10.6pt; }
@@ -134,7 +143,7 @@
   <img class="band" src="assets/photos/zonsverduistering.jpg" alt="">
   <header class="hd">
     <div>
-      <h1>Victor<br>Van Sande</h1>
+      <h1><span class="nm-1">Victor</span><br><span class="nm-2">Van Sande</span><span class="pil"><img src="assets/victor-profiel.jpg" alt=""></span></h1>
       <p class="role">Communicatiewetenschapper <span>· Fondsenwerver bij Gekkoo</span></p>
     </div>
     <div class="hd-right">
@@ -281,7 +290,7 @@
       </div>
     </div>
 
-    <div class="blk acc-centraal">
+    <div class="blk acc-urbex">
       <div class="sec-h"><h2>Masterproef</h2><span class="ln"></span></div>
       <div class="thesis">
         <div class="thesis-t">De Macht van Misleiding</div>
@@ -330,5 +339,21 @@
   </div>
 </section>
 
+<script>
+  /* Dezelfde meting als op de site (main.js): de pil begint net na "Victor",
+     eindigt waar "Sande" eindigt, en is even hoog als een hoofdletter. */
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    const h1 = document.querySelector(".hd h1"), pil = h1.querySelector(".pil"), img = pil.firstChild;
+    const r1 = h1.querySelector(".nm-1").getBoundingClientRect(), r2 = h1.querySelector(".nm-2").getBoundingClientRect(), h = h1.getBoundingClientRect();
+    const cs = getComputedStyle(h1), c = document.createElement("canvas").getContext("2d");
+    c.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+    const m = c.measureText("VICTOR"), kap = m.actualBoundingBoxAscent, asc = m.fontBoundingBoxAscent;
+    const fs = parseFloat(cs.fontSize), links = r1.right + fs * .14, breed = r2.right - links;
+    const top = r1.top + (r1.height - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 + asc - kap;
+    Object.assign(pil.style, { display: "block", left: (links - h.left) + "px", top: (top - h.top) + "px", width: breed + "px", height: kap + "px" });
+    const z = Math.max(breed, kap), kl = (v, min) => Math.min(0, Math.max(min, v));
+    Object.assign(img.style, { width: z + "px", height: z + "px", left: kl(breed / 2 - .41 * z, breed - z) + "px", top: kl(kap / 2 - .33 * z, kap - z) + "px" });
+  });
+</script>
 </body>
 </html>
