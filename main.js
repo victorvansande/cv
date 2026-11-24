@@ -236,8 +236,9 @@
 
   /* ---- Grainient op de knoppen in de hero ----
      Het korrelige verloop volgt de cursor een beetje: de lichtste vlek staat
-     waar de muis is. De rest (de kleuren, de korrel, het drijven) zit in css. */
-  document.querySelectorAll(".hero-side .btn").forEach((b) => {
+     waar de muis is. De rest (de kleuren, de korrel, het drijven) zit in css.
+     De trefwoorden (.tags span) krijgen hetzelfde, in het accent van hun sectie. */
+  document.querySelectorAll(".hero-side .btn, .tags span").forEach((b) => {
     b.addEventListener("pointermove", (e) => {
       const r = b.getBoundingClientRect();
       b.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");

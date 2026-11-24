@@ -77,7 +77,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   daarna is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
   letter onder de cursor wordt een lijnletter met een glijdend kader en label,
   een klik laat letters opspringen. De heroknoppen krijgen bij hover een
-  korrelig verloop ("Grainient", css onder die naam).
+  korrelig verloop ("Grainient", css onder die naam); de trefwoorden
+  (`.tags span`) krijgen bij hover hetzelfde, in het accent van hun sectie.
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
