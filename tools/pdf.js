@@ -14,6 +14,8 @@ const path = require("path");
   const page = await browser.newPage();
   await page.goto("file://" + bron, { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
+  // cv-print.html zet na de fonts nog de portretpil met een script
+  await page.waitForTimeout(300);
   await page.pdf({ path: uit, format: "A4", printBackground: true, preferCSSPageSize: true });
   await browser.close();
   console.log(uit);
