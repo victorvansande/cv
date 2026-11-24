@@ -325,7 +325,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .btn-line:hover { background: transparent; color: var(--g-acc); border-color: var(--g-acc); }
 
 /* ---------- Essentie ---------- */
-.essentie { margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--g-line); }
+.essentie { margin-top: 72px; padding-top: 22px; }
 .label {
   font-family: var(--font); font-size: .74rem; font-weight: 600; letter-spacing: .14em;
   text-transform: uppercase; color: var(--g-acc);
