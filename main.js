@@ -97,6 +97,19 @@
     });
   }
 
+  /* ---- Lagen achter de grote foto's (naar de Staggered Menu van React Bits) ----
+     Achter elke grote foto liggen twee lagen in het accent van de sectie. Bij
+     hover schuiven ze kort na elkaar een paar pixels rechts onder de foto
+     uit, zoals de gekleurde voorlagen van dat menu. Het effect zit in css;
+     hier worden enkel de foto en de lagen in een omhulsel gezet. */
+  document.querySelectorAll(".frame > img").forEach((img) => {
+    const om = document.createElement("span");
+    om.className = "frame-lagen";
+    img.before(om);
+    om.innerHTML = '<i class="laag l1" aria-hidden="true"></i><i class="laag l2" aria-hidden="true"></i>';
+    om.appendChild(img);
+  });
+
   /* ---- Portret in een pil naast de naam ----
      Rechts van "Victor" staat een pil met het portret, even hoog als de
      hoofdletters en precies zo breed dat ze eindigt waar "Sande" eindigt.

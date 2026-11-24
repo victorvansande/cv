@@ -109,6 +109,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   Geen secties die pas bij het scrollen verschijnen. De sectietitels vullen de linkerkolom
   (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).
+  Achter elke grote foto liggen twee lagen in het accent die bij hover na
+  elkaar rechts uitschuiven (`.frame-lagen`, naar de Staggered Menu van React
+  Bits; main.js zet het omhulsel). Een kop binnen een sectie (`.sub-head >
+  .sec-sub`, Wat me drijft) staat in de titelletter, kleiner dan de sectietitel.
   Knoppen hebben zachte hoeken (6 px), labels en trefwoorden 4 px; geen
   volledig ronde pillen (enkel het portret).
   Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
