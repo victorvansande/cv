@@ -36,15 +36,21 @@
     (function () {
       try {
         if (!sessionStorage.getItem("vvs-intro-seen")) {
-          document.documentElement.classList.add("intro");
+          var d = document.documentElement;
+          d.classList.add("intro");
           sessionStorage.setItem("vvs-intro-seen", "1");
+          // het vel papier ligt er al vanaf de eerste paint, anders zie je
+          // eerst kort de site; vel.js neemt het daarna over
+          var rustig = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          try { rustig = rustig || localStorage.getItem("cv-motion") === "reduce" || localStorage.getItem("cv-weergave") === "compact"; } catch (e) {}
+          if (!rustig) d.classList.add("vel-open");
         }
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=226" />
+  <link rel="stylesheet" href="style.css?v=227" />
   <script src="i18n.js?v=75" defer></script>
-  <script src="vel.js?v=2" defer></script>
+  <script src="vel.js?v=3" defer></script>
   <script src="main.js?v=99" defer></script>
   <script src="galerij.js?v=1" defer></script>
   <script src="stapel.js?v=2" defer></script>

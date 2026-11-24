@@ -28,7 +28,10 @@
 
   const rustig = matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
   // geen vel bij een herbezoek in dezelfde sessie, in de compacte weergave of bij minder beweging
-  if (!vel || !wortel.classList.contains("intro") || rustig || wortel.dataset.view === "compact") {
+  // het inlinescript in de head zet vel-open al voor de eerste paint (zo zie je
+  // de site niet eerst even); hier wordt dat enkel nog bevestigd of ingetrokken
+  if (!vel || !wortel.classList.contains("intro") || !wortel.classList.contains("vel-open") || rustig || wortel.dataset.view === "compact") {
+    wortel.classList.remove("vel-open");
     if (vel) vel.remove();
     if (waas) waas.remove();
     klaarMelden();
@@ -37,7 +40,6 @@
 
   const regel = vel.querySelector(".vel-regel");
   const hint = vel.querySelector(".vel-hint");
-  wortel.classList.add("vel-open");
   const rnd = (a, b) => a + Math.random() * (b - a);
 
   /* ---- typen ---- */
@@ -50,60 +52,99 @@
     regel.appendChild(s);
     return s;
   });
+  /* De cursor staat telkens net achter de laatst getypte letter. Alle letters
+     staan er van bij het begin (onzichtbaar), dus de regel heeft meteen zijn
+     eindbreedte; de cursor schuift ertussen. Omdat de cursor altijd even breed
+     is, staat elke letter links ervan al op zijn uiteindelijke plaats. */
   const wagen = document.createElement("span");
   wagen.className = "vel-wagen"; wagen.setAttribute("aria-hidden", "true");
-  regel.appendChild(wagen);
+  regel.insertBefore(wagen, letters[0]);
 
+  /* Elke aanslag wordt pas gepland nadat de vorige gevallen is. Als de pagina
+     eronder even bezig is, wordt het zo een korte pauze, zoals bij echt typen,
+     in plaats van een paar letters die tegelijk verschijnen. */
+  let schok = false;
   const typ = () => {
-    let t = 350;
-    letters.forEach((l, i) => {
-      const c = TEKST[i];
-      t += c === " " ? rnd(70, 110) : rnd(65, 150);
-      if (c === "-") t += 160;               // even nadenken voor het streepje
-      setTimeout(() => {
-        l.classList.add("aan");
-        if (c !== " ") { vel.classList.remove("schok"); void vel.offsetWidth; vel.classList.add("schok"); }
-      }, t);
-    });
-    setTimeout(() => hint.classList.add("toon"), t + 500);
+    let i = 0;
+    const volgende = () => {
+      if (weg) return;
+      if (i >= letters.length) { setTimeout(() => hint.classList.add("toon"), 500); return; }
+      const c = TEKST[i], l = letters[i];
+      l.classList.add("aan");
+      regel.insertBefore(wagen, letters[i + 1] || null);
+      if (c !== " ") {
+        schok = !schok;
+        vel.classList.remove(schok ? "schok-b" : "schok-a");
+        vel.classList.add(schok ? "schok-a" : "schok-b");
+      }
+      i++;
+      const n = TEKST[i];
+      let d = n === " " ? rnd(70, 110) : rnd(65, 150);
+      if (n === "-") d += 160;               // even nadenken voor het streepje
+      setTimeout(volgende, d);
+    };
+    setTimeout(volgende, 350 + rnd(65, 150));
   };
+  /* Beginnen zodra het lettertype er is en de pagina eronder klaar is met
+     laden: in die eerste fractie bouwt main.js de site op, en dat gaf
+     haperingen in de eerste letters. Hoogstens 1,6 seconde wachten. */
   const lt = document.fonts && document.fonts.load ? document.fonts.load('1em "Special Elite"').catch(() => {}) : Promise.resolve();
-  Promise.race([lt, new Promise((r) => setTimeout(r, 1200))]).then(typ);
+  const geladen = document.readyState === "complete" ? Promise.resolve() : new Promise((r) => addEventListener("load", r, { once: true }));
+  Promise.race([Promise.all([lt, geladen]), new Promise((r) => setTimeout(r, 1600))])
+    .then(() => new Promise((r) => requestAnimationFrame(() => r())))
+    .then(typ);
   // de focus op het vel zelf, zonder kader: zo hoort een schermlezer het
   // venster, en werken Enter en spatie meteen
   vel.tabIndex = -1;
   vel.focus({ preventScroll: true });
 
   /* ---- omhoog vegen ---- */
+  /* Bij het wegvegen wordt het vel opgetild: het schuift omhoog, de onderrand
+     kantelt licht naar je toe en de schaduw eronder groeit. De site eronder
+     stelt scherp en zakt van net iets dichterbij op zijn plaats. */
   let p = 0, anim = null, weg = false;
   const zetP = (v) => {
     p = v;
-    vel.style.transform = v ? "translate3d(0," + (-v * 105).toFixed(2) + "%,0)" : "";
-    wortel.style.setProperty("--vp", Math.max(0, Math.min(1, v)).toFixed(4));
+    const op = Math.max(0, Math.min(1, v));
+    vel.style.transform = v
+      ? "translate3d(0," + (-v * 108).toFixed(2) + "%,0) perspective(1600px) rotateX(" + (op * 9).toFixed(2) + "deg) scale(" + (1 - op * 0.035).toFixed(4) + ")"
+      : "";
+    wortel.style.setProperty("--vp", op.toFixed(4));
+    // de waas eronder staat enkel aan terwijl het vel beweegt (zie style.css)
+    wortel.classList.toggle("vel-los", v !== 0);
   };
-  const naar = (doel, duur, klaar) => {
+  const naar = (doel, duur, klaar, ease) => {
     cancelAnimationFrame(anim);
     const van = p, t0 = performance.now();
-    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    ease = ease || ((t) => 1 - Math.pow(1 - t, 3));
     const stap = (nu) => {
       const t = Math.min(1, (nu - t0) / duur);
-      zetP(van + (doel - van) * ease(t));
+      zetP(van + (doel - van) * ease(t, van));
       if (t < 1) anim = requestAnimationFrame(stap);
       else if (klaar) klaar();
     };
     anim = requestAnimationFrame(stap);
   };
+  /* Wegvegen: eerst zakt het vel heel even, alsof je het vastneemt, en dan
+     gaat het in één beweging weg, traag op gang en vlot op het einde. Komt het
+     al van een sleepbeweging, dan valt dat aanzetje weg. */
+  const wegEase = (t, van) => {
+    const vloei = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const aanzet = van > 0.02 ? 0 : 0.05 * Math.sin(Math.PI * Math.min(t / 0.3, 1));
+    return vloei - aanzet;
+  };
   const opruimen = () => {
     vel.remove();
     if (waas) waas.remove();
-    wortel.classList.remove("vel-open");
+    wortel.classList.remove("vel-open", "vel-los");
     wortel.style.removeProperty("--vp");
     klaarMelden();
   };
   const opzij = () => {
     if (weg) return;
     weg = true;
-    naar(1, 1100, opruimen);
+    hint.classList.remove("toon");
+    naar(1, 1300, opruimen, wegEase);
   };
 
   let y0 = 0, dy = 0, t0 = 0, sleept = false;
