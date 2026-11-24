@@ -727,7 +727,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* ---------- Snapshot op een bonnetje ----------
    Het papier rolt uit de printer over de site erboven: het vak neemt geen
    plaats in, zodat er niets verschuift (bonnetje.js schuift het papier op). */
-.snap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--g-line); align-items: end; }
+.snap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; margin-top: 64px; padding-top: 28px; align-items: end; }
 .snap-txt { grid-column: 1 / span 6; }
 .snap-area { grid-column: 8 / span 5; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 20; }
 .snap-hint { margin-top: 12px; font-size: .82rem; color: var(--g-dim); }
