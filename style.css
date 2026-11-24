@@ -488,285 +488,74 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 
 /* ---------- Afdrukken ---------- */
 @media print {
-  .nav, .intro-veil, .lightbox, .docbox, .skip-link { display: none !important; }
+  .nav, .lightbox, .docbox, .skip-link { display: none !important; }
   .grade, body { background: #fff !important; color: #000 !important; --g-ink: #000; --g-soft: #222; --g-dim: #555; --g-line: #ccc; --g-acc: #000; }
   .frame { display: none; }
 }
 
 /* ================================================================
-   Prisma-intro (eenmalig per sessie)
+   Intro "Venster" (eenmalig per sessie)
    ----------------------------------------------------------------
-   Nagebouwd naar het principe van de Sony-logoreveal: de kleur is
-   niet de versiering maar het geboortemedium. Ze piekt VOOR de
-   letters scherp zijn en is volledig weggetrokken zodra ze dat wel
-   zijn , daarna valt het licht binnen en verschijnt de pagina.
+   Bij het openen staat de naam groot over het scherm, en door de letters
+   heen zie je de zonsverduistering uit de hero. Daarna krimpt de naam naar
+   zijn plaats, vult hij zich met de gewone inktkleur, en komt de rest van de
+   hero erbij. Het is de echte h1 die beweegt, geen kopie: er kan dus nooit
+   een tweede naam naast de echte staan.
 
-   Alles speelt zich af op een zwarte laag bovenop de site, met een
-   kopie van de naam exact over de echte (JS meet de positie). Zo
-   hoeft er niets door de overflow/stacking-context van de glaskaart.
+   De foto zit in de achtergrond van de letters (background-clip: text). Het
+   overvloeien naar de inktkleur kan niet door een afbeelding te animeren;
+   daarom ligt er een effen laag in de inktkleur over de foto, waarvan de
+   dekking (--vk, een geregistreerde eigenschap) van 0 naar 1 loopt. Dat werkt
+   in beide versies, want de inktkleur is die van de huidige versie.
 
-   Prestatie: er animeren uitsluitend `opacity` en `transform` ,
-   allebei volledig GPU-gecomposit. De scherptetrek is géén
-   geanimeerde blur (die hapert omdat elk frame hergerasterd moet
-   worden) maar een kruisvervaging tussen drie statisch vervaagde
-   kopieën van de tekst.
+   Startpoort: zolang .go ontbreekt staat alles stil op het beginbeeld. main.js
+   zet .go pas als het lettertype en de foto binnen zijn: zonder foto zouden
+   de letters doorzichtig zijn. Er zit een dop op het wachten.
    ================================================================ */
-.intro-veil { display: none; }
+@property --vk { syntax: "<number>"; inherits: true; initial-value: 1; }
+:root.intro { --vs: 2; --vtx: 0px; --vty: -50%; }
+/* de vergrote naam mag de pagina niet breder maken dan het scherm */
+:root.intro body { overflow-x: clip; }
+:root.intro .hero-name {
+  position: relative; z-index: 2;
+  transform-origin: 0 0;
+  animation: v-name 3.2s cubic-bezier(.7, 0, .2, 1) .1s both;
+}
+:root.intro .hero-name .grad-text {
+  background-image:
+    /* een zwakke basistint van 14%, zodat de letters ook over de zwarte delen
+       van de foto leesbaar blijven */
+    linear-gradient(color-mix(in srgb, var(--g-ink) calc((.14 + var(--vk) * .86) * 100%), transparent),
+                    color-mix(in srgb, var(--g-ink) calc((.14 + var(--vk) * .86) * 100%), transparent)),
+    url(assets/photos/zonsverduistering.jpg);
+  background-size: auto, cover;
+  background-position: 0 0, 50% 45%;
+  animation: v-ink 3.2s linear .1s both;
+}
+:root.intro #home .frame,
+:root.intro #home .hero-side,
+:root.intro #home .essentie { animation: v-rest 3.2s ease-out .1s both; }
+:root.intro:not(.go) .hero-name,
+:root.intro:not(.go) .hero-name .grad-text,
+:root.intro:not(.go) #home .frame,
+:root.intro:not(.go) #home .hero-side,
+:root.intro:not(.go) #home .essentie { animation-play-state: paused; }
+@keyframes v-name {
+  /* main.js meet de schermmaat en zet --vtx, --vty en --vs zo dat de naam bij
+     de start zo groot mogelijk en volledig in beeld staat, onder de menubalk */
+  0%, 22% { transform: translate(var(--vtx), var(--vty)) scale(var(--vs)); }
+  70%, 100% { transform: none; }
+}
+@keyframes v-ink {
+  0%, 70% { --vk: 0; }
+  100% { --vk: 1; }
+}
+@keyframes v-rest { 0%, 58% { opacity: 0; } 100% { opacity: 1; } }
 
-/* Startpoort. De animatie begint niet op een vaste vertraging maar pas als het
-   scherm er klaar voor is: main.js zet `.go` nadat de naamlagen bestaan, het
-   webfont geregeld is en er een schone frame getekend is. Zonder die poort viel
-   de start midden in het laadwerk, sneuvelden de eerste frames, en precies dat
-   zag je als hapering. Zolang de poort dicht is staat alles stil op het
-   beginbeeld: zwart scherm, geen kleur, geen naam. */
-:root.intro:not(.go) .intro-veil,
-:root.intro:not(.go) .intro-veil *,
-:root.intro:not(.go) .prism-host:not(.in-l) .grad-text { animation-play-state: paused; }
-/* De laag laat aanwijzers door: de pagina eronder blijft gewoon bereikbaar,
-   ook terwijl de animatie loopt. Er staat dus geen slot meer op het scrollen. */
-:root.intro .intro-veil {
-  display: block; position: fixed; inset: 0; z-index: 9998;
-  pointer-events: none;
-  animation: intro-end 6.6s linear .12s both;
-}
-.intro-blackout {
-  position: absolute; inset: 0; background: #000;
-  animation: intro-blackout 6.6s cubic-bezier(.42,0,.3,1) .12s both;
-}
-/* De echte naam blijft verborgen tot de laag verdwijnt: zo kan er nooit een
-   dubbele of verschoven kopie zichtbaar zijn. Dit gebeurt met een CSS-animatie
-   in plaats van een JS-klasse, zodat de naam ook terugkomt als het script faalt.
-   De :not(.in-l) is essentieel: de klonen dragen de klasse prism-host mee, en
-   zonder die uitzondering zou deze regel ook de kloonlagen verbergen , dan zie
-   je tijdens de hele intro helemaal geen naam. */
-:root.intro .prism-host:not(.in-l) .grad-text { animation: intro-real-name 6.6s linear .12s both; }
-
-/* De naamlagen worden gekloond uit de echte h1 en op diens rect gelegd; het
-   klonen is wat garandeert dat text-wrap: balance exact hetzelfde uitvalt. */
-.intro-stage {
-  position: fixed; left: 0; top: 0; width: 0;
-  transform-origin: 0 50%;
-  animation: intro-push 6.6s cubic-bezier(.25,.6,.25,1) .12s both;
-}
-/* De selector is bewust specifieker dan .h-xl: die zet in de mobiele media query
-   zelf een !important-marge, en bij gelijke specificiteit zou de laatste regel
-   in het bestand winnen , dan zakt de kloon een paar pixels weg t.o.v. de
-   echte naam en zie je op het eind een sprongetje. */
-.intro-stage .in-l {
-  position: absolute; left: 0; top: 0;
-  margin: 0 !important;
-  opacity: 0; will-change: opacity;
-}
-/* alles behalve de naam wordt in de kloon onzichtbaar gezet, maar blijft wel
-   ruimte innemen , anders verschuift de regelval */
-/* Gebruikt door zowel de introlagen als de klikgloed: in een kloon blijft
-   alles behalve de naam ruimte innemen, maar onzichtbaar - haal je het weg,
-   dan verschuift de regelval. */
+/* Gebruikt door de klikgloed: in een kloon blijft alles behalve de naam
+   ruimte innemen, maar onzichtbaar - haal je het weg, dan verschuift de
+   regelval. */
 .intro-hidden { visibility: hidden; }
-/* Alle naamlagen zijn wit: de naam verschijnt meteen wit en wordt richting de
-   explosie alleen maar scherper en helderder. Eerder droegen deze lagen het
-   rode themaverloop, waardoor de naam rood opkwam en pas bij de flits wit
-   werd. Het rood komt nu pas na de flits terug, wanneer de echte naam
-   eronder invloeit.
-   De blur staat vast, dus elke laag wordt één keer gerasterd en daarna alleen
-   nog gecomposit , dat is wat het vloeiend houdt. */
-.in-b3 .grad-text,
-.in-b1 .grad-text,
-.in-b0 .grad-text,
-.in-flash .grad-text { background-image: linear-gradient(#fff, #fff); }
-.in-b3 .grad-text { filter: blur(24px); }
-.in-b1 .grad-text { filter: blur(7px); }
-.in-b3 { animation: in-b3 6.6s linear .12s both; }
-.in-b1 { animation: in-b1 6.6s linear .12s both; }
-.in-b0 { animation: in-b0 6.6s linear .12s both; }
-/* de flits is dezelfde witte letters, maar met een gloed eromheen */
-.in-flash .grad-text {
-  filter: drop-shadow(0 0 13px rgba(255, 255, 255, .85))
-          drop-shadow(0 0 34px rgba(255, 240, 225, .55));
-}
-.in-flash { animation: in-flash 6.6s linear .12s both; }
-
-/* De warme lichtspill is weggehaald: die waste de kleuren uit en nam net de
-   verzadiging weg die de explosie moet dragen. Het opklaren gebeurt nu enkel
-   door het zwart dat wegtrekt, en dat scheelt meteen een animatielaag. */
-
-/* ---- de kleurenexplosie: begint klein rond de naam en dijt versneld uit tot
-       voorbij de schermranden, alsof de verschijnende letters de kleur als een
-       vloeistof wegduwen ---- */
-.intro-burst {
-  position: fixed; left: var(--nx, 50%); top: var(--ny, 50%);
-  width: 56vmax; height: 56vmax; margin: -28vmax 0 0 -28vmax;
-  pointer-events: none; opacity: 0;
-  will-change: transform, opacity;
-  animation: intro-burst 6.6s linear .12s both;
-}
-/* op zwart is additief blenden overbodig: geen mix-blend-mode = veel goedkoper */
-.pl { position: absolute; border-radius: 50%; will-change: transform, opacity; }
-/* Het doorlopende spectrumveld. Klein geschaald, bij het opkomen, verraadden de
-   vijf lobben zich als losse gekleurde ovalen: elk heeft een eigen midden en een
-   eigen rand. Dit veld is één verloop met één zachte rand, dus daar valt niets
-   te onderscheiden. Het draagt de opkomst alleen; de lobben vloeien er pas in
-   wanneer de bloei groot genoeg is dat hun randen wegvallen, en geven dan de
-   vloeistofachtige beweging van het uitdijen. Het masker heeft meerdere stops,
-   zodat de rand geleidelijk uitdooft in plaats van op één lijn af te breken. */
-.pl-field {
-  position: absolute; left: -6%; top: 31%; width: 112%; height: 38%;
-  background: linear-gradient(90deg,
-    hsl(26 92% 56% / .74) 4%, hsl(332 84% 58% / .64) 30%, hsl(268 82% 62% / .66) 50%,
-    hsl(210 92% 57% / .72) 70%, hsl(190 88% 55% / .66) 96%);
-  -webkit-mask-image: radial-gradient(ellipse farthest-side at 50% 50%,
-    #000 0%, rgba(0,0,0,.82) 28%, rgba(0,0,0,.48) 55%, rgba(0,0,0,.16) 80%, transparent 100%);
-          mask-image: radial-gradient(ellipse farthest-side at 50% 50%,
-    #000 0%, rgba(0,0,0,.82) 28%, rgba(0,0,0,.48) 55%, rgba(0,0,0,.16) 80%, transparent 100%);
-  will-change: transform;
-  animation: pl-drift-c 6.6s cubic-bezier(.5,0,.3,1) .12s both;
-}
-/* de spectrale sweep uit de video: amber links -> magenta/violet -> azuur/cyaan rechts */
-/* `ellipse farthest-side` laat elke lob zijn eigen vak volledig vullen en pas
-   aan de rand uitdoven; met deze overlap vloeien ze samen tot één doorlopend
-   spectrum in plaats van vijf herkenbare bollen. */
-.pl-warm {
-  left: -3%; top: 38%; width: 44%; height: 24%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(26 92% 56% / .80), hsl(26 92% 56% / 0));
-  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both, pl-in 6.6s linear .12s both;
-}
-.pl-magenta {
-  left: 14%; top: 39%; width: 42%; height: 22%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(332 84% 58% / .68), hsl(332 84% 58% / 0));
-  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both, pl-in 6.6s linear .12s both;
-}
-.pl-violet {
-  left: 30%; top: 37%; width: 44%; height: 26%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(268 82% 62% / .70), hsl(268 82% 62% / 0));
-  animation: pl-drift-c 6.6s cubic-bezier(.5,0,.3,1) .12s both, pl-in 6.6s linear .12s both;
-}
-.pl-azure {
-  left: 46%; top: 38%; width: 44%; height: 24%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(210 92% 57% / .78), hsl(210 92% 57% / 0));
-  animation: pl-drift-b 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse, pl-in 6.6s linear .12s both;
-}
-.pl-cyan {
-  left: 63%; top: 39%; width: 42%; height: 22%;
-  background: radial-gradient(ellipse farthest-side at 50% 50%, hsl(190 88% 55% / .70), hsl(190 88% 55% / 0));
-  animation: pl-drift-a 6.6s cubic-bezier(.5,0,.3,1) .12s both reverse, pl-in 6.6s linear .12s both;
-}
-
-/* De percentages zijn herrekend naar de langere duur, zodat het zwart op
-   exact hetzelfde moment wegtrekt als voorheen (2,2s tot 4,5s). Alleen achteraan
-   is er tijd bijgekomen; de pagina komt dus niet later. */
-@keyframes intro-blackout {
-  0%     { opacity: 1; }
-  33.1%  { opacity: 1; }
-  67.7%  { opacity: 0; }
-  100%   { opacity: 0; }
-}
-/* Elke stap is ongeveer 1,4x de vorige. Die vaste verhouding is wat het vloeiend
-   maakt: de groei versnelt gestaag in plaats van ergens halverwege een zet te
-   geven. In de vorige versie sprong de schaal van 0,84 naar 1,9 met een scherpe
-   ease-in ervoor, en dat las als een schok midden in de animatie.
-   Daarom ook geen per-keyframe easing meer: de versnelling zit al in de
-   getallen, dus lineair ertussen geeft de gladste beweging.
-
-   De opbouw tot aan de piek staat nog op dezelfde tijdstippen als voorheen;
-   alleen de staart - het uitdijen en uitsterven - is met een halve seconde
-   verlengd. Vandaar de niet-ronde percentages: die houden de eerste helft op
-   zijn oude tempo terwijl de tweede helft trager uitdooft. */
-@keyframes intro-burst {
-  0%     { opacity: 0;   transform: scale(.20); }
-  7.9%   { opacity: .34; transform: scale(.26); }
-  15.7%  { opacity: .74; transform: scale(.34); }
-  23.7%  { opacity: .94; transform: scale(.45); }
-  31.5%  { opacity: 1;   transform: scale(.60); }
-  39.4%  { opacity: 1;   transform: scale(.82); }
-  47.2%  { opacity: .99; transform: scale(1.15); }
-  57.1%  { opacity: .94; transform: scale(1.66); }
-  64.9%  { opacity: .85; transform: scale(2.35); }
-  72.6%  { opacity: .62; transform: scale(3.35); }
-  79.6%  { opacity: .34; transform: scale(4.65); }
-  86.4%  { opacity: 0;   transform: scale(6.4); }
-  100%   { opacity: 0;   transform: scale(6.4); }
-}
-@keyframes intro-push { 0% { transform: scale(.962); } 100% { transform: scale(1); } }
-/* De echte, themagekleurde naam vloeit in terwijl de witte laag erboven
-   wegdooft: zo komt het rood pas na de flits terug in plaats van er ineens te
-   staan. Met opacity in plaats van visibility, anders is er geen overvloeiing
-   mogelijk; de laag blijft wel ruimte innemen, dus de regelval verschuift niet.
-
-   De omslag gebeurt pas nadat de kleuren van het scherm zijn verdwenen (86,4%,
-   ofwel 5,7s). Deed hij dat eerder, dan trok het veranderen van wit naar rood
-   de aandacht weg van de uitdijende kleuren - net het stuk dat moet blijven
-   hangen. */
-@keyframes intro-real-name {
-  0%, 87% { opacity: 0; }
-  99%     { opacity: 1; }
-  100%    { opacity: 1; }
-}
-/* De dekking loopt per laag op - vaag en gedempt, dan scherper en feller -
-   zodat de witte naam zichtbaar helderder wordt naar de explosie toe. De
-   percentages zijn herrekend zodat de scherptetrek op dezelfde tijdstippen
-   blijft ondanks de langere totale duur. */
-@keyframes in-b3 { 0%,15.7% { opacity: 0; } 25.2% { opacity: .45; } 34.6% { opacity: .5; } 45.7% { opacity: 0; } 100% { opacity: 0; } }
-@keyframes in-b1 { 0%,26.8% { opacity: 0; } 37.8% { opacity: .72; } 48.9% { opacity: .8; } 59.8% { opacity: 0; } 100% { opacity: 0; } }
-/* Na het hoogtepunt zakt de witte naam terug naar een rustiger wit en blijft
-   daar staan zolang de kleuren nog uitdijen. Pas als die weg zijn, dooft hij
-   weg terwijl het rood eronder invloeit. */
-@keyframes in-b0 {
-  0%, 37.8% { opacity: 0; }
-  56.7%     { opacity: 1; }
-  62%       { opacity: 1; }
-  73%       { opacity: .55; }
-  87%       { opacity: .55; }
-  99%       { opacity: 0; }
-  100%      { opacity: 0; }
-}
-
-/* De naam vlamt kort fel wit op zodra hij scherp is: een losse laag bovenop de
-   scherpe letters, die daarna wegvloeit en de gewone naam achterlaat.
-   Alleen opacity animeert; de gloed is een vaste filter, dus de laag wordt één
-   keer gerasterd. */
-@keyframes in-flash {
-  0%, 44.9%  { opacity: 0; }
-  53.5%      { opacity: 1; }
-  61.3%      { opacity: 1; }
-  73%        { opacity: 0; }
-  100%       { opacity: 0; }
-}
-/* de laag verdwijnt pas als alles stilstaat; de echte naam eronder is identiek */
-@keyframes intro-end { 0%, 99.9% { visibility: visible; } 100% { visibility: hidden; } }
-/* De lobben starten al ruim overlappend (scale ~1.25 i.p.v. ~0.82). Klein
-   geschaald krimpt elke lob om zijn eigen midden, waardoor de onderlinge gaten
-   groeien en je vijf losse ovalen ziet; door groot te beginnen lopen ze vanaf
-   het eerste frame in elkaar over tot één doorlopend spectrum. Ze zwellen
-   daarna nog verder op, wat de vloeistofachtige uitwaaiering geeft. */
-/* De drift is meegecomprimeerd naar 86,4%: daar zijn de kleuren weg, en zonder
-   die correctie zou de uitwaaiering trager lopen dan voorheen. Na dat punt
-   staat alles stil, maar dat is toch niet meer zichtbaar. */
-/* De lobben komen pas op wanneer de bloei ruim een halve schermbreedte beslaat
-   (scale ~0,5 en meer): dan zijn hun randen breed genoeg om in het veld op te
-   gaan. Tot dan draagt het spectrumveld alleen de kleur. */
-@keyframes pl-in {
-  0%, 20% { opacity: 0; }
-  42%     { opacity: 1; }
-  100%    { opacity: 1; }
-}
-@keyframes pl-drift-a {
-  0%     { transform: translate3d(-5%, 4%, 0) scale(1.26); }
-  38.9%  { transform: translate3d(-1%, 0, 0) scale(1.36); }
-  86.4%  { transform: translate3d(-15%, -7%, 0) scale(1.98); }
-  100%   { transform: translate3d(-15%, -7%, 0) scale(1.98); }
-}
-@keyframes pl-drift-b {
-  0%     { transform: translate3d(4%, 5%, 0) scale(1.28); }
-  38.9%  { transform: translate3d(1%, -1%, 0) scale(1.38); }
-  86.4%  { transform: translate3d(12%, -9%, 0) scale(2.04); }
-  100%   { transform: translate3d(12%, -9%, 0) scale(2.04); }
-}
-@keyframes pl-drift-c {
-  0%     { transform: translate3d(0, 6%, 0) scale(1.24); }
-  38.9%  { transform: translate3d(2%, 0, 0) scale(1.4); }
-  86.4%  { transform: translate3d(0, -10%, 0) scale(2.08); }
-  100%   { transform: translate3d(0, -10%, 0) scale(2.08); }
-}
 
 /* ---------- Klik op de naam: de letters stralen kleur uit ----------
    Drie kopieën van de naam met elk een vaste blur schalen op en vloeien weg.
@@ -843,14 +632,19 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @media (prefers-reduced-motion: reduce) { .name-glow { display: none; } }
 :root[data-motion="reduce"] .name-glow { display: none; }
 
-/* wie minder beweging wil, krijgt meteen de gewone pagina , en dus ook meteen
-   de echte naam, die anders door intro-real-name verborgen zou blijven */
+/* wie minder beweging wil, krijgt geen intro; main.js haalt dan ook de
+   klasse weg, maar deze regels vangen het op als het script niet loopt */
 @media (prefers-reduced-motion: reduce) {
-  :root.intro .intro-veil { display: none; }
-  :root.intro .prism-host:not(.in-l) .grad-text { animation: none; }
+  :root.intro .hero-name, :root.intro .hero-name .grad-text,
+  :root.intro #home .frame, :root.intro #home .hero-side, :root.intro #home .essentie { animation: none; }
+  :root.intro .hero-name .grad-text { background-image: var(--grad-ink); }
 }
-:root[data-motion="reduce"].intro .intro-veil { display: none; }
-:root[data-motion="reduce"].intro .prism-host:not(.in-l) .grad-text { animation: none; }
+:root[data-motion="reduce"].intro .hero-name,
+:root[data-motion="reduce"].intro .hero-name .grad-text,
+:root[data-motion="reduce"].intro #home .frame,
+:root[data-motion="reduce"].intro #home .hero-side,
+:root[data-motion="reduce"].intro #home .essentie { animation: none; }
+:root[data-motion="reduce"].intro .hero-name .grad-text { background-image: var(--grad-ink); }
 
 /* ================================================================
    Naam-hover: hetzelfde spectrum als de intro, maar dan door de letters
