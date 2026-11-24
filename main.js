@@ -36,7 +36,8 @@
      dat halverwege binnenkomt verandert de breedte van de naam. Er zit een dop
      op het wachten, zodat een trage verbinding de intro nooit tegenhoudt. */
   const wortel = document.documentElement;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce") {
+  // in de compacte weergave staat de hero er niet, dus ook geen intro
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce" || wortel.dataset.view === "compact") {
     wortel.classList.remove("intro", "go");
   }
   if (wortel.classList.contains("intro")) {

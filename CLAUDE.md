@@ -88,6 +88,13 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   capture-fase onderschept; de middelste kaart opent de lichtbak of het
   voorproefvenster zoals voorheen. Cache-versie van `galerij.js` staat naast de
   andere in `index.html`.
+- **Compacte weergave** (`stapel.js`, eigen bouw naar de Scroll Stack van React
+  Bits Pro): de hele site als stapel kaarten, één per onderdeel, met de foto en
+  het palet van dat onderdeel. Aan via de instellingen (`data-view="compact"` op
+  `<html>`, onthouden onder `cv-weergave`). De kaarten staan als gewone html in
+  `#compact` en hergebruiken bestaande vertaalsleutels; wie een onderdeel
+  toevoegt of hernoemt, past ook de kaart aan. "Lees verder" zet de gewone
+  weergave terug en springt naar de sectie. Geen intro in compacte weergave.
 - **Duur bij periodes**: elke periode staat in een `.row-when` met
   `data-periode="2019-09/2026-09"` (of `/nu`, of enkel een jaartal). `zetDuur()`
   in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder.

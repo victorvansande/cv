@@ -160,6 +160,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .settings-pop h4:not(:first-child) { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgb(var(--c-edge) / .1); }
 .a11y-row, .zoom-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 0; font-size: .9rem; cursor: pointer; }
 .a11y-row input { position: absolute; opacity: 0; pointer-events: none; }
+.settings-pop .a11y-row + h4 { margin-top: 18px; }
 .a11y-row .sw { position: relative; width: 36px; height: 20px; border-radius: 10px; background: var(--c-track); flex: none; transition: background .2s; }
 .a11y-row .sw::after { content: ""; position: absolute; left: 3px; top: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--c-ink); transition: transform .2s; }
 .a11y-row input:checked + .sw { background: var(--c-acc); }
@@ -372,6 +373,37 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .design-cap { display: block; margin-top: 10px; font-size: .82rem; line-height: 1.4; }
 .design-cap-t { display: block; font-weight: 600; }
 .design-cap-s { display: block; color: var(--g-dim); margin-top: 2px; }
+
+/* ---------- Compacte weergave ----------
+   stapel.js zet de kaarten in beweging; hier enkel de opbouw. Elke kaart
+   draagt een palet .g-*, dus ook de lichte versie werkt vanzelf. */
+.stack { display: none; }
+:root[data-view="compact"] .stack { display: block; height: calc((var(--n, 8) - 1) * 100vh + 100vh - 60px); }
+:root[data-view="compact"] main > .sec { display: none; }
+.stack-stage { position: sticky; top: 60px; height: calc(100vh - 60px); overflow: hidden; }
+.stack-card {
+  position: absolute; left: 50%; top: 5vh;
+  width: min(880px, calc(100vw - 2 * var(--gutter))); height: calc((100vh - 60px) * .72);
+  margin-left: calc(min(880px, calc(100vw - 2 * var(--gutter))) / -2);
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  border-radius: 22px; overflow: hidden; transform-origin: 50% 0;
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .75), 0 0 0 1px color-mix(in srgb, var(--g-ink) 8%, transparent);
+  will-change: transform;
+}
+.stack-card img { width: 100%; height: 100%; object-fit: cover; }
+.stack-body { padding: clamp(22px, 3vw, 40px); display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; min-width: 0; }
+.stack-title { font-family: var(--font-head); font-weight: 800; font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: .92; text-transform: uppercase; }
+.stack-title .em-serif { color: var(--g-acc); }
+.stack-text { color: var(--g-soft); font-size: .96rem; }
+.stack-body .btn-row { margin-top: 8px; }
+.stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .84rem; font-variant-numeric: tabular-nums; z-index: 50; }
+.stack-rail { width: 140px; height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
+.stack-rail i { display: block; height: 100%; background: var(--g-acc); transform-origin: 0 50%; transform: scaleX(0); }
+@media (max-width: 700px) {
+  .stack-card { grid-template-columns: minmax(0, 1fr); grid-template-rows: 40% minmax(0, 1fr); top: 3vh; height: calc((100vh - 60px) * .8); }
+  .stack-body { justify-content: flex-start; padding-top: 20px; }
+  .stack-text { font-size: .9rem; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+}
 
 /* ---------- Lenticulaire carrousel (fotografie) en ring (werk) ----------
    galerij.js zet .is-lenti of .is-reel op de galerij; zonder script blijft het
