@@ -280,6 +280,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   padding: 22px 0; border-bottom: 1px solid var(--g-line);
 }
 .row-date { font-size: .86rem; color: var(--g-dim); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.row-when .row-date { display: block; }
+/* de duur onder de periode: klein en in de gedempte tint, zodat het een
+   bijkomstigheid blijft en de datum zelf het eerst gelezen wordt */
+.row-dur { display: block; margin-top: 2px; font-size: .74rem; color: var(--g-dim); opacity: .8; font-variant-numeric: tabular-nums; }
 .row h4 { font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
 .row h4 + p, .row p + p { margin-top: 8px; }
 .row p { color: var(--g-soft); }

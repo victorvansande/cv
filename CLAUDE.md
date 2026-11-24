@@ -77,6 +77,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
   `<details class="fold">` met een strookje van vier beelden als voorproef.
   Geen secties die pas bij het scrollen verschijnen.
+- **Duur bij periodes**: elke periode staat in een `.row-when` met
+  `data-periode="2019-09/2026-09"` (of `/nu`, of enkel een jaartal). `zetDuur()`
+  in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder.
+  Wie een datum aanpast, past ook `data-periode` aan.
 - **Vorige versie**: de site van voor de herwerking staat ongewijzigd in `v1/`
   (bereikbaar via de link in de voettekst). Niet meer aanpassen, enkel bewaren.
 - **Regeleinden**: in de repo staat alles op LF. Op Victors Windows-machine
