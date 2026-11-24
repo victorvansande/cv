@@ -513,6 +513,22 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-title .em-serif { color: var(--g-acc); }
 .stack-text { color: var(--g-soft); font-size: .96rem; }
 .stack-body .btn-row { margin-top: 8px; }
+/* Extra knoppen (cv, mail) staan als rond icoon rechtsboven op de kaart, in
+   het accent van de kaart; het label schuift open bij hover of focus. Het
+   label staat altijd in de html, dus een schermlezer leest het gewoon. */
+.stack-hoek { position: absolute; top: 16px; right: 16px; z-index: 5; display: flex; gap: 8px; }
+.stack-hoek a {
+  display: inline-flex; align-items: center; height: 42px; max-width: 42px; padding: 0 12px; overflow: hidden;
+  border-radius: 999px; background: var(--g-acc); color: var(--g-bg); text-decoration: none;
+  font-weight: 600; font-size: .84rem; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .6);
+  transition: max-width .4s cubic-bezier(.2, .7, .2, 1);
+}
+.stack-hoek a svg { flex-shrink: 0; }
+.stack-hoek a span { white-space: nowrap; margin-left: 0; opacity: 0; transition: opacity .3s, margin-left .3s; }
+.stack-hoek a:hover, .stack-hoek a:focus-visible { max-width: 280px; }
+.stack-hoek a:hover span, .stack-hoek a:focus-visible span { opacity: 1; margin-left: 8px; }
+.stack-hoek a:focus-visible { outline: 2px solid var(--g-ink); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .stack-hoek a, .stack-hoek a span { transition: none; } }
 .stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .84rem; font-variant-numeric: tabular-nums; z-index: 50; }
 .stack-rail { width: 140px; height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
 .stack-rail i { display: block; height: 100%; background: var(--g-acc); transform-origin: 0 50%; transform: scaleX(0); }
@@ -609,6 +625,19 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .findings li::before { content: ""; position: absolute; left: 0; top: 21px; width: 10px; height: 1px; background: var(--g-acc); }
 .numbers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 24px; }
 .numbers dt { font-family: var(--font-head); font-weight: 700; font-size: 3rem; line-height: 1; color: var(--g-ink); }
+/* tellers: de onzichtbare kopie houdt de breedte vast, de zichtbare telt op
+   (main.js, "Getallen die optellen") */
+.tel-num { display: inline-grid; font-variant-numeric: tabular-nums; }
+.tel-maat, .tel-live { grid-area: 1 / 1; }
+.tel-maat { visibility: hidden; }
+.tel-live { display: inline-flex; justify-content: flex-end; }
+.tel-d { display: inline-block; }
+.tel-sep { opacity: .55; }
+/* op de achterkant van een compacte kaart (een kopie) staat altijd het eindgetal */
+.stack-back .tel-live { display: none; }
+.stack-back .tel-maat { visibility: visible; }
+.tel-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .tel-d { filter: none !important; transform: none !important; opacity: 1 !important; } }
 .numbers dd { margin-top: 4px; font-size: .86rem; color: var(--g-soft); }
 .thesis-meta { margin-top: 24px; font-size: .88rem; color: var(--g-soft); }
 .thesis-meta b { color: var(--g-ink); font-weight: 600; }
