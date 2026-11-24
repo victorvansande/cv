@@ -68,9 +68,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
   tint). Er is geen kleurthema en geen licht/donker meer: dat zou dat systeem
-  doorkruisen. Weinig beweging: enkel de intro en hovers. Alles staat open, er
-  zijn geen inklapbare luiken en geen secties die pas bij het scrollen
-  verschijnen. Houd dat zo.
+  doorkruisen. Weinig beweging: enkel de intro en hovers. Alles staat open,
+  behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
+  `<details class="fold">` met een strookje van vier beelden als voorproef.
+  Geen secties die pas bij het scrollen verschijnen.
 - **Vorige versie**: de site van voor de herwerking staat ongewijzigd in `v1/`
   (bereikbaar via de link in de voettekst). Niet meer aanpassen, enkel bewaren.
 - **Regeleinden**: in de repo staat alles op LF. Op Victors Windows-machine

@@ -273,6 +273,45 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: #efe9e2; }
 }
 .doc-btn:hover { border-color: var(--g-acc); color: var(--g-acc); }
 
+/* ---------- Uitklapbare galerij ----------
+   Een rustige regel: links de uitleg, rechts een strookje van vier kleine
+   beelden als voorproef en een pijltje. Open en dicht zonder animatie;
+   enkel het pijltje draait, en het strookje verdwijnt zodra de galerij open is. */
+.fold { margin-top: 44px; border-top: 1px solid var(--g-line); border-bottom: 1px solid var(--g-line); }
+.fold-photos { margin-top: 0; }
+.fold > summary {
+  display: flex; align-items: center; gap: 24px; padding: 16px 0;
+  cursor: pointer; list-style: none;
+}
+.fold > summary::-webkit-details-marker { display: none; }
+.fold-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.fold-txt strong { font-weight: 600; font-size: 1.02rem; line-height: 1.35; }
+.fold-txt span { font-size: .84rem; color: var(--g-dim); }
+.fold-peek { display: flex; gap: 6px; flex: none; }
+.fold-peek img {
+  width: 42px; height: 56px; object-fit: cover; border-radius: 2px;
+  outline: 1px solid color-mix(in srgb, var(--g-ink) 12%, transparent); outline-offset: -1px;
+  transition: opacity .2s;
+}
+.fold-photos .fold-peek img { width: 56px; height: 56px; }
+.fold[open] .fold-peek { display: none; }
+.fold-chev {
+  flex: none; width: 10px; height: 10px; margin: 0 6px 4px 4px;
+  border-right: 1.5px solid var(--g-acc); border-bottom: 1.5px solid var(--g-acc);
+  transform: rotate(45deg); transition: transform .2s var(--ease);
+}
+.fold[open] .fold-chev { transform: rotate(-135deg); margin-bottom: -4px; }
+.fold > summary:hover .fold-txt strong { color: var(--g-acc); }
+.fold > summary:hover .fold-peek img { opacity: .85; }
+.fold > summary:focus-visible { outline-offset: 4px; }
+.fold > .gallery { margin-top: 4px; padding-bottom: 28px; }
+@media (max-width: 560px) {
+  .fold > summary { flex-wrap: wrap; gap: 12px; }
+  .fold-txt { flex-basis: calc(100% - 40px); }
+  .fold-peek { order: 3; }
+}
+@media print { .fold > summary .fold-peek, .fold-chev { display: none; } }
+
 /* ---------- Galerij (werk en foto's) ---------- */
 /* zeven kolommen: dertien stukken vallen dan uit op 7 + 6, zonder een eenzame laatste rij */
 .gallery { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 28px 16px; margin-top: 18px; }
