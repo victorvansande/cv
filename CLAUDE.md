@@ -56,9 +56,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `hertelGetallen()` aan en stuurt het een `cv-layout`-event (dat het
   voorproefvenster gebruikt om zijn zinnen mee te vertalen).
 - **Tellers** (`data-count`): het eindgetal staat al in de html, zodat een
-  bezoeker zonder javascript of een schermlezer nooit "0" leest. Ze tellen niet
-  meer op; `hertelGetallen()` in `main.js` zet enkel het scheidingsteken volgens
-  de taal (14.716 / 14,716).
+  bezoeker zonder javascript of een schermlezer nooit "0" leest. Sinds nov 2026
+  tellen ze weer op bij het in beeld komen, met bewegingsonscherpte per cijfer:
+  `main.js` splitst elk getal in `.tel-sr` (eindgetal voor schermlezers),
+  `.tel-maat` (houdt de breedte vast) en `.tel-live` (aria-hidden, telt op).
+  `hertelGetallen()` zet het scheidingsteken volgens de taal (14.716 / 14,716).
 - **Het vel papier** (`vel.js`, sinds nov 2026): bij het eerste bezoek in een
   sessie ligt een vel papier over de site waarop "Victor Van Sande - CV" getypt
   wordt in Special Elite met een inktfilter (`#vel-inkt` in `index.html`). Het
@@ -106,7 +108,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `<html>`, onthouden onder `cv-weergave`). De kaarten staan als gewone html in
   `#compact` en hergebruiken bestaande vertaalsleutels; wie een onderdeel
   toevoegt of hernoemt, past ook de kaart aan. "Lees verder" zet de gewone
-  weergave terug en springt naar de sectie. Elke kaart is om te draaien
+  weergave terug en springt naar de sectie. Extra knoppen (cv, mail) staan als rond
+  icoon rechtsboven in het accent van de kaart (`.stack-hoek`), met een label
+  dat openschuift bij hover. Elke kaart is om te draaien
   ("Draai om"); de achterkant is een kopie van de echte inhoud van dat
   onderdeel (`ACHTER` in `stapel.js`), opnieuw gekopieerd na een taalwissel. Geen intro in compacte weergave.
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
