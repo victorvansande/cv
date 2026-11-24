@@ -108,11 +108,17 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   weergave terug en springt naar de sectie. Elke kaart is om te draaien
   ("Draai om"); de achterkant is een kopie van de echte inhoud van dat
   onderdeel (`ACHTER` in `stapel.js`), opnieuw gekopieerd na een taalwissel. Geen intro in compacte weergave.
+- **Visitekaartje in metaal** (eigen bouw naar de Reflective Card van React
+  Bits, goud met tint `#f97316`): in Contact naast de titel, `.rk` in
+  `style.css` en het kantelblok in `main.js`. Geen camera of video, het
+  weerspiegelt een zachte studio in css met het svg-filter `#rk-warp`. Het
+  kaartje is `aria-hidden`: dezelfde gegevens staan er als tekst onder.
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het omhoog te
   slepen. De inhoud komt uit `.essentie .facts` en de contactgegevens in het
-  script; wie de essentie aanpast, past dus ook het bonnetje aan. De twee knoppen
+  script; wie de essentie aanpast, past dus ook het bonnetje aan. Het bonnetje
+  rolt over de site erboven (het vak neemt geen plaats in), dus er verschuift niets. De twee knoppen
   hebben een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
   IBM Plex Mono.
 - **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de

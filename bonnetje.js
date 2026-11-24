@@ -159,24 +159,14 @@
 
   /* ---- printen, scheuren, bewaren ---- */
   let bezig = false, geprint = false;
-  /* Het vak groeit mee met het papier dat uit de printer komt. Zonder meer
-     zou dat de printer en alles eronder naar beneden duwen; daarom wordt de
-     pagina even ver mee gescrold, zodat de printer stil op het scherm blijft
-     staan en het bonnetje eruit lijkt te rijzen. Gemeten aan de printer zelf:
-     dan klopt het ook als het vak eerst binnen de rij van de tekst groeit en
-     er niets verschuift. */
+  /* Het bonnetje rolt over de site: het vak onder de printer neemt geen
+     plaats in, het papier staat erboven en schuift telkens wat verder uit de
+     gleuf. Wat nog "in de printer" zit, valt weg door de clip-path van het
+     vak (enkel onderaan). Zo verschuift er niets op de pagina; wie hier is,
+     heeft wat erboven staat doorgaans al gelezen. */
   const feed = blok.querySelector(".snap-feed");
-  const printer = blok.querySelector(".snap-printer");
-  let zicht = 0;
   const zetHoogte = (h) => {
-    const voor = printer.getBoundingClientRect().top;
-    feed.style.height = h.toFixed(1) + "px";
-    zicht = h;
-    const na = printer.getBoundingClientRect().top;
-    const r = printer.getBoundingClientRect();
-    // meteen, niet vloeiend: de pagina staat op scroll-behavior: smooth, en dan
-    // zou elke correctie een trage animatie worden die de volgende onderbreekt
-    if (na !== voor && r.bottom > 0 && r.top < innerHeight) scrollBy({ top: na - voor, behavior: "instant" });
+    feed.querySelector(".snap-paper").style.transform = "translateY(" + (hoogte - h).toFixed(1) + "px)";
   };
   const zetVak = () => zetHoogte(geprint || bezig ? hoogte : 0);
   const print = () => {
