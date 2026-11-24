@@ -80,6 +80,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
   `<details class="fold">` met een strookje van vier beelden als voorproef.
   Geen secties die pas bij het scrollen verschijnen.
+- **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
+  zonder hun code): de fotogalerij wordt een lenticulaire carrousel (kaart draait
+  strook per strook om bij hover, achterkant met titel en bijschrift uit
+  `.design-cap`), de werkgalerij een draaiende ring met bewegingsonscherpte. Zonder
+  script blijven de rasters staan. Een klik op een kaart opzij wordt in de
+  capture-fase onderschept; de middelste kaart opent de lichtbak of het
+  voorproefvenster zoals voorheen. Cache-versie van `galerij.js` staat naast de
+  andere in `index.html`.
 - **Duur bij periodes**: elke periode staat in een `.row-when` met
   `data-periode="2019-09/2026-09"` (of `/nu`, of enkel een jaartal). `zetDuur()`
   in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder.

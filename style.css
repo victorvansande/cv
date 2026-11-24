@@ -373,6 +373,65 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .design-cap-t { display: block; font-weight: 600; }
 .design-cap-s { display: block; color: var(--g-dim); margin-top: 2px; }
 
+/* ---------- Lenticulaire carrousel (fotografie) en ring (werk) ----------
+   galerij.js zet .is-lenti of .is-reel op de galerij; zonder script blijft het
+   gewone raster hierboven staan. Het bijschrift onder elke kaart blijft in de
+   html voor schermlezers en vertaling, maar is visueel verborgen: de
+   carrousel drukt het op de achterkant, de ring toont het onder de kaart. */
+.gallery.is-lenti, .gallery.is-reel { display: block; }
+.is-lenti .design-cap, .is-reel .design-cap {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.lenti-view { position: relative; overflow: hidden; padding: 48px 0 40px; touch-action: pan-y; cursor: grab; outline-offset: 4px; }
+.lenti-view:active { cursor: grabbing; }
+.lenti-track { display: flex; gap: 26px; width: max-content; transition: transform .55s cubic-bezier(.2, .7, .2, 1); will-change: transform; }
+.is-lenti .design-item {
+  width: var(--lw, 260px); flex: none; perspective: 1200px;
+  transform: scale(.9); filter: brightness(.55);
+  transition: transform .55s cubic-bezier(.2, .7, .2, 1), filter .55s;
+}
+.is-lenti .design-item.is-active { transform: none; filter: none; }
+.is-lenti .diploma-thumb {
+  position: relative; width: var(--lw, 260px); height: var(--lh, 347px); border-radius: 14px; overflow: hidden;
+  transform-style: preserve-3d; background: #000; cursor: pointer;
+  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .8);
+}
+.is-lenti .design-item:not(.is-active) .diploma-thumb { cursor: pointer; }
+.is-lenti .diploma-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+.lenti-cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.is-lenti .diploma-thumb:hover img { opacity: 1; }
+
+.reel-view { position: relative; height: calc(var(--rh, 250px) * 1.5); overflow: hidden; touch-action: pan-y; cursor: grab; outline-offset: 4px; }
+.reel-view:active { cursor: grabbing; }
+.reel-ring { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(-6deg); }
+.is-reel .design-item {
+  position: absolute; left: 50%; top: 50%;
+  width: var(--rw, 400px); height: var(--rh, 250px);
+  margin: calc(var(--rh, 250px) / -2) 0 0 calc(var(--rw, 400px) / -2);
+  backface-visibility: hidden; will-change: transform;
+}
+.is-reel .diploma-thumb { width: 100%; height: 100%; border-radius: 14px; overflow: hidden; cursor: pointer; background: #000; }
+.is-reel .diploma-thumb img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; object-position: 50% 15%; }
+.is-reel .diploma-thumb:hover img { opacity: 1; }
+.is-reel .doc-chip { left: 10px; bottom: 10px; }
+.reel-info { text-align: center; min-height: 3.4em; margin-top: 4px; }
+.reel-t { font-weight: 600; font-size: 1rem; }
+.reel-s { color: var(--g-dim); font-size: .86rem; margin-top: 2px; }
+
+.gal-ui { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; padding-bottom: 28px; }
+.gal-btn {
+  width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid color-mix(in srgb, var(--g-ink) 28%, transparent); border-radius: 2px; cursor: pointer;
+}
+.gal-btn:hover:not(:disabled) { border-color: var(--g-acc); color: var(--g-acc); }
+.gal-btn:disabled { opacity: .3; cursor: default; }
+.gal-rail { display: flex; gap: 4px; }
+.gal-seg { width: 22px; height: 18px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
+.gal-seg::after { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 2px; background: color-mix(in srgb, var(--g-ink) 25%, transparent); transition: background .3s; }
+.gal-seg[aria-current="true"]::after { background: var(--g-acc); }
+.gal-count { min-width: 64px; text-align: center; font-size: .84rem; color: var(--g-dim); font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .gal-seg { width: 14px; } }
+
 /* ---------- Over mij ---------- */
 .langs div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--g-line); }
 .langs { margin-top: 12px; border-top: 1px solid var(--g-line); }
