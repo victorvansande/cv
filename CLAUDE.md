@@ -133,8 +133,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij
   of omhoog te trekken (opzij draait het rond de hoek bij de gleuf, eigen ontwerp). De inhoud komt uit `.essentie .facts` en de contactgegevens in het
   script; wie de essentie aanpast, past dus ook het bonnetje aan. Het bonnetje
-  rolt over de site erboven (het vak neemt geen plaats in), dus er verschuift niets. De twee knoppen
-  hebben een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
+  rolt over de site erboven (het vak neemt geen plaats in), dus er verschuift niets. Eén knop print het
+  bonnetje en wordt daarna "Bewaar als afbeelding"; afscheuren zet hem terug. Hij
+  heeft een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
   IBM Plex Mono. In de kast staat gegraveerd "CV Printer 9000" (`.snap-merk`).
 - **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de
   achtergrondkleur van de sectie erboven mee (`--vorige`, klasse `.vloeit`),
@@ -154,6 +155,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   onzichtbare `::after` rond zich, zodat ze 44 px hoog zijn zonder er anders uit
   te zien (css onderaan "Toegankelijkheid zonder zichtbaar verschil"). `404.html`
   laadt `style.css` met dezelfde `?v=N` als `index.html`: mee ophogen.
+- **Strepen**: geen lijn onder het laatste item van een opsomming (css onderaan
+  "Geen streep na het laatste item"); wie een nieuwe lijst met lijnen toevoegt, volgt dat.
 - **Codecommentaar** is in het Nederlands en legt vaak uit *waarom* iets zo
   gebouwd is. Lees het voor je iets "opruimt".
 

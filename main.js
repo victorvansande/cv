@@ -71,6 +71,10 @@
       wortel.style.setProperty("--vty", (doelT - n.top - (r.top - n.top) * sc).toFixed(1) + "px");
     };
     plaats();
+    // eerst meten gebeurt soms nog met het vervanglettertype: opnieuw zodra
+    // de webfonts er zijn, anders springt de naam na het vel naar een andere maat
+    if (document.fonts) document.fonts.ready.then(plaats);
+    addEventListener("resize", plaats);
     const done = () => wortel.classList.remove("intro", "go");
     if (naam) naam.addEventListener("animationend", (e) => { if (e.animationName === "v-name") done(); });
     /* vangnet als animationend uitblijft; het telt pas wanneer de intro
@@ -156,7 +160,9 @@
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(plan);
     addEventListener("resize", plan);
     addEventListener("cv-layout", plan);
-    new MutationObserver(plan).observe(wortel, { attributes: true, attributeFilter: ["class", "data-view", "style"] });
+    // enkel op klasse en weergave reageren: het vel zet elk beeld --vp in de
+    // style van <html>, en een meting per beeld deed het wegvegen haperen
+    new MutationObserver(plan).observe(wortel, { attributes: true, attributeFilter: ["class", "data-view"] });
   })();
 
   /* ---- De naam na de intro: één lichtglans, daarna Tech Text bij hover ----
