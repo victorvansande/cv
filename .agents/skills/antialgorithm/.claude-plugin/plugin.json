@@ -1,0 +1,14 @@
+{
+  "name": "antialgorithm",
+  "version": "1.0.0",
+  "description": "Steers the model away from its first, most average pick in creative work: names, copy, story, game ideas, posters, UI.",
+  "author": {
+    "name": "mankidev",
+    "url": "https://github.com/mankidev"
+  },
+  "homepage": "https://github.com/mankidev/antialgorithm",
+  "repository": "https://github.com/mankidev/antialgorithm",
+  "license": "MIT",
+  "keywords": ["creative", "design", "writing", "naming", "poster", "ui", "skill"],
+  "skills": ["./"]
+}

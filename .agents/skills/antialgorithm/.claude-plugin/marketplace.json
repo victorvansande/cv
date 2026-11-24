@@ -1,0 +1,15 @@
+{
+  "name": "antialgorithm",
+  "owner": {
+    "name": "mankidev",
+    "url": "https://github.com/mankidev"
+  },
+  "description": "antialgorithm skill for Claude Code.",
+  "plugins": [
+    {
+      "name": "antialgorithm",
+      "source": "./",
+      "description": "Steers the model away from its first, most average pick in creative work: names, copy, story, game ideas, posters, UI."
+    }
+  ]
+}

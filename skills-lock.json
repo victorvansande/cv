@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "antialgorithm": {
+      "source": "mankidev/antialgorithm",
+      "commit": "a6392c0d35382cd8fe0676668e2c7b2de4ec9269",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "b15fbd0f28ec966ee179ee300919824b7abd4e945cde93f71d1468e2263ca610"
+    }
+  }
+}
