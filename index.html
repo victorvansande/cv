@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-title" content="Victor · cv" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&family=Cutive+Mono&display=swap" rel="stylesheet" />
-  <!-- Typintro: eenmalig per sessie, moet vóór de eerste paint vaststaan om flikkeren te vermijden -->
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Intro "Venster": eenmalig per sessie, moet vóór de eerste paint vaststaan om flikkeren te vermijden -->
   <script>
     (function () {
       try {
@@ -42,9 +42,9 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=210" />
+  <link rel="stylesheet" href="style.css?v=211" />
   <script src="i18n.js?v=68" defer></script>
-  <script src="main.js?v=91" defer></script>
+  <script src="main.js?v=92" defer></script>
   <script src="galerij.js?v=1" defer></script>
   <script src="stapel.js?v=1" defer></script>
   <script src="bonnetje.js?v=1" defer></script>
@@ -207,28 +207,28 @@
   </section>
 
   <!-- ============ HOME ============
-       Een minimaal startscherm in typemachineletters. Het blijft onder de
-       pagina liggen (position: sticky in main) en de rest van de site schuift
-       er bij het scrollen overheen; main.js laat het daarbij lichtjes krimpen en
-       vervagen. Bij het eerste bezoek in een sessie verschijnt de tekst letter
-       per letter. Elke sectie verderop opent met een eigen foto en haalt haar
-       kleuren uit die foto (zie style.css). -->
-  <section class="sec start grade g-eclipse" id="home" aria-labelledby="start-naam">
-    <div class="wrap start-inner">
-      <p class="start-top"><span>cv</span><span data-i18n="tldr_avail_sub">Regio Herentals&ndash;Antwerpen</span></p>
-      <div class="start-body">
-        <h1 class="start-naam typ" id="start-naam">Victor Van Sande</h1>
-        <p class="start-rol typ"><span data-i18n="hero_role">Communicatiewetenschapper.</span></p>
-        <p class="start-lead typ"><span data-i18n="hero_lead_2">Ik benader communicatie op een analytische, wetenschappelijke manier, zonder daarbij de mens achter de boodschap uit het oog te verliezen.</span></p>
-        <p class="start-meta typ"><span data-i18n="tldr_role_val">Fondsenwerver bij Gekkoo</span> · <span data-i18n="hero_eyebrow">Halftijds beschikbaar</span></p>
-        <p class="start-links"><a href="#werk" data-i18n="nav_werk">Werk</a><a href="#ervaring" data-i18n="nav_ervaring">Ervaring</a><a href="assets/cv-victor-van-sande.pdf" download data-i18n="set_cv_pdf">CV als PDF</a><a href="#contact" data-i18n="nav_contact">Contact</a></p>
-      </div>
-      <p class="start-scroll" aria-hidden="true">&darr;</p>
-    </div>
-  </section>
-
-  <div class="grade g-eclipse ess-blok">
+       Elke sectie opent met een eigen foto in breedbeeld, en haalt haar
+       kleuren uit die foto: de achtergrond uit de donkerste tint, het accent
+       uit een heldere. Zo krijgt de pagina een kleurverloop zonder dat er iets
+       beweegt. De tinten zijn gemeten op de foto's zelf (zie style.css). -->
+  <div class="sec grade g-eclipse" id="home">
     <div class="wrap">
+      <figure class="frame frame-hero">
+        <img src="assets/photos/zonsverduistering.jpg" alt="Close-up van een zonsverduistering met een gloeiende rand" width="1600" height="1200" fetchpriority="high" />
+        <figcaption data-i18n="photo_eclipse_t">Astrofotografie · Zonsverduistering</figcaption>
+      </figure>
+      <div class="hero">
+        <h1 class="hero-name prism-host"><span class="grad-text">Victor Van Sande</span></h1>
+        <div class="hero-side">
+          <p class="hero-lead"><span data-i18n="hero_role">Communicatiewetenschapper.</span> <span data-i18n="hero_lead_2">Ik benader communicatie op een analytische, wetenschappelijke manier, zonder daarbij de mens achter de boodschap uit het oog te verliezen.</span></p>
+          <p class="hero-meta"><span data-i18n="tldr_role_val">Fondsenwerver bij Gekkoo</span> · <span data-i18n="hero_eyebrow">Halftijds beschikbaar</span> · <span data-i18n="tldr_avail_sub">Regio Herentals&ndash;Antwerpen</span></p>
+          <div class="btn-row">
+            <a href="assets/cv-victor-van-sande.pdf" download class="btn"><span data-i18n="hero_cta_cv">Download/print CV</span></a>
+            <a href="#werk" class="btn btn-line"><span data-i18n="hero_cta_work">Bekijk mijn werk</span></a>
+          </div>
+        </div>
+      </div>
+
       <!-- De essentie staat open. Ze zat achter een knop, maar wie snel wil
            weten wie dit is, hoort niet eerst te moeten klikken. -->
       <section class="essentie" id="tldr" aria-labelledby="ess-kop">
@@ -245,7 +245,7 @@
         </dl>
       </section>
     </div>
-  </div><!-- /.ess-blok -->
+  </div><!-- /#home -->
 
   <!-- ============ WERK ============ -->
   <div class="sec grade g-schelde" id="werk">
