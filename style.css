@@ -115,6 +115,68 @@ ul { padding: 0; list-style: none; }
 }
 .skip-link:focus { top: 12px; }
 
+/* ---------- Het vel papier (eerste bezoek) ----------
+   vel.js toont het enkel bij het eerste bezoek in een sessie; zonder de
+   klasse vel-open staat het nergens. Terwijl het openstaat, scrolt de pagina
+   niet mee: omhoog vegen of scrollen schuift het vel weg. De waas eronder
+   vervaagt enkel wat op het scherm staat en wordt scherp naarmate --vp
+   van 0 naar 1 loopt. */
+.vel, .vel-waas { display: none; }
+:root.vel-open { overflow: hidden; }
+:root.vel-open .vel-waas {
+  display: block; position: fixed; inset: 0; z-index: 9990; pointer-events: none;
+  -webkit-backdrop-filter: blur(calc((1 - var(--vp, 0)) * 14px)) brightness(calc(.5 + var(--vp, 0) * .5));
+  backdrop-filter: blur(calc((1 - var(--vp, 0)) * 14px)) brightness(calc(.5 + var(--vp, 0) * .5));
+}
+:root.vel-open .vel {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background-color: #f4f3ef; color: #14110f;
+  touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none;
+  box-shadow: 0 24px 50px -16px rgba(0, 0, 0, .45);
+  will-change: transform;
+}
+.vel:active { cursor: grabbing; }
+.vel:focus { outline: none; }
+/* papiervezel: een fijne laag ruis, nauwelijks zichtbaar */
+.vel::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .1; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.vel-regel {
+  position: relative; z-index: 1; margin: 0; padding: 0 16px; max-width: 100%;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: clamp(1.15rem, 3vw, 2.2rem); line-height: 1.1; letter-spacing: .05em; white-space: pre;
+  filter: url(#vel-inkt);
+}
+.vel-letter { display: inline-block; opacity: 0; }
+.vel-letter.aan { animation: vel-aanslag 90ms ease-out forwards; }
+@keyframes vel-aanslag {
+  0% { opacity: 0; transform: var(--t) translateY(-.06em) scale(1.08); }
+  45% { opacity: calc(var(--o) * 1.15); }
+  100% { opacity: var(--o); transform: var(--t); }
+}
+.vel-wagen {
+  display: inline-block; width: .5em; height: .07em; margin-left: .05em;
+  background: currentColor; opacity: .6; vertical-align: -.12em;
+  animation: vel-knip 1s steps(1) infinite;
+}
+@keyframes vel-knip { 50% { opacity: 0; } }
+.vel.schok { animation: vel-schok 90ms ease-out; }
+@keyframes vel-schok { 30% { translate: 0 1.2px; } }
+.vel-hint {
+  position: absolute; z-index: 1; left: 50%; bottom: max(28px, env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  background: none; border: 0; padding: 12px 18px; cursor: pointer;
+  font-family: var(--font); font-size: .68rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: #8a867e; opacity: 0; transition: opacity .8s, color .2s;
+}
+.vel-hint::before { content: ""; width: 1px; height: 28px; background: currentColor; opacity: .6; }
+.vel-hint.toon { opacity: 1; }
+.vel-hint:hover { color: #14110f; }
+.vel-hint:focus-visible { outline: 1px dashed #8a867e; outline-offset: 2px; }
+
 /* ---------- Navigatie ---------- */
 .nav {
   position: sticky; top: 0; z-index: 100;

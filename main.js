@@ -71,17 +71,25 @@
       wortel.style.setProperty("--vty", (doelT - n.top - (r.top - n.top) * sc).toFixed(1) + "px");
     };
     plaats();
-    klaar.then(() => { plaats(); requestAnimationFrame(() => requestAnimationFrame(() => wortel.classList.add("go"))); });
     const done = () => wortel.classList.remove("intro", "go");
     if (naam) naam.addEventListener("animationend", (e) => { if (e.animationName === "v-name") done(); });
-    /* vangnet als animationend uitblijft; het telt pas wanneer de pagina
-       zichtbaar is, want in een achtergrondtab staat de animatie stil */
+    /* vangnet als animationend uitblijft; het telt pas wanneer de intro
+       loopt en de pagina zichtbaar is, want in een achtergrondtab staat de
+       animatie stil */
     const arm = () => setTimeout(done, 6000);
-    if (document.visibilityState === "visible") arm();
-    else document.addEventListener("visibilitychange", function onVis() {
-      if (document.visibilityState !== "visible") return;
-      document.removeEventListener("visibilitychange", onVis);
-      arm();
+    const wapen = () => {
+      if (document.visibilityState === "visible") arm();
+      else document.addEventListener("visibilitychange", function onVis() {
+        if (document.visibilityState !== "visible") return;
+        document.removeEventListener("visibilitychange", onVis);
+        arm();
+      });
+    };
+    /* De intro start pas als het vel papier weg is (vel.js) en het lettertype
+       en de foto binnen zijn. Zonder vel is window.__velWeg al vervuld. */
+    Promise.all([klaar, window.__velWeg || Promise.resolve()]).then(() => {
+      plaats();
+      requestAnimationFrame(() => requestAnimationFrame(() => { wortel.classList.add("go"); wapen(); }));
     });
   }
 

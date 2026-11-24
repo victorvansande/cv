@@ -45,6 +45,7 @@ window.I18N = {
     set_view: `View`,
     set_compact: `Compact view`,
     stack_more: `Read more`,
+    vel_hint: `Swipe up`,
     snap_lbl: `For later`,
     snap_h: `Take a snapshot with you`,
     snap_lead: `The core of this site on a single receipt, to save as an image.`,
