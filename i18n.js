@@ -47,6 +47,8 @@ window.I18N = {
     stack_more: `Read more`,
     stack_flip: `Flip`,
     stack_back: `Back`,
+    vel_licht: `Light`,
+    vel_donker: `Dark`,
     vel_hint: `Swipe up`,
     snap_lbl: `For later`,
     snap_h: `Take a snapshot with you`,
