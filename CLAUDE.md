@@ -95,6 +95,12 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `#compact` en hergebruiken bestaande vertaalsleutels; wie een onderdeel
   toevoegt of hernoemt, past ook de kaart aan. "Lees verder" zet de gewone
   weergave terug en springt naar de sectie. Geen intro in compacte weergave.
+- **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
+  van React Bits Pro): onderaan Contact print een printer de kern van het cv op
+  een canvas-bonnetje, te bewaren als PNG of af te scheuren door het omhoog te
+  slepen. De inhoud komt uit `.essentie .facts` en de contactgegevens in het
+  script; wie de essentie aanpast, past dus ook het bonnetje aan. Lettertype:
+  IBM Plex Mono.
 - **Duur bij periodes**: elke periode staat in een `.row-when` met
   `data-periode="2019-09/2026-09"` (of `/nu`, of enkel een jaartal). `zetDuur()`
   in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder.

@@ -507,6 +507,36 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .contact-list dd { margin-top: 2px; font-weight: 500; overflow-wrap: anywhere; }
 .contact-list a { text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--g-acc) 60%, transparent); }
 
+/* ---------- Snapshot op een bonnetje ----------
+   Het papier zit in een vak dat meegroeit met het bonnetje (--papier-h) en
+   komt van onder uit de gleuf van de printer: --uit loopt van 0 naar 1. Bij
+   het naar buiten komen helt de bovenkant lichtjes achterover. */
+.snap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--g-line); align-items: end; }
+.snap-txt { grid-column: 1 / span 6; }
+.snap-area { grid-column: 8 / span 5; display: flex; flex-direction: column; align-items: center; }
+.snap-hint { margin-top: 12px; font-size: .82rem; color: var(--g-dim); }
+.snap-feed { position: relative; width: 280px; height: var(--papier-h, 0px); overflow: hidden; transition: height .45s cubic-bezier(.2, .7, .2, 1); }
+.snap-paper {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  transform-origin: 50% 100%;
+  transform: perspective(700px) translateY(calc((1 - var(--uit, 0)) * 100%)) rotateX(calc((1 - var(--uit, 0)) * 10deg));
+}
+.snap-sheet { touch-action: none; cursor: grab; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .35s; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); }
+.snap-sheet:active { cursor: grabbing; }
+.snap-sheet.gescheurd { transform: translateY(-120%) rotate(-5deg) !important; opacity: 0; transition: transform .6s cubic-bezier(.5, 0, .7, .4), opacity .6s; }
+.snap-cv { display: block; }
+.snap-printer {
+  position: relative; width: 318px; height: 46px; margin-top: -2px;
+  background: linear-gradient(#2a2a30, #1b1b20); border-radius: 10px 10px 14px 14px;
+  box-shadow: 0 18px 30px -16px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+.snap-slot { position: absolute; left: 14px; right: 14px; top: 8px; height: 5px; border-radius: 3px; background: #08080a; box-shadow: inset 0 1px 2px #000; }
+.snap-led { position: absolute; right: 18px; bottom: 12px; width: 6px; height: 6px; border-radius: 50%; background: #3b3b41; transition: background .2s, box-shadow .2s; }
+.snap-led.aan { background: #7be495; box-shadow: 0 0 8px #7be495; }
+@media (max-width: 900px) {
+  .snap-txt, .snap-area { grid-column: 1 / -1; }
+}
+
 .footer .footer-inner { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; padding-top: 22px; padding-bottom: 32px; border-top: 1px solid var(--g-line); font-size: .82rem; color: var(--g-dim); }
 .footer-meta span + span::before, .footer-links > * + *::before { content: "·"; margin: 0 8px; }
 .footer-links a { text-decoration: none; }
