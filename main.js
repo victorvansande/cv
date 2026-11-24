@@ -341,6 +341,39 @@
     });
   }
 
+  /* ---- Duur bij elke periode ----
+     Uit data-periode="2019-09/2026-09" (of "/nu" voor wat nog loopt). Het
+     einde telt niet mee, zoals bij een gewone looptijd: sep 2019 tot sep 2026
+     is zeven jaar. Een periode die nu nog loopt, rekent tot vandaag en blijft
+     dus vanzelf kloppen. Staat er enkel een jaartal, dan tellen we hele jaren.
+     De duur komt naast de datum en niet erin: de vertaling vervangt de inhoud
+     van de datum bij elke taalwissel. */
+  const zetDuur = () => {
+    const en = document.documentElement.lang === "en";
+    const nu = new Date();
+    document.querySelectorAll(".row-when[data-periode]").forEach((el) => {
+      const [van, tot] = el.dataset.periode.split("/");
+      const [vj, vm] = van.split("-").map(Number);
+      let maanden;
+      if (!vm) {
+        maanden = 12 * (nu.getFullYear() - vj);
+      } else {
+        const [tj, tm] = tot === "nu" ? [nu.getFullYear(), nu.getMonth() + 1] : tot.split("-").map(Number);
+        maanden = (tj - vj) * 12 + (tm - vm);
+      }
+      if (maanden < 1) maanden = 1;
+      const j = Math.floor(maanden / 12), m = maanden % 12;
+      const delen = [];
+      if (j) delen.push(j + (en ? (j === 1 ? " yr" : " yrs") : " jaar"));
+      if (m) delen.push(m + (en ? (m === 1 ? " mo" : " mos") : " mnd"));
+      let uit = el.querySelector(".row-dur");
+      if (!uit) { uit = document.createElement("span"); uit.className = "row-dur"; el.appendChild(uit); }
+      uit.textContent = delen.join(" ");
+    });
+  };
+  zetDuur();
+  window.addEventListener("cv-layout", zetDuur);
+
   /* ---- Lichte versie ----
      De kop zet data-mode al voor de eerste paint; hier enkel de knop, het
      bewaren en de kleur van de adresbalk op een telefoon. Het label zegt waar
