@@ -93,40 +93,6 @@
     });
   }
 
-  /* ---- Visitekaartje in metaal: kantelen en het licht volgen ----
-     De muis zet --rx en --ry (-1 tot 1) en --gx/--gy (plaats van de
-     glinstering); de css doet de rest. De waarden lopen zacht na via een
-     kleine lerp, zodat het kaartje niet schokt. Eén keer bij het in beeld
-     komen schuift er een lichtband over (klasse binnen). */
-  (() => {
-    const rk = document.querySelector(".rk");
-    if (!rk) return;
-    const stil = matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
-    if ("IntersectionObserver" in window && !stil) {
-      const io = new IntersectionObserver((es) => {
-        if (es.some((e) => e.isIntersecting)) { rk.classList.add("binnen"); io.disconnect(); }
-      }, { threshold: 0.35 });
-      io.observe(rk);
-    }
-    if (stil) return;
-    let doel = [0, 0], nu = [0, 0], raf = 0;
-    const stap = () => {
-      nu = nu.map((v, i) => v + (doel[i] - v) * 0.14);
-      rk.style.setProperty("--rx", nu[0].toFixed(3));
-      rk.style.setProperty("--ry", nu[1].toFixed(3));
-      raf = Math.abs(nu[0] - doel[0]) + Math.abs(nu[1] - doel[1]) > 0.002 ? requestAnimationFrame(stap) : 0;
-    };
-    const zet = (x, y) => { doel = [x, y]; if (!raf) raf = requestAnimationFrame(stap); };
-    rk.addEventListener("pointermove", (e) => {
-      const r = rk.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-      rk.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
-      rk.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
-      zet((px - .5) * 2, (py - .5) * 2);
-    });
-    rk.addEventListener("pointerleave", () => zet(0, 0));
-  })();
-
   /* ---- De naam na de intro: één lichtglans, daarna Tech Text bij hover ----
      Zodra alle animaties gespeeld hebben (de klasse intro is weg), schuift er
      één keer een lichtband over de naam. Daarna wordt de naam bij hover een
