@@ -50,7 +50,6 @@
 .g-herfst   { --g-bg: #13140b; --g-ink: #f1e9dc; --g-soft: #d5c9b5; --g-dim: #a59880; --g-line: #3b331f; --g-acc: #e4a55b; }
 .g-bos      { --g-bg: #110d16; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2734; --g-acc: #c9ba7e; }
 .g-centraal { --g-bg: #100908; --g-ink: #efeae2; --g-soft: #cfc8bd; --g-dim: #a0978b; --g-line: #372922; --g-acc: #dfd7bb; }
-.g-podium   { --g-bg: #0f0f10; --g-ink: #ecebe9; --g-soft: #c5c3c0; --g-dim: #95928e; --g-line: #2d2c2b; --g-acc: #d9d3c7; }
 .g-dauw     { --g-bg: #0b110c; --g-ink: #e8efe8; --g-soft: #c3cdc4; --g-dim: #93a094; --g-line: #24302a; --g-acc: #9fcf8a; }
 .g-urbex    { --g-bg: #140c0a; --g-ink: #f1e8e3; --g-soft: #d3c4bc; --g-dim: #a5938a; --g-line: #3e2921; --g-acc: #eb8762; }
 .g-veld     { --g-bg: #0d1c10; --g-ink: #eef1e9; --g-soft: #c9d2c4; --g-dim: #97a493; --g-line: #243a29; --g-acc: #f0d4ac; }
@@ -75,7 +74,6 @@
 :root[data-mode="light"] .g-herfst   { --g-bg: #f7f1e2; --g-ink: #1d1a10; --g-soft: #4f4835; --g-dim: #78705b; --g-line: #e4dabf; --g-acc: #925614; }
 :root[data-mode="light"] .g-bos      { --g-bg: #f2eff5; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd6e2; --g-acc: #6e6427; }
 :root[data-mode="light"] .g-centraal { --g-bg: #f7f3ea; --g-ink: #1a1612; --g-soft: #4c463e; --g-dim: #766d63; --g-line: #e1d8cb; --g-acc: #70582f; }
-:root[data-mode="light"] .g-podium   { --g-bg: #f2f1ef; --g-ink: #161616; --g-soft: #474543; --g-dim: #73706c; --g-line: #dddad5; --g-acc: #3d3a36; }
 :root[data-mode="light"] .g-dauw     { --g-bg: #eef4ee; --g-ink: #131a14; --g-soft: #435045; --g-dim: #6c796d; --g-line: #d5e0d5; --g-acc: #3f7a2e; }
 :root[data-mode="light"] .g-urbex    { --g-bg: #f9eee9; --g-ink: #1e1412; --g-soft: #53423c; --g-dim: #7e6a62; --g-line: #e9d5cc; --g-acc: #a74221; }
 :root[data-mode="light"] .g-veld     { --g-bg: #edf4eb; --g-ink: #121a13; --g-soft: #445043; --g-dim: #6b7869; --g-line: #d3e0cf; --g-acc: #506e28; }
@@ -340,6 +338,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .org-head { grid-column: 1 / span 4; }
 .org-head h3 { font-family: var(--font-head); font-weight: 700; font-size: 2.2rem; line-height: 1; text-transform: uppercase; margin: 8px 0 10px; }
 .org-head p:not(.label) { color: var(--g-soft); font-size: .92rem; }
+/* een foto bij de werkgever, klein onder de beschrijving; een klik opent de lichtbak */
+.org-foto { margin: 20px 0 0; max-width: 340px; }
+.org-foto .diploma-thumb { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.org-foto .diploma-thumb img { display: block; width: 100%; height: auto; aspect-ratio: auto; border-radius: 6px; }
+.org-foto figcaption { margin-top: 8px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim); }
 .org > .rows { grid-column: 5 / span 8; }
 .rows { border-top: 1px solid var(--g-line); }
 .row {
