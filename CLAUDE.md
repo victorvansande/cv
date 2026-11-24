@@ -201,11 +201,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `assets/og-gen.ps1` (enkel Windows). In de cloud:
   `NODE_PATH=$(npm root -g) node tools/og.js` (getest, webfonts laden mee).
   Niet `chrome --screenshot` gebruiken: dat snijdt onderaan een strook af.
-- **Favicon en app-icoon** (een witte V met een rood punt): de bronnen zijn `assets/icons/favicon.svg`
-  (afgeronde tegel) en `assets/icons/icon-full.svg` (vierkant, inhoud op 80 %
-  zodat Android er een cirkel uit kan knippen). De png's ernaast komen uit
-  `assets/icon-gen.ps1` (Windows). `manifest.webmanifest` verwijst naar de png's.
-  (De nieuwe site kleurt het punt niet meer mee; `v1/main.js` deed dat nog.)
+- **Favicon en app-icoon** (sinds nov 2026): "VVS" in Big Shoulders Display 800,
+  gevuld met het verloop van de zonsverduistering, op bijna zwart (#0c0a0a). De
+  letters staan als paden in de svg (geen webfont nodig), het verloop zit op een
+  rechthoek met de letters als masker. Bronnen: `assets/icons/favicon.svg`
+  (afgeronde tegel) en `assets/icons/icon-full.svg` (vierkant, inhoud op 64 %
+  zodat Android er een cirkel uit kan knippen). De png's (32, 180, 192, 512)
+  zijn in de cloud met Playwright uit die svg's gerenderd; `assets/icon-gen.ps1`
+  doet hetzelfde op Windows.
 
 ## Openstaande punten
 
