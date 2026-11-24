@@ -83,7 +83,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   daarna is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
   letter onder de cursor wordt een lijnletter met een glijdend kader en label,
   een klik laat letters opspringen. De heroknoppen krijgen bij hover een
-  korrelig verloop ("Grainient", css onder die naam); de trefwoorden
+  korrelig verloop ("Grainient", css onder die naam). Rechts van "Victor" staat een
+  pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
+  regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
+  even hoog is als de hoofdletters en eindigt waar "Sande" eindigt; de trefwoorden
   (`.tags span`) krijgen bij hover hetzelfde, in het accent van hun sectie.
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen

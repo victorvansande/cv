@@ -298,6 +298,17 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   padding-inline: .06em; margin-inline: -.06em;
 }
 .hero-side { grid-column: 8 / span 5; }
+/* portret in een pil naast "Victor"; main.js zet plaats en maat */
+.hero { position: relative; }
+.hero-pil {
+  position: absolute; display: block; border-radius: 999px; overflow: hidden; pointer-events: none;
+  opacity: 0; transform: translateX(-6px); transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--g-ink) 14%, transparent);
+}
+.hero-pil.toon { opacity: 1; transform: none; }
+.hero-pil img { position: absolute; display: block; max-width: none; }
+@media (prefers-reduced-motion: reduce) { .hero-pil { transition: none; transform: none; } }
+:root[data-motion="reduce"] .hero-pil { transition: none; transform: none; }
 .hero-lead { font-size: 1.13rem; color: var(--g-soft); max-width: 46ch; }
 .hero-lead [data-i18n="hero_role"] { color: var(--g-ink); font-weight: 600; }
 .hero-meta { margin-top: 14px; font-size: .88rem; color: var(--g-dim); }
