@@ -331,9 +331,13 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   text-transform: uppercase; color: var(--g-acc);
 }
 .label-gap { margin-top: 44px; }
-.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 24px; margin-top: 18px; }
-.facts dt { font-size: .78rem; color: var(--g-dim); }
-.facts dd { font-weight: 500; line-height: 1.4; margin-top: 2px; }
+/* In één oogopslag: elk item onder een dun lijntje, met een klein nummer in
+   het accent (via css, zodat de tekst zelf en het bonnetje ongemoeid blijven) */
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 24px; margin-top: 18px; counter-reset: feit; }
+.facts > div { counter-increment: feit; padding: 18px 0 20px; border-top: 1px solid var(--g-line); }
+.facts dt { display: flex; gap: 10px; align-items: baseline; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--g-dim); }
+.facts dt::before { content: counter(feit, decimal-leading-zero); font-family: "IBM Plex Mono", monospace; font-size: .7rem; letter-spacing: 0; color: var(--g-acc); }
+.facts dd { font-weight: 500; line-height: 1.4; margin-top: 8px; font-size: 1.06rem; }
 .facts dd.sub { font-weight: 400; font-size: .84rem; color: var(--g-soft); margin-top: 4px; }
 
 /* ---------- Sectiekop ---------- */
@@ -709,10 +713,16 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   line-height: .88; text-transform: uppercase;
 }
 .contact-title .em-serif { color: var(--g-acc); }
-.contact-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--g-line); }
-.contact-list dt { font-size: .78rem; color: var(--g-dim); }
-.contact-list dd { margin-top: 2px; font-weight: 500; overflow-wrap: anywhere; }
-.contact-list a { text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--g-acc) 60%, transparent); }
+/* Contactgegevens als rijen in twee kolommen: label links, gegeven rechts, en
+   een pijl die bij hover een stukje opschuift */
+.contact-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin-top: 56px; border-top: 1px solid var(--g-line); }
+.contact-list > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--g-line); }
+.contact-list dt { font-size: .78rem; color: var(--g-dim); flex-shrink: 0; }
+.contact-list dd { margin: 0; font-weight: 500; font-size: 1.15rem; text-align: right; overflow-wrap: anywhere; }
+.contact-list a { text-decoration: none; }
+.contact-list a::after { content: "\2192"; display: inline-block; margin-left: .35em; color: var(--g-acc); transition: transform .25s cubic-bezier(.2, .7, .2, 1); }
+.contact-list > div:hover a::after, .contact-list a:focus-visible::after { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .contact-list a::after { transition: none; } }
 
 /* ---------- Snapshot op een bonnetje ----------
    Het papier rolt uit de printer over de site erboven: het vak neemt geen
@@ -837,7 +847,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .sec-title { font-size: clamp(3.6rem, 19vw, 7rem); }
   .sec-title.sec-title-lang { font-size: clamp(3.2rem, 15vw, 5.6rem); }
   .cols-2, .cols-3 { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
   .sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 40px; padding-bottom: 64px; }
   .frame img { aspect-ratio: 16 / 9; }
 }
