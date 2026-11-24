@@ -69,7 +69,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   Het inlinescript in de head zet `vel-open` al voor de eerste paint (anders zie
   je eerst even de site); de waas staat enkel aan terwijl het vel beweegt
   (`vel-los`), want een backdrop-filter onder een bewegend vel deed het typen
-  haperen. De cursor schuift achter de laatst getypte letter mee.
+  haperen. De cursor schuift achter de laatst getypte letter mee. Rechtsboven op
+  het vel kies je meteen licht of donker (`.vel-keuze`): het vel volgt mee en de
+  keuze geldt voor de hele site (`cv-modus`). Het papier heeft een fijne korrel
+  en licht reliëf (`.vel::before`, feDiffuseLighting).
   `vel.js` laadt voor `main.js` en zet `window.__velWeg`; de Venster-intro
   start pas als die belofte afgaat. Geen vel bij minder beweging, in de
   compacte weergave of bij een herbezoek in dezelfde sessie.

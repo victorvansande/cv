@@ -39,6 +39,28 @@
   }
 
   const regel = vel.querySelector(".vel-regel");
+
+  /* ---- licht of donker kiezen ----
+     Het vel volgt meteen mee, en de keuze geldt voor de hele site (dezelfde
+     opslag en dezelfde meta theme-color als de knop in de menubalk). */
+  const opties = [...vel.querySelectorAll(".vel-optie")];
+  const themaKleur = document.querySelector('meta[name="theme-color"]');
+  const toonKeuze = () => {
+    const licht = wortel.dataset.mode === "light";
+    opties.forEach((o) => o.setAttribute("aria-pressed", String((o.dataset.modus === "light") === licht)));
+  };
+  opties.forEach((o) => o.addEventListener("click", () => {
+    const licht = o.dataset.modus === "light";
+    if (licht) wortel.dataset.mode = "light"; else wortel.removeAttribute("data-mode");
+    if (themaKleur) themaKleur.content = licht ? "#f6f1ea" : "#0c0a0a";
+    try { localStorage.setItem("cv-modus", licht ? "light" : "dark"); } catch (e) {}
+    toonKeuze();
+    // met de muis gekozen: de focus terug naar het vel, zodat Enter het meteen wegveegt
+    if (window.event && window.event.detail > 0) vel.focus({ preventScroll: true });
+    // de knop in de menubalk en de overgangen tussen secties volgen via data-mode
+    window.dispatchEvent(new Event("cv-layout"));
+  }));
+  toonKeuze();
   const hint = vel.querySelector(".vel-hint");
   const rnd = (a, b) => a + Math.random() * (b - a);
 
@@ -149,7 +171,7 @@
 
   let y0 = 0, dy = 0, t0 = 0, sleept = false;
   vel.addEventListener("pointerdown", (e) => {
-    if (weg || e.target.closest(".vel-hint")) return;
+    if (weg || e.target.closest(".vel-hint, .vel-keuze")) return;
     cancelAnimationFrame(anim);
     sleept = true; y0 = e.clientY; dy = 0; t0 = performance.now();
     vel.setPointerCapture(e.pointerId);
@@ -173,10 +195,14 @@
   addEventListener("wheel", (e) => { if (!weg && e.deltaY > 12) opzij(); }, { passive: true });
   addEventListener("keydown", (e) => {
     if (weg) return;
-    if (["Enter", " ", "ArrowUp", "ArrowDown", "PageDown", "Escape", "Tab"].includes(e.key)) {
-      if (e.key !== "Tab") e.preventDefault();
+    // Enter en spatie op een themaknop kiezen het thema, en vegen het vel niet weg
+    if (e.target.closest && e.target.closest(".vel-keuze") && (e.key === "Enter" || e.key === " ")) return;
+    if (["Enter", " ", "ArrowUp", "ArrowDown", "PageDown", "Escape"].includes(e.key)) {
+      e.preventDefault();
       opzij();
     }
   });
+  // met Tab ga je eerst langs de themaknoppen; wie verder tabt, verlaat het vel
+  document.addEventListener("focusin", (e) => { if (!weg && !vel.contains(e.target)) opzij(); });
   zetP(0);
 })();
