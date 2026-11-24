@@ -305,7 +305,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 
 /* ---------- Het breedbeeld ---------- */
 .frame { position: relative; }
-.frame img { width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; border-radius: 6px; }
+.frame img { width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; border-radius: 12px; }
 /* De hero-foto is lager dan de andere: de naam eronder moet bij het laden
    volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
    van 800 pixels hoog viel ze anders half onder de rand. */
@@ -315,13 +315,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    voorlagen van een Staggered Menu. Terug gaat het in omgekeerde volgorde. */
 .frame-lagen { position: relative; display: block; isolation: isolate; }
 .frame-lagen > img { position: relative; z-index: 2; display: block; }
-.frame-lagen .laag { position: absolute; inset: 0; z-index: 0; border-radius: 6px; transform: translateX(0);
+.frame-lagen .laag { position: absolute; inset: 0; z-index: 0; border-radius: 12px; transform: translateX(0);
   transition: transform .55s cubic-bezier(.76, 0, .24, 1); }
 .frame-lagen .l1 { z-index: 1; background: color-mix(in srgb, var(--g-acc) 45%, var(--g-bg)); transition-delay: .06s; }
 .frame-lagen .l2 { background: var(--g-acc); transition-delay: 0s; }
-.frame:hover .frame-lagen .l1 { transform: translateX(7px); transition-delay: 0s; }
-.frame:hover .frame-lagen .l2 { transform: translateX(14px); transition-delay: .08s; }
-@media (hover: none) { .frame-lagen .laag { display: none; } }
+.frame:hover .frame-lagen .l1, .frame.lagen-uit .frame-lagen .l1 { transform: translateX(9px); transition-delay: 0s; }
+.frame:hover .frame-lagen .l2, .frame.lagen-uit .frame-lagen .l2 { transform: translateX(18px); transition-delay: .08s; }
 @media (prefers-reduced-motion: reduce) { .frame-lagen .laag { transition: none; } }
 :root[data-motion="reduce"] .frame-lagen .laag { transition: none; }
 .frame figcaption {
@@ -446,7 +445,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* een foto bij de werkgever, klein onder de beschrijving; een klik opent de lichtbak */
 .org-foto { margin: 20px 0 0; }
 .org-foto .diploma-thumb { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
-.org-foto .diploma-thumb img { display: block; width: 100%; height: auto; aspect-ratio: auto; border-radius: 6px; }
+.org-foto .diploma-thumb img { display: block; width: 100%; height: auto; aspect-ratio: auto; border-radius: 10px; }
 .org-foto figcaption { margin-top: 8px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim); }
 .org > .rows { grid-column: 5 / span 8; }
 /* Eén lijn bovenaan over beide kolommen, en links even veel ruimte als in een
@@ -512,7 +511,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   transition: clip-path .35s cubic-bezier(.2, .7, .2, 1);
   animation: tag-drijf 6s ease-in-out infinite alternate paused;
 }
-.tags span::before { content: "#"; margin-right: 2px; color: var(--g-acc); transition: color .25s; }
+.tags span::before { content: none; }
 @media (hover: hover) { .tags span:hover { border-color: var(--g-acc); color: var(--g-bg); } }
 @media (hover: hover) { .tags span:hover::after { clip-path: inset(0); animation-play-state: running; } }
 @media (hover: hover) { .tags span:hover::before { color: var(--g-bg); } }
@@ -678,13 +677,16 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 .lenti-view { position: relative; overflow: hidden; padding: 48px 0 40px; touch-action: pan-y; cursor: grab; outline-offset: 4px; }
 .lenti-view:active { cursor: grabbing; }
-.lenti-track { display: flex; gap: 26px; width: max-content; transition: transform .55s cubic-bezier(.2, .7, .2, 1); will-change: transform; }
+/* de kaarten staan los op hun eigen plek (--x, uit galerij.js): zo kan de
+   reeks rondlopen zonder einde */
+.lenti-track { position: relative; width: var(--lw, 260px); height: var(--lh, 347px); transition: transform .55s cubic-bezier(.2, .7, .2, 1); will-change: transform; }
 .is-lenti .design-item {
+  position: absolute; left: 0; top: 0;
   width: var(--lw, 260px); flex: none; perspective: 1200px;
-  transform: scale(.9); filter: brightness(.55);
+  transform: translateX(var(--x, 0px)) scale(.9); filter: brightness(.55);
   transition: transform .55s cubic-bezier(.2, .7, .2, 1), filter .55s;
 }
-.is-lenti .design-item.is-active { transform: none; filter: none; }
+.is-lenti .design-item.is-active { transform: translateX(var(--x, 0px)); filter: none; }
 .is-lenti .diploma-thumb {
   position: relative; width: var(--lw, 260px); height: var(--lh, 347px); border-radius: 14px; overflow: hidden;
   transform-style: preserve-3d; background: #000; cursor: pointer;
@@ -695,6 +697,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .lenti-cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .is-lenti .diploma-thumb:hover img { opacity: 1; }
 
+/* de randen links en rechts vervagen, zodat de kaarten opzij wegvloeien */
+.reel-view, .lenti-view {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%);
+}
 .reel-view { position: relative; height: calc(var(--rh, 250px) * 1.5); overflow: hidden; touch-action: pan-y; cursor: grab; outline-offset: 4px; }
 .reel-view:active { cursor: grabbing; }
 .reel-ring { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(-6deg); }

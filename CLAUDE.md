@@ -109,16 +109,18 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   Geen secties die pas bij het scrollen verschijnen. De sectietitels vullen de linkerkolom
   (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).
-  Achter elke grote foto liggen twee lagen in het accent die bij hover na
-  elkaar rechts uitschuiven (`.frame-lagen`, naar de Staggered Menu van React
+  Sectietitels krimpen in main.js (`pasTitels`) tot er 36 px vrij blijft tot de
+  rechterkolom, zodat ook langere Engelse woorden passen. Achter elke grote
+  foto (hoeken 12 px) liggen twee lagen in het accent die bij hover, en één keer
+  bij het in beeld komen, na elkaar rechts uitschuiven (`.frame-lagen`, naar de Staggered Menu van React
   Bits; main.js zet het omhulsel). Een kop binnen een sectie (`.sub-head >
   .sec-sub`, Wat me drijft) staat in de titelletter, kleiner dan de sectietitel.
   Knoppen hebben zachte hoeken (6 px), labels en trefwoorden 4 px; geen
   volledig ronde pillen (enkel het portret).
   Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
 - **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
-  zonder hun code): de fotogalerij wordt een lenticulaire carrousel (kaart draait
-  strook per strook om bij hover, achterkant met titel en bijschrift uit
+  zonder hun code): de fotogalerij wordt een oneindige lenticulaire carrousel (kaart draait
+  strook per strook om bij hover; elke kaart staat op `--x`, rond gerekend over de reeks; achterkant met titel en bijschrift uit
   `.design-cap`), de werkgalerij een draaiende ring met bewegingsonscherpte. Zonder
   script blijven de rasters staan. Een klik op een kaart opzij wordt in de
   capture-fase onderschept; de middelste kaart opent de lichtbak of het
@@ -165,6 +167,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   laadt `style.css` met dezelfde `?v=N` als `index.html`: mee ophogen.
 - **Strepen**: geen lijn onder het laatste item van een opsomming (css onderaan
   "Geen streep na het laatste item"); wie een nieuwe lijst met lijnen toevoegt, volgt dat.
+- **Trefwoorden** (`.tags span`) staan zonder hekje. Beide galerijen vervagen
+  links en rechts (mask-image).
+- **Altijd in beide talen testen**: een `data-i18n` op een element met geneste
+  opmaak (zoals een badge) verliest die in het Engels; zet de sleutel dan op een
+  eigen span.
 - **Codecommentaar** is in het Nederlands en legt vaak uit *waarom* iets zo
   gebouwd is. Lees het voor je iets "opruimt".
 

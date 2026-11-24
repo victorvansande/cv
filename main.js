@@ -109,6 +109,36 @@
     om.innerHTML = '<i class="laag l1" aria-hidden="true"></i><i class="laag l2" aria-hidden="true"></i>';
     om.appendChild(img);
   });
+  /* Ook zonder muis (gsm) en voor wie er niet over beweegt: komt een foto
+     voor het eerst goed in beeld, dan schuiven de lagen één keer uit en
+     terug. */
+  if ("IntersectionObserver" in window && !(matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce")) {
+    const lagenIo = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      lagenIo.unobserve(e.target);
+      const f = e.target;
+      setTimeout(() => { f.classList.add("lagen-uit"); setTimeout(() => f.classList.remove("lagen-uit"), 1400); }, 250);
+    }), { threshold: 0.6 });
+    document.querySelectorAll(".frame:not(.frame-hero)").forEach((f) => lagenIo.observe(f));
+  }
+
+  /* ---- Sectietitels die in hun kolom passen ----
+     De titel vult de linkerkolom, maar een langer woord (zoals "Experience" in
+     het Engels) liep tot tegen de tekst ernaast. Elke titel krimpt daarom tot
+     er minstens 36 px vrij blijft tot de rechterkolom. Herberekend na een
+     taalwissel, bij een andere schermmaat en zodra de lettertypes er zijn. */
+  const pasTitels = () => document.querySelectorAll(".sec-head .sec-title").forEach((t) => {
+    t.style.fontSize = "";
+    const kop = t.closest(".sec-head"), naast = kop && kop.lastElementChild;
+    if (!naast || naast === t || getComputedStyle(kop).gridTemplateColumns.split(" ").length < 2) return;
+    const r = document.createRange(); r.selectNodeContents(t);
+    const breed = [...r.getClientRects()].reduce((m, q) => Math.max(m, q.right), 0) - t.getBoundingClientRect().left;
+    const ruimte = naast.getBoundingClientRect().left - t.getBoundingClientRect().left - 36;
+    if (breed > ruimte && breed > 0) t.style.fontSize = (parseFloat(getComputedStyle(t).fontSize) * ruimte / breed).toFixed(1) + "px";
+  });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(pasTitels);
+  addEventListener("resize", pasTitels);
+  addEventListener("cv-layout", pasTitels);
 
   /* ---- Portret in een pil naast de naam ----
      Rechts van "Victor" staat een pil met het portret, even hoog als de
