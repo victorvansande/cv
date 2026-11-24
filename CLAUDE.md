@@ -68,8 +68,12 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
   tint). De masterproef is een eigen blok binnen Opleiding, met de urbexfoto
-  en een terracotta accent (`.g-urbex`). Er is geen kleurthema en geen licht/donker meer: dat zou dat systeem
-  doorkruisen. Weinig beweging: enkel de intro en hovers. Alles staat open,
+  en een terracotta accent (`.g-urbex`). Er is geen vrij kleurthema meer: dat zou dat systeem doorkruisen.
+  Wel een lichte versie (knop `.mode-toggle` in de menubalk, `data-mode="light"`
+  op `<html>`): per sectie een lichte tint uit dezelfde foto en een dieper
+  accent. De keuze staat in `localStorage` onder `cv-modus`, bewust niet onder
+  het oude `cv-mode` van `v1/`, waar licht de standaard was. Standaard donker.
+  Wie een nieuw palet `.g-*` toevoegt, voegt ook de lichte tegenhanger toe. Weinig beweging: enkel de intro en hovers. Alles staat open,
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
   `<details class="fold">` met een strookje van vier beelden als voorproef.
   Geen secties die pas bij het scrollen verschijnen.
@@ -87,8 +91,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
 - Lokaal serveren: `python3 -m http.server 4322` (werkt overal),
   `npx serve -l 4321 .` (zie `.claude/launch.json`) of op Windows
   `powershell -ExecutionPolicy Bypass -File serve.ps1` (poort 5180).
-- Controleer na een wijziging beide talen (knop `.lang-toggle`), op 1280 en
-  375 pixels breed: geen horizontale overloop, geen fouten in de console.
+- Controleer na een wijziging beide talen (knop `.lang-toggle`) en beide
+  versies (knop `.mode-toggle`), op 1280 en 375 pixels breed: geen horizontale overloop, geen fouten in de console.
 - In een headless browser laden afbeeldingen met `loading="lazy"` pas als je
   erlangs scrolt; een volledige screenshot zonder scrollen toont dus lege
   vakken. Dat is geen bug.
