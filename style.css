@@ -740,7 +740,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .snap-hint { margin-top: 12px; font-size: .82rem; color: var(--g-dim); }
 /* Het vak snijdt enkel onderaan af, bij de gleuf: zo blijft het papier dat
    nog in de printer zit onzichtbaar, terwijl de schaduw opzij vrij uitloopt. */
-.snap-feed { position: relative; width: 280px; height: 0; clip-path: inset(-4000px -90px 0 -90px); }
+/* enkel onderaan afsnijden (bij de gleuf); opzij nooit, anders verdwijnt een
+   stuk papier als je het bonnetje rond de hoek trekt */
+.snap-feed { position: relative; width: 280px; height: 0; clip-path: inset(-4000px -4000px 0 -4000px); }
 .snap-paper { position: absolute; left: 0; right: 0; bottom: 0; transform: translateY(100%); }
 .snap-sheet { touch-action: none; cursor: grab; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .35s; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); }
 .snap-sheet:active { cursor: grabbing; }
