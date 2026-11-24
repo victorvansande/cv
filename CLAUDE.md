@@ -73,8 +73,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   zonsverduistering in de letters en krimpt dan naar zijn plaats; de rest van
   de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
   de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
-  `main.js`. Er wordt niets gekloond. De klikgloed en de spectrumhover op de
-  naam zijn van de vorige intro overgebleven en werken nog.
+  `main.js`. Er wordt niets gekloond. Op de naam zit geen regenboog meer: bij hover
+  of een tik schuift er een lichtglans over de letters (`.glans`, css onder
+  "Lichtglans").
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
@@ -109,6 +110,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   slepen. De inhoud komt uit `.essentie .facts` en de contactgegevens in het
   script; wie de essentie aanpast, past dus ook het bonnetje aan. Lettertype:
   IBM Plex Mono.
+- **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de
+  achtergrondkleur van de sectie erboven mee (`--vorige`, klasse `.vloeit`),
+  zodat ze bovenaan zacht in elkaar overvloeien. Herberekend bij een wissel
+  tussen licht en donker.
 - **Duur bij periodes**: elke periode staat in een `.row-when` met
   `data-periode="2019-09/2026-09"` (of `/nu`, of enkel een jaartal). `zetDuur()`
   in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder.

@@ -93,65 +93,38 @@
     });
   }
 
-  /* ---- Klik op de naam: de letters stralen kleur uit ----
-     Niet één bloei uit een middelpunt, maar drie kopieën van de naam zelf met
-     elk een vaste blur. Ze schalen op en vloeien weg, dus de gloed heeft in de
-     eerste frames precies de vorm van de glyphs en diffundeert daarna pas.
-     De blur staat vast en enkel transform/opacity animeren, zodat elke laag
-     één keer gerasterd wordt en daarna alleen nog gecomposit.
-     De h1 wordt in zijn geheel gekloond: alleen zo valt de regelval (die door
-     text-wrap: balance bepaald wordt) gegarandeerd identiek uit. */
-  /* De luisteraar hangt aan het document en zoekt de naam pas op bij de klik.
-     Dat is nodig omdat de intro klonen van de h1 maakt die de klasse
-     prism-host meedragen, en de introlaag vóór de hero in de DOM staat: een
-     directe querySelector greep dus de kloon, en die verdwijnt samen met de
-     laag zodra de intro klaar is. Daardoor werkte de klik enkel bij een
-     herbezoek binnen dezelfde sessie, wanneer de intro niet meer speelt.
-     De :not(.in-l) sluit de introlagen uit, net als in de bijbehorende CSS. */
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    let current = null;
-    document.addEventListener("click", (ev) => {
-      const glowName = ev.target.closest(".prism-host:not(.in-l) .grad-text");
-      if (!glowName) return;
-      const glowHost = glowName.closest(".prism-host");
-      if (document.documentElement.dataset.motion === "reduce") return;
-      // hoogstens één gloed tegelijk: snel achter elkaar klikken stapelt niet op
-      if (current) current.remove();
-      const h = glowHost.getBoundingClientRect();
-      const r = glowName.getBoundingClientRect();
-      const wrap = document.createElement("div");
-      wrap.className = "name-glow";
-      wrap.setAttribute("aria-hidden", "true");
-      wrap.style.left = h.left + "px";
-      wrap.style.top = h.top + "px";
-      wrap.style.width = h.width + "px";
-      wrap.style.height = h.height + "px";
-      /* Draaipunt op het midden van de NAAM, niet van de h1. De kop is zo breed
-         als de kaart terwijl de naam links uitlijnt; schalen om het midden van
-         de kop duwt de gloed dan zichtbaar naar links weg. */
-      wrap.style.setProperty("--ox", r.left + r.width / 2 - h.left + "px");
-      wrap.style.setProperty("--oy", r.top + r.height / 2 - h.top + "px");
-      // gl-flash als laatste, dus bovenop de kleurlagen
-      ["gl-near", "gl-mid", "gl-far", "gl-flash"].forEach((cls) => {
-        const clone = glowHost.cloneNode(true);
-        clone.classList.remove("prism-host");   // anders erft de kloon de hover-regels
-        clone.classList.add("gl", cls);
-        clone.removeAttribute("id");
-        clone.querySelectorAll("[data-i18n]").forEach((el) => el.removeAttribute("data-i18n"));
-        clone.querySelectorAll(":scope > *:not(.grad-text)").forEach((el) => el.classList.add("intro-hidden"));
-        clone.style.width = h.width + "px";
-        wrap.appendChild(clone);
-      });
-      document.body.appendChild(wrap);
-      current = wrap;
-      const clear = () => { if (current === wrap) current = null; wrap.remove(); };
-      // animationend borrelt op vanuit de lagen; de traagste bepaalt het einde
-      wrap.addEventListener("animationend", (e) => {
-        if (e.target.classList.contains("gl-far")) clear();
-      });
-      setTimeout(clear, 4000);
-    });
+  /* ---- Lichtglans over de naam ----
+     Bij hover of een tik schuift er één lichtband over de letters (de css
+     staat onder "Lichtglans"). Zolang de intro loopt, gebeurt er niets. */
+  const glansNaam = document.querySelector(".prism-host .grad-text");
+  if (glansNaam) {
+    const glans = () => {
+      if (wortel.classList.contains("intro")) return;
+      glansNaam.classList.remove("glans");
+      void glansNaam.offsetWidth;          // reflow, anders herstart de animatie niet
+      glansNaam.classList.add("glans");
+    };
+    glansNaam.addEventListener("pointerenter", glans);
+    glansNaam.addEventListener("click", glans);
+    glansNaam.addEventListener("animationend", (e) => { if (e.animationName === "naam-glans") glansNaam.classList.remove("glans"); });
   }
+
+  /* ---- Zachte overgang tussen secties ----
+     Elke sectie krijgt de achtergrondkleur van de sectie erboven mee, zodat
+     de css bovenaan een verloop kan tekenen. Opnieuw na een wissel tussen
+     licht en donker, want dan veranderen alle kleuren. */
+  const vloei = () => {
+    const blokken = [...document.querySelectorAll("main > .grade, main > .sec > .grade, footer.grade")];
+    let vorige = null;
+    blokken.forEach((b) => {
+      const eigen = getComputedStyle(b).backgroundColor;
+      if (vorige && vorige !== eigen) { b.style.setProperty("--vorige", vorige); b.classList.add("vloeit"); }
+      else b.classList.remove("vloeit");
+      vorige = eigen;
+    });
+  };
+  vloei();
+  new MutationObserver(vloei).observe(wortel, { attributes: true, attributeFilter: ["data-mode", "data-view"] });
 
   /* ---- Getallen volgens de taal ----
      Het getal staat al in de html, zodat een schermlezer of een bezoeker

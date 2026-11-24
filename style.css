@@ -44,14 +44,14 @@
    bovenaan de sectie: de achtergrond is de donkerste veelvoorkomende tint,
    het accent een heldere tint uit hetzelfde beeld, waar nodig iets
    opgehelderd zodat het op de achtergrond ruim leesbaar blijft. */
-.g-eclipse  { --g-bg: #0c0a0a; --g-ink: #efe9e2; --g-soft: #c9c1b8; --g-dim: #9a9087; --g-line: #33291f; --g-acc: #d9a877; }
-.g-schelde  { --g-bg: #14161d; --g-ink: #e8edf2; --g-soft: #bfc8d1; --g-dim: #8d98a4; --g-line: #2c323d; --g-acc: #a9bccb; }
-.g-theater  { --g-bg: #160407; --g-ink: #f5e4e2; --g-soft: #dcbfbc; --g-dim: #b08f8b; --g-line: #43181d; --g-acc: #ec6a6f; }
-.g-herfst   { --g-bg: #12130c; --g-ink: #f1e9dc; --g-soft: #d5c9b5; --g-dim: #a59880; --g-line: #383222; --g-acc: #dca463; }
-.g-bos      { --g-bg: #110e15; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2833; --g-acc: #c4b783; }
-.g-centraal { --g-bg: #0f0a09; --g-ink: #efeae2; --g-soft: #cfc8bd; --g-dim: #a0978b; --g-line: #352a24; --g-acc: #ddd6bd; }
-.g-urbex    { --g-bg: #130d0b; --g-ink: #f1e8e3; --g-soft: #d3c4bc; --g-dim: #a5938a; --g-line: #3b2a24; --g-acc: #e38b6a; }
-.g-veld     { --g-bg: #0f1a11; --g-ink: #eef1e9; --g-soft: #c9d2c4; --g-dim: #97a493; --g-line: #26382a; --g-acc: #ecd3b0; }
+.g-eclipse  { --g-bg: #0c0a0a; --g-ink: #efe9e2; --g-soft: #c9c1b8; --g-dim: #9a9087; --g-line: #36291c; --g-acc: #e0a870; }
+.g-schelde  { --g-bg: #12151f; --g-ink: #e8edf2; --g-soft: #bfc8d1; --g-dim: #8d98a4; --g-line: #2a313f; --g-acc: #a7bccd; }
+.g-theater  { --g-bg: #190105; --g-ink: #f5e4e2; --g-soft: #dcbfbc; --g-dim: #b08f8b; --g-line: #481319; --g-acc: #f56167; }
+.g-herfst   { --g-bg: #13140b; --g-ink: #f1e9dc; --g-soft: #d5c9b5; --g-dim: #a59880; --g-line: #3b331f; --g-acc: #e4a55b; }
+.g-bos      { --g-bg: #110d16; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2734; --g-acc: #c9ba7e; }
+.g-centraal { --g-bg: #100908; --g-ink: #efeae2; --g-soft: #cfc8bd; --g-dim: #a0978b; --g-line: #372922; --g-acc: #dfd7bb; }
+.g-urbex    { --g-bg: #140c0a; --g-ink: #f1e8e3; --g-soft: #d3c4bc; --g-dim: #a5938a; --g-line: #3e2921; --g-acc: #eb8762; }
+.g-veld     { --g-bg: #0d1c10; --g-ink: #eef1e9; --g-soft: #c9d2c4; --g-dim: #97a493; --g-line: #243a29; --g-acc: #f0d4ac; }
 
 /* ---------- Lichte versie ----------
    Hetzelfde systeem, omgekeerd: de achtergrond is een heel lichte tint uit de
@@ -67,14 +67,14 @@
   --c-edge: 27 22 18; --c-track: #d8cfc4;
   color-scheme: light;
 }
-:root[data-mode="light"] .g-eclipse  { --g-bg: #f6f1ea; --g-ink: #1b1612; --g-soft: #4d453d; --g-dim: #776d63; --g-line: #e0d6ca; --g-acc: #94602d; }
-:root[data-mode="light"] .g-schelde  { --g-bg: #eef1f4; --g-ink: #141a21; --g-soft: #46505b; --g-dim: #6c7783; --g-line: #d5dce3; --g-acc: #3d5467; }
-:root[data-mode="light"] .g-theater  { --g-bg: #f8eeee; --g-ink: #211113; --g-soft: #573d40; --g-dim: #82696b; --g-line: #e9d5d6; --g-acc: #a3303a; }
-:root[data-mode="light"] .g-herfst   { --g-bg: #f4f0e5; --g-ink: #1d1a10; --g-soft: #4f4835; --g-dim: #78705b; --g-line: #e0d8c3; --g-acc: #8a561c; }
-:root[data-mode="light"] .g-bos      { --g-bg: #f2f0f4; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd7e1; --g-acc: #6a612b; }
-:root[data-mode="light"] .g-centraal { --g-bg: #f5f2ec; --g-ink: #1a1612; --g-soft: #4c463e; --g-dim: #766d63; --g-line: #dfd8cd; --g-acc: #6c5733; }
-:root[data-mode="light"] .g-urbex    { --g-bg: #f7efeb; --g-ink: #1e1412; --g-soft: #53423c; --g-dim: #7e6a62; --g-line: #e6d6cf; --g-acc: #9f4629; }
-:root[data-mode="light"] .g-veld     { --g-bg: #eef3ec; --g-ink: #121a13; --g-soft: #445043; --g-dim: #6b7869; --g-line: #d4ded1; --g-acc: #4f6a2c; }
+:root[data-mode="light"] .g-eclipse  { --g-bg: #f8f1e8; --g-ink: #1b1612; --g-soft: #4d453d; --g-dim: #776d63; --g-line: #e3d6c7; --g-acc: #9b6026; }
+:root[data-mode="light"] .g-schelde  { --g-bg: #edf1f5; --g-ink: #141a21; --g-soft: #46505b; --g-dim: #6c7783; --g-line: #d3dce5; --g-acc: #3a546a; }
+:root[data-mode="light"] .g-theater  { --g-bg: #faecec; --g-ink: #211113; --g-soft: #573d40; --g-dim: #82696b; --g-line: #ebd3d4; --g-acc: #ab2833; }
+:root[data-mode="light"] .g-herfst   { --g-bg: #f7f1e2; --g-ink: #1d1a10; --g-soft: #4f4835; --g-dim: #78705b; --g-line: #e4dabf; --g-acc: #925614; }
+:root[data-mode="light"] .g-bos      { --g-bg: #f2eff5; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd6e2; --g-acc: #6e6427; }
+:root[data-mode="light"] .g-centraal { --g-bg: #f7f3ea; --g-ink: #1a1612; --g-soft: #4c463e; --g-dim: #766d63; --g-line: #e1d8cb; --g-acc: #70582f; }
+:root[data-mode="light"] .g-urbex    { --g-bg: #f9eee9; --g-ink: #1e1412; --g-soft: #53423c; --g-dim: #7e6a62; --g-line: #e9d5cc; --g-acc: #a74221; }
+:root[data-mode="light"] .g-veld     { --g-bg: #edf4eb; --g-ink: #121a13; --g-soft: #445043; --g-dim: #6b7869; --g-line: #d3e0cf; --g-acc: #506e28; }
 /* het donkere zwart onder de doc-chip en de lichtbak blijft: dat is een
    overlay op beeld, geen achtergrond van de pagina */
 
@@ -580,19 +580,16 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .contact-list a { text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--g-acc) 60%, transparent); }
 
 /* ---------- Snapshot op een bonnetje ----------
-   Het papier zit in een vak dat meegroeit met het bonnetje (--papier-h) en
-   komt van onder uit de gleuf van de printer: --uit loopt van 0 naar 1. Bij
-   het naar buiten komen helt de bovenkant lichtjes achterover. */
+   Het papier hangt bovenaan in een vak dat meegroeit met wat er uit de
+   printer komt (bonnetje.js zet de hoogte en scrolt mee). */
 .snap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--g-line); align-items: end; }
 .snap-txt { grid-column: 1 / span 6; }
 .snap-area { grid-column: 8 / span 5; display: flex; flex-direction: column; align-items: center; }
 .snap-hint { margin-top: 12px; font-size: .82rem; color: var(--g-dim); }
-.snap-feed { position: relative; width: 280px; height: var(--papier-h, 0px); overflow: hidden; transition: height .45s cubic-bezier(.2, .7, .2, 1); }
-.snap-paper {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  transform-origin: 50% 100%;
-  transform: perspective(700px) translateY(calc((1 - var(--uit, 0)) * 100%)) rotateX(calc((1 - var(--uit, 0)) * 10deg));
-}
+/* Het vak snijdt enkel onderaan af, bij de gleuf: zo blijft het papier dat
+   nog in de printer zit onzichtbaar, terwijl de schaduw opzij vrij uitloopt. */
+.snap-feed { position: relative; width: 280px; height: 0; clip-path: inset(-400px -90px 0 -90px); }
+.snap-paper { position: absolute; left: 0; right: 0; top: 0; }
 .snap-sheet { touch-action: none; cursor: grab; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .35s; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); }
 .snap-sheet:active { cursor: grabbing; }
 .snap-sheet.gescheurd { transform: translateY(-120%) rotate(-5deg) !important; opacity: 0; transition: transform .6s cubic-bezier(.5, 0, .7, .4), opacity .6s; }
@@ -750,81 +747,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    regelval. */
 .intro-hidden { visibility: hidden; }
 
-/* ---------- Klik op de naam: de letters stralen kleur uit ----------
-   Drie kopieën van de naam met elk een vaste blur schalen op en vloeien weg.
-   Omdat de bron de glyphs zelf zijn, heeft de gloed in de eerste frames de
-   vorm van de letters en diffundeert hij pas terwijl hij uitdijt - precies
-   zoals licht dat van een vorm afkomt.
-   De blur staat vast; er animeren alleen transform en opacity, dus elke laag
-   wordt één keer gerasterd en daarna enkel nog gecomposit. Doordat de blur
-   mee opschaalt met de transform, wordt de gloed vanzelf zachter naarmate hij
-   verder reikt. */
-.name-glow { position: fixed; pointer-events: none; z-index: 200; }
-.name-glow .gl {
-  position: absolute; left: 0; top: 0;
-  margin: 0 !important;              /* .h-xl zet zelf een !important-marge */
-  /* main.js zet dit op het midden van de naam; de 50% is enkel een terugval */
-  transform-origin: var(--ox, 50%) var(--oy, 50%);
-  will-change: transform, opacity;
-}
-.name-glow .gl .grad-text {
-  /* het volledige spectrum door de letters, los van het themaverloop */
-  background-image: linear-gradient(100deg,
-    hsl(26 92% 56%) 0%, hsl(332 84% 58%) 26%, hsl(268 82% 62%) 50%,
-    hsl(210 92% 57%) 74%, hsl(190 88% 55%) 100%);
-  background-size: 100% 100%;
-  background-position: 0 0;
-  animation: none;
-}
-.name-glow .gl-near .grad-text { filter: blur(7px)  saturate(1.35); }
-.name-glow .gl-mid  .grad-text { filter: blur(21px) saturate(1.3); }
-.name-glow .gl-far  .grad-text { filter: blur(44px) saturate(1.25); }
-
-/* Lineair getimed: de vertraging zit in de schaalstappen zelf. Met één sterke
-   ease-out zakte de dekking al binnen een fractie weg, waardoor het eerder een
-   flits werd dan een uitstraling. */
-.name-glow .gl-near { animation: glow-near 1.2s linear both; }
-.name-glow .gl-mid  { animation: glow-mid  1.85s linear both; }
-.name-glow .gl-far  { animation: glow-far  2.6s linear both; }
-
-/* Korte witte flits op de letters zelf, zoals bij de intro maar veel vluchtiger
-   omdat het hele klikeffect korter is. Deze laag schaalt bewust niet mee: hij
-   moet exact op de glyphs blijven staan terwijl de kleur eromheen wegtrekt. */
-.name-glow .gl-flash .grad-text {
-  background-image: linear-gradient(#fff, #fff);
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, .85))
-          drop-shadow(0 0 26px rgba(255, 240, 225, .5));
-}
-.name-glow .gl-flash { animation: glow-flash .62s linear both; }
-@keyframes glow-flash {
-  0%   { opacity: 0; }
-  12%  { opacity: 1; }
-  32%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@keyframes glow-near {
-  0%   { transform: scale(1);    opacity: .95; }
-  28%  { transform: scale(1.5);  opacity: .7; }
-  60%  { transform: scale(1.88); opacity: .3; }
-  100% { transform: scale(2.1);  opacity: 0; }
-}
-@keyframes glow-mid {
-  0%   { transform: scale(1);    opacity: .78; }
-  26%  { transform: scale(1.95); opacity: .64; }
-  58%  { transform: scale(2.95); opacity: .34; }
-  100% { transform: scale(3.6);  opacity: 0; }
-}
-@keyframes glow-far {
-  0%   { transform: scale(1);    opacity: .6; }
-  22%  { transform: scale(2.9);  opacity: .52; }
-  50%  { transform: scale(5.1);  opacity: .32; }
-  78%  { transform: scale(6.5);  opacity: .13; }
-  100% { transform: scale(7);    opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) { .name-glow { display: none; } }
-:root[data-motion="reduce"] .name-glow { display: none; }
-
 /* wie minder beweging wil, krijgt geen intro; main.js haalt dan ook de
    klasse weg, maar deze regels vangen het op als het script niet loopt */
 @media (prefers-reduced-motion: reduce) {
@@ -839,80 +761,32 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 :root[data-motion="reduce"].intro #home .essentie { animation: none; }
 :root[data-motion="reduce"].intro .hero-name .grad-text { background-image: var(--grad-ink); }
 
-/* ================================================================
-   Naam-hover: hetzelfde spectrum als de intro, maar dan door de letters
-   ----------------------------------------------------------------
-   De naam is een inline span die over twee regels kan breken, dus alles
-   moet met de tekst mee kunnen buigen. Daarom hangt het effect aan de
-   bestaande `background-clip: text`: er komt één extra verlooplaag bovenop
-   `--grad-ink`, die in rust volledig doorzichtig is. Zo is het rustbeeld
-   gegarandeerd exact zoals het was, in elk thema en elke modus - er wordt
-   niets van --grad-ink nagebouwd.
-
-   De kleuren zijn geregistreerde custom properties, want alleen dan kan de
-   browser ze vloeiend laten overvloeien. Ze gaan van alfa 0 naar alfa 1 in
-   dezelfde tint, zodat de overgang enkel de doorzichtigheid verandert en
-   niet via een donkere tussenkleur loopt.
-   ================================================================ */
-@property --sp1 { syntax: "<color>"; inherits: false; initial-value: hsl(26 92% 56% / 0); }
-@property --sp2 { syntax: "<color>"; inherits: false; initial-value: hsl(332 84% 58% / 0); }
-@property --sp3 { syntax: "<color>"; inherits: false; initial-value: hsl(268 82% 62% / 0); }
-@property --sp4 { syntax: "<color>"; inherits: false; initial-value: hsl(210 92% 57% / 0); }
-@property --sp5 { syntax: "<color>"; inherits: false; initial-value: hsl(190 88% 55% / 0); }
-
-@media (hover: hover) and (pointer: fine) {
-  .prism-host:not(.in-l) .grad-text {
-    background-image:
-      linear-gradient(100deg,
-        var(--sp1) 0%, var(--sp2) 12%, var(--sp3) 25%, var(--sp4) 37%, var(--sp5) 50%,
-        var(--sp4) 63%, var(--sp3) 75%, var(--sp2) 88%, var(--sp1) 100%),
-      var(--grad-ink);
-    background-size: 150% 100%, auto;
-    background-repeat: repeat-x, repeat;
-    /* De animatie staat altijd klaar maar gepauzeerd. Zo hervat ze bij hover
-       waar ze gebleven was, en bevriest ze bij het weggaan op de huidige stand
-       in plaats van terug te springen - dat springen zou je zien tijdens het
-       uitvloeien van de kleur. Gepauzeerd kost ze niets. */
-    animation: name-flow 8s linear infinite;
-    animation-play-state: paused;
-    /* De gloed staat er al, maar volledig doorzichtig. Twee redenen: een
-       overgang van `none` naar een filterlijst vloeit niet netjes over, en zo
-       hoeft de browser de filterketen niet pas op het hovermoment op te bouwen
-       - dat kostte anders één trage frame precies bij het aanwijzen. */
-    filter: drop-shadow(0 0 11px hsl(310 82% 60% / 0)) drop-shadow(0 0 20px hsl(205 90% 58% / 0));
-    transition:
-      --sp1 .5s var(--ease), --sp2 .5s var(--ease), --sp3 .5s var(--ease),
-      --sp4 .5s var(--ease), --sp5 .5s var(--ease),
-      background-size .62s var(--ease), filter .5s var(--ease);
-  }
-  .prism-host:not(.in-l) .grad-text:hover {
-    --sp1: hsl(26 92% 56% / .97);
-    --sp2: hsl(332 84% 58% / .97);
-    --sp3: hsl(268 82% 62% / .97);
-    --sp4: hsl(210 92% 57% / .97);
-    --sp5: hsl(190 88% 55% / .97);
-    background-size: 200% 100%, auto;
-    animation-play-state: running;
-    /* zachte gloed rond de glyphs: de bloei uit de intro, maar ingetogen */
-    filter: drop-shadow(0 0 11px hsl(310 82% 60% / .32)) drop-shadow(0 0 20px hsl(205 90% 58% / .24));
-  }
-  /* Bij een breedte van 200% is de tegel exact twee keer de tekstbreedte, en
-     verschuift 0% -> 200% precies één tegel. Samen met het palindromische
-     verloop (zelfde kleur aan begin en eind) sluit de lus naadloos. */
-  @keyframes name-flow {
-    from { background-position: 0% 50%, 0 0; }
-    to   { background-position: 200% 50%, 0 0; }
-  }
-  /* minder beweging: de kleur mag, het stromen en de gloed niet */
-  @media (prefers-reduced-motion: reduce) {
-    .prism-host:not(.in-l) .grad-text,
-    .prism-host:not(.in-l) .grad-text:hover {
-      transition: none; animation: none; background-size: 150% 100%, auto; filter: none;
-    }
-  }
-  :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text,
-  :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text:hover {
-    transition: none; animation: none; background-size: 150% 100%, auto; filter: none;
-  }
+/* ---------- Lichtglans over de naam ----------
+   Bij hover (of een tik) schuift er één zachte lichtband over de letters,
+   zoals licht dat over bedrukt papier strijkt. Het is een extra verlooplaag
+   bovenop de inktkleur, binnen dezelfde background-clip: text, dus de naam
+   zelf verandert niet van kleur. main.js zet de klasse .glans en haalt ze
+   weg als de band voorbij is. */
+.prism-host:not(.in-l) .grad-text {
+  background-image:
+    linear-gradient(105deg, transparent 38%, var(--glans-kleur) 50%, transparent 62%),
+    var(--grad-ink);
+  background-size: 260% 100%, auto;
+  background-repeat: no-repeat;
+  background-position: 130% 0, 0 0;
 }
+:root { --glans-kleur: rgba(255, 246, 232, .95); }
+:root[data-mode="light"] { --glans-kleur: rgba(255, 252, 244, .9); }
+.prism-host:not(.in-l) .grad-text.glans { animation: naam-glans 1.15s cubic-bezier(.4, 0, .2, 1) both; }
+@keyframes naam-glans {
+  from { background-position: 130% 0, 0 0; filter: drop-shadow(0 0 0 rgba(255, 240, 220, 0)); }
+  45%  { filter: drop-shadow(0 0 14px rgba(255, 236, 210, .22)); }
+  to   { background-position: -30% 0, 0 0; filter: drop-shadow(0 0 0 rgba(255, 240, 220, 0)); }
+}
+@media (prefers-reduced-motion: reduce) { .prism-host:not(.in-l) .grad-text.glans { animation: none; } }
+:root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text.glans { animation: none; }
 
+/* ---------- Zachte overgang tussen secties ----------
+   main.js geeft elke sectie de achtergrondkleur van de sectie erboven mee
+   (--vorige); bovenaan vloeit die over in de eigen kleur. */
+.grade.vloeit { background-image: linear-gradient(to bottom, var(--vorige) 0, var(--g-bg) min(26vh, 240px)); }
