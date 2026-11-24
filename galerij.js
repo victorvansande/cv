@@ -198,12 +198,24 @@
       kaarten.forEach(bereid);
       zet(false);
     };
+    /* Oneindig: elke kaart staat op haar afstand tot de middelste, rond
+       gerekend over de hele reeks. Zo ligt na de laatste foto meteen weer de
+       eerste. Een kaart die van de ene rand naar de andere springt, doet dat
+       zonder overgang, buiten beeld. */
+    const n = items.length;
     const zet = (zacht) => {
       const breedte = view.clientWidth;
-      const x = breedte / 2 - (idx * (kw + L.gap) + kw / 2) + dx;
+      const x = breedte / 2 - kw / 2 + dx;
       track.style.transition = zacht && !rustig() ? "" : "none";
       track.style.transform = "translate3d(" + x.toFixed(1) + "px,0,0)";
       kaarten.forEach((k, i) => {
+        let r = ((i - idx) % n + n) % n;
+        if (r > n / 2) r -= n;
+        const sprong = k.r !== undefined && Math.abs(r - k.r) > 1.5;
+        if (sprong || !zacht || rustig()) k.it.style.transition = "none";
+        k.it.style.setProperty("--x", (r * (kw + L.gap)).toFixed(1) + "px");
+        if (sprong || !zacht) { void k.it.offsetWidth; k.it.style.transition = ""; }
+        k.r = r;
         const a = i === idx;
         k.it.classList.toggle("is-active", a);
         k.btn.tabIndex = a ? 0 : -1;
@@ -211,12 +223,10 @@
       });
       segmenten.forEach((s, i) => s.setAttribute("aria-current", i === idx ? "true" : "false"));
       teller.textContent = (idx + 1) + " / " + items.length;
-      vorige.disabled = idx === 0;
-      volgende.disabled = idx === items.length - 1;
       if (geenHover) kaarten[idx].doel = 1;  // op aanraakschermen draait de kaart in het midden zelf om
       loop();
     };
-    const naar = (i) => { idx = clamp(i, 0, items.length - 1); dx = 0; zet(true); };
+    const naar = (i) => { idx = ((i % n) + n) % n; dx = 0; zet(true); };
     vorige.addEventListener("click", () => naar(idx - 1));
     volgende.addEventListener("click", () => naar(idx + 1));
     view.addEventListener("keydown", (e) => {
