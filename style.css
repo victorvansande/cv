@@ -283,7 +283,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .frame figcaption {
   margin-top: 10px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim);
 }
-.sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 64px; padding-bottom: 88px; }
+/* tussen twee secties: genoeg lucht om te ademen, maar geen lege vlakte
+   (eerder 88 + 64 px tot de volgende foto) */
+.sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 48px; padding-bottom: 56px; }
 
 /* ---------- Hero ---------- */
 #home > .wrap { padding-top: 20px; padding-bottom: 72px; }
@@ -330,7 +332,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .btn-line:hover { background: transparent; color: var(--g-acc); border-color: var(--g-acc); }
 
 /* ---------- Essentie ---------- */
-.essentie { margin-top: 72px; padding-top: 22px; }
+.essentie { margin-top: 56px; padding-top: 12px; }
 .label {
   font-family: var(--font); font-size: .74rem; font-weight: 600; letter-spacing: .14em;
   text-transform: uppercase; color: var(--g-acc);
@@ -376,7 +378,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .pillar p { margin-top: 8px; color: var(--g-soft); font-size: .94rem; }
 .prose p + p { margin-top: 14px; }
 .prose p { color: var(--g-soft); }
-.sub-block { margin-top: 64px; }
+.sub-block { margin-top: 48px; }
 .sub-head { margin-bottom: 4px; }
 
 /* ---------- Rijen (ervaring, opleiding) ---------- */
@@ -720,7 +722,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .contact-title .em-serif { color: var(--g-acc); }
 /* Contactgegevens als rijen in twee kolommen: label links, gegeven rechts, en
    een pijl die bij hover een stukje opschuift */
-.contact-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin-top: 56px; border-top: 1px solid var(--g-line); }
+.contact-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin-top: 40px; border-top: 1px solid var(--g-line); }
 .contact-list > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--g-line); }
 .contact-list dt { font-size: .78rem; color: var(--g-dim); flex-shrink: 0; }
 .contact-list dd { margin: 0; font-weight: 500; font-size: 1.15rem; text-align: right; overflow-wrap: anywhere; }
@@ -732,7 +734,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* ---------- Snapshot op een bonnetje ----------
    Het papier rolt uit de printer over de site erboven: het vak neemt geen
    plaats in, zodat er niets verschuift (bonnetje.js schuift het papier op). */
-.snap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; margin-top: 64px; padding-top: 28px; align-items: end; }
+.snap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; margin-top: 44px; padding-top: 16px; align-items: end; }
 .snap-txt { grid-column: 1 / span 6; }
 .snap-area { grid-column: 8 / span 5; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 20; }
 .snap-hint { margin-top: 12px; font-size: .82rem; color: var(--g-dim); }
@@ -855,7 +857,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .sec-title.sec-title-lang { font-size: clamp(3.2rem, 15vw, 5.6rem); }
   .cols-2, .cols-3 { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
-  .sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 40px; padding-bottom: 64px; }
+  .sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 32px; padding-bottom: 44px; }
   .frame img { aspect-ratio: 16 / 9; }
 }
 @media (max-width: 560px) {
