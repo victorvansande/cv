@@ -364,19 +364,38 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 /* Trefwoorden als kleine hashtags: een # in de accentkleur, en bij hover loopt
-   het vakje van links naar rechts vol met die kleur. Enkel bij hover; in rust
-   beweegt er niets. */
+   het vakje van links naar rechts vol met een korrelig verloop ("Grainient",
+   zoals op de heroknoppen) in het accent van de sectie. Het verloop mengt het
+   accent met --g-ink: in de donkere versie lichter, in de lichte versie
+   dieper, zodat de tekst in --g-bg altijd leesbaar blijft. De lichtste vlek
+   volgt de cursor (--mx, --my uit main.js). Enkel bij hover; in rust beweegt
+   er niets. */
 .tags span {
+  position: relative; isolation: isolate;
   font-size: .76rem; padding: 3px 9px; border: 1px solid var(--g-line); color: var(--g-soft);
   border-radius: 2px; cursor: default;
-  background: linear-gradient(var(--g-acc), var(--g-acc)) no-repeat 0 0 / 0% 100%;
-  transition: background-size .35s cubic-bezier(.2, .7, .2, 1), color .25s, border-color .25s;
+  transition: color .25s, border-color .25s;
+}
+.tags span::after {
+  content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; pointer-events: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.55'/%3E%3C/svg%3E"),
+    radial-gradient(circle at var(--mx, 30%) var(--my, 50%), color-mix(in srgb, var(--g-acc) 45%, var(--g-ink)) 0, transparent 55%),
+    radial-gradient(130% 160% at 95% 110%, color-mix(in srgb, var(--g-acc) 70%, var(--g-ink)) 0, transparent 60%),
+    linear-gradient(60deg, var(--g-acc) 0%, color-mix(in srgb, var(--g-acc) 78%, var(--g-ink)) 45%, var(--g-acc) 70%, color-mix(in srgb, var(--g-acc) 86%, var(--g-bg)) 100%);
+  background-size: 120px 120px, 100% 100%, 170% 170%, 240% 240%;
+  background-blend-mode: soft-light, normal, normal, normal;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .35s cubic-bezier(.2, .7, .2, 1);
+  animation: tag-drijf 6s ease-in-out infinite alternate paused;
 }
 .tags span::before { content: "#"; margin-right: 2px; color: var(--g-acc); transition: color .25s; }
-.tags span:hover { background-size: 100% 100%; border-color: var(--g-acc); color: var(--g-bg); }
+.tags span:hover { border-color: var(--g-acc); color: var(--g-bg); }
+.tags span:hover::after { clip-path: inset(0); animation-play-state: running; }
 .tags span:hover::before { color: var(--g-bg); }
-@media (prefers-reduced-motion: reduce) { .tags span, .tags span::before { transition: none; } }
-:root[data-motion="reduce"] .tags span, :root[data-motion="reduce"] .tags span::before { transition: none; }
+@keyframes tag-drijf { from { background-position: 0 0, 0 0, 0% 0%, 0% 50%; } to { background-position: 30px -20px, 0 0, 100% 100%, 100% 50%; } }
+@media (prefers-reduced-motion: reduce) { .tags span, .tags span::before, .tags span::after { transition: none; animation: none; } }
+:root[data-motion="reduce"] .tags span, :root[data-motion="reduce"] .tags span::before, :root[data-motion="reduce"] .tags span::after { transition: none; animation: none; }
 .tags-wide { margin-top: 14px; }
 
 .doc-btn {
