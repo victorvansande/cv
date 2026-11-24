@@ -42,7 +42,7 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=200" />
+  <link rel="stylesheet" href="style.css?v=201" />
   <script src="i18n.js?v=66" defer></script>
   <script src="main.js?v=86" defer></script>
   <!-- Voorkeuren al in de kop toepassen, zodat de pagina niet zichtbaar
@@ -463,7 +463,8 @@
   </div><!-- /#over -->
 
   <!-- ============ OPLEIDING ============ -->
-  <div class="sec grade g-centraal" id="opleiding">
+  <div class="sec" id="opleiding">
+  <section class="grade g-centraal">
     <div class="wrap">
       <figure class="frame">
         <img src="assets/photos/antwerpen-centraal-vensters.jpg" alt="Backlit gotische vensters van station Antwerpen-Centraal in gouden licht" width="1200" height="1600" loading="lazy" />
@@ -504,8 +505,26 @@
         </article>
       </div>
 
-      <!-- De masterproef staat open: geen luik meer om eerst open te klikken. -->
-      <section class="thesis sub-block" id="masterproef" aria-labelledby="thesis-titel">
+
+      <div class="sub-block">
+        <h3 class="label"><span data-i18n="cert_eyebrow">Certificaten</span> · <span data-i18n="cert_note">Samen een deelkwalificatie Eventhulpverlener.</span></h3>
+        <div class="rows rows-tight">
+          <div class="row"><span class="row-date">Rode Kruis</span><div class="row-split"><span data-i18n="cert1_h">Eerste Hulp (basiscursus)</span><button type="button" class="doc-btn" data-full="assets/diploma-ehbo-basis.jpg" data-alt="Brevet Eerste Hulp basiscursus, Rode Kruis-Vlaanderen"><span data-i18n="brevet_btn">Bekijk brevet</span></button></div></div>
+          <div class="row"><span class="row-date">Rode Kruis</span><div class="row-split"><span data-i18n="cert2_h">Helper (vervolgcursus)</span><button type="button" class="doc-btn" data-full="assets/diploma-ehbo-helper.jpg" data-alt="Brevet Helper vervolgcursus, Rode Kruis-Vlaanderen"><span data-i18n="brevet_btn">Bekijk brevet</span></button></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="grade g-urbex" id="masterproef" aria-labelledby="thesis-titel">
+    <div class="wrap">
+      <figure class="frame">
+        <img src="assets/photos/urbex-lichtstraal-kamer.jpg" alt="Verlaten kamer met brick muren en dramatische lichtstralen die over de vloer vallen" width="1600" height="1200" loading="lazy" />
+        <figcaption data-i18n="photo_urbex_t">Urbex · Verlaten kamer</figcaption>
+      </figure>
+      <!-- De masterproef krijgt een eigen foto en dus een eigen palet: licht dat
+           binnenvalt in een vervallen kamer, bij een onderzoek naar misleiding en
+           vertrouwen. Het accent is het roestige terracotta uit die foto. -->
+      <div class="thesis">
         <p class="label" data-i18n="thesis_tag">Masterproef · Communicatiewetenschappen · UAntwerpen</p>
         <div class="cols-2 thesis-grid">
           <div>
@@ -529,16 +548,9 @@
             <div class="btn-row"><a href="assets/thesis-de-macht-van-misleiding.pdf" target="_blank" rel="noopener" class="btn"><span data-i18n="thesis_btn_read">Lees de masterproef</span></a></div>
           </div>
         </div>
-      </section>
-
-      <div class="sub-block">
-        <h3 class="label"><span data-i18n="cert_eyebrow">Certificaten</span> · <span data-i18n="cert_note">Samen een deelkwalificatie Eventhulpverlener.</span></h3>
-        <div class="rows rows-tight">
-          <div class="row"><span class="row-date">Rode Kruis</span><div class="row-split"><span data-i18n="cert1_h">Eerste Hulp (basiscursus)</span><button type="button" class="doc-btn" data-full="assets/diploma-ehbo-basis.jpg" data-alt="Brevet Eerste Hulp basiscursus, Rode Kruis-Vlaanderen"><span data-i18n="brevet_btn">Bekijk brevet</span></button></div></div>
-          <div class="row"><span class="row-date">Rode Kruis</span><div class="row-split"><span data-i18n="cert2_h">Helper (vervolgcursus)</span><button type="button" class="doc-btn" data-full="assets/diploma-ehbo-helper.jpg" data-alt="Brevet Helper vervolgcursus, Rode Kruis-Vlaanderen"><span data-i18n="brevet_btn">Bekijk brevet</span></button></div></div>
-        </div>
       </div>
     </div>
+  </section>
   </div><!-- /#opleiding -->
   <!-- ============ REFERENTIES (tijdelijk offline) ============
        Bewaard om later terug te zetten. Terugzetten = dit commentaar openen en

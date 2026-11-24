@@ -45,6 +45,7 @@
 .g-herfst   { --g-bg: #12130c; --g-ink: #f1e9dc; --g-soft: #d5c9b5; --g-dim: #a59880; --g-line: #383222; --g-acc: #dca463; }
 .g-bos      { --g-bg: #110e15; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2833; --g-acc: #c4b783; }
 .g-centraal { --g-bg: #0f0a09; --g-ink: #efeae2; --g-soft: #cfc8bd; --g-dim: #a0978b; --g-line: #352a24; --g-acc: #ddd6bd; }
+.g-urbex    { --g-bg: #130d0b; --g-ink: #f1e8e3; --g-soft: #d3c4bc; --g-dim: #a5938a; --g-line: #3b2a24; --g-acc: #e38b6a; }
 .g-veld     { --g-bg: #0f1a11; --g-ink: #eef1e9; --g-soft: #c9d2c4; --g-dim: #97a493; --g-line: #26382a; --g-acc: #ecd3b0; }
 
 /* Hoger contrast: de zachte tinten schuiven op naar de inktkleur. */
@@ -344,7 +345,14 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: #efe9e2; }
 .personal-label { color: var(--g-ink); font-weight: 600; margin-right: 6px; }
 
 /* ---------- Masterproef ---------- */
-.thesis { padding-top: 28px; border-top: 1px solid var(--g-line); }
+.thesis { padding-top: 40px; }
+/* Het accent maakt hier het onderscheid tussen de onderdelen: de cijfers, de
+   streepjes bij de bevindingen, de namen van de promotoren en de randen van de
+   trefwoorden. De knop blijft zoals elders. */
+.thesis .numbers dt { color: var(--g-acc); }
+.thesis .findings li::before { width: 12px; height: 2px; top: 20px; }
+.thesis-meta b { color: var(--g-acc); }
+.thesis .tags span { border-color: color-mix(in srgb, var(--g-acc) 40%, transparent); }
 .thesis-grid { margin-top: 14px; }
 .findings { margin-top: 22px; border-top: 1px solid var(--g-line); }
 .findings li { padding: 12px 0 12px 22px; border-bottom: 1px solid var(--g-line); position: relative; color: var(--g-soft); }

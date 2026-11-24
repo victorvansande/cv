@@ -67,7 +67,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
-  tint). Er is geen kleurthema en geen licht/donker meer: dat zou dat systeem
+  tint). De masterproef is een eigen blok binnen Opleiding, met de urbexfoto
+  en een terracotta accent (`.g-urbex`). Er is geen kleurthema en geen licht/donker meer: dat zou dat systeem
   doorkruisen. Weinig beweging: enkel de intro en hovers. Alles staat open,
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
   `<details class="fold">` met een strookje van vier beelden als voorproef.
@@ -109,10 +110,15 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   blijven.
   - Windows: headless Edge met `--headless=new --no-pdf-header-footer
     --print-to-pdf=<uit> file:///<bron>`.
-  - Cloud: `/opt/pw-browsers/chromium-*/chrome-linux/chrome --headless=new
-    --no-sandbox --no-pdf-header-footer --print-to-pdf=<uit> file://$PWD/<bron>`
-    (getest, de dbus-foutmelding is onschuldig). Controleer met `pdftotext`:
-    `pdftotext <pdf> - | tr -cd '\f' | wc -c` moet `2` geven.
+  - Cloud: `NODE_PATH=$(npm root -g) node tools/pdf.js [bron.html uit.pdf]`
+    (zonder argumenten: `cv-print.html` naar `assets/cv-victor-van-sande.pdf`).
+    Dat wacht op de webfonts; `chrome --print-to-pdf` doet dat niet, en sinds
+    `cv-print.html` Big Shoulders en Libre Franklin gebruikt is dat nodig.
+    Controleer met `pdftotext`: `pdftotext <pdf> - | tr -cd '\f' | wc -c` moet
+    `2` geven, en kijk of het laatste item van de zijkolom op blad 1 er nog staat
+    (blad 1 heeft `overflow: hidden`, dus wat niet past valt stil weg).
+  - `cv-print.html` volgt sinds nov 2026 de stijl van de site, op wit papier.
+    De vorige PDF en haar bron staan in `v1/` en horen bij de archiefversie.
   - Elders op Linux: hetzelfde met `chromium` of `google-chrome`. Is er geen
     browser, laat de PDF dan staan en meld aan Victor dat hij ze lokaal
     opnieuw moet laten genereren.
