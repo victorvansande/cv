@@ -301,10 +301,20 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .now-badge .pulse { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+/* Trefwoorden als kleine hashtags: een # in de accentkleur, en bij hover loopt
+   het vakje van links naar rechts vol met die kleur. Enkel bij hover; in rust
+   beweegt er niets. */
 .tags span {
   font-size: .76rem; padding: 3px 9px; border: 1px solid var(--g-line); color: var(--g-soft);
-  border-radius: 2px;
+  border-radius: 2px; cursor: default;
+  background: linear-gradient(var(--g-acc), var(--g-acc)) no-repeat 0 0 / 0% 100%;
+  transition: background-size .35s cubic-bezier(.2, .7, .2, 1), color .25s, border-color .25s;
 }
+.tags span::before { content: "#"; margin-right: 2px; color: var(--g-acc); transition: color .25s; }
+.tags span:hover { background-size: 100% 100%; border-color: var(--g-acc); color: var(--g-bg); }
+.tags span:hover::before { color: var(--g-bg); }
+@media (prefers-reduced-motion: reduce) { .tags span, .tags span::before { transition: none; } }
+:root[data-motion="reduce"] .tags span, :root[data-motion="reduce"] .tags span::before { transition: none; }
 .tags-wide { margin-top: 14px; }
 
 .doc-btn {
