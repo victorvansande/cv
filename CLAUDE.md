@@ -98,7 +98,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   zijn zij (een knipoog naar misinformatie), een avondblauwe achtergrond uit de
   lucht en een terracotta accent uit de baksteen (`.g-urbex`, de naam is gebleven). Over mij opent met de Amsterdamse grachtenpanden op film (`.g-gracht`). De
   zwart-witfoto van de fondsenwerving staat klein bij Gekkoo (`.org-foto`). Nieuwe foto's gaan op 1600 pixels en zonder
-  metadata (geen GPS) in `assets/photos/`. Er is geen vrij kleurthema meer: dat zou dat systeem doorkruisen.
+  metadata (geen GPS) in `assets/photos/`, met een webp-versie van 1080 px in
+  `assets/photos/m/` die enkel op gsm laadt (`<picture>` met
+  `media="(max-width: 700px)"`; de pc krijgt altijd het origineel). `picture`
+  staat op `display: contents`, de `source` op `display: none`. Er is geen vrij kleurthema meer: dat zou dat systeem doorkruisen.
   Wel een lichte versie (knop `.mode-toggle` in de menubalk, `data-mode="light"`
   op `<html>`): per sectie een lichte tint uit dezelfde foto en een dieper
   accent. De keuze staat in `localStorage` onder `cv-modus`, bewust niet onder
@@ -196,6 +199,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
 
 ## De PDF's en de linkafbeelding
 
+- `assets/cv-victor-van-sande-en.pdf` komt uit `cv-print-en.html` (Engelse
+  versie van `cv-print.html`; wie de inhoud aanpast, past beide aan). De
+  downloadknoppen wisselen mee met de taal (`applyLang()` in `main.js`).
 - `assets/cv-victor-van-sande.pdf` komt uit `cv-print.html`, en
   `assets/cv-victor-van-sande-ats.pdf` uit `cv-print-ats.html`. Ze lopen niet
   automatisch mee met de site: wie de inhoud van het cv aanpast, past beide
@@ -215,7 +221,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   - Elders op Linux: hetzelfde met `chromium` of `google-chrome`. Is er geen
     browser, laat de PDF dan staan en meld aan Victor dat hij ze lokaal
     opnieuw moet laten genereren.
-- `assets/og-image.jpg` komt uit `assets/og-source.html` via
+- `assets/og-image.jpg` (sinds nov 2026 in de stijl van de site: zwart, naam
+  met portretpil, zonsverduistering rechts) komt uit `assets/og-source.html` via
   `assets/og-gen.ps1` (enkel Windows). In de cloud:
   `NODE_PATH=$(npm root -g) node tools/og.js` (getest, webfonts laden mee).
   Niet `chrome --screenshot` gebruiken: dat snijdt onderaan een strook af.
@@ -234,7 +241,4 @@ Bekend bij Victor, nog niet beslist:
 
 - Bij Fondsenwerver staat zowel een badge "Sinds sep 2026" als de datum
   "sep 2026 – heden".
-- "ETMCQ + GCB-5" bij de masterproef is vakjargon.
-- De linkafbeelding (`assets/og-image.jpg`) is nog in de stijl van de vorige
-  versie.
 - Echt professioneel portfoliowerk (bijvoorbeeld uit Canva) toevoegen.

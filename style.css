@@ -92,6 +92,9 @@ html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adju
    het vel wegging: de hele pagina schoof dan 15 px opzij (Windows), net als de
    naam van de intro. */
 html { scrollbar-gutter: stable; }
+/* een <picture> kiest enkel de bron (webp op gsm); voor de opmaak telt de img zelf */
+picture { display: contents; }
+picture > source { display: none; } /* anders telt de source mee als vak in een raster */
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 :root[data-motion="reduce"] { scroll-behavior: auto; }
 body {
@@ -314,7 +317,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    stukje rechts uit (de tweede iets later en verder), zoals de gekleurde
    voorlagen van een Staggered Menu. Terug gaat het in omgekeerde volgorde. */
 .frame-lagen { position: relative; display: block; isolation: isolate; }
-.frame-lagen > img { position: relative; z-index: 2; display: block; }
+.frame-lagen img { position: relative; z-index: 2; display: block; }
 .frame-lagen .laag { position: absolute; inset: 0; z-index: 0; border-radius: 12px; transform: translateX(0);
   transition: transform .55s cubic-bezier(.76, 0, .24, 1); }
 .frame-lagen .l1 { z-index: 1; background: color-mix(in srgb, var(--g-acc) 45%, var(--g-bg)); transition-delay: .06s; }
@@ -977,7 +980,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 :root.intro .hero-name {
   position: relative; z-index: 2;
   transform-origin: 0 0;
-  animation: v-name 3.2s cubic-bezier(.7, 0, .2, 1) .1s both;
+  animation: v-name 1.9s cubic-bezier(.7, 0, .2, 1) .05s both;
 }
 :root.intro .hero-name .grad-text {
   background-image:
@@ -988,11 +991,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
     url(assets/photos/zonsverduistering.jpg);
   background-size: auto, cover;
   background-position: 0 0, 50% 45%;
-  animation: v-ink 3.2s linear .1s both;
+  animation: v-ink 1.9s linear .05s both;
 }
 :root.intro #home .frame,
 :root.intro #home .hero-side,
-:root.intro #home .essentie { animation: v-rest 3.2s ease-out .1s both; }
+:root.intro #home .essentie { animation: v-rest 1.9s ease-out .05s both; }
 :root.intro:not(.go) .hero-name,
 :root.intro:not(.go) .hero-name .grad-text,
 :root.intro:not(.go) #home .frame,

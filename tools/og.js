@@ -11,6 +11,9 @@ const path = require("path");
   const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
   await page.goto("file://" + path.resolve(__dirname, "../assets/og-source.html"));
   await page.waitForLoadState("networkidle");
+  // de pil met het portret wordt na de webfonts met een script geplaatst
+  await page.waitForSelector("body[data-klaar]", { timeout: 5000 }).catch(() => {});
+  await page.waitForTimeout(200);
   await page.screenshot({ path: path.resolve(__dirname, "../assets/og-image.jpg"), type: "jpeg", quality: 90 });
   await browser.close();
 })();
