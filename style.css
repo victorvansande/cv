@@ -186,36 +186,42 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* ---------- Het breedbeeld ---------- */
 .frame { position: relative; }
 .frame img { width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; }
-/* De hero-foto is lager dan de andere: de naam eronder moet bij het laden
-   volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
-   van 800 pixels hoog viel ze anders half onder de rand. */
-.frame-hero img { aspect-ratio: auto; height: clamp(180px, 34vh, 400px); }
 .frame figcaption {
   margin-top: 10px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim);
 }
 .sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 64px; padding-bottom: 88px; }
 
-/* ---------- Hero ---------- */
-#home > .wrap { padding-top: 20px; padding-bottom: 72px; }
-.hero {
-  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px;
-  align-items: end; padding-top: 24px;
+/* ---------- Startscherm ----------
+   Klein en rustig, in typemachineletters (Cutive Mono) met een zweem inkt:
+   een haarfijne tekstschaduw in de eigen kleur laat de letters iets uitlopen,
+   zoals inkt op papier. Het scherm blijft onder de pagina liggen: main is de
+   container, het startscherm is sticky bovenaan, en alles wat volgt ligt er
+   met een eigen achtergrond bovenop. */
+main { position: relative; }
+main > *:not(.start) { position: relative; z-index: 1; }
+.start {
+  position: sticky; top: 0; z-index: 0;
+  height: 100vh; height: 100svh; margin-top: -60px; padding-top: 60px;
+  font-family: "Cutive Mono", "Courier New", ui-monospace, monospace;
+  text-shadow: 0 0 .6px currentColor;
 }
-.hero-name {
-  grid-column: 1 / span 7;
-  font-family: var(--font-head); font-weight: 800;
-  font-size: clamp(4.2rem, 10.4vw, 9.6rem); line-height: .86; letter-spacing: .005em;
-  text-transform: uppercase; text-wrap: balance;
+.start > .wrap.start-inner {
+  position: relative; height: 100%; padding-top: 28px; padding-bottom: 32px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  transform-origin: 50% 40%; will-change: transform, opacity;
 }
-.prism-host .grad-text {
-  background: var(--grad-ink); -webkit-background-clip: text; background-clip: text; color: transparent;
-  /* ruimte voor de uithalen bij background-clip: text, zonder dat de tekstloop verschuift */
-  padding-inline: .06em; margin-inline: -.06em;
-}
-.hero-side { grid-column: 8 / span 5; }
-.hero-lead { font-size: 1.13rem; color: var(--g-soft); max-width: 46ch; }
-.hero-lead [data-i18n="hero_role"] { color: var(--g-ink); font-weight: 600; }
-.hero-meta { margin-top: 14px; font-size: .88rem; color: var(--g-dim); }
+.start-top { display: flex; justify-content: space-between; gap: 16px; font-size: .82rem; color: var(--g-dim); letter-spacing: .04em; }
+.start-body { max-width: 38rem; display: flex; flex-direction: column; gap: 14px; padding-bottom: 6vh; }
+.start-naam { font-family: inherit; font-weight: 400; font-size: clamp(1.3rem, 2.2vw, 1.7rem); letter-spacing: .06em; text-transform: uppercase; line-height: 1.2; }
+.start-rol { font-size: 1rem; color: var(--g-acc); }
+.start-lead { font-size: 1rem; line-height: 1.65; color: var(--g-soft); }
+.start-meta { font-size: .88rem; color: var(--g-dim); }
+.start-links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-size: .92rem; }
+.start-links a { text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); padding-bottom: 2px; }
+.start-links a:hover { border-bottom-color: var(--g-acc); }
+.start-scroll { font-size: 1rem; color: var(--g-dim); }
+.ess-blok > .wrap { padding-top: 24px; padding-bottom: 72px; }
+.ess-blok .essentie { margin-top: 0; }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .btn {
@@ -624,233 +630,28 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .frame { display: none; }
 }
 
-/* ================================================================
-   Intro "Venster" (eenmalig per sessie)
-   ----------------------------------------------------------------
-   Bij het openen staat de naam groot over het scherm, en door de letters
-   heen zie je de zonsverduistering uit de hero. Daarna krimpt de naam naar
-   zijn plaats, vult hij zich met de gewone inktkleur, en komt de rest van de
-   hero erbij. Het is de echte h1 die beweegt, geen kopie: er kan dus nooit
-   een tweede naam naast de echte staan.
-
-   De foto zit in de achtergrond van de letters (background-clip: text). Het
-   overvloeien naar de inktkleur kan niet door een afbeelding te animeren;
-   daarom ligt er een effen laag in de inktkleur over de foto, waarvan de
-   dekking (--vk, een geregistreerde eigenschap) van 0 naar 1 loopt. Dat werkt
-   in beide versies, want de inktkleur is die van de huidige versie.
-
-   Startpoort: zolang .go ontbreekt staat alles stil op het beginbeeld. main.js
-   zet .go pas als het lettertype en de foto binnen zijn: zonder foto zouden
-   de letters doorzichtig zijn. Er zit een dop op het wachten.
-   ================================================================ */
-@property --vk { syntax: "<number>"; inherits: true; initial-value: 1; }
-:root.intro { --vs: 2; --vtx: 0px; --vty: -50%; }
-/* de vergrote naam mag de pagina niet breder maken dan het scherm */
-:root.intro body { overflow-x: clip; }
-:root.intro .hero-name {
-  position: relative; z-index: 2;
-  transform-origin: 0 0;
-  animation: v-name 3.2s cubic-bezier(.7, 0, .2, 1) .1s both;
-}
-:root.intro .hero-name .grad-text {
-  background-image:
-    /* een zwakke basistint van 14%, zodat de letters ook over de zwarte delen
-       van de foto leesbaar blijven */
-    linear-gradient(color-mix(in srgb, var(--g-ink) calc((.14 + var(--vk) * .86) * 100%), transparent),
-                    color-mix(in srgb, var(--g-ink) calc((.14 + var(--vk) * .86) * 100%), transparent)),
-    url(assets/photos/zonsverduistering.jpg);
-  background-size: auto, cover;
-  background-position: 0 0, 50% 45%;
-  animation: v-ink 3.2s linear .1s both;
-}
-:root.intro #home .frame,
-:root.intro #home .hero-side,
-:root.intro #home .essentie { animation: v-rest 3.2s ease-out .1s both; }
-:root.intro:not(.go) .hero-name,
-:root.intro:not(.go) .hero-name .grad-text,
-:root.intro:not(.go) #home .frame,
-:root.intro:not(.go) #home .hero-side,
-:root.intro:not(.go) #home .essentie { animation-play-state: paused; }
-@keyframes v-name {
-  /* main.js meet de schermmaat en zet --vtx, --vty en --vs zo dat de naam bij
-     de start zo groot mogelijk en volledig in beeld staat, onder de menubalk */
-  0%, 22% { transform: translate(var(--vtx), var(--vty)) scale(var(--vs)); }
-  70%, 100% { transform: none; }
-}
-@keyframes v-ink {
-  0%, 70% { --vk: 0; }
-  100% { --vk: 1; }
-}
-@keyframes v-rest { 0%, 58% { opacity: 0; } 100% { opacity: 1; } }
-
-/* Gebruikt door de klikgloed: in een kloon blijft alles behalve de naam
-   ruimte innemen, maar onzichtbaar - haal je het weg, dan verschuift de
-   regelval. */
-.intro-hidden { visibility: hidden; }
-
-/* ---------- Klik op de naam: de letters stralen kleur uit ----------
-   Drie kopieën van de naam met elk een vaste blur schalen op en vloeien weg.
-   Omdat de bron de glyphs zelf zijn, heeft de gloed in de eerste frames de
-   vorm van de letters en diffundeert hij pas terwijl hij uitdijt - precies
-   zoals licht dat van een vorm afkomt.
-   De blur staat vast; er animeren alleen transform en opacity, dus elke laag
-   wordt één keer gerasterd en daarna enkel nog gecomposit. Doordat de blur
-   mee opschaalt met de transform, wordt de gloed vanzelf zachter naarmate hij
-   verder reikt. */
-.name-glow { position: fixed; pointer-events: none; z-index: 200; }
-.name-glow .gl {
-  position: absolute; left: 0; top: 0;
-  margin: 0 !important;              /* .h-xl zet zelf een !important-marge */
-  /* main.js zet dit op het midden van de naam; de 50% is enkel een terugval */
-  transform-origin: var(--ox, 50%) var(--oy, 50%);
-  will-change: transform, opacity;
-}
-.name-glow .gl .grad-text {
-  /* het volledige spectrum door de letters, los van het themaverloop */
-  background-image: linear-gradient(100deg,
-    hsl(26 92% 56%) 0%, hsl(332 84% 58%) 26%, hsl(268 82% 62%) 50%,
-    hsl(210 92% 57%) 74%, hsl(190 88% 55%) 100%);
-  background-size: 100% 100%;
-  background-position: 0 0;
-  animation: none;
-}
-.name-glow .gl-near .grad-text { filter: blur(7px)  saturate(1.35); }
-.name-glow .gl-mid  .grad-text { filter: blur(21px) saturate(1.3); }
-.name-glow .gl-far  .grad-text { filter: blur(44px) saturate(1.25); }
-
-/* Lineair getimed: de vertraging zit in de schaalstappen zelf. Met één sterke
-   ease-out zakte de dekking al binnen een fractie weg, waardoor het eerder een
-   flits werd dan een uitstraling. */
-.name-glow .gl-near { animation: glow-near 1.2s linear both; }
-.name-glow .gl-mid  { animation: glow-mid  1.85s linear both; }
-.name-glow .gl-far  { animation: glow-far  2.6s linear both; }
-
-/* Korte witte flits op de letters zelf, zoals bij de intro maar veel vluchtiger
-   omdat het hele klikeffect korter is. Deze laag schaalt bewust niet mee: hij
-   moet exact op de glyphs blijven staan terwijl de kleur eromheen wegtrekt. */
-.name-glow .gl-flash .grad-text {
-  background-image: linear-gradient(#fff, #fff);
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, .85))
-          drop-shadow(0 0 26px rgba(255, 240, 225, .5));
-}
-.name-glow .gl-flash { animation: glow-flash .62s linear both; }
-@keyframes glow-flash {
-  0%   { opacity: 0; }
-  12%  { opacity: 1; }
-  32%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@keyframes glow-near {
-  0%   { transform: scale(1);    opacity: .95; }
-  28%  { transform: scale(1.5);  opacity: .7; }
-  60%  { transform: scale(1.88); opacity: .3; }
-  100% { transform: scale(2.1);  opacity: 0; }
-}
-@keyframes glow-mid {
-  0%   { transform: scale(1);    opacity: .78; }
-  26%  { transform: scale(1.95); opacity: .64; }
-  58%  { transform: scale(2.95); opacity: .34; }
-  100% { transform: scale(3.6);  opacity: 0; }
-}
-@keyframes glow-far {
-  0%   { transform: scale(1);    opacity: .6; }
-  22%  { transform: scale(2.9);  opacity: .52; }
-  50%  { transform: scale(5.1);  opacity: .32; }
-  78%  { transform: scale(6.5);  opacity: .13; }
-  100% { transform: scale(7);    opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) { .name-glow { display: none; } }
-:root[data-motion="reduce"] .name-glow { display: none; }
-
-/* wie minder beweging wil, krijgt geen intro; main.js haalt dan ook de
-   klasse weg, maar deze regels vangen het op als het script niet loopt */
-@media (prefers-reduced-motion: reduce) {
-  :root.intro .hero-name, :root.intro .hero-name .grad-text,
-  :root.intro #home .frame, :root.intro #home .hero-side, :root.intro #home .essentie { animation: none; }
-  :root.intro .hero-name .grad-text { background-image: var(--grad-ink); }
-}
-:root[data-motion="reduce"].intro .hero-name,
-:root[data-motion="reduce"].intro .hero-name .grad-text,
-:root[data-motion="reduce"].intro #home .frame,
-:root[data-motion="reduce"].intro #home .hero-side,
-:root[data-motion="reduce"].intro #home .essentie { animation: none; }
-:root[data-motion="reduce"].intro .hero-name .grad-text { background-image: var(--grad-ink); }
-
-/* ================================================================
-   Naam-hover: hetzelfde spectrum als de intro, maar dan door de letters
-   ----------------------------------------------------------------
-   De naam is een inline span die over twee regels kan breken, dus alles
-   moet met de tekst mee kunnen buigen. Daarom hangt het effect aan de
-   bestaande `background-clip: text`: er komt één extra verlooplaag bovenop
-   `--grad-ink`, die in rust volledig doorzichtig is. Zo is het rustbeeld
-   gegarandeerd exact zoals het was, in elk thema en elke modus - er wordt
-   niets van --grad-ink nagebouwd.
-
-   De kleuren zijn geregistreerde custom properties, want alleen dan kan de
-   browser ze vloeiend laten overvloeien. Ze gaan van alfa 0 naar alfa 1 in
-   dezelfde tint, zodat de overgang enkel de doorzichtigheid verandert en
-   niet via een donkere tussenkleur loopt.
-   ================================================================ */
-@property --sp1 { syntax: "<color>"; inherits: false; initial-value: hsl(26 92% 56% / 0); }
-@property --sp2 { syntax: "<color>"; inherits: false; initial-value: hsl(332 84% 58% / 0); }
-@property --sp3 { syntax: "<color>"; inherits: false; initial-value: hsl(268 82% 62% / 0); }
-@property --sp4 { syntax: "<color>"; inherits: false; initial-value: hsl(210 92% 57% / 0); }
-@property --sp5 { syntax: "<color>"; inherits: false; initial-value: hsl(190 88% 55% / 0); }
-
-@media (hover: hover) and (pointer: fine) {
-  .prism-host:not(.in-l) .grad-text {
-    background-image:
-      linear-gradient(100deg,
-        var(--sp1) 0%, var(--sp2) 12%, var(--sp3) 25%, var(--sp4) 37%, var(--sp5) 50%,
-        var(--sp4) 63%, var(--sp3) 75%, var(--sp2) 88%, var(--sp1) 100%),
-      var(--grad-ink);
-    background-size: 150% 100%, auto;
-    background-repeat: repeat-x, repeat;
-    /* De animatie staat altijd klaar maar gepauzeerd. Zo hervat ze bij hover
-       waar ze gebleven was, en bevriest ze bij het weggaan op de huidige stand
-       in plaats van terug te springen - dat springen zou je zien tijdens het
-       uitvloeien van de kleur. Gepauzeerd kost ze niets. */
-    animation: name-flow 8s linear infinite;
-    animation-play-state: paused;
-    /* De gloed staat er al, maar volledig doorzichtig. Twee redenen: een
-       overgang van `none` naar een filterlijst vloeit niet netjes over, en zo
-       hoeft de browser de filterketen niet pas op het hovermoment op te bouwen
-       - dat kostte anders één trage frame precies bij het aanwijzen. */
-    filter: drop-shadow(0 0 11px hsl(310 82% 60% / 0)) drop-shadow(0 0 20px hsl(205 90% 58% / 0));
-    transition:
-      --sp1 .5s var(--ease), --sp2 .5s var(--ease), --sp3 .5s var(--ease),
-      --sp4 .5s var(--ease), --sp5 .5s var(--ease),
-      background-size .62s var(--ease), filter .5s var(--ease);
-  }
-  .prism-host:not(.in-l) .grad-text:hover {
-    --sp1: hsl(26 92% 56% / .97);
-    --sp2: hsl(332 84% 58% / .97);
-    --sp3: hsl(268 82% 62% / .97);
-    --sp4: hsl(210 92% 57% / .97);
-    --sp5: hsl(190 88% 55% / .97);
-    background-size: 200% 100%, auto;
-    animation-play-state: running;
-    /* zachte gloed rond de glyphs: de bloei uit de intro, maar ingetogen */
-    filter: drop-shadow(0 0 11px hsl(310 82% 60% / .32)) drop-shadow(0 0 20px hsl(205 90% 58% / .24));
-  }
-  /* Bij een breedte van 200% is de tegel exact twee keer de tekstbreedte, en
-     verschuift 0% -> 200% precies één tegel. Samen met het palindromische
-     verloop (zelfde kleur aan begin en eind) sluit de lus naadloos. */
-  @keyframes name-flow {
-    from { background-position: 0% 50%, 0 0; }
-    to   { background-position: 200% 50%, 0 0; }
-  }
-  /* minder beweging: de kleur mag, het stromen en de gloed niet */
-  @media (prefers-reduced-motion: reduce) {
-    .prism-host:not(.in-l) .grad-text,
-    .prism-host:not(.in-l) .grad-text:hover {
-      transition: none; animation: none; background-size: 150% 100%, auto; filter: none;
-    }
-  }
-  :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text,
-  :root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text:hover {
-    transition: none; animation: none; background-size: 150% 100%, auto; filter: none;
-  }
-}
-
+/* ---------- Typintro (eenmalig per sessie) ----------
+   main.js splitst de regels van het startscherm in letters en geeft elke
+   letter een volgnummer; hier verschijnen ze na elkaar, zonder dat er iets
+   verschuift (de letters nemen hun plaats al in, enkel onzichtbaar). Een
+   knipperend streepje volgt de laatst getypte letter niet: dat zou per letter
+   de opmaak herberekenen. Het staat aan het einde en dooft na het typen. */
+/* tot het script de letters klaarzet, staan de regels onzichtbaar; faalt het
+   script, dan komen ze na drie seconden toch tevoorschijn */
+:root.intro:not(.typ-klaar) .typ { visibility: hidden; animation: typ-vangnet 0s 3s forwards; }
+@keyframes typ-vangnet { to { visibility: visible; } }
+.typ .tl { opacity: 0; animation: typ-in .01s linear both; animation-delay: calc(var(--i) * 26ms + .25s); }
+:root:not(.intro) .typ .tl { opacity: 1; animation: none; }
+@keyframes typ-in { to { opacity: 1; } }
+.typ-caret { display: inline-block; width: .55em; height: 1.05em; margin-left: .15em; vertical-align: -.12em; background: var(--g-acc); animation: typ-caret .9s steps(1) infinite, typ-weg .3s ease-out both; animation-delay: 0s, var(--caret-weg, 2.4s); }
+:root:not(.intro) .typ-caret { display: none; }
+/* de links typen niet mee (hun onderstreping zou er al staan zonder letters);
+   ze komen in beeld zodra het typen klaar is */
+:root.intro .start-links { opacity: 0; animation: typ-links .5s ease-out var(--links-in, 2.4s) forwards; }
+@keyframes typ-links { to { opacity: 1; } }
+@keyframes typ-caret { 50% { opacity: 0; } }
+@keyframes typ-weg { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .typ .tl { opacity: 1 !important; animation: none !important; } .typ-caret { display: none; } }
+:root[data-motion="reduce"] .typ .tl { opacity: 1 !important; animation: none !important; }
+:root[data-motion="reduce"] .typ-caret { display: none; }
+:root[data-motion="reduce"] .start-links { opacity: 1 !important; animation: none !important; }
