@@ -145,6 +145,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   staat `main.js` in de werkmap op CRLF, in de cloud is alles LF. Bij
   vervangingen met scripts rekening mee houden, en nooit bestanden in hun geheel
   van regeleinden laten wisselen.
+- **Raakvlakken**: kleine knoppen (menubalk, galerij, diploma's) krijgen een
+  onzichtbare `::after` rond zich, zodat ze 44 px hoog zijn zonder er anders uit
+  te zien (css onderaan "Toegankelijkheid zonder zichtbaar verschil"). `404.html`
+  laadt `style.css` met dezelfde `?v=N` als `index.html`: mee ophogen.
 - **Codecommentaar** is in het Nederlands en legt vaak uit *waarom* iets zo
   gebouwd is. Lees het voor je iets "opruimt".
 
@@ -205,7 +209,6 @@ Bekend bij Victor, nog niet beslist:
 - Bij Fondsenwerver staat zowel een badge "Sinds sep 2026" als de datum
   "sep 2026 – heden".
 - "ETMCQ + GCB-5" bij de masterproef is vakjargon.
-- Een dertigtal afbeeldingen heeft geen `width`/`height`.
 - De linkafbeelding (`assets/og-image.jpg`) is nog in de stijl van de vorige
   versie.
 - Echt professioneel portfoliowerk (bijvoorbeeld uit Canva) toevoegen.
