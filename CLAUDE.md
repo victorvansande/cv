@@ -59,14 +59,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   bezoeker zonder javascript of een schermlezer nooit "0" leest. Ze tellen niet
   meer op; `hertelGetallen()` in `main.js` zet enkel het scheidingsteken volgens
   de taal (14.716 / 14,716).
-- **Startscherm en typintro** (sinds nov 2026, vervangt de hero met de grote
-  naam en de Venster-intro): `section.start#home` is een klein, minimaal scherm in
-  Cutive Mono. Het is sticky in `main`, zodat de rest van de site er bij het
-  scrollen overheen schuift; `main.js` laat het daarbij krimpen en vervagen.
-  Bij het eerste bezoek in een sessie (klasse `intro`) typt de tekst van de
-  `.typ`-regels letter per letter; het opsplitsen gebeurt pas na de vertaling,
-  en een css-vangnet toont de tekst na drie seconden als het script faalt. De
-  links typen niet mee en komen erna in beeld.
+- **Intro-animatie "Venster"** (sinds nov 2026, vervangt de regenboogintro):
+  eenmaal per sessie (`sessionStorage` `vvs-intro-seen`, klasse `intro` op
+  `<html>`). De echte `h1.hero-name` staat eerst groot over het scherm met de
+  zonsverduistering in de letters en krimpt dan naar zijn plaats; de rest van
+  de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
+  de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
+  `main.js`. Er wordt niets gekloond. De klikgloed en de spectrumhover op de
+  naam zijn van de vorige intro overgebleven en werken nog.
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere

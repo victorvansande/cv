@@ -27,76 +27,122 @@
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") zetMenu(false); });
   }
 
-  /* ---- Startscherm: typintro en wegzakken ----
-     Bij het eerste bezoek in een sessie (klasse intro, gezet in de kop)
-     verschijnen de regels van het startscherm letter per letter. Daarvoor
-     krijgt elke letter een eigen span met een volgnummer; de animatie zelf
-     staat in style.css. Woorden blijven bij elkaar, zodat de regels breken
-     zoals zonder intro. Wie minder beweging wil, of in de compacte weergave
-     binnenkomt, krijgt meteen de volledige tekst.
-     De vertaling vervangt bij een taalwissel de inhoud van de vertaalde
-     stukken; dat mag, want dan is de intro voorbij en hoort de tekst er
-     gewoon te staan. */
+  /* ---- Intro "Venster" ----
+     De animatie zelf staat volledig in style.css; hier enkel de startpoort en
+     het opruimen. Wie minder beweging wil, krijgt geen intro: dan gaat de
+     klasse meteen weg en staat de hero er gewoon.
+     De poort gaat pas open als het lettertype en de foto binnen zijn. De foto
+     vult de letters; zonder foto zouden ze doorzichtig zijn, en een lettertype
+     dat halverwege binnenkomt verandert de breedte van de naam. Er zit een dop
+     op het wachten, zodat een trage verbinding de intro nooit tegenhoudt. */
   const wortel = document.documentElement;
+  // in de compacte weergave staat de hero er niet, dus ook geen intro
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce" || wortel.dataset.view === "compact") {
-    wortel.classList.remove("intro");
+    wortel.classList.remove("intro", "go");
   }
   if (wortel.classList.contains("intro")) {
-    let n = 0;
-    const splits = (el) => {
-      [...el.childNodes].forEach((kn) => {
-        if (kn.nodeType === 3) {
-          const frag = document.createDocumentFragment();
-          kn.textContent.split(/(\s+)/).forEach((stuk) => {
-            if (!stuk) return;
-            if (/^\s+$/.test(stuk)) { frag.appendChild(document.createTextNode(stuk)); n++; return; }
-            const woord = document.createElement("span");
-            woord.style.whiteSpace = "nowrap";
-            [...stuk].forEach((c) => {
-              const l = document.createElement("span");
-              l.className = "tl"; l.textContent = c; l.style.setProperty("--i", n++);
-              woord.appendChild(l);
-            });
-            frag.appendChild(woord);
-          });
-          kn.replaceWith(frag);
-        } else if (kn.nodeType === 1) splits(kn);
-      });
+    const foto = new Image();
+    foto.src = "assets/photos/zonsverduistering.jpg";
+    const klaar = Promise.race([
+      Promise.all([
+        document.fonts ? document.fonts.ready : Promise.resolve(),
+        foto.decode ? foto.decode().catch(() => {}) : Promise.resolve(),
+      ]),
+      new Promise((r) => setTimeout(r, 1400)),
+    ]);
+    const naam = document.querySelector(".hero-name");
+    /* Beginstand per scherm: de naam zo groot mogelijk (hoogstens 2,4 keer),
+       met marge links en rechts, en verticaal gecentreerd in de ruimte onder
+       de menubalk. Gemeten zonder de animatie, anders meet je de vergroting. */
+    const plaats = () => {
+      if (!naam || wortel.classList.contains("go")) return;
+      const anim = naam.style.animation;
+      naam.style.animation = "none";
+      const r = naam.querySelector(".grad-text").getBoundingClientRect();
+      const n = naam.getBoundingClientRect();
+      naam.style.animation = anim;
+      const balk = (document.querySelector(".nav") || { offsetHeight: 0 }).offsetHeight;
+      const marge = Math.max(16, innerWidth * 0.04);
+      const sc = Math.max(1, Math.min(2.4, (innerWidth - 2 * marge) / r.width, (innerHeight - balk - 2 * marge) / r.height));
+      const doelL = (innerWidth - r.width * sc) / 2;
+      const doelT = balk + (innerHeight - balk - r.height * sc) / 2;
+      wortel.style.setProperty("--vs", sc.toFixed(3));
+      wortel.style.setProperty("--vtx", (doelL - n.left - (r.left - n.left) * sc).toFixed(1) + "px");
+      wortel.style.setProperty("--vty", (doelT - n.top - (r.top - n.top) * sc).toFixed(1) + "px");
     };
-    // pas na de vertaling (die verderop in dit bestand loopt) opsplitsen
-    setTimeout(() => {
-    const regels = [...document.querySelectorAll(".start .typ")];
-    regels.forEach(splits);
-    const laatste = regels[regels.length - 1];
-    if (laatste) {
-      const caret = document.createElement("span");
-      caret.className = "typ-caret"; caret.setAttribute("aria-hidden", "true");
-      caret.style.setProperty("--caret-weg", (n * 26 + 1400) + "ms");
-      laatste.appendChild(caret);
-    }
-    wortel.style.setProperty("--links-in", (n * 26 + 350) + "ms");
-    wortel.classList.add("typ-klaar");
-    // na het typen de klasse weg, zodat de gewone opmaak geldt
-    setTimeout(() => wortel.classList.remove("intro", "typ-klaar"), n * 26 + 2200);
-    }, 0);
+    plaats();
+    klaar.then(() => { plaats(); requestAnimationFrame(() => requestAnimationFrame(() => wortel.classList.add("go"))); });
+    const done = () => wortel.classList.remove("intro", "go");
+    if (naam) naam.addEventListener("animationend", (e) => { if (e.animationName === "v-name") done(); });
+    /* vangnet als animationend uitblijft; het telt pas wanneer de pagina
+       zichtbaar is, want in een achtergrondtab staat de animatie stil */
+    const arm = () => setTimeout(done, 6000);
+    if (document.visibilityState === "visible") arm();
+    else document.addEventListener("visibilitychange", function onVis() {
+      if (document.visibilityState !== "visible") return;
+      document.removeEventListener("visibilitychange", onVis);
+      arm();
+    });
   }
 
-  /* Terwijl de pagina over het startscherm schuift, krimpt het lichtjes en
-     vervaagt het, zoals een footer die onder de pagina ligt, maar omgekeerd. */
-  const startIn = document.querySelector(".start-inner");
-  if (startIn) {
-    let wacht = false;
-    const zak = () => {
-      wacht = false;
-      const p = Math.min(1, Math.max(0, scrollY / innerHeight));
-      if (wortel.dataset.motion === "reduce" || matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        startIn.style.transform = ""; startIn.style.opacity = p > 0.98 ? "0" : ""; return;
-      }
-      startIn.style.transform = p ? "scale(" + (1 - p * 0.06).toFixed(4) + ")" : "";
-      startIn.style.opacity = p ? (1 - p * 0.85).toFixed(3) : "";
-    };
-    addEventListener("scroll", () => { if (!wacht) { wacht = true; requestAnimationFrame(zak); } }, { passive: true });
-    zak();
+  /* ---- Klik op de naam: de letters stralen kleur uit ----
+     Niet één bloei uit een middelpunt, maar drie kopieën van de naam zelf met
+     elk een vaste blur. Ze schalen op en vloeien weg, dus de gloed heeft in de
+     eerste frames precies de vorm van de glyphs en diffundeert daarna pas.
+     De blur staat vast en enkel transform/opacity animeren, zodat elke laag
+     één keer gerasterd wordt en daarna alleen nog gecomposit.
+     De h1 wordt in zijn geheel gekloond: alleen zo valt de regelval (die door
+     text-wrap: balance bepaald wordt) gegarandeerd identiek uit. */
+  /* De luisteraar hangt aan het document en zoekt de naam pas op bij de klik.
+     Dat is nodig omdat de intro klonen van de h1 maakt die de klasse
+     prism-host meedragen, en de introlaag vóór de hero in de DOM staat: een
+     directe querySelector greep dus de kloon, en die verdwijnt samen met de
+     laag zodra de intro klaar is. Daardoor werkte de klik enkel bij een
+     herbezoek binnen dezelfde sessie, wanneer de intro niet meer speelt.
+     De :not(.in-l) sluit de introlagen uit, net als in de bijbehorende CSS. */
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let current = null;
+    document.addEventListener("click", (ev) => {
+      const glowName = ev.target.closest(".prism-host:not(.in-l) .grad-text");
+      if (!glowName) return;
+      const glowHost = glowName.closest(".prism-host");
+      if (document.documentElement.dataset.motion === "reduce") return;
+      // hoogstens één gloed tegelijk: snel achter elkaar klikken stapelt niet op
+      if (current) current.remove();
+      const h = glowHost.getBoundingClientRect();
+      const r = glowName.getBoundingClientRect();
+      const wrap = document.createElement("div");
+      wrap.className = "name-glow";
+      wrap.setAttribute("aria-hidden", "true");
+      wrap.style.left = h.left + "px";
+      wrap.style.top = h.top + "px";
+      wrap.style.width = h.width + "px";
+      wrap.style.height = h.height + "px";
+      /* Draaipunt op het midden van de NAAM, niet van de h1. De kop is zo breed
+         als de kaart terwijl de naam links uitlijnt; schalen om het midden van
+         de kop duwt de gloed dan zichtbaar naar links weg. */
+      wrap.style.setProperty("--ox", r.left + r.width / 2 - h.left + "px");
+      wrap.style.setProperty("--oy", r.top + r.height / 2 - h.top + "px");
+      // gl-flash als laatste, dus bovenop de kleurlagen
+      ["gl-near", "gl-mid", "gl-far", "gl-flash"].forEach((cls) => {
+        const clone = glowHost.cloneNode(true);
+        clone.classList.remove("prism-host");   // anders erft de kloon de hover-regels
+        clone.classList.add("gl", cls);
+        clone.removeAttribute("id");
+        clone.querySelectorAll("[data-i18n]").forEach((el) => el.removeAttribute("data-i18n"));
+        clone.querySelectorAll(":scope > *:not(.grad-text)").forEach((el) => el.classList.add("intro-hidden"));
+        clone.style.width = h.width + "px";
+        wrap.appendChild(clone);
+      });
+      document.body.appendChild(wrap);
+      current = wrap;
+      const clear = () => { if (current === wrap) current = null; wrap.remove(); };
+      // animationend borrelt op vanuit de lagen; de traagste bepaalt het einde
+      wrap.addEventListener("animationend", (e) => {
+        if (e.target.classList.contains("gl-far")) clear();
+      });
+      setTimeout(clear, 4000);
+    });
   }
 
   /* ---- Getallen volgens de taal ----
