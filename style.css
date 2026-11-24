@@ -263,7 +263,7 @@ ul { padding: 0; list-style: none; }
 .lang-toggle span { color: var(--c-dim); }
 html[lang="nl"] .lang-toggle [data-lang="nl"],
 html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
-.lang-toggle:hover, .settings-toggle:hover, .burger:hover, .mode-toggle:hover { border-color: rgb(var(--c-edge) / .5); }
+@media (hover: hover) { .lang-toggle:hover, .settings-toggle:hover, .burger:hover, .mode-toggle:hover { border-color: rgb(var(--c-edge) / .5); } }
 
 .settings-wrap { position: relative; }
 .settings-pop {
@@ -371,9 +371,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   font-weight: 600; font-size: .92rem; text-decoration: none; cursor: pointer;
   transition: background .2s, color .2s, border-color .2s;
 }
-.btn:hover { background: var(--g-acc); border-color: var(--g-acc); color: var(--g-bg); }
+@media (hover: hover) { .btn:hover { background: var(--g-acc); border-color: var(--g-acc); color: var(--g-bg); } }
 .btn-line { background: transparent; color: var(--g-ink); border-color: color-mix(in srgb, var(--g-ink) 35%, transparent); }
-.btn-line:hover { background: transparent; color: var(--g-acc); border-color: var(--g-acc); }
+@media (hover: hover) { .btn-line:hover { background: transparent; color: var(--g-acc); border-color: var(--g-acc); } }
 
 /* ---------- Essentie ---------- */
 .essentie { margin-top: 56px; padding-top: 12px; }
@@ -513,9 +513,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   animation: tag-drijf 6s ease-in-out infinite alternate paused;
 }
 .tags span::before { content: "#"; margin-right: 2px; color: var(--g-acc); transition: color .25s; }
-.tags span:hover { border-color: var(--g-acc); color: var(--g-bg); }
-.tags span:hover::after { clip-path: inset(0); animation-play-state: running; }
-.tags span:hover::before { color: var(--g-bg); }
+@media (hover: hover) { .tags span:hover { border-color: var(--g-acc); color: var(--g-bg); } }
+@media (hover: hover) { .tags span:hover::after { clip-path: inset(0); animation-play-state: running; } }
+@media (hover: hover) { .tags span:hover::before { color: var(--g-bg); } }
 @keyframes tag-drijf { from { background-position: 0 0, 0 0, 0% 0%, 0% 50%; } to { background-position: 30px -20px, 0 0, 100% 100%, 100% 50%; } }
 @media (prefers-reduced-motion: reduce) { .tags span, .tags span::before, .tags span::after { transition: none; animation: none; } }
 :root[data-motion="reduce"] .tags span, :root[data-motion="reduce"] .tags span::before, :root[data-motion="reduce"] .tags span::after { transition: none; animation: none; }
@@ -526,7 +526,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   border: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); border-radius: 6px;
   font-size: .82rem; font-weight: 500;
 }
-.doc-btn:hover { border-color: var(--g-acc); color: var(--g-acc); }
+@media (hover: hover) { .doc-btn:hover { border-color: var(--g-acc); color: var(--g-acc); } }
 
 /* ---------- Uitklapbare galerij ----------
    Een rustige regel: links de uitleg, rechts een strookje van vier kleine
@@ -556,8 +556,8 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   transform: rotate(45deg); transition: transform .2s var(--ease);
 }
 .fold[open] .fold-chev { transform: rotate(-135deg); margin-bottom: -4px; }
-.fold > summary:hover .fold-txt strong { color: var(--g-acc); }
-.fold > summary:hover .fold-peek img { opacity: .85; }
+@media (hover: hover) { .fold > summary:hover .fold-txt strong { color: var(--g-acc); } }
+@media (hover: hover) { .fold > summary:hover .fold-peek img { opacity: .85; } }
 .fold > summary:focus-visible { outline-offset: 4px; }
 .fold > .gallery { margin-top: 4px; padding-bottom: 28px; }
 @media (max-width: 560px) {
@@ -579,7 +579,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .diploma-thumb.doc-link { cursor: pointer; }
 .diploma-thumb img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transition: opacity .2s; }
 .gallery-photos .diploma-thumb img { aspect-ratio: 1; }
-.diploma-thumb:hover img { opacity: .82; }
+@media (hover: hover) { .diploma-thumb:hover img { opacity: .82; } }
 .doc-chip {
   position: absolute; left: 6px; bottom: 6px; padding: 2px 6px;
   background: rgba(0, 0, 0, .72); color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .04em;
@@ -592,12 +592,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    stapel.js zet de kaarten in beweging; hier enkel de opbouw. Elke kaart
    draagt een palet .g-*, dus ook de lichte versie werkt vanzelf. */
 .stack { display: none; }
-:root[data-view="compact"] .stack { display: block; height: calc((var(--n, 8) - 1) * 100vh + 100vh - 60px); }
+:root[data-view="compact"] .stack { display: block; height: calc((var(--n, 8) - 1) * var(--scherm, 100vh) + var(--scherm, 100vh) - 60px); }
 :root[data-view="compact"] main > .sec { display: none; }
-.stack-stage { position: sticky; top: 60px; height: calc(100vh - 60px); overflow: hidden; }
+.stack-stage { position: sticky; top: 60px; height: calc(var(--scherm, 100vh) - 60px); overflow: hidden; }
 .stack-card {
   position: absolute; left: 50%; top: 5vh;
-  width: min(880px, calc(100vw - 2 * var(--gutter))); height: calc((100vh - 60px) * .72);
+  width: min(880px, calc(100vw - 2 * var(--gutter))); height: calc((var(--scherm, 100vh) - 60px) * .72);
   margin-left: calc(min(880px, calc(100vw - 2 * var(--gutter))) / -2);
   display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   border-radius: 22px; overflow: hidden; transform-origin: 50% 0;
@@ -648,15 +648,18 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 .stack-hoek a svg { flex-shrink: 0; }
 .stack-hoek a span { white-space: nowrap; margin-left: 0; opacity: 0; transition: opacity .3s, margin-left .3s; }
-.stack-hoek a:hover, .stack-hoek a:focus-visible { max-width: 280px; }
-.stack-hoek a:hover span, .stack-hoek a:focus-visible span { opacity: 1; margin-left: 8px; }
+.stack-hoek a:focus-visible { max-width: 280px; }
+@media (hover: hover) { .stack-hoek a:hover { max-width: 280px; } }
+.stack-hoek a:focus-visible span { opacity: 1; margin-left: 8px; }
+@media (hover: hover) { .stack-hoek a:hover span { opacity: 1; margin-left: 8px; } }
 .stack-hoek a:focus-visible { outline: 2px solid var(--g-ink); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .stack-hoek a, .stack-hoek a span { transition: none; } }
 .stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .84rem; font-variant-numeric: tabular-nums; z-index: 50; }
-.stack-rail { width: 140px; height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
+.stack-ui { white-space: nowrap; }
+.stack-rail { width: min(140px, 30vw); height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
 .stack-rail i { display: block; height: 100%; background: var(--g-acc); transform-origin: 0 50%; transform: scaleX(0); }
 @media (max-width: 700px) {
-  .stack-card { top: 3vh; height: calc((100vh - 60px) * .8); }
+  .stack-card { top: 3vh; height: calc((var(--scherm, 100vh) - 60px) * .8); }
   .stack-front { grid-template-columns: minmax(0, 1fr); grid-template-rows: 40% minmax(0, 1fr); }
   .stack-back-inhoud .facts, .stack-back-inhoud .contact-list { grid-template-columns: minmax(0, 1fr); }
   .stack-back-inhoud .row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
@@ -714,7 +717,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
   background: transparent; border: 1px solid color-mix(in srgb, var(--g-ink) 28%, transparent); border-radius: 6px; cursor: pointer;
 }
-.gal-btn:hover:not(:disabled) { border-color: var(--g-acc); color: var(--g-acc); }
+@media (hover: hover) { .gal-btn:hover:not(:disabled) { border-color: var(--g-acc); color: var(--g-acc); } }
 .gal-btn:disabled { opacity: .3; cursor: default; }
 /* het spoor krimpt mee als er veel foto's zijn, zodat het op een gsm nooit
    breder wordt dan het scherm */
@@ -785,7 +788,8 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .contact-list dd { margin: 0; font-weight: 500; font-size: 1.15rem; text-align: right; overflow-wrap: anywhere; }
 .contact-list a { text-decoration: none; }
 .contact-list a::after { content: "\2192"; display: inline-block; margin-left: .35em; color: var(--g-acc); transition: transform .25s cubic-bezier(.2, .7, .2, 1); }
-.contact-list > div:hover a::after, .contact-list a:focus-visible::after { transform: translateX(4px); }
+.contact-list a:focus-visible::after { transform: translateX(4px); }
+@media (hover: hover) { .contact-list > div:hover a::after { transform: translateX(4px); } }
 @media (prefers-reduced-motion: reduce) { .contact-list a::after { transition: none; } }
 
 /* ---------- Snapshot op een bonnetje ----------
@@ -801,7 +805,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    stuk papier als je het bonnetje rond de hoek trekt */
 .snap-feed { position: relative; width: 280px; height: 0; clip-path: inset(-4000px -4000px 0 -4000px); }
 .snap-paper { position: absolute; left: 0; right: 0; bottom: 0; transform: translateY(100%); }
-.snap-sheet { touch-action: none; cursor: grab; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .35s; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); }
+/* pan-y: wie op een gsm over het bonnetje veegt, scrolt gewoon verder; opzij
+   trekken scheurt het af. Met none bleef je vastzitten op het papier dat over
+   de contactgegevens hangt. */
+.snap-sheet { touch-action: pan-y; cursor: grab; transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .35s; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); }
 .snap-sheet:active { cursor: grabbing; }
 .snap-sheet.gescheurd { transform: translateY(-120%) rotate(-5deg) !important; opacity: 0; transition: transform .6s cubic-bezier(.5, 0, .7, .4), opacity .6s; }
 .snap-cv { display: block; }
@@ -814,7 +821,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* een bonnetje dat opzij wegzwiert, mag geen horizontale scrollbalk geven */
 /* ook verticaal: het deel van het papier dat tijdens het printen nog onder de
    gleuf zit, maakt de pagina zo niet langer */
-#contact { overflow: clip; }
+#contact { overflow: hidden; overflow: clip; } /* hidden voor Safari ouder dan 16 */
 /* de naam van de printer, gegraveerd in de kast: iets donkerder dan de kast,
    met een lichte rand eronder en een donkere erboven, zoals een uitgefreesde letter */
 .snap-merk {
@@ -959,7 +966,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @property --vk { syntax: "<number>"; inherits: true; initial-value: 1; }
 :root.intro { --vs: 2; --vtx: 0px; --vty: -50%; }
 /* de vergrote naam mag de pagina niet breder maken dan het scherm */
-:root.intro body { overflow-x: clip; }
+:root.intro body { overflow-x: hidden; overflow-x: clip; }
 :root.intro .hero-name {
   position: relative; z-index: 2;
   transform-origin: 0 0;
@@ -1097,9 +1104,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   animation: grain-korrel .5s steps(2) infinite paused;
 }
-.hero-side .btn:hover { color: #fff; border-color: transparent; background: #1b1022; }
-.hero-side .btn:hover::before { opacity: 1; animation-play-state: running; }
-.hero-side .btn:hover::after { opacity: .55; animation-play-state: running; }
+@media (hover: hover) { .hero-side .btn:hover { color: #fff; border-color: transparent; background: #1b1022; } }
+@media (hover: hover) { .hero-side .btn:hover::before { opacity: 1; animation-play-state: running; } }
+@media (hover: hover) { .hero-side .btn:hover::after { opacity: .55; animation-play-state: running; } }
 @keyframes grain-drijf { from { background-position: 0 0, 0% 0%, 0% 50%; } to { background-position: 0 0, 100% 100%, 100% 50%; } }
 @keyframes grain-korrel { 50% { transform: translate(-6px, 4px); } }
 @media (prefers-reduced-motion: reduce) { .hero-side .btn::before, .hero-side .btn::after { animation: none; } }
@@ -1158,3 +1165,29 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
 /* de bonnetjesknop toont het pictogram van wat hij nu doet */
 .snap-print .ic-bewaar, .snap-print.bewaren .ic-print { display: none; }
 .snap-print.bewaren .ic-bewaar { display: block; }
+
+/* ---------- Mobiel (audit) ----------
+   Schermhoge delen gebruiken de kleine viewporthoogte (svh): op iOS en
+   Android verandert 100vh mee met de adresbalk, en dan verspringt de stapel
+   in de compacte weergave tijdens het scrollen. */
+@supports (height: 100svh) { :root { --scherm: 100svh; } }
+/* Op een heel smal scherm (iPhone SE, 320 px) was de menubalk breder dan het
+   scherm, waardoor de browser de hele pagina uitzoomde. */
+@media (max-width: 380px) {
+  :root { --gutter: 16px; }
+  .nav-inner { gap: 8px; }
+  .nav-right { gap: 4px; }
+  .brand { font-size: 1.02rem; letter-spacing: .02em; }
+  .lang-toggle, .settings-toggle, .burger, .mode-toggle { min-width: 34px; padding: 0 8px; }
+}
+/* Liggende gsm: het scherm is maar zo'n 390 px hoog. De kaarten van de
+   compacte weergave worden hoger en de tekst korter, anders vielen de knoppen
+   onderaan weg. */
+@media (max-height: 520px) and (orientation: landscape) {
+  .stack-card { top: 2vh; height: calc((var(--scherm, 100vh) - 60px) * .84); }
+  .stack-body { padding: 16px 20px; gap: 8px; }
+  .stack-title { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+  .stack-text { font-size: .86rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .stack-body .btn-row { margin-top: 2px; }
+  .stack-ui { bottom: 1.5vh; }
+}
