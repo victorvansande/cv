@@ -51,7 +51,7 @@
 .g-bos      { --g-bg: #110d16; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2734; --g-acc: #c9ba7e; }
 .g-centraal { --g-bg: #150a14; --g-ink: #f1e9ee; --g-soft: #d3c6cd; --g-dim: #a5949d; --g-line: #3a2634; --g-acc: #dfd7bb; }
 .g-gracht   { --g-bg: #0b1614; --g-ink: #ebf2ef; --g-soft: #c4d0cb; --g-dim: #91a39c; --g-line: #223430; --g-acc: #f08aa0; }
-.g-urbex    { --g-bg: #140c0a; --g-ink: #f1e8e3; --g-soft: #d3c4bc; --g-dim: #a5938a; --g-line: #3e2921; --g-acc: #eb8762; }
+.g-urbex    { --g-bg: #0f121c; --g-ink: #ebedf3; --g-soft: #c5cad6; --g-dim: #939aab; --g-line: #262c3d; --g-acc: #eb8762; }
 .g-veld     { --g-bg: #0d1c10; --g-ink: #eef1e9; --g-soft: #c9d2c4; --g-dim: #97a493; --g-line: #243a29; --g-acc: #f0d4ac; }
 
 /* ---------- Lichte versie ----------
@@ -75,7 +75,7 @@
 :root[data-mode="light"] .g-bos      { --g-bg: #f2eff5; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd6e2; --g-acc: #6e6427; }
 :root[data-mode="light"] .g-centraal { --g-bg: #f6f0f4; --g-ink: #1b1219; --g-soft: #4f4049; --g-dim: #786871; --g-line: #e4d7df; --g-acc: #70582f; }
 :root[data-mode="light"] .g-gracht   { --g-bg: #edf4f1; --g-ink: #121a17; --g-soft: #42514b; --g-dim: #6b7a74; --g-line: #d2e0da; --g-acc: #b23a5a; }
-:root[data-mode="light"] .g-urbex    { --g-bg: #f9eee9; --g-ink: #1e1412; --g-soft: #53423c; --g-dim: #7e6a62; --g-line: #e9d5cc; --g-acc: #a74221; }
+:root[data-mode="light"] .g-urbex    { --g-bg: #eef0f6; --g-ink: #131620; --g-soft: #444b5c; --g-dim: #6d7485; --g-line: #d6dae6; --g-acc: #a74221; }
 :root[data-mode="light"] .g-veld     { --g-bg: #edf4eb; --g-ink: #121a13; --g-soft: #445043; --g-dim: #6b7869; --g-line: #d3e0cf; --g-acc: #506e28; }
 /* het donkere zwart onder de doc-chip en de lichtbak blijft: dat is een
    overlay op beeld, geen achtergrond van de pagina */
