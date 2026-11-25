@@ -103,11 +103,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   door in inline-block letters, en dan was de naam onzichtbaar. Daarna
   is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
   letter onder de cursor wordt een lijnletter met een glijdend kader en label,
-  een klik laat letters opspringen. Elke knop (`.btn`) krijgt bij hover een
-  korrelig verloop ("Grainient", css onder die naam), enkel uit tinten van het
-  accent van zijn sectie (`--gr-diep`, `--g-acc`, `--gr-licht`, gemengd in oklab)
-  met grijze korrel in soft-light, zodat de kleur in elke stand van het drijvende
-  verloop klopt. Rechts van "Victor" staat een
+  een klik laat letters opspringen. Elke klikbare knop in een sectie (`.btn`,
+  `.doc-btn` "Bekijk diploma/brevet", `.gal-btn` de galerijpijltjes, `.stack-hoek a`)
+  krijgt bij hover een korrelig verloop ("Grainient", css onder die naam), enkel
+  uit tinten van het accent van zijn sectie (`--gr-diep`, `--g-acc`, `--gr-licht`,
+  gemengd in oklab), met grijze korrel als bovenste laag in soft-light, alles in
+  één `::before` (de `::after` van `.doc-btn` en `.gal-btn` is hun raakvlak van
+  44 px). Wie een nieuwe knop toevoegt, zet hem in die lijst (ook in main.js voor
+  de cursorvlek). Niet de trefwoorden en niet de menubalk. Rechts van "Victor" staat een
   pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
   even hoog is als de hoofdletters en eindigt waar "Sande" eindigt.
@@ -120,7 +123,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
   tint). De masterproef is een eigen blok binnen Opleiding, met het gespiegelde MAS op
   zijn zij (een knipoog naar misinformatie), een avondblauwe achtergrond uit de
-  lucht en een terracotta accent uit de baksteen (`.g-urbex`, de naam is gebleven). Over mij opent met de Amsterdamse grachtenpanden op film (`.g-gracht`). De
+  lucht en een terracotta accent uit de baksteen (`.g-urbex`, de naam is gebleven). Over mij opent met de Amsterdamse grachtenpanden op film (`.g-gracht`). Opleiding (`.g-centraal`) is violet, uit de lila avondlucht in de vensters
+  van Antwerpen-Centraal, omdat geen ander hoofdstuk die tint heeft (in de PDF's
+  `--a-centraal`). De
   zwart-witfoto van de fondsenwerving staat klein bij Gekkoo (`.org-foto`). Nieuwe foto's gaan op 1600 pixels en zonder
   metadata (geen GPS) in `assets/photos/`, met een webp-versie van 1080 px in
   `assets/photos/m/` die enkel op gsm laadt (`<picture>` met

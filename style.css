@@ -57,7 +57,7 @@
 .g-theater  { --g-bg: #190105; --g-ink: #f5e4e2; --g-soft: #dcbfbc; --g-dim: #b08f8b; --g-line: #481319; --g-acc: #f56167; }
 .g-herfst   { --g-bg: #13140b; --g-ink: #f1e9dc; --g-soft: #d5c9b5; --g-dim: #a59880; --g-line: #3b331f; --g-acc: #e4a55b; }
 .g-bos      { --g-bg: #110d16; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2734; --g-acc: #c9ba7e; }
-.g-centraal { --g-bg: #150a14; --g-ink: #f1e9ee; --g-soft: #d3c6cd; --g-dim: #a5949d; --g-line: #3a2634; --g-acc: #dfd7bb; }
+.g-centraal { --g-bg: #110c1c; --g-ink: #eee9f6; --g-soft: #cbc3da; --g-dim: #9a91ad; --g-line: #2f2742; --g-acc: #b9a2f5; }
 .g-gracht   { --g-bg: #0b1614; --g-ink: #ebf2ef; --g-soft: #c4d0cb; --g-dim: #91a39c; --g-line: #223430; --g-acc: #f08aa0; }
 .g-urbex    { --g-bg: #0f121c; --g-ink: #ebedf3; --g-soft: #c5cad6; --g-dim: #939aab; --g-line: #262c3d; --g-acc: #eb8762; }
 .g-veld     { --g-bg: #0d1c10; --g-ink: #eef1e9; --g-soft: #c9d2c4; --g-dim: #97a493; --g-line: #243a29; --g-acc: #f0d4ac; }
@@ -81,7 +81,7 @@
 :root[data-mode="light"] .g-theater  { --g-bg: #f8e2e2; --g-ink: #211113; --g-soft: #573d40; --g-dim: #82696b; --g-line: #ebd3d4; --g-acc: #ab2833; }
 :root[data-mode="light"] .g-herfst   { --g-bg: #f6edd8; --g-ink: #1d1a10; --g-soft: #4f4835; --g-dim: #78705b; --g-line: #e4dabf; --g-acc: #925614; }
 :root[data-mode="light"] .g-bos      { --g-bg: #ece5f3; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd6e2; --g-acc: #6e6427; }
-:root[data-mode="light"] .g-centraal { --g-bg: #f4e7f0; --g-ink: #1b1219; --g-soft: #4f4049; --g-dim: #786871; --g-line: #e4d7df; --g-acc: #70582f; }
+:root[data-mode="light"] .g-centraal { --g-bg: #ede7f8; --g-ink: #16111f; --g-soft: #493f5c; --g-dim: #716884; --g-line: #dcd3ec; --g-acc: #5e3aa8; }
 :root[data-mode="light"] .g-gracht   { --g-bg: #e3f3ec; --g-ink: #121a17; --g-soft: #42514b; --g-dim: #6b7a74; --g-line: #d2e0da; --g-acc: #b23a5a; }
 :root[data-mode="light"] .g-urbex    { --g-bg: #e4e8f5; --g-ink: #131620; --g-soft: #444b5c; --g-dim: #6d7485; --g-line: #d6dae6; --g-acc: #a74221; }
 :root[data-mode="light"] .g-veld     { --g-bg: #e5f3e1; --g-ink: #121a13; --g-soft: #445043; --g-dim: #6b7869; --g-line: #d3e0cf; --g-acc: #506e28; }
@@ -575,7 +575,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   border: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); border-radius: var(--r-s);
   font-size: .82rem; font-weight: 500;
 }
-@media (hover: hover) { .doc-btn:hover { border-color: var(--g-acc); color: var(--g-acc); } }
 
 /* ---------- Uitklapbare galerij ----------
    Een rustige regel: links de uitleg, rechts een strookje van vier kleine
@@ -833,7 +832,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center;
   background: transparent; border: 1px solid color-mix(in srgb, var(--g-ink) 28%, transparent); border-radius: var(--r-s); cursor: pointer;
 }
-@media (hover: hover) { .gal-btn:hover:not(:disabled) { border-color: var(--g-acc); color: var(--g-acc); } }
 .gal-btn:disabled { opacity: .3; cursor: default; }
 /* het spoor krimpt mee als er veel foto's zijn, zodat het op een gsm nooit
    breder wordt dan het scherm */
@@ -1259,38 +1257,41 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    enkel licht en donker toevoegt. De tekst wordt --g-bg, net als vroeger op het
    effen accent. Zelfde opbouw in licht en donker; in licht is het accent al
    diep, dus de tinten liggen er dichter bij. */
-.btn {
-  position: relative; isolation: isolate; overflow: hidden;
+/* Elke klikbare knop in een sectie doet mee: de gewone knoppen, "Bekijk
+   diploma" en "Bekijk brevet", de pijltjes van de galerijen en de ronde knoppen
+   op de compacte kaarten. Niet de trefwoorden (geen knoppen) en niet de
+   menubalk (die hoort bij geen sectie). Alles zit in één laag (::before),
+   met de korrel als bovenste achtergrond in soft-light: ::after is bij
+   .doc-btn en .gal-btn het onzichtbare raakvlak van 44 px, en zonder
+   overflow: hidden blijft dat raakvlak werken. */
+.btn, .doc-btn, .gal-btn, .stack-hoek a {
+  position: relative; isolation: isolate;
   --gr-diep: color-mix(in oklab, var(--g-acc) 68%, #000);
   --gr-licht: color-mix(in oklab, var(--g-acc) 70%, #fff);
 }
-:root[data-mode="light"] .btn {
+:root[data-mode="light"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a) {
   --gr-diep: color-mix(in oklab, var(--g-acc) 76%, #000);
   --gr-licht: color-mix(in oklab, var(--g-acc) 82%, #fff);
 }
-.btn::before, .btn::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .3s cubic-bezier(.2, 0, 0, 1); }
-.btn::before {
+:is(.btn, .doc-btn, .gal-btn, .stack-hoek a)::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity .3s cubic-bezier(.2, 0, 0, 1);
   background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.65'/%3E%3C/svg%3E"),
     radial-gradient(circle at var(--mx, 30%) var(--my, 50%), var(--gr-licht) 0, transparent 46%),
     radial-gradient(120% 160% at 100% 100%, var(--gr-diep) 0, transparent 62%),
     linear-gradient(60deg, var(--gr-diep) 0%, var(--g-acc) 34%, var(--gr-licht) 52%, var(--g-acc) 70%, var(--gr-diep) 100%);
-  background-size: 100% 100%, 170% 170%, 260% 100%;
+  background-size: 160px 160px, 100% 100%, 170% 170%, 260% 100%;
+  background-blend-mode: soft-light, normal, normal, normal;
   animation: grain-drijf 7s ease-in-out infinite alternate paused;
 }
-.btn::after {
-  inset: -8px; mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  animation: grain-korrel .5s steps(2) infinite paused;
-}
 @media (hover: hover) {
-  .btn:hover { color: var(--g-bg); border-color: var(--gr-diep); transition-duration: .14s; }
-  .btn:hover::before { opacity: 1; animation-play-state: running; transition-duration: .14s; }
-  .btn:hover::after { opacity: .7; animation-play-state: running; transition-duration: .14s; }
+  :is(.btn, .doc-btn, .gal-btn:not(:disabled), .stack-hoek a):hover { color: var(--g-bg); border-color: var(--gr-diep); transition-duration: .14s; }
+  :is(.btn, .doc-btn, .gal-btn:not(:disabled), .stack-hoek a):hover::before { opacity: 1; animation-play-state: running; transition-duration: .14s; }
 }
-@keyframes grain-drijf { from { background-position: 0 0, 0% 0%, 0% 50%; } to { background-position: 0 0, 100% 100%, 100% 50%; } }
-@keyframes grain-korrel { 50% { transform: translate(-6px, 4px); } }
-@media (prefers-reduced-motion: reduce) { .btn::before, .btn::after { animation: none; } }
-:root[data-motion="reduce"] .btn::before, :root[data-motion="reduce"] .btn::after { animation: none; }
+@keyframes grain-drijf { from { background-position: 0 0, 0 0, 0% 0%, 0% 50%; } to { background-position: 48px -32px, 0 0, 100% 100%, 100% 50%; } }
+@media (prefers-reduced-motion: reduce) { :is(.btn, .doc-btn, .gal-btn, .stack-hoek a)::before { animation: none; } }
+:root[data-motion="reduce"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a)::before { animation: none; }
 
 /* ---------- Zachte overgang tussen secties ----------
    main.js geeft elke sectie de achtergrondkleur van de sectie erboven mee

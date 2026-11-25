@@ -319,7 +319,7 @@
      Eén luisteraar voor de hele pagina, zodat ook knoppen die stapel.js of
      bonnetje.js later maakt meedoen. */
   document.addEventListener("pointermove", (e) => {
-    const b = e.target.closest && e.target.closest(".btn");
+    const b = e.target.closest && e.target.closest(".btn, .doc-btn, .gal-btn, .stack-hoek a");
     if (!b) return;
     const r = b.getBoundingClientRect();
     b.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
