@@ -60,6 +60,13 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **Mailkeuze** (nov 2026, Victors vraag): mailto opende op zijn pc Edge. Elke
+  mailto-link opent nu een klein menu (Gmail, Outlook, eigen mailprogramma,
+  adres kopiëren) in de kleuren van zijn hoofdstuk.
+- **Contact, eerste zin**: "Ik sta open voor vragen, projecten en een
+  vrijblijvende kennismaking." De vraagzin met twee keer "of" ging eruit
+  (Victors vraag); een vraagfragment stond ook al bij de weggevers in
+  SCHRIJFSTIJL.md.
 - **KSA: Webdesigner staat bovenaan** (Victors vraag, nov 2026), voor
   Hoofdleider en Leider, ook in de drie PDF's. Leider blijft net onder
   Hoofdleider, want die tekst verwijst ernaar ("Naast het hoofdleiderschap").

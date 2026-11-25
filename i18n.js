@@ -320,7 +320,7 @@ window.I18N = {
 
     /* contact */
     contact_final_h2: `Feel free to send me a <span class="grad-text em-serif">message</span>`,
-    contact_final_lead: `Do you have a question or a project, or would you just like to meet? I am available part-time, employed or freelance, in the Herentals–Antwerp area. I usually reply quickly.`,
+    contact_final_lead: `I am open to questions, projects and an informal first meeting. I am available part-time, employed or freelance, in the Herentals–Antwerp area. I usually reply quickly.`,
     contact_btn_mail: `Send me an email`,
     cm_email: `Email`,
     cm_phone: `Phone`,

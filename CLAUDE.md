@@ -276,6 +276,15 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   lus loopt enkel in beeld. Onderaan padding in plaats van een marge: een marge
   liep door `#contact` heen en liet een strook in de kleur van de pagina staan.
   De enige beweging die blijft lopen zonder dat iemand iets doet.
+- **Mailkeuze** (main.js, "Mailkeuze", sinds nov 2026): elke `mailto:`-link op de
+  site (knop bij Contact, het e-mailadres, het lint, de rondjes op de compacte
+  kaarten, de referentievensters) opent een klein menu `.mailkeuze` met Gmail en
+  Outlook (nieuw tabblad), het eigen mailprogramma en "Kopieer adres". Reden: op
+  Victors pc opende mailto gewoon Edge. Eén luisteraar voor de hele pagina, dus
+  nieuwe mailto-links doen vanzelf mee. Het menu neemt de `--g-*`-kleuren over
+  van de plek waar je klikte en staat in een geopend `<dialog>` in dat venster
+  (anders valt het onder de bovenste laag). Toetsen: pijltjes, Home/End, Escape
+  (sluit enkel het menu, niet het venster). Zonder script een gewone mailto-link.
 - **Uit de site, bewaard voor later (nov 2026, op Victors vraag)**: de printer
   met het bonnetje en de schuifknop hieronder. De site eindigt met Contact. Het
   fragment en de stappen om het terug te zetten staan in `bewaard/bonnetje.md`;

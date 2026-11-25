@@ -414,6 +414,100 @@
     }));
   });
 
+  /* ---- Mailkeuze ----
+     Een mailto-link opent het standaardmailprogramma, en op veel computers is
+     dat er niet (Windows opent dan Edge of een lege app). Daarom opent elke
+     mailto-link op de site een klein menu: Gmail, Outlook (beide in een nieuw
+     tabblad), het eigen mailprogramma of het adres kopiëren. Zonder script
+     blijft het een gewone mailto-link. Het menu neemt de kleuren over van de
+     plek waar je klikte, en staat in een geopend venster (referenties) in dat
+     venster, anders viel het eronder. Na slepen aan het lint opent er niets
+     (lint.js zet dan preventDefault). */
+  (() => {
+    const T = {
+      nl: { app: "Eigen mailprogramma", kopieer: "Kopieer adres", gekopieerd: "Gekopieerd", tab: "nieuw tabblad" },
+      en: { app: "Default mail app", kopieer: "Copy address", gekopieerd: "Copied", tab: "new tab" }
+    };
+    let menu = null, bron = null;
+    const sluit = (terug) => {
+      if (!menu) return;
+      menu.remove(); menu = null;
+      if (terug && bron) bron.focus({ preventScroll: true });
+      bron = null;
+    };
+    const open = (a, x) => {
+      sluit(false);
+      const adres = decodeURIComponent(a.getAttribute("href").replace(/^mailto:/i, "").split("?")[0]);
+      const t = T[document.documentElement.lang === "en" ? "en" : "nl"];
+      const enc = encodeURIComponent(adres);
+      menu = document.createElement("div");
+      menu.className = "mailkeuze";
+      menu.setAttribute("role", "menu");
+      menu.setAttribute("aria-label", adres);
+      menu.innerHTML =
+        '<span class="mailkeuze-adres" translate="no"></span>' +
+        '<a role="menuitem" target="_blank" rel="noopener" href="https://mail.google.com/mail/?view=cm&fs=1&to=' + enc + '"><span>Gmail</span><small></small></a>' +
+        '<a role="menuitem" target="_blank" rel="noopener" href="https://outlook.office.com/mail/deeplink/compose?to=' + enc + '"><span>Outlook</span><small></small></a>' +
+        '<a role="menuitem" href="mailto:' + adres + '"><span></span></a>' +
+        '<button type="button" role="menuitem" class="mailkeuze-kopie"><span></span></button>';
+      menu.querySelector(".mailkeuze-adres").textContent = adres;
+      menu.querySelectorAll("small").forEach((s) => (s.textContent = t.tab + " \u2197"));
+      menu.querySelector('a[href^="mailto:"] span').textContent = t.app;
+      const kopie = menu.querySelector(".mailkeuze-kopie");
+      kopie.firstChild.textContent = t.kopieer;
+      // kleuren van de plek waar je klikte (de menu staat los in de body)
+      const cs = getComputedStyle(a);
+      ["--g-bg", "--g-ink", "--g-soft", "--g-dim", "--g-line", "--g-acc"].forEach((v) => menu.style.setProperty(v, cs.getPropertyValue(v)));
+      (a.closest("dialog[open]") || document.body).appendChild(menu);
+      // plaats: onder de link, of erboven als er onder geen ruimte is
+      const r = a.getBoundingClientRect(), m = menu.getBoundingClientRect(), rand = 12;
+      let left = r.width > 420 && x != null ? x - m.width / 2 : r.left;
+      left = Math.max(rand, Math.min(left, innerWidth - m.width - rand));
+      let top = r.bottom + 8;
+      if (top + m.height > innerHeight - rand) top = Math.max(rand, r.top - m.height - 8);
+      menu.style.left = left + "px"; menu.style.top = top + "px";
+      bron = a;
+      const items = [...menu.querySelectorAll('[role="menuitem"]')];
+      items[0].focus({ preventScroll: true });
+      menu.addEventListener("keydown", (e) => {
+        const i = items.indexOf(document.activeElement);
+        if (e.key === "ArrowDown") { e.preventDefault(); items[(i + 1) % items.length].focus(); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); items[(i - 1 + items.length) % items.length].focus(); }
+        else if (e.key === "Home") { e.preventDefault(); items[0].focus(); }
+        else if (e.key === "End") { e.preventDefault(); items[items.length - 1].focus(); }
+        else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); sluit(true); }
+        else if (e.key === "Tab") sluit(false);
+      });
+      menu.addEventListener("click", (e) => {
+        if (e.target.closest(".mailkeuze-kopie")) {
+          const klaar = () => {
+            kopie.firstChild.textContent = t.gekopieerd; kopie.classList.add("ok");
+            setTimeout(() => sluit(true), 1100);
+          };
+          const selecteer = () => { // terugval: het adres selecteren, zodat Ctrl+C werkt
+            const sel = getSelection(), rg = document.createRange();
+            rg.selectNodeContents(menu.querySelector(".mailkeuze-adres")); sel.removeAllRanges(); sel.addRange(rg);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(adres).then(klaar, selecteer);
+          else selecteer();
+          return;
+        }
+        if (e.target.closest("a")) setTimeout(() => sluit(false), 0);
+      });
+    };
+    document.addEventListener("click", (e) => {
+      if (menu && !menu.contains(e.target) && !(bron && bron.contains(e.target))) sluit(false);
+      const a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+      if (!a || a.closest(".mailkeuze") || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      if (menu && bron === a) { sluit(true); return; }
+      open(a, e.detail ? e.clientX : null);
+    });
+    addEventListener("resize", () => sluit(false));
+    addEventListener("scroll", () => sluit(false), { passive: true });
+    document.addEventListener("close", () => sluit(false), true); // een venster dat sluit, neemt het menu mee
+  })();
+
   /* ---- Zachte overgang tussen secties ----
      Elke sectie krijgt de achtergrondkleur van de sectie erboven mee, zodat
      de css bovenaan een verloop kan tekenen. Opnieuw na een wissel tussen
