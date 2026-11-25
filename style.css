@@ -658,6 +658,14 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .fold-txt { flex-basis: calc(100% - 40px); }
   .fold-peek { order: 3; }
 }
+/* Op de smalste schermen (iPhone SE, 320 px) was de waaier van de
+   fotogalerij 334 px breed: de pagina werd breder dan het scherm en schoof
+   opzij. Kleinere kaartjes die iets meer overlappen passen wel. */
+@media (max-width: 380px) {
+  .fold-photos .fold-peek img { width: 60px; height: 60px; }
+  .fold-photos .peek-kaart { margin-left: -24px; }
+  .fold-photos .peek-kaart:first-child { margin-left: 0; }
+}
 @media print { .fold > summary .fold-peek, .fold-chev { display: none; } }
 
 /* ---------- Galerij (werk en foto's) ---------- */

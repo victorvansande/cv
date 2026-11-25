@@ -57,9 +57,11 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   `CNAME` in de root, door Victor op GitHub aangemaakt); het oude adres
   `victorvansande.github.io/cv` stuurt door. Gebruik relatieve paden, behalve in
   `404.html`: die pagina toont GitHub op elk foutief adres, ook diep (`/a/b`),
-  dus daar staan paden vanaf de root (`/style.css`). De QR-code in de PDF's wijst
-  nog naar het oude adres (werkt via de doorsturing); de tekst ernaast toont het
-  nieuwe. Een nieuwe QR-code vraagt een generator die hier niet geïnstalleerd is.
+  dus daar staan paden vanaf de root (`/style.css`). De QR-code in de PDF's
+  (`cv-print.html`, `cv-print-en.html`) wijst sinds nov 2026 naar
+  `https://victorvansande.be`: gemaakt met het npm-pakket `qrcode` (in de
+  scratchpad geïnstalleerd, niet in de repo) en nagelezen met `jsqr`, zowel uit
+  de html als uit de gerenderde PDF.
 - De `noindex`-metatags blijven staan, op elke html-pagina (ook `404.html`, de
   PDF-bronnen en `assets/og-source.html`). `robots.txt` laat crawlen bewust toe,
   zodat zoekmachines de `noindex` ook effectief lezen; enkel AI- en
