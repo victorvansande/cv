@@ -393,7 +393,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 24px; margin-top: 18px; counter-reset: feit; }
 .facts > div { counter-increment: feit; padding: 18px 0 20px; border-top: 1px solid var(--g-line); }
 .facts dt { display: flex; gap: 10px; align-items: baseline; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--g-dim); }
-.facts dt::before { content: counter(feit, decimal-leading-zero); font-family: "IBM Plex Mono", monospace; font-size: .7rem; letter-spacing: 0; color: var(--g-acc); }
+.facts dt::before { content: counter(feit, decimal-leading-zero); font-family: var(--font-head); font-weight: 700; font-size: .95rem; letter-spacing: .02em; color: var(--g-acc); }
 .facts dd { font-weight: 500; line-height: 1.4; margin-top: 8px; font-size: 1.06rem; }
 .facts dd.sub { font-weight: 400; font-size: .84rem; color: var(--g-soft); margin-top: 4px; }
 
