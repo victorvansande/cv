@@ -175,6 +175,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   staat `main.js` in de werkmap op CRLF, in de cloud is alles LF. Bij
   vervangingen met scripts rekening mee houden, en nooit bestanden in hun geheel
   van regeleinden laten wisselen.
+- **Menubalk**: glas (backdrop-filter blur en saturate over een halfdoorzichtige
+  tint, lichtrand bovenaan), met de bijna dekkende balk als terugval.
 - **Raakvlakken**: kleine knoppen (menubalk, galerij, diploma's) krijgen een
   onzichtbare `::after` rond zich, zodat ze 44 px hoog zijn zonder er anders uit
   te zien (css onderaan "Toegankelijkheid zonder zichtbaar verschil"). `404.html`
