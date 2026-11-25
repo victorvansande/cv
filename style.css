@@ -195,22 +195,23 @@ ul { padding: 0; list-style: none; }
 }
 :root[data-mode="dark"] .vel, :root:not([data-mode="light"]) .vel { --vel-bg: #121110; --vel-ink: #ece8e2; --vel-dim: #8a857e; }
 :root:not([data-mode="light"]) .vel::before { mix-blend-mode: soft-light; opacity: .3; }
-/* de keuze tussen licht en donker, rechtsboven op het vel */
-.vel-keuze {
-  position: absolute; z-index: 2; top: max(18px, env(safe-area-inset-top, 0px)); right: 18px;
-  display: flex; gap: 2px; padding: 3px; border-radius: calc(var(--r-s) + 3px);
-  border: 1px solid color-mix(in srgb, var(--vel-ink) 16%, transparent);
-  font-family: var(--font); font-size: .74rem; font-weight: 600; letter-spacing: .04em;
-}
-.vel-optie {
-  display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 11px; border: 0; border-radius: var(--r-s);
-  background: transparent; color: var(--vel-dim); cursor: pointer; transition: background .3s, color .3s;
-}
-.vel-optie:hover { color: var(--vel-ink); }
-.vel-optie[aria-pressed="true"] { background: color-mix(in srgb, var(--vel-ink) 9%, transparent); color: var(--vel-ink); }
-.vel-optie:focus-visible { outline: 1px dashed var(--vel-dim); outline-offset: 2px; }
-.vel-optie::after { content: ""; position: absolute; inset: -6px -2px; }
-.vel-optie { position: relative; }
+/* De keuze tussen licht en donker, rechtsboven op het vel: twee bolletjes,
+   naar de lintschakelaar (zwart of rood) op een typemachine. Geen kader en
+   geen pictogrammen, zodat het vel een vel blijft. Het gekozen bolletje is
+   vol. Bij hover of focus verschijnt de naam van de modus in de
+   typemachineletter, links van de bolletjes; schermlezers lezen die altijd. */
+.vel-keuze { position: absolute; z-index: 2; top: max(14px, env(safe-area-inset-top, 0px)); right: 12px; display: flex; gap: 0; }
+.vel-optie { position: relative; display: grid; place-items: center; width: 30px; height: 44px; padding: 0; border: 0; background: none; color: var(--vel-ink); cursor: pointer; }
+.vel-bol { display: block; width: 9px; height: 9px; border-radius: 50%; border: 1px solid currentColor; opacity: .45; transition: background-color .3s, opacity .3s, transform .3s; }
+.vel-optie[aria-pressed="true"] .vel-bol { background: currentColor; opacity: 1; }
+.vel-optie-txt { position: absolute; right: calc(100% + 2px); top: 50%; white-space: nowrap; pointer-events: none;
+  font-family: "Special Elite", "Courier New", monospace; font-size: .85rem; letter-spacing: .05em; text-transform: lowercase; color: var(--vel-dim);
+  opacity: 0; transform: translate(4px, -50%); transition: opacity .25s, transform .25s; }
+.vel-optie[data-modus="dark"] .vel-optie-txt { right: calc(100% + 32px); }
+@media (hover: hover) { .vel-optie:hover .vel-bol { opacity: 1; transform: scale(1.15); } .vel-optie:hover .vel-optie-txt { opacity: 1; transform: translate(0, -50%); } }
+.vel-optie:focus-visible { outline: none; }
+.vel-optie:focus-visible .vel-bol { outline: 1px dashed var(--vel-dim); outline-offset: 3px; }
+.vel-optie:focus-visible .vel-optie-txt { opacity: 1; transform: translate(0, -50%); }
 .vel-regel {
   position: relative; z-index: 1; margin: 0; padding: 0 16px; max-width: 100%;
   font-family: "Special Elite", "Courier New", monospace;
