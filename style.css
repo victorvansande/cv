@@ -1235,6 +1235,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .tch-kader {
   position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none;
   border: 1px solid var(--g-acc); opacity: 0;
+  z-index: 2; /* boven de portretpil, anders viel het label eronder */
   transition: transform .28s cubic-bezier(.2, .8, .2, 1), width .28s cubic-bezier(.2, .8, .2, 1), height .28s cubic-bezier(.2, .8, .2, 1), opacity .2s;
 }
 .hero-name.tech .tch-kader { opacity: 1; }
@@ -1370,10 +1371,13 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    hero, dus ook de eerste compacte kaart en de 404-pagina krijgen het. Op de
    knoppen loopt het verloop van karmijn (links) via een mengtint naar goud
    (rechts), met de lichte vlek bij de cursor; de nummers van "In één oogopslag"
-   staan in karmijn. */
+   staan in karmijn, net als het kader van de Tech Text op de naam. */
 .g-eclipse { --g-acc2: #d75363; }
 :root[data-mode="light"] .g-eclipse { --g-acc2: #a3203a; }
 .g-eclipse .facts dt::before { color: var(--g-acc2); }
+/* ook het kader, de hoekjes, het label en de vlekjes van de Tech Text op de naam */
+.g-eclipse :is(.tch-kader, .tch-h) { border-color: var(--g-acc2); }
+.g-eclipse :is(.tch-label, .tch-specks i) { background: var(--g-acc2); }
 .g-eclipse :is(.btn, .stack-hoek a)::before {
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.65'/%3E%3C/svg%3E"),

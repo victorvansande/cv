@@ -105,8 +105,9 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   16° en het goud op 65°, het rood dieper (helderheid 0,62 tegenover 0,77), zodat
   het goud de hoofdkleur blijft. Gekozen uit drie: corona-rood (40°, uit de foto,
   te oranje), granaat (28°) en karmijn (16°, Victors keuze, het dichtst bij zijn
-  rood-roze). Enkel in de heroknoppen (verloop van karmijn naar goud) en de nummers
-  van "In één oogopslag"; spaarzaam houden, anders verliest het zijn kracht. Niet
+  rood-roze). Enkel in de heroknoppen (verloop van karmijn naar goud), de nummers
+  van "In één oogopslag" en het kader van de Tech Text op de naam (Victors vraag,
+  eerst was dat goud); spaarzaam houden, anders verliest het zijn kracht. Niet
   in de PDF's, omdat die knoppen en nummers daar niet staan.
 - `g-bos` staat nog in `style.css` maar wordt nergens gebruikt.
 - Een nieuw palet moet duidelijk verschillen van deze tabel, in tint en niet

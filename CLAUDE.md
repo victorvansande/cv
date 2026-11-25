@@ -146,7 +146,8 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   één `::before` (de `::after` van `.doc-btn` en `.gal-btn` is hun raakvlak van
   44 px). Wie een nieuwe knop toevoegt, zet hem in die lijst (ook in main.js voor
   de cursorvlek). In het palet van de hero (`.g-eclipse`) loopt het verloop van
-  karmijn (`--g-acc2`) naar goud, en de nummers van "In één oogopslag" staan in
+  karmijn (`--g-acc2`) naar goud, en de nummers van "In één oogopslag" en het
+  kader, label en de vlekjes van de Tech Text op de naam staan in
   karmijn (css onder "Hero: karmijn als tweede accent"). Niet de trefwoorden en niet de menubalk. Rechts van "Victor" staat een
   pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
