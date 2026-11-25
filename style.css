@@ -887,6 +887,18 @@ html.glas-actief .frame img { cursor: none; }
   line-height: .88; text-transform: uppercase;
 }
 .contact-title .em-serif { color: var(--g-acc); }
+/* Halve vensters (901 tot 1180 px): naast elkaar werd de rechterkolom te smal,
+   haar tekst dus hoog, en de titel ernaast (onderaan uitgelijnd) kreeg een gat
+   erboven. Daarom staan titel en tekst hier onder elkaar, de tekst op de
+   breedte van een leesbare regel. Op gsm stonden ze al onder elkaar. */
+@media (min-width: 901px) and (max-width: 1180px) {
+  .hero, .contact { row-gap: 26px; }
+  .contact > :first-child { grid-column: 1 / -1; }
+  /* de naam blijft op twee regels (de portretpil hoort naast "Victor"), maar
+     wordt groter dan naast de tekst */
+  .hero-name { grid-column: 1 / span 9; font-size: 12.5vw; }
+  .hero-side, .contact > :last-child { grid-column: 1 / span 8; }
+}
 /* Contactgegevens als rijen in twee kolommen: label links, gegeven rechts, en
    een pijl die bij hover een stukje opschuift */
 .contact-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin-top: 40px; border-top: 1px solid var(--g-line); }
