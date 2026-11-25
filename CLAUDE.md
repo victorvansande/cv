@@ -175,6 +175,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   "Geen streep na het laatste item"); wie een nieuwe lijst met lijnen toevoegt, volgt dat.
 - **Trefwoorden** (`.tags span`) staan zonder hekje. Beide galerijen vervagen
   links en rechts (mask-image).
+- **Beschrijvingen voor schermlezers**: de Engelse alt-teksten staan per
+  bestandsnaam in `I18N.enAlt`, de Engelse labels van knoppen zonder tekst in
+  `I18N.enAria` (onderaan `i18n.js`); `vertaalLabels()` in `main.js` zet ze bij
+  een taalwissel. Wie een foto of icoonknop toevoegt, vult die lijsten aan.
 - **Altijd in beide talen testen**: een `data-i18n` op een element met geneste
   opmaak (zoals een badge) verliest die in het Engels; zet de sleutel dan op een
   eigen span.

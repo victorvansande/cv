@@ -374,3 +374,68 @@ window.I18N = {
     brand_sub: `Online CV`
   }
 };
+
+/* Engelse beschrijvingen van de afbeeldingen (alt en data-alt), per bestand,
+   en de Engelse labels voor knoppen zonder zichtbare tekst. applyLang() in
+   main.js zet ze bij een taalwissel; het Nederlands staat in index.html. */
+window.I18N.enAlt = {
+  "zonsverduistering.jpg": "Close-up of a solar eclipse with a glowing rim",
+  "antwerpen-skyline-schelde.jpg": "Aerial photo of the Antwerp skyline with the Scheldt and the Loodswezen building",
+  "theaterzaal-rood-licht.jpg": "Theatre hall in dramatic red light, with the lighting rig and the balconies in view",
+  "herfstbos-contrast.jpg": "Contrast between a green conifer and orange autumn leaves in the forest",
+  "amsterdam-grachtenpanden-film.jpg": "Canal houses in Amsterdam seen through a window, with a cyclist and a pink haze in the foreground, shot on film",
+  "antwerpen-centraal-vensters.jpg": "Backlit gothic windows of Antwerp Central station in golden light",
+  "mas-spiegeling.jpg": "The MAS in Antwerp at dusk, on its side, with the building on the left and its reflection in the water on the right",
+  "drone-zonsondergang-kampeerveld.jpg": "Drone photo of a golden sunset over a campsite with tents",
+  "poster-kokerjuffer.jpg": "Infographic poster 'De Kokerjuffer' about the life cycle of an insect species",
+  "infographic-ph-meting.jpg": "Infographic with a step-by-step plan for measuring the pH of bodies of water",
+  "poster-dune-voorbeeld.jpg": "Self-designed example poster about the film Dune, made as teaching material",
+  "brochure-licht-uit.jpg": "Tri-fold brochure 'Licht uit, oogjes toe' about screen light and sleep in young people",
+  "slides-struddy-pitch.jpg": "Title slide of the concept pitch 'Struddy', a stress app based on wearable data",
+  "paper-struddy-campagne.jpg": "Title page of the campaign proposal 'Struddy: Right Time, Right Help with Wearable Data'",
+  "paper-framing-trump.jpg": "Title page of the paper on the framing of Trump's 2024 election victory",
+  "slides-communicatiestrateeg.jpg": "Title slide of the group project 'Persona: the communication strategist'",
+  "slides-persona-dsmm.jpg": "Title slide of the presentation 'Persona: new technologies, opportunities and challenges'",
+  "slides-vr-in-fashion.jpg": "Title slide of the presentation 'VR in fashion?' for Persuasive Technologies",
+  "slides-beyond-the-buzz.jpg": "Title slide of the presentation 'Beyond the Buzz', University of Antwerp",
+  "slides-permanently-online.jpg": "Title slide of the presentation 'Permanently Online, Always Stressed Out?', University of Antwerp",
+  "slides-masterproef-seminarie.jpg": "Title slide of the presentation of the master's thesis 'De Macht van Misleiding'",
+  "fondsenwerving-jeugdwerk.jpg": "Black-and-white photo of a stage with a screen reading 'Fondsenwerving in het jeugdwerk' (fundraising in youth work)",
+  "urbex-lichtstraal-kamer.jpg": "Abandoned room with brick walls and dramatic beams of light falling across the floor",
+  "melkweg-sterrenhemel.jpg": "Astrophoto of the Milky Way against a clear starry sky",
+  "lichtstraal-bos.jpg": "Sunlight breaking through the canopy of a forest",
+  "strand-wind.jpg": "Wide beach with drifting sand, the sea on the right and apartment blocks in the distance",
+  "zeedijk-zonsondergang.jpg": "Sunset over a wet promenade with beach huts and harbour cranes against the light",
+  "meeuw-schelde.jpg": "Gull in full flight over the Scheldt, with a ferry at the bottom right",
+  "kathedraal-mist.jpg": "The tower of Antwerp cathedral disappearing into the fog above the rooftops of the city",
+  "zonsondergang-heuvels.jpg": "Orange sunset with layered clouds over a wooded ridge",
+  "dauw-gras.jpg": "Dew drops on blades of grass, up close",
+  "bozar-cafe-victor.jpg": "Facade of Bozar Café Victor in Brussels, with a terrace, a bicycle and a flower box",
+  "amsterdam-regenboog.jpg": "Double rainbow over an Amsterdam canal with autumn trees and a canal boat",
+  "neogotische-hal.jpg": "Neo-Gothic entrance hall with vaults, stained-glass windows, a tiled floor and a bust",
+  "geperforeerde-brug.jpg": "Covered bridge with perforated walls, through which patches of light fall on the floor",
+  "heuvels-schemering.jpg": "Hilly landscape with pine forest and meadows at dusk",
+  "maansikkel-sparren.jpg": "Thin crescent moon and a bright dot in the evening sky above a row of pines",
+  "diploma-ehbo-basis.jpg": "First Aid basic course certificate, Red Cross Flanders",
+  "diploma-ehbo-helper.jpg": "Helper follow-up course certificate, Red Cross Flanders",
+  "diploma-thomasmore-psychologie.jpg": "Diploma Bachelor in Applied Psychology, Thomas More University of Applied Sciences",
+  "diploma-kdg-bachelor.jpg": "Diploma Bachelor of Education (secondary education), Karel de Grote University of Applied Sciences",
+  "diploma-uantwerpen-master.jpg": "Certificate Master in Communication Studies, University of Antwerp"
+};
+window.I18N.enAria = {
+  "Hoofdmenu": "Main menu",
+  "Lichte versie": "Light version",
+  "Donkere versie": "Dark version",
+  "Taal / Language": "Language / Taal",
+  "Instellingen / Settings": "Settings / Instellingen",
+  "Instellingen": "Settings",
+  "Kleiner": "Smaller",
+  "Groter": "Larger",
+  "Menu": "Menu",
+  "Compacte weergave": "Compact view",
+  "Sluiten": "Close",
+  "Vorige": "Previous",
+  "Volgende": "Next",
+  "Thema": "Theme",
+  "Bonnetje met de kern van het cv van Victor Van Sande": "Receipt with the essentials of the CV of Victor Van Sande"
+};
