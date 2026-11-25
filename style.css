@@ -378,6 +378,21 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* minder beweging: enkel de kleur, geen zoom */
 @media (prefers-reduced-motion: reduce) { .frame:hover img { transform: none; clip-path: inset(0 round var(--fr)); } }
 :root[data-motion="reduce"] .frame:hover img { transform: none; clip-path: inset(0 round var(--fr)); }
+/* Zonder muis (gsm, tablet) is er geen hover, dus volgt de gradering het
+   scrollen: main.js zet --f van 0 (gedempt) tot 1 (volle kleur), naargelang
+   hoe dicht de foto bij het midden van het scherm staat. Zelfde begin- en
+   eindtoestand als de hover, geen zoom. De korte overgang strijkt de stappen
+   tussen twee scrollbeelden glad. Dezelfde voorwaarde als hierboven, omgekeerd,
+   zodat elk toestel precies één van de twee krijgt. */
+@media not ((hover: hover) and (pointer: fine)) {
+  .frame img {
+    --gr: saturate(calc(.8 + .2 * var(--f, 0))) contrast(calc(.95 + .05 * var(--f, 0))) brightness(calc(.93 + .07 * var(--f, 0)));
+    transition: filter .25s linear;
+  }
+  :root[data-mode="light"] .frame img {
+    --gr: saturate(calc(.78 + .22 * var(--f, 0))) contrast(calc(.92 + .08 * var(--f, 0))) brightness(calc(1.03 - .03 * var(--f, 0)));
+  }
+}
 .frame figcaption {
   margin-top: 10px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim);
 }

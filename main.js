@@ -326,6 +326,39 @@
     b.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
   }, { passive: true });
 
+  /* ---- Foto's op een touchscherm: kleur in het midden ----
+     Zonder muis is er geen hover, en bleven de grote foto's gedempt. Hier
+     krijgt elke foto haar volle kleur zodra haar midden dicht bij het midden
+     van het scherm staat (binnen 12 % van de schermhoogte), en dempt ze
+     geleidelijk weer tot 45 % ervandaan (smoothstep, zodat er geen knik in
+     zit). Enkel de foto's die in beeld zijn worden herrekend, één keer per
+     beeld. De css zet --f om in de gradering. */
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches && "IntersectionObserver" in window) {
+    const inBeeld = new Set();
+    let fRaf = null;
+    const focus = () => {
+      fRaf = null;
+      const h = innerHeight, mid = h / 2;
+      inBeeld.forEach((img) => {
+        const r = img.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height / 2 - mid) / h;
+        const t = Math.min(1, Math.max(0, (0.45 - d) / (0.45 - 0.12)));
+        img.style.setProperty("--f", (t * t * (3 - 2 * t)).toFixed(3));
+      });
+    };
+    const planFocus = () => { if (fRaf === null) fRaf = requestAnimationFrame(focus); };
+    const io = new IntersectionObserver((items) => {
+      items.forEach((it) => {
+        if (it.isIntersecting) inBeeld.add(it.target);
+        else { inBeeld.delete(it.target); it.target.style.setProperty("--f", "0"); }
+      });
+      planFocus();
+    });
+    document.querySelectorAll(".frame img").forEach((img) => io.observe(img));
+    addEventListener("scroll", planFocus, { passive: true });
+    addEventListener("resize", planFocus);
+  }
+
   /* ---- Zachte overgang tussen secties ----
      Elke sectie krijgt de achtergrondkleur van de sectie erboven mee, zodat
      de css bovenaan een verloop kan tekenen. Opnieuw na een wissel tussen

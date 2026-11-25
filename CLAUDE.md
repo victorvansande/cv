@@ -163,7 +163,12 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   gedempt (`--gr`: minder verzadiging en contrast; in licht iets bleker in plaats
   van donkerder). Bij hover valt die gradering traag weg en zoomt de foto 2 % in;
   een meekrimpend `clip-path` houdt de zoom binnen de hoeken (`--fr`, op gsm 0).
-  Enkel css, enkel met een muis; bij minder beweging enkel de kleur.
+  Enkel css, enkel met een muis; bij minder beweging enkel de kleur. Zonder muis
+  (gsm, tablet) volgt de gradering het scrollen: main.js zet `--f` (0 tot 1)
+  naargelang de afstand van de foto tot het midden van het scherm (volle kleur
+  binnen 12 % van de schermhoogte, gedempt vanaf 45 %, smoothstep), de css
+  rekent daarmee in `--gr`. Geen zoom. Beide gebruiken dezelfde voorwaarde
+  (`(hover: hover) and (pointer: fine)`), zodat elk toestel er één krijgt.
 - **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
   zonder hun code): de fotogalerij wordt een oneindige lenticulaire carrousel (kaart draait
   strook per strook om bij hover; elke kaart staat op `--x`, rond gerekend over de reeks; achterkant met titel en bijschrift uit
