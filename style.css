@@ -1275,8 +1275,13 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    per persoon naam, functie, contact en, bij wie er een heeft, een knop
    "Toon citaat". Geen extra lengte op de pagina. */
 .ref-knop { margin-top: 14px; }
-.ref-ster { display: inline-flex; }
-.ref-ster:empty { display: none; }
+/* Een subtiel sterretje voor het woord "Referentie(s)" (ster in lijn, Victors
+   keuze): wit op donker, in het accent op licht, waar wit zou wegvallen. De
+   ster schuift --ster-y omlaag, zodat haar midden op het midden van de kleine
+   letters valt en niet op dat van het tekstvak (gemeten op de pixels). */
+.ref-ster { display: inline-flex; margin-right: 7px; color: #fff; opacity: .92; transform: translateY(var(--ster-y, 2px)); }
+:root[data-mode="light"] .ref-ster { color: var(--g-acc); opacity: 1; }
+@media (hover: hover) { .doc-btn:hover .ref-ster { color: #fff; opacity: 1; } }
 .thesis-meta .ref-meta { min-height: 28px; padding: 0 10px; margin-left: 10px; font-size: .78rem; vertical-align: 1px; }
 .refbox { width: min(700px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; margin: auto;
   border: 1px solid var(--g-line); border-radius: var(--r-xl); background: var(--g-bg); color: var(--g-ink);

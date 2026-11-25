@@ -55,11 +55,16 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   publieke repo; ze gaan als los bestand naar Victor.
 - De `noindex`-metatags blijven staan. `robots.txt` laat crawlen bewust toe,
   zodat zoekmachines de `noindex` ook effectief lezen.
-- **Referenties staan niet in de repo**, ook niet uitgecommentarieerd: de
-  paginabron en GitHub zijn publiek. Victor heeft een privékopie van de teksten.
-  Voeg niets toe aan de site of de repo zonder dat Victor daar uitdrukkelijk om
-  vraagt, en bespreek eerst de plek (zie ONTWERP.md). Nooit contactgegevens van
-  derden. Een citaat wordt nooit herschreven: inkorten mag, enkel met hele zinnen.
+- **Referenties** (sinds nov 2026, op Victors vraag): geen eigen sectie, wel
+  drie knoppen bij de rol waar ze bij horen, die elk een `<dialog class="refbox">`
+  openen (`data-ref`, script in `main.js` onder "Referenties"): "Referentie" bij
+  Gekkoo (Sara Janssens), "Referenties (5)" bij de master (de vijf professoren van
+  UAntwerpen) en "Toon citaat" naast de promotor bij de masterproef. De vensters
+  staan buiten `<main>` (ook bereikbaar vanuit de compacte weergave) en dragen zelf
+  het palet van hun hoofdstuk. Wie een citaat heeft, krijgt in het venster een
+  knop "Toon citaat". Victor koos uitdrukkelijk om de contactgegevens van alle
+  referenties te tonen. Voeg geen referentie toe en wijzig er geen zonder zijn
+  vraag. Een citaat wordt nooit herschreven: inkorten mag, enkel met hele zinnen.
   De archiefversie `v1/index.html` bevat nog een oude, uitgecommentarieerde
   sectie met vier referenties.
 - Nooit e-mails of berichten versturen zonder uitdrukkelijke toestemming.
@@ -115,7 +120,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
   letter onder de cursor wordt een lijnletter met een glijdend kader en label,
   een klik laat letters opspringen. Elke klikbare knop in een sectie (`.btn`,
-  `.doc-btn` "Bekijk diploma/brevet", `.gal-btn` de galerijpijltjes, `.stack-hoek a`)
+  `.doc-btn` "Bekijk diploma/brevet" en de referentieknoppen, `.gal-btn` de galerijpijltjes, `.stack-hoek a`, `.ref-citeer` in de referentievensters)
   krijgt bij hover een korrelig verloop ("Grainient", css onder die naam), enkel
   uit tinten van het accent van zijn sectie (`--gr-diep`, `--g-acc`, `--gr-licht`,
   gemengd in oklab), met grijze korrel als bovenste laag in soft-light, alles in

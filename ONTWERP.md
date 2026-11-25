@@ -44,10 +44,11 @@ het ontwerp en over de stappen bij een wijziging.
   samenvatting bovenaan. "In één oogopslag" heeft nu zes vakjes in drie
   kolommen, "Wat me drijft" drie kaarten.
 
-- **Referenties** (nov 2026): uit de site gehaald. Ze kwamen terug als
-  uitgecommentarieerd blok, dat publiek leesbaar was, en dat had Victor niet
-  gevraagd. Een nieuwe plek wordt eerst besproken, met als voorwaarde: geen
-  extra lengte, wel duidelijk te raadplegen.
+- **Referenties** (nov 2026): geen eigen sectie, want die nam plaats in. In de
+  plaats een knop bij de rol waar ze bij horen, die een venster opent in het
+  palet van dat hoofdstuk (zie hoofdstuk 4). Eerst stond er een uitgecommentarieerd
+  blok, maar dat was publiek leesbaar in de paginabron en Victor had er niet om
+  gevraagd. Een referentie verandert nooit zonder zijn vraag.
 
 ## 2. Volgorde van de hoofdstukken
 
@@ -93,11 +94,13 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 
 | Element | Gedrag | Waarom |
 |---|---|---|
-| Klikbare knoppen (`.btn`, `.doc-btn`, `.gal-btn`, `.stack-hoek a`) | Grainient bij hover: een korrelig verloop uit tinten van het accent van het hoofdstuk, de lichtste vlek volgt de cursor | Een knop mag tonen dat hij iets doet |
+| Klikbare knoppen (`.btn`, `.doc-btn`, `.gal-btn`, `.stack-hoek a`, `.ref-citeer`) | Grainient bij hover: een korrelig verloop uit tinten van het accent van het hoofdstuk, de lichtste vlek volgt de cursor | Een knop mag tonen dat hij iets doet |
 | Trefwoorden (`.tags span`) | "Stil": tekst naar inktkleur, rand naar 55 % accent, zonder overgang | Labels, geen knoppen; beweging zou een klik beloven |
 | Menubalk | Geen Grainient; het lijntje onder het hoofdstuk in beeld krijgt het accent van dat hoofdstuk | Hoort bij geen enkel hoofdstuk |
 | Grote foto's, met muis | In rust licht gedempt; bij hover valt de gradering weg en zoomt de foto 2 % | Vervangt de glaslens, die te veel aandacht trok |
 | Grote foto's, zonder muis | Volle kleur in het midden van het scherm, geleidelijk gedempt naar de rand | Op een gsm is er geen hover |
+| Knoppen naar de referenties | Gewone `.doc-btn` met een sterretje in lijn voor het woord "Referentie(s)": wit op donker, het accent op licht, verticaal op het midden van de kleine letters (2 px lager dan het tekstvak) | Subtiel, maar te herkennen als iets bijzonders |
+| Venster met referenties | Lijst met initialen, naam, functie en contact; bij wie een citaat heeft een gevulde knop "Toon citaat" die omklapt naar "Verberg citaat" | Alles te raadplegen zonder extra lengte op de pagina |
 | Compacte kaarten | Klikken vast in focus; klik naast de kaart draait haar om (naar die kant); eigen scrollbalk op de achterkant | Makkelijk scherp krijgen, minder knoppen nodig |
 
 - Knoppen en randen: snel in (140 ms), trager uit (300 tot 320 ms), easing
@@ -178,6 +181,19 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   de lijst van de Grainient (`style.css`) en in de cursorvlek (`main.js`).
 - Een knop met enkel een icoon krijgt een `aria-label` in beide talen (`I18N.enAria`).
 - Minstens 44 px raakvlak.
+
+### Een referentie toevoegen of aanpassen
+
+1. Enkel op Victors vraag, met de tekst zoals hij die geeft. Een citaat wordt
+   nooit herschreven; inkorten mag, met hele zinnen.
+2. In het juiste venster (`#ref-gekkoo`, `#ref-uantwerpen`, `#ref-promotor`,
+   onderaan `index.html`) een `<li>` toevoegen naar het voorbeeld van de andere,
+   met een `data-i18n`-sleutel per functie en per alinea van het citaat.
+3. De Engelse tekst in `i18n.js` (vertaling van het citaat duidelijk als
+   vertaling melden aan Victor).
+4. Het getal in de knop "Referenties (5)" mee aanpassen.
+5. Een nieuwe plek (een andere rol): een knop met `data-ref` en een nieuw
+   venster met het palet van dat hoofdstuk.
 
 ### Trefwoorden toevoegen
 
