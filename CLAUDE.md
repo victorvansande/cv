@@ -145,9 +145,13 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   van de hoogte via `--pr`; ook in de PDF's en de linkafbeelding).
   Open- en dichtklappen glijdt (main.js, "Uitklappen van de galerijen": hoogte, galerij fadet in, waaier schuift samen; 420 ms open, 300 ms dicht). Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
 - **Schuifknop om te printen** (`.schuif` bij het bonnetje, naar de Slide to
-  Confirm van Kokonut UI): de greep sleep je naar rechts; voorbij 90 % start de
-  printer en verschijnt de bewaarknop (`.snap-print`). Na het afscheuren komt de
-  schuif terug. Een klik geeft een duwtje als hint; Enter of spatie print meteen.
+  Confirm van Kokonut UI): één element in drie standen (`data-staat`). `rust`:
+  de greep sleep je naar rechts (voorbij 90 % start de printer; een klik geeft
+  een duwtje, Enter of spatie print meteen). `print`: een balk loopt gelijk op
+  met het papier, met de Lattice Loader van React Bits (orbit, raster 3, met
+  timer, groen vinkje "Klaar in 2,4s"; css ongewijzigd uit de bron, markup in
+  `bonnetje.js`). `bewaar`: de schuif krimpt tot de downloadknop (breedte via
+  `--w`). Na het afscheuren groeit hij terug tot de schuif.
 - **Glaslens** (`glas.js`, naar de Liquid Glass van Aceternity UI, omgezet naar
   gewone javascript): boven een grote foto (`.frame img`) groeit de cursor uit
   een punt tot een lens van 132 px die de foto breekt (verplaatsingskaart als
