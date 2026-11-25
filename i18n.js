@@ -54,6 +54,7 @@ window.I18N = {
     snap_h: `Take a snapshot with you`,
     snap_lead: `The core of this site on a single receipt, to save as an image.`,
     snap_btn: `Print a receipt`,
+    snap_slide: `Slide to print`,
     snap_save: `Save as image`,
     snap_busy: `Printing…`,
     snap_saved: `Saved`,
@@ -423,6 +424,7 @@ window.I18N.enAlt = {
   "diploma-uantwerpen-master.jpg": "Certificate Master in Communication Studies, University of Antwerp"
 };
 window.I18N.enAria = {
+  "Print een bonnetje": "Print a receipt",
   "Hoofdmenu": "Main menu",
   "Lichte versie": "Light version",
   "Donkere versie": "Dark version",

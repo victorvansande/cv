@@ -50,13 +50,13 @@
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
     })();
   </script>
-  <link rel="stylesheet" href="style.css?v=268" />
-  <script src="i18n.js?v=79" defer></script>
+  <link rel="stylesheet" href="style.css?v=270" />
+  <script src="i18n.js?v=80" defer></script>
   <script src="vel.js?v=6" defer></script>
-  <script src="main.js?v=112" defer></script>
+  <script src="main.js?v=114" defer></script>
   <script src="galerij.js?v=3" defer></script>
   <script src="stapel.js?v=2" defer></script>
-  <script src="bonnetje.js?v=9" defer></script>
+  <script src="bonnetje.js?v=10" defer></script>
   <script src="glas.js?v=1" defer></script>
   <!-- Voorkeuren al in de kop toepassen, zodat de pagina niet zichtbaar
        verspringt. Kleurthema en licht/donker zijn weg: elke sectie haalt haar
@@ -880,8 +880,14 @@
           <h3 class="sec-sub" data-i18n="snap_h">Neem een snapshot mee</h3>
           <p class="sec-lead" data-i18n="snap_lead">De kern van deze site op één bonnetje, om te bewaren als afbeelding.</p>
           <div class="btn-row">
-            <!-- één knop: eerst printen, na het printen bewaren (bonnetje.js wisselt label en pictogram) -->
-            <button type="button" class="btn bel snap-print"><span class="bel-ic" aria-hidden="true"><svg class="ic-print" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg><svg class="ic-bewaar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><i class="bel-golf g1"></i><i class="bel-golf g2"></i></span><span class="bel-txt">Print een bonnetje</span></button>
+            <!-- printen gaat met een schuifknop (naar de Slide to Confirm van Kokonut UI); daarna
+                 verschijnt de knop om te bewaren (bonnetje.js wisselt label en pictogram) -->
+            <div class="schuif">
+              <span class="schuif-vul" aria-hidden="true"></span>
+              <span class="schuif-txt" data-i18n="snap_slide" aria-hidden="true">Schuif om te printen</span>
+              <button type="button" class="schuif-greep" aria-label="Print een bonnetje"><svg class="ic-print" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg><svg class="ic-pijl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+            </div>
+            <button type="button" class="btn bel snap-print" hidden><span class="bel-ic" aria-hidden="true"><svg class="ic-print" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></svg><svg class="ic-bewaar" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><i class="bel-golf g1"></i><i class="bel-golf g2"></i></span><span class="bel-txt">Print een bonnetje</span></button>
           </div>
           <p class="snap-hint" data-i18n="snap_hint" hidden>Trek het bonnetje opzij of omhoog om het af te scheuren.</p>
           <span data-sjabloon="print" data-i18n="snap_btn" hidden>Print een bonnetje</span>

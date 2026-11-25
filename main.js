@@ -98,31 +98,6 @@
     });
   }
 
-  /* ---- Lagen achter de grote foto's (naar de Staggered Menu van React Bits) ----
-     Achter elke grote foto liggen twee lagen in het accent van de sectie. Bij
-     hover schuiven ze kort na elkaar een paar pixels rechts onder de foto
-     uit, zoals de gekleurde voorlagen van dat menu. Het effect zit in css;
-     hier worden enkel de foto en de lagen in een omhulsel gezet. */
-  document.querySelectorAll(".frame > picture, .frame > img").forEach((img) => {
-    const om = document.createElement("span");
-    om.className = "frame-lagen";
-    img.before(om);
-    om.innerHTML = '<i class="laag l1" aria-hidden="true"></i><i class="laag l2" aria-hidden="true"></i>';
-    om.appendChild(img);
-  });
-  /* Ook zonder muis (gsm) en voor wie er niet over beweegt: komt een foto
-     voor het eerst goed in beeld, dan schuiven de lagen één keer uit en
-     terug. */
-  if ("IntersectionObserver" in window && !(matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce")) {
-    const lagenIo = new IntersectionObserver((es) => es.forEach((e) => {
-      if (!e.isIntersecting) return;
-      lagenIo.unobserve(e.target);
-      const f = e.target;
-      setTimeout(() => { f.classList.add("lagen-uit"); setTimeout(() => f.classList.remove("lagen-uit"), 1400); }, 250);
-    }), { threshold: 0.6 });
-    document.querySelectorAll(".frame:not(.frame-hero)").forEach((f) => lagenIo.observe(f));
-  }
-
   /* ---- Sectietitels die in hun kolom passen ----
      De titel vult de linkerkolom, maar een langer woord (zoals "Experience" in
      het Engels) liep tot tegen de tekst ernaast. Elke titel krimpt daarom tot
@@ -848,5 +823,51 @@
     // is al voorbij: een keer zelf inhalen
     vertaalMee();
   }
+
+  /* ---- Uitklappen van de galerijen ----
+     Een <details> springt open en dicht. Hier glijdt hij: de hoogte loopt
+     vloeiend naar de nieuwe maat, de galerij komt een paar pixels omhoog en
+     fadet in, en de waaier van kaartjes schuift samen en vervaagt in plaats
+     van in één beeld te verdwijnen. Dichtklappen gaat iets sneller, omdat
+     wie dichtklapt al verder wil. De waaier ligt tijdens de overgang los
+     (absoluut) op zijn oude plaats, anders verspringt de kopregel. */
+  const rustigMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
+  document.querySelectorAll("details.fold").forEach((d) => {
+    const sum = d.querySelector(":scope > summary"), peek = d.querySelector(".fold-peek"), inh = d.querySelector(":scope > .gallery");
+    if (!sum || !inh) return;
+    let anim = null;
+    const zetPeek = () => {
+      if (!peek) return;
+      const s = sum.getBoundingClientRect(), r = peek.getBoundingClientRect();
+      peek.style.left = (r.left - s.left) + "px"; peek.style.top = (r.top - s.top) + "px";
+    };
+    const klaar = () => {
+      d.classList.remove("fold-anim", "fold-sluit"); d.style.height = ""; d.style.overflow = "";
+      if (peek) { peek.style.left = peek.style.top = ""; peek.getAnimations().forEach((a) => a.cancel()); }
+      inh.getAnimations().forEach((a) => a.cancel());
+      anim = null;
+    };
+    sum.addEventListener("click", (e) => {
+      if (rustigMotion() || !d.animate) return;
+      e.preventDefault();
+      const open = !d.open;
+      const van = anim ? d.getBoundingClientRect().height : d.offsetHeight;
+      if (anim) { anim.onfinish = null; anim.cancel(); klaar(); }
+      if (open) zetPeek();
+      d.open = true;                                   // ook bij dichtklappen blijft de inhoud tot het einde staan
+      if (!open) { d.open = false; zetPeek(); d.open = true; }
+      d.classList.add("fold-anim");
+      d.classList.toggle("fold-sluit", !open);
+      const naar = open ? d.offsetHeight : (() => { d.open = false; const h = d.offsetHeight; d.open = true; return h; })();
+      d.style.overflow = "hidden";
+      const duur = open ? 420 : 300, ease = "cubic-bezier(.2, .8, .2, 1)";
+      anim = d.animate({ height: [van + "px", naar + "px"] }, { duration: duur, easing: ease });
+      inh.animate(open ? { opacity: [0, 1], transform: ["translateY(10px)", "none"] } : { opacity: [1, 0], transform: ["none", "translateY(6px)"] },
+        { duration: open ? duur : 200, easing: ease, fill: "both" });
+      if (peek) peek.animate(open ? { opacity: [1, 0], transform: ["none", "scale(.92) translateX(16px)"] } : { opacity: [0, 1], transform: ["scale(.92) translateX(16px)", "none"] },
+        { duration: open ? 220 : duur, easing: ease, fill: "both" });
+      anim.onfinish = () => { if (!open) d.open = false; klaar(); };
+    });
+  });
 
 })();

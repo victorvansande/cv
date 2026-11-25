@@ -132,10 +132,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).
   Sectietitels krimpen in main.js (`pasTitels`) tot er 36 px vrij blijft tot de
-  rechterkolom, zodat ook langere Engelse woorden passen. Achter elke grote
-  foto (hoeken 12 px; op gsm onder 700 px van rand tot rand, zonder hoeken en zonder lagen) liggen twee lagen in het accent die bij hover, en één keer
-  bij het in beeld komen, na elkaar rechts uitschuiven (`.frame-lagen`, naar de Staggered Menu van React
-  Bits; main.js zet het omhulsel). Een kop binnen een sectie (`.sub-head >
+  rechterkolom, zodat ook langere Engelse woorden passen. De grote foto's
+  hebben hoeken van 12 px; op gsm onder 700 px lopen ze van rand tot rand,
+  zonder hoeken. De gekleurde lagen die er vroeger rechts onder uitschoven
+  (naar de Staggered Menu) zijn op Victors vraag weg. Een kop binnen een sectie (`.sub-head >
   .sec-sub`, Wat me drijft) staat in de titelletter, kleiner dan de sectietitel.
   Hoeken volgen één schaal (`--r-xs` 4, `--r-s` 6, `--r-m` 10, `--r-l` 12,
   `--r-xl` 16 px, bovenaan `style.css`): trefwoorden xs, knoppen s, kleine beelden
@@ -143,7 +143,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   uitzonderingen: de schakelaars (pil), de printer en zijn gleuf, de meetlat. Geen
   volledig ronde pillen (ook het portret is een afgeronde rechthoek, hoeken 14 %
   van de hoogte via `--pr`; ook in de PDF's en de linkafbeelding).
-  Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
+  Open- en dichtklappen glijdt (main.js, "Uitklappen van de galerijen": hoogte, galerij fadet in, waaier schuift samen; 420 ms open, 300 ms dicht). Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
+- **Schuifknop om te printen** (`.schuif` bij het bonnetje, naar de Slide to
+  Confirm van Kokonut UI): de greep sleep je naar rechts; voorbij 90 % start de
+  printer en verschijnt de bewaarknop (`.snap-print`). Na het afscheuren komt de
+  schuif terug. Een klik geeft een duwtje als hint; Enter of spatie print meteen.
 - **Glaslens** (`glas.js`, naar de Liquid Glass van Aceternity UI, omgezet naar
   gewone javascript): boven een grote foto (`.frame img`) groeit de cursor uit
   een punt tot een lens van 132 px die de foto breekt (verplaatsingskaart als
