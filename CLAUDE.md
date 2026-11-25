@@ -56,8 +56,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `hertelGetallen()` aan en stuurt het een `cv-layout`-event (dat het
   voorproefvenster gebruikt om zijn zinnen mee te vertalen).
 - **Tellers** (`data-count`): het eindgetal staat al in de html, zodat een
-  bezoeker zonder javascript of een schermlezer nooit "0" leest. Sinds nov 2026
-  tellen ze weer op bij het in beeld komen, met bewegingsonscherpte per cijfer:
+  bezoeker zonder javascript of een schermlezer nooit "0" leest. Bij het in beeld
+  komen klapt elk cijfer willekeurig door alle cijfers en landt dan, van links
+  naar rechts, zoals een oud vertrekbord; ook `data-flap` (voor 18–65 en 2):
   `main.js` splitst elk getal in `.tel-sr` (eindgetal voor schermlezers),
   `.tel-maat` (houdt de breedte vast) en `.tel-live` (aria-hidden, telt op).
   `hertelGetallen()` zet het scheidingsteken volgens de taal (14.716 / 14,716).
