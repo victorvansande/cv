@@ -112,7 +112,7 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
   even hoog is als de hoofdletters en eindigt waar "Sande" eindigt.
 - **Volgorde van de secties** (sinds nov 2026, op feedback): Werk, Ervaring
-  (Gekkoo), Opleiding met de masterproef, KSA Herentals, Over mij, Contact.
+  (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals, Contact.
   KSA staat dus los van `#ervaring` in een eigen `div.sec#ksa`. De PDF's volgen:
   Opleiding op blad 1, KSA op blad 2; in de ATS-versie KSA onder Vrijwilligerswerk na de masterproef.
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
