@@ -724,6 +724,8 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-body { padding: clamp(22px, 3vw, 40px); display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; min-width: 0; }
 .stack-title { font-family: var(--font-head); font-weight: 800; font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: .92; text-transform: uppercase; }
 .stack-title .em-serif { color: var(--g-acc); }
+/* een titel met een lang woord (WETENSCHAPPELIJKE) iets kleiner, anders zit hij krap tegen de rechterrand */
+.stack-title.stack-title-lang { font-size: clamp(1.75rem, 3vw, 2.7rem); }
 .stack-text { color: var(--g-soft); font-size: .96rem; }
 .stack-body .btn-row { margin-top: 8px; }
 /* Extra knoppen (cv, mail) staan als rond icoon rechtsboven op de kaart, in
@@ -1637,6 +1639,7 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
   .stack-card { top: 2vh; height: calc((var(--scherm, 100vh) - 60px) * .84); }
   .stack-body { padding: 16px 20px; gap: 8px; }
   .stack-title { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+  .stack-title.stack-title-lang { font-size: clamp(1.35rem, 3.4vw, 1.9rem); }
   .stack-text { font-size: .86rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .stack-body .btn-row { margin-top: 2px; }
   .stack-ui { bottom: 1.5vh; }
