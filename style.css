@@ -363,8 +363,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   transition: transform .42s cubic-bezier(.34, 1.56, .64, 1), opacity .22s ease; }
 .glas-lens.aan .glas-bol { transform: scale(1); opacity: 1; }
 .glas-svg { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
-/* Safari en Firefox: geen breking, wel mat glas */
-.glas-bol.glas-mat { background: rgb(255 255 255 / .1); -webkit-backdrop-filter: blur(8px) saturate(1.5) brightness(1.06); backdrop-filter: blur(8px) saturate(1.5) brightness(1.06); }
+.glas-zoom, .glas-breek { position: absolute; inset: 0; border-radius: inherit; }
+.glas-zoom { background-repeat: no-repeat; }
+/* Safari en Firefox: geen breking; de vergroting blijft, onder een licht glanzend glas */
+.glas-bol.glas-mat .glas-breek { background: radial-gradient(circle at 32% 26%, rgb(255 255 255 / .22), transparent 46%), rgb(255 255 255 / .05); }
 html.glas-actief .frame img { cursor: none; }
 @media (prefers-reduced-motion: reduce) { .glas-bol { transition: opacity .15s ease; transform: none; } }
 :root[data-motion="reduce"] .glas-bol { transition: opacity .15s ease; transform: none; }

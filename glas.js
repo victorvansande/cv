@@ -26,27 +26,55 @@
   lens.setAttribute("aria-hidden", "true");
   const glas = document.createElement("div");
   glas.className = "glas-bol" + (breekt ? "" : " glas-mat");
+  /* Een vergrootglas: achter het glas ligt een vergrote kopie van de foto
+     onder de cursor (.glas-zoom), en de laag erboven (.glas-breek) buigt die
+     kopie met de verplaatsingskaart. Een backdrop-filter kan zelf niet
+     vergroten, vandaar die kopie; ze volgt de lens beeld per beeld. */
+  const zoom = document.createElement("div");
+  zoom.className = "glas-zoom";
+  const breek = document.createElement("div");
+  breek.className = "glas-breek";
+  glas.append(zoom, breek);
   lens.appendChild(glas);
   document.body.appendChild(lens);
   root.classList.add("glas-ok");
 
   if (breekt) {
-    glas.style.backgroundColor = `rgb(255 255 255 / ${OPT.tint})`;
+    breek.style.backgroundColor = `rgb(255 255 255 / ${OPT.tint})`;
     maakFilter().then((f) => {
       const span = document.createElement("span");
       span.className = "glas-svg";
       span.innerHTML = f.svg;
       glas.appendChild(span);
       const bf = `url(#${f.id}) blur(0.5px) saturate(1.85) brightness(1.02)`;
-      glas.style.backdropFilter = bf;
-      glas.style.webkitBackdropFilter = bf;
+      breek.style.backdropFilter = bf;
+      breek.style.webkitBackdropFilter = bf;
     }).catch(() => glas.classList.add("glas-mat"));
   }
 
   /* volgen: de lens loopt de muis zacht achterna (een vleugje traagheid
      maakt hem vloeibaar); bij minder beweging staat hij meteen op de muis */
   let mx = -999, my = -999, lx = -999, ly = -999, aan = false, loop = 0;
-  const zet = () => { lens.style.transform = `translate3d(${lx - MAAT / 2}px, ${ly - MAAT / 2}px, 0)`; };
+  const ZOOM = 1.7;           // vergroting in het glas
+  let foto = null;           // de foto onder de lens
+  const zetFoto = (img) => {
+    if (img === foto) return;
+    foto = img;
+    if (img) zoom.style.backgroundImage = `url("${(img.currentSrc || img.src).replace(/"/g, "%22")}")`;
+  };
+  /* de vergrote kopie zo leggen dat het punt van de foto onder het midden van
+     de lens ook in het midden van het glas staat; rekening houdend met
+     object-fit: cover (de foto is bijgesneden tot breedbeeld) */
+  const zetZoom = () => {
+    if (!foto || !foto.naturalWidth) return;
+    const r = foto.getBoundingClientRect(), nw = foto.naturalWidth, nh = foto.naturalHeight;
+    const s0 = Math.max(r.width / nw, r.height / nh), w0 = nw * s0, h0 = nh * s0;
+    const op = getComputedStyle(foto).objectPosition.split(" ").map((v) => parseFloat(v) / 100);
+    const ox = r.left + (r.width - w0) * (isNaN(op[0]) ? .5 : op[0]), oy = r.top + (r.height - h0) * (isNaN(op[1]) ? .5 : op[1]);
+    zoom.style.backgroundSize = `${w0 * ZOOM}px ${h0 * ZOOM}px`;
+    zoom.style.backgroundPosition = `${MAAT / 2 - (lx - ox) * ZOOM}px ${MAAT / 2 - (ly - oy) * ZOOM}px`;
+  };
+  const zet = () => { lens.style.transform = `translate3d(${lx - MAAT / 2}px, ${ly - MAAT / 2}px, 0)`; zetZoom(); };
   const stap = () => {
     const k = rustig() ? 1 : 0.28;
     lx += (mx - lx) * k; ly += (my - ly) * k;
@@ -55,8 +83,12 @@
   };
   const wek = () => { if (!loop) loop = requestAnimationFrame(stap); };
 
-  const opFoto = (el) => !!(el && el.closest && el.closest(".frame img")) &&
-    !root.classList.contains("vel-open") && root.dataset.view !== "compact";
+  const opFoto = (el) => {
+    const img = el && el.closest ? el.closest(".frame img") : null;
+    if (!img || root.classList.contains("vel-open") || root.dataset.view === "compact") return false;
+    zetFoto(img);
+    return true;
+  };
 
   const zetAan = (v) => {
     if (v === aan) return;
