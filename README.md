@@ -10,7 +10,7 @@ Live: <https://victorvansande.github.io/cv/>
 
 | Bestand | Rol |
 |---|---|
-| `index.html` | De volledige one-page site (secties: home, over, opleiding, ervaring, contact) |
+| `index.html` | De volledige one-page site (secties: home, werk, ervaring, opleiding met masterproef, over mij, KSA, contact) |
 | `style.css` | Paletten per sectie (`.g-*`), layout, responsive, en onderaan de intro-animatie |
 | `main.js` | Interacties: intro, taal, toegankelijkheid, menu, lightbox, voorproefvenster |
 | `v1/` | De vorige versie van de site, ongewijzigd bewaard |
@@ -20,6 +20,8 @@ Live: <https://victorvansande.github.io/cv/>
 | `serve.ps1` | Lokale dev-server (PowerShell) |
 | `cv-print.html` | Print-geoptimaliseerde bron voor de downloadbare CV-PDF |
 | `assets/` | Profielfoto, diplomascans, CV-PDF, masterproef-PDF, og-image + bron/script, favicon en app-iconen (`assets/icons`, script `icon-gen.ps1`) |
+| `ONTWERP.md` | Regelboek van het ontwerp: keuzes en hun reden, kleuren per hoofdstuk, wat afgewezen is, stappenlijsten per soort wijziging |
+| `CLAUDE.md`, `SCHRIJFSTIJL.md` | Werkafspraken en technische valkuilen, en de schrijfstijl |
 | `manifest.webmanifest` | Naam en iconen voor wie de site aan het startscherm toevoegt |
 
 ## Functies

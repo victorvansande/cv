@@ -6,7 +6,9 @@ meteen mee verder kan. De repo is **publiek**: hier staat bewust niets dat niet
 ook al op de site zelf te vinden is.
 
 Over de site zelf (structuur, kleuren, hosten) gaat [README.md](README.md). Over
-de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
+de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md). Het ontwerp (keuzes en
+hun reden, de kleuren per hoofdstuk, wat afgewezen is, en stappenlijsten per
+soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 
 ## Vaste afspraken
 
@@ -39,6 +41,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   (`tools/pdf.js`, zie onderaan) en controleer dat ze op 2 bladen blijven. Ook de
   linkafbeelding (`assets/og-source.html`) volgt mee als naam, rol of stijl
   verandert. Meld in de samenvatting welke PDF's opnieuw gemaakt zijn.
+- **Lees ONTWERP.md voor elke wijziging aan het ontwerp** en volg de stappenlijst
+  van die soort wijziging (foto, palet, hoofdstuk, inhoud, knop). Leidt een
+  gesprek tot een nieuwe keuze of wordt een voorstel afgewezen, vul ONTWERP.md
+  dan aan in dezelfde commit, met de reden. Stel niets opnieuw voor dat daar als
+  afgewezen staat, tenzij Victor er zelf om vraagt.
 - **Kleine, gerichte wijzigingen.** Victor vraagt doorgaans om fijnafstelling,
   geen herontwerp. Grotere ingrepen eerst voorstellen.
 
