@@ -114,7 +114,11 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   vel volgt de vinger 1-op-1 en gaat na het loslaten verder met de snelheid
   van de veeg (gemeten over de laatste 80 ms). Onderaan staat enkel een dun pijltje naar boven dat traag op en neer deint (`.vel-pijl`, 2,8 s); de tekst "veeg omhoog" staat er enkel nog voor schermlezers (`.vel-hint-txt`, onzichtbaar). Op Victors vraag: suggereren, niet benoemen. Rechtsboven op
   het vel kies je meteen licht of donker (`.vel-keuze`: twee bolletjes zonder kader, naar de lintschakelaar van een typemachine; de naam verschijnt bij hover of focus): het vel volgt mee en de
-  keuze geldt voor de hele site (`cv-modus`). Het papier heeft een fijne korrel
+  keuze geldt voor de hele site (`cv-modus`). Zolang het vel er ligt, staat de
+  scrollbalk uit (`scrollbar-width: none` op `:root.vel-open`): met
+  `scrollbar-gutter: stable` bleef er rechts een effen strook naast het papier,
+  want vaste elementen liggen niet over die ruimte, ook niet met 100vw. Na het
+  vel verschuift de site daardoor een halve balkbreedte, net als de intro begint. Het papier heeft een fijne korrel
   en licht reliëf (`.vel::before`, feDiffuseLighting).
   `vel.js` laadt voor `main.js` en zet `window.__velWeg`; de Venster-intro
   start pas als die belofte afgaat. Geen vel bij minder beweging, in de
@@ -257,6 +261,11 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   kapsule in het accent, te slepen, een klik op de lijn springt een scherm
   verder. Een klik naast de kaart (links of rechts, op haar hoogte) draait
   haar om en terug; links draait ze naar links (klasse `links`).
+- **Uit de site, bewaard voor later (nov 2026, op Victors vraag)**: de printer
+  met het bonnetje en de schuifknop hieronder. De site eindigt met Contact. Het
+  fragment en de stappen om het terug te zetten staan in `bewaard/bonnetje.md`;
+  `bonnetje.js`, de css en de `snap_*`-vertalingen staan nog op hun plaats, het
+  script wordt niet meer geladen.
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij

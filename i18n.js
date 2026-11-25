@@ -164,6 +164,7 @@ window.I18N = {
     /* about */
     over_eyebrow: `About me`,
     over_h2: `A scientific view of <span class="grad-text em-serif">people's work</span>`,
+    over_lead: `Below are the languages I speak, my skills and tools, and what keeps me busy outside of work. Photography takes up a fairly large part of that, which also explains the photos on this site.`,
     over_bio2: `For as long as I can remember I was told I should &lsquo;do something with people&rsquo;. My studies gave that instinct a scientific footing, my youth movement a fast-track apprenticeship. That curiosity has stayed, and it extends to the surroundings people move in.`,
     skills_h: `Skills`,
     skill_writing: `Purposeful writing`,
@@ -277,6 +278,7 @@ window.I18N = {
     /* experience */
     exp_eyebrow: `Experience`,
     exp_h2: `A versatile <span class="grad-text em-serif">journey</span>`,
+    exp_lead: `I have worked at Gekkoo since May 2026; before that, I gained experience through internships and student jobs. This work usually revolves around children and young people, which fits well with my background in psychology and education.`,
     job_eyebrow: `Current employer`,
     gap_date: `Sep 2025 &ndash; May 2026`,
     gap_2025_2026: `After my master’s I took the time to look specifically for a place where communication, psychology and youth work come together. In the meantime I stayed on as head of KSA Herentals and kept running their website.`,

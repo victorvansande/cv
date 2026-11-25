@@ -43,6 +43,17 @@ het ontwerp en over de stappen bij een wijziging.
   (herhaalde Werk). Regel: elk gegeven staat één keer op de site, buiten de
   samenvatting bovenaan. "In één oogopslag" heeft nu zes vakjes in drie
   kolommen, "Wat me drijft" drie kaarten.
+  Daarna kwam er bij Ervaring en Over mij toch weer een korte inleiding (Victors
+  vraag, nov 2026): zonder stond de ondertitel er alleen naast de grote titel,
+  en dat oogde leeg. Elk hoofdstuk heeft nu **titel, ondertitel en een korte
+  inleiding**. Die inleiding herhaalt niets uit het hoofdstuk zelf: ze zegt
+  waarover het gaat of legt een verband (bij Ervaring: werk rond kinderen en
+  jongeren; bij Over mij: waarom er zoveel foto's op de site staan). KSA (een
+  label in plaats van een ondertitel) en Contact (een eigen slot) wijken af.
+
+- **De printer met het bonnetje** (nov 2026) is op Victors vraag uit de site
+  gehaald: de site eindigt met Contact. Het blok staat in `bewaard/bonnetje.md`,
+  met de stappen om het terug te zetten; `bonnetje.js` en de css blijven staan.
 
 - **Referenties** (nov 2026): geen eigen sectie, want die nam plaats in. In de
   plaats een knop bij de rol waar ze bij horen, die een venster opent in het
@@ -111,7 +122,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 | Grote foto's, met muis | In rust licht gedempt; bij hover valt de gradering weg en zoomt de foto 2 % | Vervangt de glaslens, die te veel aandacht trok |
 | Grote foto's, zonder muis | Volle kleur in het midden van het scherm, geleidelijk gedempt naar de rand | Op een gsm is er geen hover |
 | Hint op het vel (typemachine) | Een dun pijltje naar boven dat traag op en neer deint, zonder tekst (de tekst blijft voor schermlezers) | Suggereert het vegen zonder het te benoemen; eerder stonden er een maatlat van streepjes en "veeg omhoog" |
-| Bonnetje na het afscheuren | Vouwt tot een prop met facetten, licht en schaduw, en valt weg (naar de Paper Crumple van React Bits) | Het afscheuren krijgt een tastbaar einde |
+| Bonnetje na het afscheuren (bewaard, niet op de site) | Vouwt tot een prop met facetten, licht en schaduw, en valt weg (naar de Paper Crumple van React Bits) | Het afscheuren krijgt een tastbaar einde |
 | Naam na de intro | Geen lichtglans meer; de letters landen en blijven staan | De korte witte gloed op het einde was overbodig |
 | Knoppen naar de referenties | Gewone `.doc-btn` met een sterretje in lijn voor het woord "Referentie(s)": wit op donker, het accent op licht, verticaal op het midden van de kleine letters (2 px lager dan het tekstvak) | Subtiel, maar te herkennen als iets bijzonders |
 | Venster met referenties | Lijst met initialen, naam, functie en contact; bij wie een citaat heeft een gevulde knop "Toon citaat" die omklapt naar "Verberg citaat" | Alles te raadplegen zonder extra lengte op de pagina |
@@ -189,7 +200,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 1. Site in het Nederlands (`index.html`) en in het Engels (`i18n.js`), in Victors
    schrijfstijl. Feiten en cijfers ongewijzigd laten tenzij Victor ze aanpast.
 2. Een datum: ook `data-periode` op de `.row-when` (de duur wordt berekend).
-3. De essentie bovenaan (`.essentie .facts`) voedt ook het bonnetje.
+3. De essentie bovenaan (`.essentie .facts`) voedde ook het bonnetje (nu bewaard, zie `bewaard/bonnetje.md`).
 4. De kaart in de compacte weergave als die tekst daar ook staat.
 5. Alle drie de PDF's en, bij naam of rol, de linkafbeelding.
 

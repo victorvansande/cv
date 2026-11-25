@@ -140,10 +140,13 @@ ul { padding: 0; list-style: none; }
    vervaagt enkel wat op het scherm staat en wordt scherp naarmate --vp
    van 0 naar 1 loopt. */
 .vel, .vel-waas { display: none; }
-:root.vel-open { overflow: hidden; }
-/* de vaste ruimte voor de scrollbalk (scrollbar-gutter) krijgt de kleur van
-   het canvas, en vaste elementen liggen er niet over: zonder dit stond er
-   rechts een strook van de site naast het vel */
+:root.vel-open { overflow: hidden; scrollbar-width: none; }
+/* Zolang het vel er ligt, is er geen ruimte voor de scrollbalk
+   (scrollbar-width: none hierboven). Met scrollbar-gutter: stable bleef die
+   ruimte gereserveerd, en vaste elementen liggen daar niet over, ook niet
+   met 100vw: rechts stond dan een effen strook naast het papier (op Windows
+   17 px). De site verschuift daardoor een halve balkbreedte zodra het vel
+   weg is, op het moment dat de intro begint; dat valt niet op. */
 :root.vel-open:not(.vel-los) { background: #121110; }
 :root.vel-open:not(.vel-los)[data-mode="light"] { background: #f4f3ef; }
 :root.vel-open .vel-waas {
@@ -160,9 +163,7 @@ ul { padding: 0; list-style: none; }
    het haperen tijdens het typen. Pas als het vel beweegt, zet vel.js hem aan. */
 :root.vel-open:not(.vel-los) .vel-waas { display: none; }
 :root.vel-open .vel {
-  /* 100vw in plaats van inset: 0, zodat het vel ook over de vaste ruimte voor
-     de scrollbalk ligt (scrollbar-gutter) */
-  position: fixed; top: 0; bottom: 0; left: 0; width: 100vw; z-index: 9999;
+  position: fixed; inset: 0; z-index: 9999;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   --vel-bg: #f4f3ef; --vel-ink: #14110f; --vel-dim: #8a867e;
   background-color: var(--vel-bg); color: var(--vel-ink);
