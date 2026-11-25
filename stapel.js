@@ -146,6 +146,10 @@
       kop.appendChild(terug);
       const inhoud = document.createElement("div");
       inhoud.className = "stack-back-inhoud";
+      // met het toetsenbord te scrollen: de eigen scrollbalk is enkel voor de muis
+      inhoud.tabIndex = 0;
+      inhoud.setAttribute("role", "region");
+      if (titel) inhoud.setAttribute("aria-label", titel.textContent.trim());
       (ACHTER[doel] || []).forEach((sel) => {
         const bron = document.querySelector(sel);
         if (!bron) return;

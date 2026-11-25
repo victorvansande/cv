@@ -469,6 +469,18 @@
   papier.addEventListener("pointerup", los);
   papier.addEventListener("pointercancel", los);
 
+  /* Afscheuren met het toetsenbord: trekken kan enkel met muis of vinger, dus
+     zodra het bonnetje geprint is en de bewaarknop focus heeft, scheuren de
+     pijltjes het af (links, rechts: opzij; omhoog: naar boven), net als Delete
+     en Escape. Zo kan ook wie met toetsen werkt opnieuw printen. */
+  bewaarKnop.setAttribute("aria-keyshortcuts", "ArrowUp ArrowLeft ArrowRight Delete Escape");
+  bewaarKnop.addEventListener("keydown", (e) => {
+    if (!geprint || bezig || sleep.actief) return;
+    const k = e.key;
+    if (k === "ArrowLeft" || k === "ArrowRight") { e.preventDefault(); sleep.hoek = 0; scheurOpzij(k === "ArrowLeft" ? -1 : 1); }
+    else if (k === "ArrowUp" || k === "Delete" || k === "Escape" || k === "Backspace") { e.preventDefault(); scheurOmhoog(); }
+  });
+
   // bij een taalwissel staat het bonnetje er in de vorige taal: opnieuw tekenen
   addEventListener("cv-layout", () => {
     loaderTeksten();

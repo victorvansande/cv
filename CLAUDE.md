@@ -228,7 +228,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   bonnetje en wordt daarna "Bewaar als afbeelding"; afscheuren zet hem terug. Hij
   heeft een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
   IBM Plex Mono. In de kast staat gegraveerd "CV Printer 9000" (`.snap-merk`). In de
-  streepjescode zit een easter egg: "VVS" uitgespaard in een dicht blok balkjes.
+  streepjescode zit een easter egg: "VVS" uitgespaard in een dicht blok balkjes. Afscheuren
+  kan ook met toetsen: als de bewaarknop focus heeft, scheuren pijl links/rechts
+  het opzij af en pijl omhoog, Delete of Escape naar boven.
 - **Halve vensters (901 tot 1180 px)**: de hero en het slot van Contact staan
   daar onder elkaar (titel, dan tekst op 8 kolommen), anders kreeg de titel
   naast de smalle, hoge tekstkolom een gat erboven. De naam blijft op twee
@@ -253,6 +255,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   onzichtbare `::after` rond zich, zodat ze 44 px hoog zijn zonder er anders uit
   te zien (css onderaan "Toegankelijkheid zonder zichtbaar verschil"). `404.html`
   laadt `style.css` met dezelfde `?v=N` als `index.html`: mee ophogen.
+- **Koppen**: geen niveau overslaan. Onder een sectietitel (h2) staan de
+  rijen van Opleiding en KSA als h3; enkel bij Gekkoo, waar de organisatie al
+  een h3 is, zijn de rollen h4. De css (`.row :is(h3, h4)`) geeft ze dezelfde opmaak.
 - **Strepen**: geen lijn onder het laatste item van een opsomming (css onderaan
   "Geen streep na het laatste item"); wie een nieuwe lijst met lijnen toevoegt, volgt dat.
 - **Talen** (`.langs` bij Over mij): per taal een begroeting in die taal in de
