@@ -130,7 +130,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   bij het in beeld komen, na elkaar rechts uitschuiven (`.frame-lagen`, naar de Staggered Menu van React
   Bits; main.js zet het omhulsel). Een kop binnen een sectie (`.sub-head >
   .sec-sub`, Wat me drijft) staat in de titelletter, kleiner dan de sectietitel.
-  Knoppen hebben zachte hoeken (6 px), labels en trefwoorden 4 px; geen
+  Hoeken volgen één schaal (`--r-xs` 4, `--r-s` 6, `--r-m` 10, `--r-l` 12,
+  `--r-xl` 16 px, bovenaan `style.css`): trefwoorden xs, knoppen s, kleine beelden
+  en zwevende knoppen m, grote foto's en galerijkaarten l, compacte kaarten xl. Bewuste
+  uitzonderingen: de schakelaars (pil), de printer en zijn gleuf, de meetlat. Geen
   volledig ronde pillen (ook het portret is een afgeronde rechthoek, hoeken 14 %
   van de hoogte via `--pr`; ook in de PDF's en de linkafbeelding).
   Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
