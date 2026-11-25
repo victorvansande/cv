@@ -144,6 +144,12 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   volledig ronde pillen (ook het portret is een afgeronde rechthoek, hoeken 14 %
   van de hoogte via `--pr`; ook in de PDF's en de linkafbeelding).
   Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
+- **Glaslens** (`glas.js`, naar de Liquid Glass van Aceternity UI, omgezet naar
+  gewone javascript): boven een grote foto (`.frame img`) groeit de cursor uit
+  een punt tot een lens van 132 px die de foto breekt (verplaatsingskaart als
+  SVG-filter in een backdrop-filter). Enkel Chromium breekt echt; Safari en
+  Firefox krijgen mat glas (`.glas-mat`). Enkel met een muis, niet tijdens het
+  vel of in de compacte weergave, niet bij `prefers-reduced-transparency`.
 - **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
   zonder hun code): de fotogalerij wordt een oneindige lenticulaire carrousel (kaart draait
   strook per strook om bij hover; elke kaart staat op `--x`, rond gerekend over de reeks; achterkant met titel en bijschrift uit
