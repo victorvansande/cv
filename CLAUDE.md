@@ -59,8 +59,11 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   `referenties` in `index.html`) tot Victor bevestigt dat de betrokkenen
   akkoord gaan. Geen contactgegevens van derden toevoegen. Let op: ook
   uitgecommentarieerd is de sectie leesbaar in de paginabron en op GitHub.
-  Er staan vijf referenties in: Sara Janssens (teamleider Gekkoo, zonder
-  contactgegevens, eerst) en vier professoren van UAntwerpen. De opmaak ervan
+  Er staan zes referenties in: Sara Janssens (teamleider Gekkoo), Prof. dr.
+  Philippe De Vries (promotor; uit een brief voor een specifieke vacature, enkel
+  de zinnen over die vacature weggelaten, niets herschreven), beide zonder
+  contactgegevens, en daarna vier professoren van UAntwerpen. Een citaat wordt
+  nooit herschreven: inkorten mag, enkel met hele zinnen. De opmaak ervan
   staat enkel nog in `v1/style.css`.
 - Nooit e-mails of berichten versturen zonder uitdrukkelijke toestemming.
 
