@@ -755,13 +755,23 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    streepjes bij de bevindingen, de namen van de promotoren en de randen van de
    trefwoorden. De knop blijft zoals elders. */
 .thesis .numbers dt { color: var(--g-acc); }
-.thesis .findings li::before { width: 12px; height: 2px; top: 20px; }
 .thesis-meta b { color: var(--g-acc); }
 .thesis .tags span { border-color: color-mix(in srgb, var(--g-acc) 40%, transparent); }
 .thesis-grid { margin-top: 14px; }
 .findings { margin-top: 22px; border-top: 1px solid var(--g-line); }
 .findings li { padding: 12px 0 12px 22px; border-bottom: 1px solid var(--g-line); position: relative; color: var(--g-soft); }
-.findings li::before { content: ""; position: absolute; left: 0; top: 21px; width: 10px; height: 1px; background: var(--g-acc); }
+/* Elke bevinding krijgt een eigen lijnpictogram in het accent: een vergrootglas
+   (significante voorspellers), twee aparte cirkels (aparte dimensies) en een
+   schild (factchecking en mediawijsheid). Het pictogram is een masker, zodat
+   het de accentkleur van de sectie volgt, ook in de lichte versie. */
+.findings li { padding-left: 32px; }
+.findings li::before {
+  content: ""; position: absolute; left: 0; top: 15px; width: 18px; height: 18px; background: var(--g-acc);
+  -webkit-mask: var(--ic) center / contain no-repeat; mask: var(--ic) center / contain no-repeat;
+}
+.findings li:nth-child(1) { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='m20 20-4.8-4.8'/%3E%3Cpath d='M8 11.5l2 1.5 3-4'/%3E%3C/svg%3E"); }
+.findings li:nth-child(2) { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='12' r='5'/%3E%3Ccircle cx='16' cy='12' r='5'/%3E%3C/svg%3E"); }
+.findings li:nth-child(3) { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 5-3.2 8.3-7 10-3.8-1.7-7-5-7-10V6z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E"); }
 .numbers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 24px; }
 .numbers dt { font-family: var(--font-head); font-weight: 700; font-size: 3rem; line-height: 1; color: var(--g-ink); }
 /* tellers: de onzichtbare kopie houdt de breedte vast, de zichtbare telt op
