@@ -197,6 +197,8 @@
       pil.style.top = (regels[0].top + asc - kap - hr.top).toFixed(1) + "px";
       pil.style.width = breed.toFixed(1) + "px";
       pil.style.height = hoog.toFixed(1) + "px";
+      // de hoeken groeien mee met de hoogte, zodat ze op elk scherm even zacht ogen
+      pil.style.setProperty("--pr", (hoog * 0.14).toFixed(1) + "px");
       // het hoofd zo centraal als de foto toelaat, zonder dat er rand zichtbaar wordt
       const z = Math.max(breed, hoog) * ZOOM;
       const kl = (v, min) => Math.min(0, Math.max(min, v));
