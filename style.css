@@ -568,13 +568,27 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .fold-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .fold-txt strong { font-weight: 600; font-size: 1.02rem; line-height: 1.35; }
 .fold-txt span { font-size: .84rem; color: var(--g-dim); }
-.fold-peek { display: flex; gap: 6px; flex: none; }
-.fold-peek img {
-  width: 42px; height: 56px; object-fit: cover; border-radius: 4px;
-  outline: 1px solid color-mix(in srgb, var(--g-ink) 12%, transparent); outline-offset: -1px;
-  transition: opacity .2s;
+/* Voorproef als waaier: zes stukken die elkaar overlappen en licht gedraaid
+   liggen, zoals foto's die je op tafel uitspreidt. Bij hover waaieren ze iets
+   verder open. --i is de plaats in de waaier (0 tot 5). */
+.fold-peek { display: flex; flex: none; padding: 6px 4px; margin-right: 6px; }
+.peek-kaart {
+  display: block; flex: none; margin-left: -26px;
+  transform: rotate(calc((var(--i) - 2.5) * 3deg)); transform-origin: 50% 120%;
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1), margin .45s cubic-bezier(.2, .7, .2, 1);
 }
-.fold-photos .fold-peek img { width: 56px; height: 56px; }
+.peek-kaart:first-child { margin-left: 0; }
+.fold-peek img {
+  display: block; width: 64px; height: 86px; object-fit: cover; border-radius: 6px;
+  outline: 1px solid color-mix(in srgb, var(--g-ink) 14%, transparent); outline-offset: -1px;
+  box-shadow: -6px 2px 14px -6px rgba(0, 0, 0, .6);
+}
+.fold-photos .fold-peek img { width: 76px; height: 76px; }
+@media (hover: hover) {
+  .fold > summary:hover .peek-kaart { margin-left: -14px; transform: rotate(calc((var(--i) - 2.5) * 4.5deg)) translateY(-3px); }
+  .fold > summary:hover .peek-kaart:first-child { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .peek-kaart { transition: none; } }
 .fold[open] .fold-peek { display: none; }
 .fold-chev {
   flex: none; width: 10px; height: 10px; margin: 0 6px 4px 4px;
@@ -583,7 +597,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 .fold[open] .fold-chev { transform: rotate(-135deg); margin-bottom: -4px; }
 @media (hover: hover) { .fold > summary:hover .fold-txt strong { color: var(--g-acc); } }
-@media (hover: hover) { .fold > summary:hover .fold-peek img { opacity: .85; } }
 .fold > summary:focus-visible { outline-offset: 4px; }
 .fold > .gallery { margin-top: 4px; padding-bottom: 28px; }
 @media (max-width: 560px) {
