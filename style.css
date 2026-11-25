@@ -1294,7 +1294,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .refbox-lbl { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--g-acc); font-weight: 600; }
 .refbox h3 { font-family: var(--font-head); font-weight: 800; text-transform: uppercase; font-size: 1.9rem; line-height: 1; margin: 6px 0 4px; padding-right: 48px; }
 .refbox-intro { font-size: .86rem; color: var(--g-dim); margin-bottom: 8px; }
-.refbox-sluit { position: absolute; top: 18px; right: 18px; width: 36px; min-height: 36px; padding: 0; justify-content: center; color: var(--g-ink); }
+/* .refbox-in > voor het gewicht: de Grainient zet .doc-btn op position:
+   relative, en die regel staat verderop, waardoor het kruisje in de tekst zakte */
+.refbox-in > .refbox-sluit { position: absolute; top: 16px; right: 16px; width: 40px; min-height: 40px; padding: 0; justify-content: center; color: var(--g-ink); }
+.refbox h3:focus { outline: none; }
 .ref-lijst { list-style: none; margin: 0; padding: 0; }
 .ref-lijst > li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; column-gap: 14px; align-items: start; padding: 18px 0; border-top: 1px solid var(--g-line); }
 .ref-ini { width: 44px; height: 44px; border-radius: var(--r-m); display: grid; place-items: center; font-family: var(--font-head); font-weight: 700;

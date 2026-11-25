@@ -65,6 +65,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   knop "Toon citaat". Victor koos uitdrukkelijk om de contactgegevens van alle
   referenties te tonen. Voeg geen referentie toe en wijzig er geen zonder zijn
   vraag. Een citaat wordt nooit herschreven: inkorten mag, enkel met hele zinnen.
+  Het kruisje (`.refbox-sluit`) draagt `.doc-btn` voor zijn uiterlijk; de
+  Grainient zet elke `.doc-btn` op `position: relative`, dus de absolute plaats
+  van het kruisje heeft `.refbox-in >` nodig voor het gewicht. Bij het openen
+  krijgt de titel de focus (`autofocus`), niet het kruisje.
   De archiefversie `v1/index.html` bevat nog een oude, uitgecommentarieerde
   sectie met vier referenties.
 - Nooit e-mails of berichten versturen zonder uitdrukkelijke toestemming.
@@ -312,6 +316,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   intro beeld per beeld kunt bekijken; zonder tijdstippen neemt het de pagina
   na het laden. Zet de server eerst aan met `python3 -m http.server 4322`.
   Screenshots horen in de scratchpad, niet in de repo.
+- **Fotografeer na het inbouwen het echte resultaat**, niet enkel het voorstel
+  ervan: een voorstel met losse css botst niet met de bestaande regels, de echte
+  bouw wel (zo stond het kruisje van de referentievensters over de titel).
 - **Enkel Chromium in de cloud, geen WebKit.** Elke browser op een iPhone draait
   op WebKit, en dat rekent soms anders. Zo liep de foto van de compacte kaarten
   op de iPhone onder de tekst door, terwijl Chromium het goed toonde. Test elke
