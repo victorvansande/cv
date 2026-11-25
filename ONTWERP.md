@@ -52,12 +52,15 @@ het ontwerp en over de stappen bij een wijziging.
 
 ## 2. Volgorde van de hoofdstukken
 
-Werk, Ervaring (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals,
+Portfolio, Ervaring (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals,
 Contact.
 
 - Opleiding staat voor KSA omdat de opleidingen voor een werkgever relevanter
   zijn dan het jeugdwerk (feedback, nov 2026). Gekkoo blijft eerst als huidige job.
 - Over mij staat voor KSA (Victors keuze, nov 2026).
+- Het eerste hoofdstuk heet "Portfolio" (nov 2026). Eerst heette het "Werk", wat
+  verwarde: Victors job bij Gekkoo staat onder "Ervaring". Het toont vakgebieden en
+  werkstukken; in het Engels heette het al "Portfolio". De id blijft `#werk`.
 - KSA staat niet in het menu en heeft een eigen blok (`div.sec#ksa`).
 - In de PDF's: Ervaring en Opleiding op blad 1, masterproef en Vrijwilligerswerk
   (KSA) op blad 2. In de ATS-versie staat KSA onder Vrijwilligerswerk, na de masterproef.
@@ -73,7 +76,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 | Hoofdstuk | Palet | Foto | Accent donker | Accent licht | PDF |
 |---|---|---|---|---|---|
 | Hero | `g-eclipse` | zonsverduistering | `#e0a870` goud | `#9b6026` | `#9a6430` |
-| Werk | `g-schelde` | antwerpen-skyline-schelde | `#a7bccd` staalblauw | `#3a546a` | `#3f5568` |
+| Portfolio | `g-schelde` | antwerpen-skyline-schelde | `#a7bccd` staalblauw | `#3a546a` | `#3f5568` |
 | Ervaring (Gekkoo) | `g-theater` | theaterzaal-rood-licht | `#f56167` rood | `#ab2833` | `#a8323a` |
 | Opleiding | `g-centraal` | antwerpen-centraal-vensters | `#7fb8b8` petrol | `#2c6a6c` | `#2c6a6c` |
 | Masterproef | `g-urbex` | mas-spiegeling | `#eb8762` terracotta | `#a74221` | `#a74221` |
@@ -82,7 +85,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 | Contact | `g-veld` | drone-zonsondergang-kampeerveld | `#f0d4ac` crème | `#506e28` groen | geen |
 
 - **Opleiding is petrol** (nov 2026): het enige gat in het kleurenwiel tussen het
-  groen van Contact en het blauw van Werk, en het staat tegenover het goudlicht
+  groen van Contact en het blauw van Portfolio, en het staat tegenover het goudlicht
   in de foto, waardoor de foto gloeit. Geprobeerd en afgewezen: violet (botst),
   een gedempt grijslila "heide" (zelfde familie als violet), het oude steenbeige
   (saai, te dicht bij het roze van Over mij).

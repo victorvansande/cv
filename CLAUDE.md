@@ -145,7 +145,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
   even hoog is als de hoofdletters en eindigt waar "Sande" eindigt.
-- **Volgorde van de secties** (sinds nov 2026, op feedback): Werk, Ervaring
+- **Volgorde van de secties** (sinds nov 2026, op feedback): Portfolio (`#werk`, heette eerst "Werk"), Ervaring
   (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals, Contact.
   KSA staat dus los van `#ervaring` in een eigen `div.sec#ksa`. De PDF's volgen:
   Opleiding op blad 1, KSA op blad 2; in de ATS-versie KSA onder Vrijwilligerswerk na de masterproef.
