@@ -119,7 +119,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   het oude `cv-mode` van `v1/`, waar licht de standaard was. Standaard donker.
   Wie een nieuw palet `.g-*` toevoegt, voegt ook de lichte tegenhanger toe. Weinig beweging: enkel de intro en hovers. Alles staat open,
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
-  `<details class="fold">` met een strookje van vier beelden als voorproef.
+  `<details class="fold">` met als voorproef een waaier van zes overlappende,
+  licht gedraaide kaartjes (`.peek-kaart`, `--i`), die bij hover verder openwaaiert.
   Geen secties die pas bij het scrollen verschijnen. De sectietitels vullen de linkerkolom
   (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).
