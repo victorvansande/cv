@@ -744,6 +744,25 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .langs { margin-top: 12px; border-top: 1px solid var(--g-line); }
 .langs dt { font-weight: 600; }
 .langs dd { color: var(--g-soft); font-size: .92rem; text-align: right; }
+/* begroeting groot in de titelletter, de taalnaam klein eronder */
+.langs div { align-items: center; padding: 14px 0; }
+.langs dt { display: flex; flex-direction: column; }
+.taal-groet { font-family: var(--font-head); font-weight: 700; font-size: 1.45rem; line-height: 1; text-transform: uppercase; letter-spacing: .01em; color: var(--g-ink); }
+.langs dt > [data-i18n] { font-weight: 400; font-size: .8rem; color: var(--g-dim); margin-top: 4px; }
+/* meetlat in zes stappen (A1 tot C2): het behaalde deel in het accent, met
+   fijne streepjes op de grenzen tussen de niveaus */
+.langs dd { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; }
+.taal-lat {
+  position: relative; display: block; width: 132px; height: 2px; border-radius: 2px;
+  background:
+    linear-gradient(var(--g-acc), var(--g-acc)) 0 0 / calc(var(--n) / 6 * 100%) 100% no-repeat,
+    color-mix(in srgb, var(--g-ink) 16%, transparent);
+}
+.taal-lat::after {
+  content: ""; position: absolute; left: 0; right: 0; top: -4px; height: 10px;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(100% / 6 - 1px), color-mix(in srgb, var(--g-ink) 30%, transparent) calc(100% / 6 - 1px) calc(100% / 6));
+  -webkit-mask: linear-gradient(90deg, #000 0 calc(100% - 2px), transparent 0); mask: linear-gradient(90deg, #000 0 calc(100% - 2px), transparent 0);
+}
 .list-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; margin-top: 12px; border-top: 1px solid var(--g-line); }
 .list-2 li { padding: 10px 0; border-bottom: 1px solid var(--g-line); color: var(--g-soft); }
 .personal { margin-top: 28px; color: var(--g-soft); font-size: .92rem; }
