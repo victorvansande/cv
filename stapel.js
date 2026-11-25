@@ -117,6 +117,32 @@
   vulAchter();
   addEventListener("cv-layout", vulAchter);
 
+  /* ---- Tekst op de voorkant: enkel hele regels ----
+     Op een gsm is er onder de foto weinig plaats, en de tekst krimpt dan mee
+     tot een halve regel onderaan zichtbaar bleef. Hier wordt geteld hoeveel
+     volledige regels er passen, en daar kapt line-clamp af met een
+     beletselteken. Enkel waar de css de tekst al afkapt (line-clamp, op smalle
+     en lage schermen); opnieuw na een taalwissel en bij een andere
+     schermmaat. */
+  const teksten = kaarten.map((k) => k.querySelector(".stack-front .stack-text")).filter(Boolean);
+  const pasTekst = () => {
+    if (!aan()) return;
+    teksten.forEach((t) => { t.style.removeProperty("-webkit-line-clamp"); t.hidden = false; });
+    teksten.forEach((t) => {
+      const cs = getComputedStyle(t);
+      // Chromium meldt zo'n tekst als flow-root, dus kijken naar de afkapping zelf
+      if (!cs.webkitLineClamp || cs.webkitLineClamp === "none") return;
+      const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.6;
+      const n = Math.floor((t.clientHeight + 1) / lh);
+      // past er geen volledige regel, dan liever geen tekst dan een halve
+      if (n < 1) { t.hidden = true; return; }
+      t.style.setProperty("-webkit-line-clamp", String(n));
+    });
+  };
+  addEventListener("cv-layout", () => requestAnimationFrame(pasTekst));
+  addEventListener("resize", pasTekst);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(pasTekst);
+
   let huidig = 0, raf = null;
   const doelStand = () => {
     const r = stapel.getBoundingClientRect();
@@ -170,7 +196,7 @@
     else delete wortel.dataset.view;
     if (knop) knop.checked = op;
     if (bewaar) { try { localStorage.setItem("cv-weergave", op ? "compact" : "normaal"); } catch (e) {} }
-    if (op) { huidig = doelStand(); teken(); }
+    if (op) { huidig = doelStand(); teken(); requestAnimationFrame(pasTekst); }
     // vastklikken pas na een beeld, op de stand waar je nu staat (css: .klikt)
     wortel.classList.remove("klikt");
     if (op) requestAnimationFrame(() => requestAnimationFrame(() => { if (aan()) wortel.classList.add("klikt"); }));

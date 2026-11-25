@@ -741,11 +741,23 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-rail i { display: block; height: 100%; background: var(--g-acc); transform-origin: 0 50%; transform: scaleX(0); }
 @media (max-width: 700px) {
   .stack-card { top: 3vh; height: calc((var(--scherm, 100vh) - 60px) * .8); }
-  .stack-front { grid-template-columns: minmax(0, 1fr); grid-template-rows: 40% minmax(0, 1fr); }
+  /* Foto boven (40 %), tekst eronder. Met absolute posities en niet met
+     rasterrijen: WebKit (elke browser op een iPhone) rekende height: 100% van
+     de foto tegenover de hele kaart in plaats van tegenover haar rij van 40 %,
+     waardoor de foto onder de tekst doorliep en die onleesbaar werd. Chromium
+     deed het wel goed, dus in een test met enkel Chromium viel het niet op. */
+  .stack-front { display: block; --foto: 40%; }
+  .stack-front img { position: absolute; left: 0; top: 0; width: 100%; height: var(--foto); }
+  .stack-front .stack-body { position: absolute; left: 0; right: 0; top: var(--foto); bottom: 0; }
   .stack-back-inhoud .facts, .stack-back-inhoud .contact-list { grid-template-columns: minmax(0, 1fr); }
   .stack-back-inhoud .row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .stack-body { justify-content: flex-start; padding-top: 20px; }
   .stack-text { font-size: .9rem; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+}
+/* lage gsm (iPhone SE en kleiner): de foto iets lager, anders bleef er onder de
+   titel amper een regel tekst over */
+@media (max-width: 700px) and (max-height: 700px) {
+  .stack-front { --foto: 30%; }
 }
 
 /* ---------- Lenticulaire carrousel (fotografie) en ring (werk) ----------

@@ -193,6 +193,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   zijn onderrand; `scroll-snap-type: y mandatory` staat pas aan zodra de klasse
   `klikt` op `<html>` staat (een beeld na het aanzetten), anders koos Chrome bij
   het laden de footer en bleef hij daar hangen.
+  Op gsm (onder 700 px) staat de foto bovenaan (`--foto`: 40 %, op lage schermen
+  30 %) en de tekst eronder, met absolute posities: met rasterrijen liet WebKit
+  de foto over de hele kaart lopen, onder de tekst. `pasTekst()` in `stapel.js`
+  kapt de tekst af op hele regels (line-clamp) en verbergt ze als er geen
+  volledige regel past.
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij
@@ -265,6 +270,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   intro beeld per beeld kunt bekijken; zonder tijdstippen neemt het de pagina
   na het laden. Zet de server eerst aan met `python3 -m http.server 4322`.
   Screenshots horen in de scratchpad, niet in de repo.
+- **Enkel Chromium in de cloud, geen WebKit.** Elke browser op een iPhone draait
+  op WebKit, en dat rekent soms anders. Zo liep de foto van de compacte kaarten
+  op de iPhone onder de tekst door, terwijl Chromium het goed toonde. Test elke
+  wijziging ook met een gsm-profiel (`devices['iPhone SE']` en `['iPhone 13']`
+  in Playwright), in licht en donker, en vermijd constructies die WebKit anders
+  leest: een percentage-hoogte binnen een rasterrij, zeker in een absoluut
+  geplaatst element. Vraag Victor bij opmaak voor de gsm om het op zijn iPhone
+  na te kijken.
 
 ## De PDF's en de linkafbeelding
 
