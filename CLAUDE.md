@@ -354,6 +354,4 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 
 Bekend bij Victor, nog niet beslist:
 
-- Bij Fondsenwerver staat zowel een badge "Sinds sep 2026" als de datum
-  "sep 2026 – heden".
 - Echt professioneel portfoliowerk (bijvoorbeeld uit Canva) toevoegen.

@@ -34,6 +34,15 @@ het ontwerp en over de stappen bij een wijziging.
   ontwerp). Lengte winnen gebeurt dus enkel met inhoud. Geschrapt: de tegels
   "2 gevalideerde vragenlijsten" en "14.716 woorden" bij de masterproef (site
   en PDF's; de vragenlijsten staan nog in de tekst van de PDF's).
+  Daarna ook alle dubbele tekst: de badge "Sinds sep 2026" bij Fondsenwerver
+  (de datum staat ernaast), de inleiding en de eerste alinea van Over mij
+  (herhaalden Opleiding en het leiderschap bij KSA), de kaart KSA in "Wat me
+  drijft" en "Fotografie" en "Nieuwe technologie" in "En verder nog" (stonden
+  er al als kaart), de vakjes Beschikbaarheid en EHBO in "In één oogopslag"
+  (staan in de hero, Contact en Opleiding) en de inleiding van Ervaring
+  (herhaalde Werk). Regel: elk gegeven staat één keer op de site, buiten de
+  samenvatting bovenaan. "In één oogopslag" heeft nu zes vakjes in drie
+  kolommen, "Wat me drijft" drie kaarten.
 
 ## 2. Volgorde van de hoofdstukken
 
