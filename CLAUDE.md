@@ -71,9 +71,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   je eerst even de site); de waas staat enkel aan terwijl het vel beweegt
   (`vel-los`), want een backdrop-filter onder een bewegend vel deed het typen
   haperen; ze heeft een vaste blur die uitfadet (opacity), geen blur die elk
-  beeld verandert. De cursor schuift achter de laatst getypte letter mee. Elke
-  aanslag geeft een zacht tikje via Web Audio (`tik()` in `vel.js`, geen
-  geluidsbestand); browsers laten dat pas toe na een eerste klik of toets. Het
+  beeld verandert. De cursor schuift achter de laatst getypte letter mee. Geen geluid: browsers laten dat pas toe na een eerste klik, dus het typen
+  bleef voor de meeste bezoekers stil (bewust weggelaten). Het
   vel volgt de vinger 1-op-1 en gaat na het loslaten verder met de snelheid
   van de veeg (gemeten over de laatste 80 ms). Rechtsboven op
   het vel kies je meteen licht of donker (`.vel-keuze`): het vel volgt mee en de
