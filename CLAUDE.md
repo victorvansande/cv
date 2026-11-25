@@ -57,7 +57,8 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   `CNAME` in de root, door Victor op GitHub aangemaakt); het oude adres
   `victorvansande.github.io/cv` stuurt door. Gebruik relatieve paden, behalve in
   `404.html`: die pagina toont GitHub op elk foutief adres, ook diep (`/a/b`),
-  dus daar staan paden vanaf de root (`/style.css`). De QR-code in de PDF's
+  dus daar staan paden vanaf de root (`/style.css`). Ze volgt licht of donker en
+  de taal van de site (`cv-modus`, `cv-lang`; de Engelse tekst in `data-en`). De QR-code in de PDF's
   (`cv-print.html`, `cv-print-en.html`) wijst sinds nov 2026 naar
   `https://victorvansande.be`: gemaakt met het npm-pakket `qrcode` (in de
   scratchpad geïnstalleerd, niet in de repo) en nagelezen met `jsqr`, zowel uit
@@ -297,7 +298,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   naar de mail met de verborgen tekst `.lint-txt` (`lint_txt` in `i18n.js`);
   de svg is aria-hidden en bouwt opnieuw na een taalwissel (`cv-layout`). Te
   slepen, stil bij hover, na slepen geen mail, stil bij minder beweging, en de
-  lus loopt enkel in beeld. Onderaan padding in plaats van een marge: een marge
+  lus loopt enkel in beeld. Rechts onder het lint staat een klein pauzeknopje
+  (`.lint-pauze`, toegankelijkheid: beweging langer dan 5 s moet je kunnen
+  stilzetten; op gsm is er geen hover en een tik opent de mail); de keuze geldt
+  voor de sessie (`vvs-lint-pauze`), de tekst staat in een verborgen span. Onderaan padding in plaats van een marge: een marge
   liep door `#contact` heen en liet een strook in de kleur van de pagina staan.
   De enige beweging die blijft lopen zonder dat iemand iets doet.
 - **Mailkeuze** (main.js, "Mailkeuze", sinds nov 2026): elke `mailto:`-link op de
@@ -403,6 +407,11 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 - **Fotografeer na het inbouwen het echte resultaat**, niet enkel het voorstel
   ervan: een voorstel met losse css botst niet met de bestaande regels, de echte
   bouw wel (zo stond het kruisje van de referentievensters over de titel).
+- **Altijd ook Android testen** (Victors vraag, nov 2026: recruiters hebben even
+  goed een Android). Android draait Chrome op dezelfde motor als Chromium, dus
+  `devices['Pixel 7']` (412 px) en `devices['Galaxy S8']` (360 px) in Playwright
+  zijn hier vrij betrouwbaar: test elke wijziging ook daarop, in licht en donker,
+  op overloop, fouten en tikken. `tools/shot.js` doet die profielen nu mee.
 - **Enkel Chromium in de cloud, geen WebKit.** Elke browser op een iPhone draait
   op WebKit, en dat rekent soms anders. Zo liep de foto van de compacte kaarten
   op de iPhone onder de tekst door, terwijl Chromium het goed toonde. Test elke
