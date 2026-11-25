@@ -244,8 +244,6 @@ window.I18N = {
     thesis_sub: `A quantitative analysis of epistemic trust, media trust and conspiracy thinking among Flemish people. The study examines how different forms of (dis)trust relate to susceptibility to conspiracy theories in a post-truth society.`,
     stat_respondents: `respondents`,
     stat_age: `years, Flanders`,
-    stat_scales: `validated questionnaires`,
-    stat_words: `words`,
     find1: `Both general distrust and media trust prove to be significant predictors of conspiracy thinking.`,
     find2: `Trust and distrust function as separate dimensions, not as opposites.`,
     find3: `The results underline the need for fact-checking, media literacy and transparent communication.`,

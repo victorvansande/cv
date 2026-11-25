@@ -27,6 +27,14 @@ het ontwerp en over de stappen bij een wijziging.
   opties naast elkaar op de echte site getoond (screenshots of een proefpagina),
   niet in woorden beschreven.
 
+- **Lengte** (feedback van collega's, nov 2026: "heel lang"). Gemeten nemen de
+  acht grote foto's ruim een derde van de site in (4,5 van 12,6 schermen op de
+  pc); de dubbele tekst maar 1,5 %. Toch blijven de foto's zoals ze zijn: **de
+  grote foto's worden niet lager gemaakt** (Victors keuze, ze dragen het
+  ontwerp). Lengte winnen gebeurt dus enkel met inhoud. Geschrapt: de tegels
+  "2 gevalideerde vragenlijsten" en "14.716 woorden" bij de masterproef (site
+  en PDF's; de vragenlijsten staan nog in de tekst van de PDF's).
+
 ## 2. Volgorde van de hoofdstukken
 
 Werk, Ervaring (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals,

@@ -72,10 +72,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 - **Tellers** (`data-count`): het eindgetal staat al in de html, zodat een
   bezoeker zonder javascript of een schermlezer nooit "0" leest. Bij het in beeld
   komen klapt elk cijfer willekeurig door alle cijfers en landt dan, van links
-  naar rechts, zoals een oud vertrekbord; ook `data-flap` (voor 18–65 en 2):
+  naar rechts, zoals een oud vertrekbord; ook `data-flap` (voor 18–65):
   `main.js` splitst elk getal in `.tel-sr` (eindgetal voor schermlezers),
   `.tel-maat` (houdt de breedte vast) en `.tel-live` (aria-hidden, telt op).
-  `hertelGetallen()` zet het scheidingsteken volgens de taal (14.716 / 14,716).
+  `hertelGetallen()` zet het scheidingsteken volgens de taal (10.000 / 10,000).
 - **Het vel papier** (`vel.js`, sinds nov 2026): bij het eerste bezoek in een
   sessie ligt een vel papier over de site waarop "Victor Van Sande - CV" getypt
   wordt in Special Elite met een inktfilter (`#vel-inkt` in `index.html`). Het
