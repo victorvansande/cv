@@ -60,6 +60,12 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **"En verder nog"** (Koffie · Bijleren · Films · Tijd met vrienden · Natuur)
+  onder "Wat me drijft" is weg (Victors vraag, nov 2026).
+- **Referentieknoppen vallen op** (nov 2026, Victors vraag): de drie knoppen
+  met `data-ref` dragen het korrelige verloop van hun hoofdstuk al in rust, met
+  de tekst in de grondkleur; bij hover gaat het drijven. Zo springen ze eruit
+  naast de gewone knoppen "Bekijk diploma".
 - **"Weinig tijd? Lees de compacte versie"** (nov 2026, Victors vraag): een
   stille tekstlink onder de twee knoppen in de hero, geen derde knop, zodat de
   knoppen hun gewicht houden. Zelfde werking als de schakelaar in de instellingen.

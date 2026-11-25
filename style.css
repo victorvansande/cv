@@ -909,8 +909,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 .list-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; margin-top: 12px; border-top: 1px solid var(--g-line); }
 .list-2 li { padding: 10px 0; border-bottom: 1px solid var(--g-line); color: var(--g-soft); }
-.personal { margin-top: 28px; color: var(--g-soft); font-size: .92rem; }
-.personal-label { color: var(--g-ink); font-weight: 600; margin-right: 6px; }
 
 /* ---------- Masterproef ---------- */
 .thesis { padding-top: 40px; }
@@ -1266,6 +1264,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .ref-ster { display: inline-flex; margin-right: 7px; color: #fff; opacity: .92; transform: translateY(var(--ster-y, 2px)); }
 :root[data-mode="light"] .ref-ster { color: var(--g-acc); opacity: 1; }
 @media (hover: hover) { .doc-btn:hover .ref-ster { color: #fff; opacity: 1; } }
+/* De drie referentieknoppen vallen op: het korrelige verloop (Grainient) staat
+   er al in rust, stil; bij hover gaat het drijven en volgt de lichte vlek de
+   cursor. De tekst en het sterretje staan in de grondkleur, zoals bij hover. */
+[data-ref]:is(.btn, .doc-btn) { color: var(--g-bg); border-color: var(--gr-diep); }
+[data-ref]:is(.btn, .doc-btn)::before { opacity: 1; }
+[data-ref].doc-btn .ref-ster { color: currentColor; opacity: 1; }
 /* bij de masterproef: een omlijnde knop naast "Lees de masterproef", met het
    aanhalingsteken van de citaatknoppen. Eerder stond er een klein blokje
    midden in de regel met de promotor, wat de regel brak. */

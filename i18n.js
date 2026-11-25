@@ -55,12 +55,6 @@ window.I18N = {
     /* highlights */
     hl_h2: `Fields that keep <span class="grad-text em-serif">overlapping</span>`,
     hl_lead: `Communication, media and journalism, (web)design, psychology, technology and leadership: fields that keep overlapping in my own track record. As a rule I put them to work together.`,
-    hl_personal_label: `And also`,
-    hl_personal_coffee: `Coffee`,
-    hl_personal_learn: `Lifelong learning`,
-    hl_personal_film: `Films`,
-    hl_personal_people: `Time with friends`,
-    hl_personal_nature: `Nature`,
     chip_comm: `Communication`,
     card_comm_h: `Purposeful communication`,
     card_comm_p: `My master's focused on strategic, clear communication, with particular attention to data, behaviour and the discourse in media and politics.`,
