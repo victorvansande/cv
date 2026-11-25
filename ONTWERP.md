@@ -60,6 +60,11 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **KSA: Webdesigner staat bovenaan** (Victors vraag, nov 2026), voor
+  Hoofdleider en Leider, ook in de drie PDF's. Leider blijft net onder
+  Hoofdleider, want die tekst verwijst ernaar ("Naast het hoofdleiderschap").
+  De ATS-PDF kreeg daarvoor 1 mm minder bladmarge boven en onder: het blok
+  Hoofdleider breekt niet over twee bladen en duwde anders een regel naar blad 3.
 - **"En verder nog"** (Koffie · Bijleren · Films · Tijd met vrienden · Natuur)
   onder "Wat me drijft" is weg (Victors vraag, nov 2026).
 - **Referentieknoppen vallen op** (nov 2026, Victors vraag): de drie knoppen
