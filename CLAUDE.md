@@ -281,8 +281,11 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   terug: in de linkerhelft (of links ernaast) naar links (klasse `links`), in
   de rechterhelft naar rechts. Niet op een link, knop of de scrollbalk, en niet
   als je net tekst selecteerde. De rondjes rechtsboven (`.stack-hoek`) zijn
-  glas zoals de menubalk (blur en saturate over een tint van de grondkleur),
-  zodat de kleuren van de foto erdoor schijnen.
+  glas zoals de menubalk,
+  zodat de kleuren van de foto erdoor schijnen: een eenvoudig laagje mat glas
+  (blur en saturate met een lichte witte tint), zonder rand, reflectie of
+  schaduw (Victors vraag; een eerste versie met lichtrand vond hij te druk).
+  Op de pc staan ze boven het effen tekstvlak, op gsm boven de foto.
 - **Lint onder Contact** (`lint.js`, sinds nov 2026, eigen bouw naar de TextLoop
   van React Bits): "Laten we samenwerken" op een golvende band in het accent
   van Contact, met de tekst in de grondkleur, over de volle breedte onderaan

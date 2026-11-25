@@ -776,11 +776,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-hoek a {
   display: inline-flex; align-items: center; height: 44px; max-width: 44px; padding: 0 13px; overflow: hidden;
   border-radius: var(--r-m); color: var(--g-ink); text-decoration: none;
-  font-weight: 600; font-size: .84rem; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .45);
-  /* glas zoals de menubalk: de kleuren van de foto schijnen erdoor, met een
-   lichtrand bovenaan; zonder backdrop-filter een bijna dekkende tint */
-  background: linear-gradient(to bottom, rgb(255 255 255 / .16), rgb(255 255 255 / 0) 60%), color-mix(in srgb, var(--g-bg) 88%, transparent);
-  border: 1px solid color-mix(in srgb, var(--g-ink) 18%, transparent);
+  font-weight: 600; font-size: .84rem;
+  /* een eenvoudig laagje mat glas, zoals de menubalk: geen rand, geen
+     reflectie, geen schaduw (Victors vraag). Zonder backdrop-filter een bijna
+     dekkende tint. */
+  background: color-mix(in srgb, var(--g-bg) 88%, transparent);
   transition: max-width .4s cubic-bezier(.2, .7, .2, 1);
 }
 .stack-hoek a svg { flex-shrink: 0; }
@@ -792,10 +792,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-hoek a:focus-visible { outline: 2px solid var(--g-ink); outline-offset: 3px; }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .stack-hoek a {
-    background: linear-gradient(to bottom, rgb(255 255 255 / .16), rgb(255 255 255 / 0) 60%), color-mix(in srgb, var(--g-bg) 42%, transparent);
-    -webkit-backdrop-filter: blur(16px) saturate(1.6); backdrop-filter: blur(16px) saturate(1.6);
+    /* een lichte tint: mat glas maakt het licht erachter iets helderder; met de
+       grondkleur verdween het boven een donkere foto helemaal */
+    background: rgb(255 255 255 / .12);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6);
   }
-  :root[data-mode="light"] .stack-hoek a { background: linear-gradient(to bottom, rgb(255 255 255 / .3), rgb(255 255 255 / 0) 60%), color-mix(in srgb, var(--g-bg) 66%, transparent); }
+  :root[data-mode="light"] .stack-hoek a { background: rgb(255 255 255 / .5); }
 }
 @media (prefers-reduced-motion: reduce) { .stack-hoek a, .stack-hoek a span { transition: none; } }
 .stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .84rem; font-variant-numeric: tabular-nums; z-index: 50; }
