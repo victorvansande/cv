@@ -38,6 +38,7 @@ window.I18N = {
     vel_licht: `Light`,
     vel_donker: `Dark`,
     vel_hint: `Swipe up`,
+    lint_txt: `Let's work together`,
     snap_lbl: `For later`,
     snap_h: `Take a snapshot with you`,
     snap_lead: `The core of this site on a single receipt, to save as an image.`,

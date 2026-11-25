@@ -51,6 +51,15 @@ het ontwerp en over de stappen bij een wijziging.
   jongeren; bij Over mij: waarom er zoveel foto's op de site staan). KSA (een
   label in plaats van een ondertitel) en Contact (een eigen slot) wijken af.
 
+- **Lint onder Contact** (nov 2026, Victors vraag): een lopende band met
+  "Laten we samenwerken" sluit de site af, in het palet van Contact. Uit vier
+  voorstellen koos Victor A (golvende band in het accent, naar de TextLoop van
+  React Bits). Niet gekozen: B (twee gekruiste banden in tegengestelde
+  richting), C (grote lijnletters zonder band) en D (smalle rechte naad met
+  lijnen). Dit is een bewuste uitzondering op "weinig beweging": de enige
+  animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
+  bij minder beweging, en enkel actief in beeld.
+
 - **De printer met het bonnetje** (nov 2026) is op Victors vraag uit de site
   gehaald: de site eindigt met Contact. Het blok staat in `bewaard/bonnetje.md`,
   met de stappen om het terug te zetten; `bonnetje.js` en de css blijven staan.
@@ -124,6 +133,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 | Grote foto's, zonder muis | Volle kleur in het midden van het scherm, geleidelijk gedempt naar de rand | Op een gsm is er geen hover |
 | Hint op het vel (typemachine) | Een dun pijltje naar boven dat traag op en neer deint, zonder tekst (de tekst blijft voor schermlezers) | Suggereert het vegen zonder het te benoemen; eerder stonden er een maatlat van streepjes en "veeg omhoog" |
 | Bonnetje na het afscheuren (bewaard, niet op de site) | Vouwt tot een prop met facetten, licht en schaduw, en valt weg (naar de Paper Crumple van React Bits) | Het afscheuren krijgt een tastbaar einde |
+| Lint onder Contact | Loopt traag (38 px/s) langs een golf, volgt de vinger bij slepen en loopt dan met die vaart verder, staat stil bij hover | Een uitnodiging om af te sluiten; de enige beweging die vanzelf loopt |
 | Naam na de intro | Geen lichtglans meer; de letters landen en blijven staan | De korte witte gloed op het einde was overbodig |
 | Knoppen naar de referenties | Gewone `.doc-btn` met een sterretje in lijn voor het woord "Referentie(s)": wit op donker, het accent op licht, verticaal op het midden van de kleine letters (2 px lager dan het tekstvak) | Subtiel, maar te herkennen als iets bijzonders |
 | Venster met referenties | Lijst met initialen, naam, functie en contact; bij wie een citaat heeft een gevulde knop "Toon citaat" die omklapt naar "Verberg citaat" | Alles te raadplegen zonder extra lengte op de pagina |

@@ -1008,6 +1008,16 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* ook verticaal: het deel van het papier dat tijdens het printen nog onder de
    gleuf zit, maakt de pagina zo niet langer */
 #contact { overflow: hidden; overflow: clip; } /* hidden voor Safari ouder dan 16 */
+/* Lint onder Contact (lint.js): band in het accent, tekst in de grondkleur,
+   over de volle breedte van de sectie. Eén link naar de mail. */
+.lint { display: block; margin-top: -8px; padding-bottom: 36px; /* padding, geen marge: een marge liep door #contact heen en liet een strook in de kleur van de pagina staan */ color: inherit; text-decoration: none; touch-action: pan-y; cursor: grab; -webkit-tap-highlight-color: transparent; }
+.lint:active { cursor: grabbing; }
+.lint:focus-visible { outline: 2px solid var(--g-acc); outline-offset: 4px; }
+.lint-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.lint-svg { display: block; width: 100%; overflow: visible; user-select: none; -webkit-user-select: none; }
+.lint-band { stroke: var(--g-acc); transition: stroke .3s ease; }
+.lint-tekst { fill: var(--g-bg); font-family: var(--font-head); font-weight: 800; }
+.lint-sep { fill: var(--g-bg); }
 /* de naam van de printer, gegraveerd in de kast: iets donkerder dan de kast,
    met een lichte rand eronder en een donkere erboven, zoals een uitgefreesde letter */
 .snap-merk {

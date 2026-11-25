@@ -174,7 +174,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   op `<html>`): per sectie een lichte tint uit dezelfde foto en een dieper
   accent. De keuze staat in `localStorage` onder `cv-modus`, bewust niet onder
   het oude `cv-mode` van `v1/`, waar licht de standaard was. Standaard donker.
-  Wie een nieuw palet `.g-*` toevoegt, voegt ook de lichte tegenhanger toe. Weinig beweging: enkel de intro en hovers. Alles staat open,
+  Wie een nieuw palet `.g-*` toevoegt, voegt ook de lichte tegenhanger toe. Weinig beweging: enkel de intro, hovers en het lint onder Contact (zie daar). Alles staat open,
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
   `<details class="fold">` met als voorproef een waaier van zes overlappende,
   licht gedraaide kaartjes (`.peek-kaart`, `--i`), die bij hover verder openwaaiert.
@@ -262,6 +262,18 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   kapsule in het accent, te slepen, een klik op de lijn springt een scherm
   verder. Een klik naast de kaart (links of rechts, op haar hoogte) draait
   haar om en terug; links draait ze naar links (klasse `links`).
+- **Lint onder Contact** (`lint.js`, sinds nov 2026, eigen bouw naar de TextLoop
+  van React Bits): "Laten we samenwerken" op een golvende band in het accent
+  van Contact, met de tekst in de grondkleur, over de volle breedte onderaan
+  `#contact`. Victor koos variant A uit vier voorstellen. Tekst langs een pad
+  in svg (`textPath`, `startOffset` schuift); de kleuren staan in de css
+  (`.lint-band`, `.lint-tekst`), dus licht en donker volgen vanzelf. Eén link
+  naar de mail met de verborgen tekst `.lint-txt` (`lint_txt` in `i18n.js`);
+  de svg is aria-hidden en bouwt opnieuw na een taalwissel (`cv-layout`). Te
+  slepen, stil bij hover, na slepen geen mail, stil bij minder beweging, en de
+  lus loopt enkel in beeld. Onderaan padding in plaats van een marge: een marge
+  liep door `#contact` heen en liet een strook in de kleur van de pagina staan.
+  De enige beweging die blijft lopen zonder dat iemand iets doet.
 - **Uit de site, bewaard voor later (nov 2026, op Victors vraag)**: de printer
   met het bonnetje en de schuifknop hieronder. De site eindigt met Contact. Het
   fragment en de stappen om het terug te zetten staan in `bewaard/bonnetje.md`;
