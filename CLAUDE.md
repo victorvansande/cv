@@ -181,6 +181,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   dat openschuift bij hover. Elke kaart is om te draaien
   ("Draai om"); de achterkant is een kopie van de echte inhoud van dat
   onderdeel (`ACHTER` in `stapel.js`), opnieuw gekopieerd na een taalwissel. Geen intro in compacte weergave.
+  De kaarten klikken vast in focus: `stapel.js` zet per kaart een onzichtbaar
+  snap-punt (`.stack-snap`, één schermhoogte uit elkaar) en de footer snapt op
+  zijn onderrand; `scroll-snap-type: y mandatory` staat pas aan zodra de klasse
+  `klikt` op `<html>` staat (een beeld na het aanzetten), anders koos Chrome bij
+  het laden de footer en bleef hij daar hangen.
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij

@@ -671,6 +671,19 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack { display: none; }
 :root[data-view="compact"] .stack { display: block; height: calc((var(--n, 8) - 1) * var(--scherm, 100vh) + var(--scherm, 100vh) - 60px); }
 :root[data-view="compact"] main > .sec { display: none; }
+/* Vastklikken: op elke kaartpositie staat een onzichtbaar snap-punt
+   (.stack-snap, gemaakt in stapel.js), één schermhoogte uit elkaar, net zoals
+   stapel.js de scrollruimte per kaart rekent. Zo eindigt elke scrollbeweging
+   met één kaart scherp in focus in plaats van halverwege twee kaarten.
+   Mandatory, want met proximity bleef je bij een halve kaart toch hangen; de
+   footer krijgt ook een snap-punt, anders trekt de stapel je er weer van weg.
+   Geen scroll-padding hier: de stapel rekent vanaf de bovenrand. */
+/* stapel.js zet .klikt pas als de stapel klaarstaat: met de snap al aan bij de
+   eerste opbouw koos Chrome de footer als doel en bleef hij daar hangen. */
+:root[data-view="compact"].klikt { scroll-snap-type: y mandatory; scroll-padding-top: 0; }
+:root[data-view="compact"] .stack { position: relative; }
+.stack-snap { position: absolute; left: 0; width: 1px; height: 1px; top: calc(var(--i) * var(--scherm, 100vh)); scroll-snap-align: start; pointer-events: none; }
+:root[data-view="compact"].klikt .footer { scroll-snap-align: end; }
 .stack-stage { position: sticky; top: 60px; height: calc(var(--scherm, 100vh) - 60px); overflow: hidden; }
 .stack-card {
   position: absolute; left: 50%; top: 5vh;

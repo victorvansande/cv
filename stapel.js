@@ -29,6 +29,14 @@
   const aan = () => wortel.dataset.view === "compact";
 
   stapel.style.setProperty("--n", n);
+  // snap-punten om de kaarten in focus te laten vastklikken (css: .stack-snap)
+  kaarten.forEach((k, i) => {
+    const p = document.createElement("span");
+    p.className = "stack-snap";
+    p.setAttribute("aria-hidden", "true");
+    p.style.setProperty("--i", i);
+    stapel.appendChild(p);
+  });
 
   /* ---- Omdraaien (eigen bouw naar de Flip Card van React Bits) ----
      Elke kaart krijgt een voor- en een achterkant. De voorkant is de kaart
@@ -163,6 +171,9 @@
     if (knop) knop.checked = op;
     if (bewaar) { try { localStorage.setItem("cv-weergave", op ? "compact" : "normaal"); } catch (e) {} }
     if (op) { huidig = doelStand(); teken(); }
+    // vastklikken pas na een beeld, op de stand waar je nu staat (css: .klikt)
+    wortel.classList.remove("klikt");
+    if (op) requestAnimationFrame(() => requestAnimationFrame(() => { if (aan()) wortel.classList.add("klikt"); }));
   };
   if (knop) knop.addEventListener("change", () => { zet(knop.checked, true); scrollTo(0, 0); });
   zet(aan(), false);
