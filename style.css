@@ -770,13 +770,16 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .tel-maat, .tel-live { grid-area: 1 / 1; }
 .tel-maat { visibility: hidden; }
 .tel-live { display: inline-flex; justify-content: flex-end; }
-.tel-d { display: inline-block; }
+.tel-d { display: inline-block; transform-origin: 50% 50%; }
+/* één klap van een cijfer op het bord: het blad valt kort dicht en weer open */
+.tel-d.klap { animation: tel-klap 70ms linear; }
+@keyframes tel-klap { 0% { transform: scaleY(.35); opacity: .55; } 100% { transform: none; opacity: 1; } }
 .tel-sep { opacity: .55; }
 /* op de achterkant van een compacte kaart (een kopie) staat altijd het eindgetal */
 .stack-back .tel-live { display: none; }
 .stack-back .tel-maat { visibility: visible; }
 .tel-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-@media (prefers-reduced-motion: reduce) { .tel-d { filter: none !important; transform: none !important; opacity: 1 !important; } }
+@media (prefers-reduced-motion: reduce) { .tel-d { animation: none !important; } }
 .numbers dd { margin-top: 4px; font-size: .86rem; color: var(--g-soft); }
 .thesis-meta { margin-top: 24px; font-size: .88rem; color: var(--g-soft); }
 .thesis-meta b { color: var(--g-ink); font-weight: 600; }

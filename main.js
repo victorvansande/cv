@@ -357,79 +357,92 @@
   vloei();
   new MutationObserver(vloei).observe(wortel, { attributes: true, attributeFilter: ["data-mode", "data-view"] });
 
-  /* ---- Getallen die optellen, met bewegingsonscherpte ----
+  /* ---- Cijfers als een oud vertrekbord op de luchthaven ----
      Het eindgetal staat al in de html, zodat een schermlezer of een bezoeker
      zonder javascript het altijd leest. Hier wordt elk getal opgesplitst in
-     drie delen: een verborgen tekst met het eindgetal voor schermlezers
-     (.tel-sr), een onzichtbare kopie die de breedte vasthoudt (.tel-maat,
-     zodat er niets verspringt), en de zichtbare kopie (.tel-live, aria-hidden)
-     die bij het in beeld komen optelt. Cijfers die te snel draaien om te lezen,
-     worden wazig en scherpen aan naarmate ze vertragen, zoals een echte
-     teller. Eén keer per bezoek, niet bij minder beweging. Het scheidingsteken
-     volgt de taal: 14.716 in het Nederlands, 14,716 in het Engels. */
+     een verborgen tekst voor schermlezers (.tel-sr), een onzichtbare kopie die
+     de breedte vasthoudt (.tel-maat, zodat er niets verspringt), en de
+     zichtbare kopie (.tel-live, aria-hidden). Komt het getal in beeld, dan
+     klapt elk cijfer een tijdje willekeurig door alle cijfers, en landt het
+     daarna op het juiste, van links naar rechts, zoals de klapborden van
+     vroeger. Leestekens (het streepje, de punt) blijven staan. Eén keer per
+     bezoek, niet bij minder beweging. Het scheidingsteken volgt de taal:
+     14.716 in het Nederlands, 14,716 in het Engels. */
   const telTaal = () => (document.documentElement.lang === "en" ? "en" : "nl");
-  const telTekst = (el, n) => n.toLocaleString(telTaal()) + (el.dataset.suffix || "");
+  const telTekst = (el) => el.dataset.count !== undefined
+    ? parseFloat(el.dataset.count).toLocaleString(telTaal()) + (el.dataset.suffix || "")
+    : (el.dataset.vast || (el.dataset.vast = el.textContent.trim()));
   const telBouw = (el) => {
     if (el.querySelector(".tel-sr")) return;
-    const t = el.textContent;
+    const t = telTekst(el);
     el.innerHTML = '<span class="tel-sr"></span><span class="tel-num" aria-hidden="true"><span class="tel-maat"></span><span class="tel-live"></span></span>';
-    el.querySelectorAll(".tel-sr, .tel-maat, .tel-live").forEach((d) => { d.textContent = t; });
+    el.querySelector(".tel-sr").textContent = t;
+    el.querySelector(".tel-maat").textContent = t;
   };
-  const telTeken = (el, t) => {
-    const doel = parseFloat(el.dataset.count), duur = 2200, maxWaas = 6;
-    const v = Math.round(doel * (1 - Math.pow(1 - t, 4)));
-    // hoeveel eenheden er per beeld voorbijkomen: daaruit volgt per cijfer hoe wazig het is
-    const snel = t >= 1 ? 0 : doel * 4 * Math.pow(1 - t, 3) * 16 / duur;
-    const tekens = [...telTekst(el, v)];
-    let plaats = tekens.filter((c) => /\d/.test(c)).length;
+  // de zichtbare tekens: per cijfer een vakje dat kan omklappen
+  const telVakjes = (el, tekst) => {
     const live = el.querySelector(".tel-live");
     live.textContent = "";
-    tekens.forEach((c) => {
+    return [...tekst].map((c) => {
       const sp = document.createElement("span");
       sp.textContent = c;
-      if (!/\d/.test(c)) { sp.className = "tel-sep"; live.appendChild(sp); return; }
-      plaats--;
-      const waas = Math.min(maxWaas, Math.max(0, (snel / Math.pow(10, plaats) - 0.15) * 5));
-      sp.className = "tel-d";
-      if (waas > .05) {
-        sp.style.filter = "blur(" + waas.toFixed(2) + "px)";
-        sp.style.transform = "scaleY(" + (1 + waas * .02).toFixed(3) + ")";
-        sp.style.opacity = (1 - waas * .06).toFixed(3);
-      }
+      // enkel het scheidingsteken van duizendtallen staat gedempt, het streepje van 18–65 niet
+      sp.className = /\d/.test(c) ? "tel-d" : (/[.,]/.test(c) ? "tel-sep" : "tel-teken");
       live.appendChild(sp);
+      return sp;
     });
   };
-  const hertelGetallen = () => document.querySelectorAll("[data-count]").forEach((el) => {
-    const n = parseFloat(el.dataset.count);
-    if (!el.querySelector(".tel-sr")) { el.textContent = telTekst(el, n); return; }
-    el.querySelectorAll(".tel-sr, .tel-maat").forEach((d) => { d.textContent = telTekst(el, n); });
-    if (el.classList.contains("wacht")) telTeken(el, 0);
-    else if (!el.classList.contains("telt")) el.querySelector(".tel-live").textContent = telTekst(el, n);
+  const klap = (sp, c) => {
+    sp.textContent = c;
+    sp.classList.remove("klap"); void sp.offsetWidth; sp.classList.add("klap");
+  };
+  const hertelGetallen = () => document.querySelectorAll("[data-count], [data-flap]").forEach((el) => {
+    const t = telTekst(el);
+    if (!el.querySelector(".tel-sr")) { el.textContent = t; return; }
+    el.querySelector(".tel-sr").textContent = t;
+    el.querySelector(".tel-maat").textContent = t;
+    if (!el.classList.contains("telt")) telVakjes(el, t).forEach((sp) => { if (el.classList.contains("wacht") && sp.className === "tel-d") sp.textContent = String(Math.floor(Math.random() * 10)); });
   });
   (() => {
-    const tellers = [...document.querySelectorAll("[data-count]")];
+    const tellers = [...document.querySelectorAll("[data-count], [data-flap]")];
     const stil = matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
     if (stil || !("IntersectionObserver" in window)) return;
     tellers.forEach(telBouw);
+    const willekeurig = () => String(Math.floor(Math.random() * 10));
     const start = (el) => {
       el.classList.remove("wacht"); el.classList.add("telt");
-      let t0 = 0;
-      const stap = (nu) => {
-        if (!t0) t0 = nu;
-        const t = Math.min(1, (nu - t0) / 2200);
-        telTeken(el, t);
-        if (t < 1) requestAnimationFrame(stap);
-        else { el.classList.remove("telt"); el.querySelector(".tel-live").textContent = telTekst(el, parseFloat(el.dataset.count)); }
-      };
-      requestAnimationFrame(stap);
+      const doel = telTekst(el), vakjes = telVakjes(el, doel);
+      let k = 0;
+      const lopend = [];
+      vakjes.forEach((sp, i) => {
+        if (sp.className !== "tel-d") return;
+        // elk cijfer landt iets later dan zijn linkerbuur, met wat speling
+        const land = 700 + k * 230 + Math.random() * 160;
+        k++;
+        sp.textContent = willekeurig();
+        let t = 0;
+        const tik = () => {
+          t += 70;
+          if (t >= land) { klap(sp, doel[i]); return; }
+          let c = willekeurig(); if (c === sp.textContent) c = String((+c + 1) % 10);
+          klap(sp, c);
+          lopend.push(setTimeout(tik, 70));
+        };
+        lopend.push(setTimeout(tik, 70));
+      });
+      setTimeout(() => el.classList.remove("telt"), 700 + k * 230 + 300);
     };
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
       io.unobserve(e.target);
       start(e.target);
-    }), { threshold: 0.3 });
-    // tot ze in beeld komen, staat er een 0; wie dat nooit ziet, leest het eindgetal via .tel-sr
-    tellers.forEach((el) => { el.classList.add("wacht"); telTeken(el, 0); io.observe(el); });
+    }), { threshold: 0.4 });
+    // tot ze in beeld komen, staan er willekeurige cijfers; wie dat nooit ziet, leest het eindgetal via .tel-sr
+    tellers.forEach((el) => {
+      el.classList.add("wacht");
+      telVakjes(el, telTekst(el)).forEach((sp) => { if (sp.className === "tel-d") sp.textContent = willekeurig(); });
+      io.observe(el);
+    });
   })();
 
   /* ---- Language switch (NL / EN) ---- */
