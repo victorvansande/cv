@@ -103,12 +103,14 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   door in inline-block letters, en dan was de naam onzichtbaar. Daarna
   is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
   letter onder de cursor wordt een lijnletter met een glijdend kader en label,
-  een klik laat letters opspringen. De heroknoppen krijgen bij hover een
-  korrelig verloop ("Grainient", css onder die naam). Rechts van "Victor" staat een
+  een klik laat letters opspringen. Elke knop (`.btn`) krijgt bij hover een
+  korrelig verloop ("Grainient", css onder die naam), enkel uit tinten van het
+  accent van zijn sectie (`--gr-diep`, `--g-acc`, `--gr-licht`, gemengd in oklab)
+  met grijze korrel in soft-light, zodat de kleur in elke stand van het drijvende
+  verloop klopt. Rechts van "Victor" staat een
   pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
-  even hoog is als de hoofdletters en eindigt waar "Sande" eindigt; de trefwoorden
-  (`.tags span`) krijgen bij hover hetzelfde, in het accent van hun sectie.
+  even hoog is als de hoofdletters en eindigt waar "Sande" eindigt.
 - **Volgorde van de secties** (sinds nov 2026, op feedback): Werk, Ervaring
   (Gekkoo), Opleiding met de masterproef, KSA Herentals, Over mij, Contact.
   KSA staat dus los van `#ervaring` in een eigen `div.sec#ksa`. De PDF's volgen:
@@ -226,7 +228,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   titelletter (`.taal-groet`, aria-hidden; Hallo, Hi there, Bonjour) met de
   taalnaam eronder, en een meetlat in zes stappen voor A1 tot C2 (`.taal-lat`,
   `--n` = behaalde stappen).
-- **Trefwoorden** (`.tags span`) staan zonder hekje. Beide galerijen vervagen
+- **Trefwoorden** (`.tags span`) staan zonder hekje. Bij hover enkel een
+  toestand zonder overgang (tekst naar inkt, rand naar 55 % accent): het zijn
+  labels, geen knoppen, dus geen beweging die een klik belooft. Beide galerijen vervagen
   links en rechts (mask-image).
 - **Beschrijvingen voor schermlezers**: de Engelse alt-teksten staan per
   bestandsnaam in `I18N.enAlt`, de Engelse labels van knoppen zonder tekst in

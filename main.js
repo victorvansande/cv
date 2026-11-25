@@ -313,17 +313,18 @@
     new MutationObserver(zetKlaar).observe(wortel, { attributes: true, attributeFilter: ["class"] });
   }
 
-  /* ---- Grainient op de knoppen in de hero ----
+  /* ---- Grainient op elke knop ----
      Het korrelige verloop volgt de cursor een beetje: de lichtste vlek staat
      waar de muis is. De rest (de kleuren, de korrel, het drijven) zit in css.
-     De trefwoorden (.tags span) krijgen hetzelfde, in het accent van hun sectie. */
-  document.querySelectorAll(".hero-side .btn, .tags span").forEach((b) => {
-    b.addEventListener("pointermove", (e) => {
-      const r = b.getBoundingClientRect();
-      b.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
-      b.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
-    });
-  });
+     Eén luisteraar voor de hele pagina, zodat ook knoppen die stapel.js of
+     bonnetje.js later maakt meedoen. */
+  document.addEventListener("pointermove", (e) => {
+    const b = e.target.closest && e.target.closest(".btn");
+    if (!b) return;
+    const r = b.getBoundingClientRect();
+    b.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+    b.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%");
+  }, { passive: true });
 
   /* ---- Zachte overgang tussen secties ----
      Elke sectie krijgt de achtergrondkleur van de sectie erboven mee, zodat

@@ -431,9 +431,8 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   font-weight: 600; font-size: .92rem; text-decoration: none; cursor: pointer;
   transition: background .2s, color .2s, border-color .2s;
 }
-@media (hover: hover) { .btn:hover { background: var(--g-acc); border-color: var(--g-acc); color: var(--g-bg); } }
 .btn-line { background: transparent; color: var(--g-ink); border-color: color-mix(in srgb, var(--g-ink) 35%, transparent); }
-@media (hover: hover) { .btn-line:hover { background: transparent; color: var(--g-acc); border-color: var(--g-acc); } }
+/* de hover van elke knop is de Grainient, onderaan dit bestand */
 
 /* ---------- Essentie ---------- */
 .essentie { margin-top: 56px; padding-top: 12px; }
@@ -546,39 +545,14 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .now-badge .pulse { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-/* Trefwoorden als kleine hashtags: een # in de accentkleur, en bij hover loopt
-   het vakje van links naar rechts vol met een korrelig verloop ("Grainient",
-   zoals op de heroknoppen) in het accent van de sectie. Het verloop mengt het
-   accent met --g-ink: in de donkere versie lichter, in de lichte versie
-   dieper, zodat de tekst in --g-bg altijd leesbaar blijft. De lichtste vlek
-   volgt de cursor (--mx, --my uit main.js). Enkel bij hover; in rust beweegt
-   er niets. */
+/* Trefwoorden zijn labels, geen knoppen: bij hover springen tekst en rand
+   naar hun toestand en terug, zonder overgang. Elke beweging zou een klik
+   beloven die er niet is. */
 .tags span {
-  position: relative; isolation: isolate;
   font-size: .76rem; padding: 3px 9px; border: 1px solid var(--g-line); color: var(--g-soft);
   border-radius: var(--r-xs); cursor: default;
-  transition: color .25s, border-color .25s;
 }
-.tags span::after {
-  content: ""; position: absolute; inset: -1px; z-index: -1; border-radius: inherit; pointer-events: none;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.55'/%3E%3C/svg%3E"),
-    radial-gradient(circle at var(--mx, 30%) var(--my, 50%), color-mix(in srgb, var(--g-acc) 45%, var(--g-ink)) 0, transparent 55%),
-    radial-gradient(130% 160% at 95% 110%, color-mix(in srgb, var(--g-acc) 70%, var(--g-ink)) 0, transparent 60%),
-    linear-gradient(60deg, var(--g-acc) 0%, color-mix(in srgb, var(--g-acc) 78%, var(--g-ink)) 45%, var(--g-acc) 70%, color-mix(in srgb, var(--g-acc) 86%, var(--g-bg)) 100%);
-  background-size: 120px 120px, 100% 100%, 170% 170%, 240% 240%;
-  background-blend-mode: soft-light, normal, normal, normal;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path .35s cubic-bezier(.2, .7, .2, 1);
-  animation: tag-drijf 6s ease-in-out infinite alternate paused;
-}
-.tags span::before { content: none; }
-@media (hover: hover) { .tags span:hover { border-color: var(--g-acc); color: var(--g-bg); } }
-@media (hover: hover) { .tags span:hover::after { clip-path: inset(0); animation-play-state: running; } }
-@media (hover: hover) { .tags span:hover::before { color: var(--g-bg); } }
-@keyframes tag-drijf { from { background-position: 0 0, 0 0, 0% 0%, 0% 50%; } to { background-position: 30px -20px, 0 0, 100% 100%, 100% 50%; } }
-@media (prefers-reduced-motion: reduce) { .tags span, .tags span::before, .tags span::after { transition: none; animation: none; } }
-:root[data-motion="reduce"] .tags span, :root[data-motion="reduce"] .tags span::before, :root[data-motion="reduce"] .tags span::after { transition: none; animation: none; }
+@media (hover: hover) { .tags span:hover { color: var(--g-ink); border-color: color-mix(in oklab, var(--g-acc) 55%, var(--g-line)); } }
 .tags-wide { margin-top: 14px; }
 
 .doc-btn {
@@ -866,6 +840,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .thesis .numbers dt { color: var(--g-acc); }
 .thesis-meta b { color: var(--g-acc); }
 .thesis .tags span { border-color: color-mix(in srgb, var(--g-acc) 40%, transparent); }
+@media (hover: hover) { .thesis .tags span:hover { border-color: var(--g-acc); } }
 .thesis-grid { margin-top: 14px; }
 .findings { margin-top: 22px; border-top: 1px solid var(--g-line); }
 .findings li { padding: 12px 0 12px 22px; border-bottom: 1px solid var(--g-line); position: relative; color: var(--g-soft); }
@@ -1231,34 +1206,49 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 :root[data-motion="reduce"] .tch-kader { transition: none; }
 :root[data-motion="reduce"] .tch-specks i { animation: none; }
 
-/* ---------- Grainient op de knoppen in de hero ----------
-   Bij hover vloeit er een korrelig verloop in schemerkleuren onder de tekst:
-   diep paars, rozerood en amber, met een lichte vlek waar de cursor is (--mx,
-   --my, gezet door main.js). Het verloop drijft traag; de korrel is een vaste
-   laag ruis die bij hover verschuift. */
-.hero-side .btn { position: relative; overflow: hidden; isolation: isolate; }
-.hero-side .btn > * { position: relative; z-index: 2; }
-.hero-side .btn::before, .hero-side .btn::after { content: ""; position: absolute; inset: -2px; z-index: 0; opacity: 0; transition: opacity .35s; pointer-events: none; }
-.hero-side .btn::before {
+/* ---------- Grainient op elke knop ----------
+   Bij hover vloeit er een korrelig verloop onder de tekst, gemaakt uit enkel
+   het accent van de sectie: een diepere tint, het accent zelf en een lichtere
+   tint, gemengd in oklab zodat de kleurtoon niet verschuift. Het verloop drijft
+   traag heen en weer, met de lichtste vlek waar de cursor is (--mx, --my uit
+   main.js). Eerder had de hero vaste schemerkleuren die niet bij de sectie
+   hoorden, en was de korrel gekleurde ruis die de tint telkens scheef trok; de
+   korrel is nu grijs (saturate 0) en ligt er in soft-light over, zodat hij
+   enkel licht en donker toevoegt. De tekst wordt --g-bg, net als vroeger op het
+   effen accent. Zelfde opbouw in licht en donker; in licht is het accent al
+   diep, dus de tinten liggen er dichter bij. */
+.btn {
+  position: relative; isolation: isolate; overflow: hidden;
+  --gr-diep: color-mix(in oklab, var(--g-acc) 68%, #000);
+  --gr-licht: color-mix(in oklab, var(--g-acc) 70%, #fff);
+}
+:root[data-mode="light"] .btn {
+  --gr-diep: color-mix(in oklab, var(--g-acc) 76%, #000);
+  --gr-licht: color-mix(in oklab, var(--g-acc) 82%, #fff);
+}
+.btn::before, .btn::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .3s cubic-bezier(.2, 0, 0, 1); }
+.btn::before {
   background:
-    radial-gradient(circle at var(--mx, 30%) var(--my, 50%), rgba(255, 196, 140, .85) 0, rgba(255, 196, 140, 0) 42%),
-    radial-gradient(120% 140% at 90% 110%, #c2416c 0, rgba(194, 65, 108, 0) 60%),
-    linear-gradient(55deg, #1b1022 0%, #4b1e52 40%, #a53a63 75%, #e0814a 100%);
-  background-size: 100% 100%, 160% 160%, 220% 220%;
+    radial-gradient(circle at var(--mx, 30%) var(--my, 50%), var(--gr-licht) 0, transparent 46%),
+    radial-gradient(120% 160% at 100% 100%, var(--gr-diep) 0, transparent 62%),
+    linear-gradient(60deg, var(--gr-diep) 0%, var(--g-acc) 34%, var(--gr-licht) 52%, var(--g-acc) 70%, var(--gr-diep) 100%);
+  background-size: 100% 100%, 170% 170%, 260% 100%;
   animation: grain-drijf 7s ease-in-out infinite alternate paused;
 }
-.hero-side .btn::after {
-  z-index: 1; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+.btn::after {
+  inset: -8px; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   animation: grain-korrel .5s steps(2) infinite paused;
 }
-@media (hover: hover) { .hero-side .btn:hover { color: #fff; border-color: transparent; background: #1b1022; } }
-@media (hover: hover) { .hero-side .btn:hover::before { opacity: 1; animation-play-state: running; } }
-@media (hover: hover) { .hero-side .btn:hover::after { opacity: .55; animation-play-state: running; } }
+@media (hover: hover) {
+  .btn:hover { color: var(--g-bg); border-color: var(--gr-diep); transition-duration: .14s; }
+  .btn:hover::before { opacity: 1; animation-play-state: running; transition-duration: .14s; }
+  .btn:hover::after { opacity: .7; animation-play-state: running; transition-duration: .14s; }
+}
 @keyframes grain-drijf { from { background-position: 0 0, 0% 0%, 0% 50%; } to { background-position: 0 0, 100% 100%, 100% 50%; } }
 @keyframes grain-korrel { 50% { transform: translate(-6px, 4px); } }
-@media (prefers-reduced-motion: reduce) { .hero-side .btn::before, .hero-side .btn::after { animation: none; } }
-:root[data-motion="reduce"] .hero-side .btn::before, :root[data-motion="reduce"] .hero-side .btn::after { animation: none; }
+@media (prefers-reduced-motion: reduce) { .btn::before, .btn::after { animation: none; } }
+:root[data-motion="reduce"] .btn::before, :root[data-motion="reduce"] .btn::after { animation: none; }
 
 /* ---------- Zachte overgang tussen secties ----------
    main.js geeft elke sectie de achtergrondkleur van de sectie erboven mee
