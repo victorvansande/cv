@@ -74,6 +74,63 @@
     if (rij) rij.appendChild(knop);
     return { k, voor, achter, knop };
   });
+  /* ---- Eigen scrollbalk op de achterkant ----
+     Een lijn met een kapsule in het accent van de kaart (css: .stack-scroll).
+     De kapsule is even hoog als het zichtbare deel van de inhoud tegenover het
+     geheel (minstens 32 px) en staat waar je bent. Slepen schuift mee, een
+     klik op de lijn springt een scherm verder in die richting. Scrollen met
+     wiel, vinger of toetsen blijft gewoon op de inhoud zelf werken. */
+  const balken = [];
+  const zetBalk = (b) => {
+    const { inhoud, rail, duim } = b;
+    const sh = inhoud.scrollHeight, ch = inhoud.clientHeight;
+    rail.style.top = inhoud.offsetTop + "px";
+    rail.style.height = ch + "px";
+    if (sh - ch < 2) { rail.hidden = true; return; }
+    rail.hidden = false;
+    const th = Math.max(32, ch * ch / sh);
+    b.th = th;
+    duim.style.height = th.toFixed(1) + "px";
+    duim.style.transform = "translateY(" + (inhoud.scrollTop / (sh - ch) * (ch - th)).toFixed(1) + "px)";
+  };
+  const zetBalken = () => balken.forEach(zetBalk);
+  const maakBalk = (inhoud) => {
+    const rail = document.createElement("div");
+    rail.className = "stack-scroll";
+    rail.setAttribute("aria-hidden", "true");
+    const duim = document.createElement("i");
+    rail.appendChild(duim);
+    const b = { inhoud, rail, duim, th: 32 };
+    // na een taalwissel wordt de achterkant opnieuw gemaakt: oude balken weg
+    for (let j = balken.length - 1; j >= 0; j--) if (!balken[j].rail.isConnected) balken.splice(j, 1);
+    balken.push(b);
+    let r = null;
+    inhoud.addEventListener("scroll", () => { if (r === null) r = requestAnimationFrame(() => { r = null; zetBalk(b); }); }, { passive: true });
+    let start = null;
+    duim.addEventListener("pointerdown", (e) => {
+      e.preventDefault(); e.stopPropagation();
+      duim.setPointerCapture(e.pointerId);
+      start = { y: e.clientY, st: inhoud.scrollTop };
+      rail.classList.add("sleept");
+    });
+    duim.addEventListener("pointermove", (e) => {
+      if (!start) return;
+      const sh = inhoud.scrollHeight, ch = inhoud.clientHeight;
+      inhoud.scrollTop = start.st + (e.clientY - start.y) * (sh - ch) / Math.max(1, ch - b.th);
+    });
+    const los = () => { start = null; rail.classList.remove("sleept"); };
+    duim.addEventListener("pointerup", los);
+    duim.addEventListener("pointercancel", los);
+    rail.addEventListener("click", (e) => {
+      if (e.target === duim) return;
+      const dr = duim.getBoundingClientRect();
+      const richting = e.clientY > dr.top + dr.height / 2 ? 1 : -1;
+      inhoud.scrollBy({ top: richting * inhoud.clientHeight * 0.85, behavior: rustig() ? "auto" : "smooth" });
+    });
+    requestAnimationFrame(() => zetBalk(b));
+    return rail;
+  };
+
   const vulAchter = () => {
     draaiKaarten.forEach(({ k, voor, achter, knop }) => {
       const meer = voor.querySelector(".stack-more");
@@ -98,7 +155,7 @@
         kopie.removeAttribute("data-i18n");
         inhoud.appendChild(kopie);
       });
-      achter.append(kop, inhoud);
+      achter.append(kop, inhoud, maakBalk(inhoud));
       knop.textContent = sjabloon("flip");
       terug.addEventListener("click", () => zetGedraaid(k, false));
     });
@@ -111,13 +168,40 @@
     d.voor.setAttribute("aria-hidden", op ? "true" : "false");
     d.achter.toggleAttribute("inert", !op);
     d.voor.toggleAttribute("inert", op);
+    if (op) requestAnimationFrame(zetBalken);
   };
   draaiKaarten.forEach(({ k, knop }) => {
-    knop.addEventListener("click", () => zetGedraaid(k, true));
+    knop.addEventListener("click", () => { k.classList.remove("links"); zetGedraaid(k, true); });
     zetGedraaid(k, false);
   });
   vulAchter();
   addEventListener("cv-layout", vulAchter);
+  addEventListener("resize", zetBalken);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(zetBalken);
+
+  /* ---- Draaien met een klik naast de kaart ----
+     Een klik in de lege ruimte links of rechts van de kaart in beeld draait
+     haar om, en een tweede klik terug. Rechts draait ze naar rechts om, links
+     naar links (klasse links), zoals je een kaart aan die kant zou omslaan.
+     Enkel naast de kaart, op haar hoogte, en de cursor toont dat het kan. */
+  const naastKaart = (e) => {
+    const k = kaarten[Math.round(huidig)];
+    if (!k || e.target.closest(".stack-card")) return null;
+    const r = k.getBoundingClientRect();
+    if (e.clientY < r.top || e.clientY > r.bottom) return null;
+    if (e.clientX < r.left) return { k, kant: "links" };
+    if (e.clientX > r.right) return { k, kant: "rechts" };
+    return null;
+  };
+  podium.addEventListener("click", (e) => {
+    const n = naastKaart(e);
+    if (!n) return;
+    const op = !n.k.classList.contains("gedraaid");
+    if (op) n.k.classList.toggle("links", n.kant === "links");
+    zetGedraaid(n.k, op);
+  });
+  podium.addEventListener("mousemove", (e) => { podium.classList.toggle("kan-draaien", !!naastKaart(e)); });
+  podium.addEventListener("mouseleave", () => podium.classList.remove("kan-draaien"));
 
   /* ---- Tekst op de voorkant: enkel hele regels ----
      Op een gsm is er onder de foto weinig plaats, en de tekst krimpt dan mee

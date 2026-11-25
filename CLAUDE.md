@@ -123,9 +123,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
   tint). De masterproef is een eigen blok binnen Opleiding, met het gespiegelde MAS op
   zijn zij (een knipoog naar misinformatie), een avondblauwe achtergrond uit de
-  lucht en een terracotta accent uit de baksteen (`.g-urbex`, de naam is gebleven). Over mij opent met de Amsterdamse grachtenpanden op film (`.g-gracht`). Opleiding (`.g-centraal`) is violet, uit de lila avondlucht in de vensters
-  van Antwerpen-Centraal, omdat geen ander hoofdstuk die tint heeft (in de PDF's
-  `--a-centraal`). De
+  lucht en een terracotta accent uit de baksteen (`.g-urbex`, de naam is gebleven). Over mij opent met de Amsterdamse grachtenpanden op film (`.g-gracht`). Opleiding (`.g-centraal`) is petrol: geen ander hoofdstuk zit tussen groen
+  en blauw, en het staat tegenover het goudlicht in de foto van Antwerpen-Centraal
+  (in de PDF's `--a-centraal`). Violet en een gedempt grijslila (heide) zijn
+  geprobeerd en botsten met de rustige, warme tinten van de rest. De
   zwart-witfoto van de fondsenwerving staat klein bij Gekkoo (`.org-foto`). Nieuwe foto's gaan op 1600 pixels en zonder
   metadata (geen GPS) in `assets/photos/`, met een webp-versie van 1080 px in
   `assets/photos/m/` die enkel op gsm laadt (`<picture>` met
@@ -213,6 +214,11 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   de kaart op en vielen de knoppen weg). De voortgangsbalk onder de stapel neemt de kleur
   van de kaart in beeld over en mengt tussen twee kaarten hun accenten in oklab
   (`accenten` in `stapel.js`, opnieuw gelezen bij een wissel tussen licht en donker).
+  De achterkant heeft een eigen scrollbalk (`.stack-scroll`, `maakBalk()` in
+  `stapel.js`): de systeembalk is verborgen, in de plaats een lijn met een
+  kapsule in het accent, te slepen, een klik op de lijn springt een scherm
+  verder. Een klik naast de kaart (links of rechts, op haar hoogte) draait
+  haar om en terug; links draait ze naar links (klasse `links`).
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij
