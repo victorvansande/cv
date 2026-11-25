@@ -118,7 +118,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   van "In één oogopslag" en het kader van de Tech Text op de naam (Victors vraag,
   eerst was dat goud); spaarzaam houden, anders verliest het zijn kracht. Niet
   in de PDF's, omdat die knoppen en nummers daar niet staan.
-- `g-bos` staat nog in `style.css` maar wordt nergens gebruikt.
+- Het ongebruikte palet `g-bos` (violet met olijf) is in nov 2026 uit `style.css` gehaald.
 - Een nieuw palet moet duidelijk verschillen van deze tabel, in tint en niet
   enkel in helderheid.
 

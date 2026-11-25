@@ -13,7 +13,6 @@ window.I18N = {
     doc_title: `Victor Van Sande · Communication Scientist`,
     doc_desc: `Portfolio of Victor Van Sande, communication scientist with expertise in communication, media, (web)design, psychology, technology and leadership.`,
     /* nav */
-    nav_home: `Home`,
     nav_werk: `Portfolio`,
     nav_over: `About`,
     nav_opleiding: `Education`,
@@ -26,9 +25,6 @@ window.I18N = {
 
     /* hero */
     hero_eyebrow: `Available part-time`,
-    hero_hello: `Hi, I'm`,
-    hero_loc: `Lives and works in the province of Antwerp`,
-    hero_lead_1: `Communication scientist with expertise in`,
     hero_role: `Communication scientist.`,
     set_view: `View`,
     set_compact: `Compact view`,
@@ -54,14 +50,8 @@ window.I18N = {
     hero_lead_2: `I approach communication analytically and scientifically, without losing sight of the person behind the message.`,
     hero_cta_work: `See my work`,
     hero_cta_cv: `Download/print CV`,
-    stat_diplomas: `degrees`,
-    stat_distinction_hero: `with distinction`,
-    stat_leadership: `years of leadership`,
-    stat_motivation: `years of motivation`,
-    scroll_more: `Scroll for more`,
 
     /* highlights */
-    hl_eyebrow: `What I stand for`,
     hl_h2: `Fields that keep <span class="grad-text em-serif">overlapping</span>`,
     hl_lead: `Communication, media and journalism, (web)design, psychology, technology and leadership: fields that keep overlapping in my own track record. As a rule I put them to work together.`,
     hl_personal_label: `And also`,
@@ -79,7 +69,6 @@ window.I18N = {
     card_lead_p: `Ten years of experience leading a team and organising events. For seven years, for example, I led a team of around twenty leaders.`,
     designs_toggle_open: `See examples of my design and project work`,
     designs_toggle_sub: `13 pieces: infographics, brochures, presentations & papers`,
-    designs_wenk: `Curious about my work?`,
     design_kokerjuffer_t: `Infographic · The Caddisfly`,
     design_kokerjuffer_s: `Science communication, Karel de Grote Hogeschool`,
     design_ph_t: `Infographic · pH measurement`,
@@ -163,7 +152,6 @@ window.I18N = {
     photo_fonds_t: `Event · Fundraising in youth work`,
 
     /* about */
-    over_eyebrow: `About me`,
     over_h2: `A scientific view of <span class="grad-text em-serif">people's work</span>`,
     over_lead: `Below are the languages I speak, my skills and tools, and what keeps me busy outside of work. Photography takes up a fairly large part of that, which also explains the photos on this site.`,
     over_bio2: `For as long as I can remember I was told I should &lsquo;do something with people&rsquo;. My studies gave that instinct a scientific footing, my youth movement a fast-track apprenticeship. That curiosity has stayed, and it extends to the surroundings people move in.`,
@@ -180,7 +168,6 @@ window.I18N = {
 
     /* languages */
     lang_eyebrow: `Languages`,
-    lang_h2: `Multilingual <span class="grad-text">communication</span>`,
     lang_nl_name: `Dutch`,
     lang_nl_lvl: `Native`,
     lang_en_name: `English`,
@@ -189,7 +176,6 @@ window.I18N = {
     lang_fr_lvl: `A2 · secondary-school basics`,
 
     /* interests */
-    int_eyebrow: `Interests &amp; hobbies`,
     int_h2: `What <span class="grad-text">drives me</span>`,
     int_lead: `What I do outside work is rarely unrelated to it.`,
     int_photo_h: `Photography &amp; film`,
@@ -200,7 +186,6 @@ window.I18N = {
     int_psych_p: `How people think and feel keeps fascinating me, on and off the clock.`,
 
     /* education */
-    edu_eyebrow: `Education`,
     edu_h2: `Three degrees that <span class="grad-text em-serif">build on each other</span>`,
     edu_lead: `Psychology, teacher training and communication studies, in that order. Each programme built on the one before it.`,
     edu1_school: `University of Antwerp`,
@@ -219,10 +204,6 @@ window.I18N = {
     edu3_badge: `Title: psychologisch consulent`,
 
     /* thesis */
-    thesis_eyebrow: `Master's thesis`,
-    thesis_h2: `My <span class="grad-text em-serif">research</span>`,
-    thesis_toggle_open: `Read my master's thesis`,
-    thesis_toggle_sub: `The Power of Deception · 241 respondents · University of Antwerp`,
     thesis_tag: `Master's thesis · Communication Studies · University of Antwerp`,
     thesis_title: `The Power of Deception`,
     thesis_sub: `A quantitative analysis of epistemic trust, media trust and conspiracy thinking among Flemish people. The study examines how different forms of (dis)trust relate to susceptibility to conspiracy theories in a post-truth society.`,
@@ -277,7 +258,6 @@ window.I18N = {
     brevet_btn: `View certificate`,
 
     /* experience */
-    exp_eyebrow: `Experience`,
     exp_h2: `A versatile <span class="grad-text em-serif">journey</span>`,
     exp_lead: `I have worked at Gekkoo since May 2026; before that, I gained experience through internships and student jobs. This work usually revolves around children and young people, which fits well with my background in psychology and education.`,
     job_eyebrow: `Current employer`,
@@ -297,7 +277,6 @@ window.I18N = {
     tag_corporate: `Corporate relations`,
     tag_grants: `Grants &amp; project calls`,
     ksa_eyebrow: `10+ years of commitment`,
-    ksa_h2: `Grown up with <span class="grad-text">KSA Herentals</span>`,
     ksa_lead: `A youth movement teaches you things no programme covers: working together in a very mixed team, taking responsibility, and improvising the moment the plan changes.`,
     ksa_desc: `The youth movement with the blue shirts and orange scarves in the heart of Herentals. <a href="https://www.ksaherentals.be/" target="_blank" rel="noopener" style="color:var(--acc-text)">ksaherentals.be&nbsp;↗</a>`,
     ksa_role1_h: `Web designer`,
@@ -317,7 +296,6 @@ window.I18N = {
     ksa_role3_p: `Alongside the head role, I ran weekly activities for members myself, with an eye for story, imagination and group spirit. The two roles ran in parallel by choice.`,
     tag_creativity: `Creativity`,
     stages_eyebrow: `Internships &amp; student jobs`,
-    stages_h2: `In <span class="grad-text">practice</span>`,
     stage1_short: `English teacher (internship) · TEFL`,
     stage2_short: `Science teacher (internship)`,
     stage3_short: `Youth counsellor (internship) · Counselling`,
@@ -325,11 +303,6 @@ window.I18N = {
     jobstudent_text: `Barista at POP Coffee, Herentals (2023–2024) · Sales assistant at Van Eccelpoel, Herentals (2016–2018)`,
 
     /* tl;dr */
-    tldr_nudge: `Not a fan of reading? Skip to the essentials`,
-    tldr_eyebrow: `TL;DR`,
-    tldr_h2: `The essentials <span class="grad-text em-serif">at a glance</span>`,
-    tldr_toggle_open: `Show the essentials`,
-    tldr_toggle_sub: `8 key facts in 20 seconds`,
     tldr_edu_lbl: `Education`,
     tldr_edu_val: `3 degrees, 2 with distinction`,
     tldr_edu_sub: `Master in Communication Studies, University of Antwerp`,
@@ -351,7 +324,6 @@ window.I18N = {
     tldr_lang_sub: `Enough to work in an international or bilingual environment`,
 
     /* contact */
-    contact_eyebrow: `Contact`,
     contact_final_h2: `Feel free to send me a <span class="grad-text em-serif">message</span>`,
     contact_final_lead: `Do you have a question or a project, or would you just like to meet? I am available part-time, employed or freelance, in the Herentals–Antwerp area. I usually reply quickly.`,
     contact_btn_mail: `Send me an email`,
@@ -372,13 +344,11 @@ window.I18N = {
     tools_h: `Tools`,
 
     /* settings menu */
-    set_theme: `Colour theme`,
     set_download: `Downloads`,
     set_cv_pdf: `CV as PDF`,
     set_cv_pdf_sub: `To email or print`,
     set_cv_ats: `CV for application portals`,
     set_cv_ats_sub: `Single column, machine-readable`,
-    brand_sub: `Online CV`
   }
 };
 

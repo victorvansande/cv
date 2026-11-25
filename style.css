@@ -56,7 +56,6 @@
 .g-schelde  { --g-bg: #12151f; --g-ink: #e8edf2; --g-soft: #bfc8d1; --g-dim: #8d98a4; --g-line: #2a313f; --g-acc: #a7bccd; }
 .g-theater  { --g-bg: #190105; --g-ink: #f5e4e2; --g-soft: #dcbfbc; --g-dim: #b08f8b; --g-line: #481319; --g-acc: #f56167; }
 .g-herfst   { --g-bg: #13140b; --g-ink: #f1e9dc; --g-soft: #d5c9b5; --g-dim: #a59880; --g-line: #3b331f; --g-acc: #e4a55b; }
-.g-bos      { --g-bg: #110d16; --g-ink: #ece8ef; --g-soft: #cbc4cd; --g-dim: #9d95a0; --g-line: #2e2734; --g-acc: #c9ba7e; }
 .g-centraal { --g-bg: #0b1518; --g-ink: #e7eff0; --g-soft: #c0cfd1; --g-dim: #8ea0a3; --g-line: #22363a; --g-acc: #7fb8b8; }
 .g-gracht   { --g-bg: #0b1614; --g-ink: #ebf2ef; --g-soft: #c4d0cb; --g-dim: #91a39c; --g-line: #223430; --g-acc: #f08aa0; }
 .g-urbex    { --g-bg: #0f121c; --g-ink: #ebedf3; --g-soft: #c5cad6; --g-dim: #939aab; --g-line: #262c3d; --g-acc: #eb8762; }
@@ -80,7 +79,6 @@
 :root[data-mode="light"] .g-schelde  { --g-bg: #e3ebf4; --g-ink: #141a21; --g-soft: #46505b; --g-dim: #6c7783; --g-line: #d3dce5; --g-acc: #3a546a; }
 :root[data-mode="light"] .g-theater  { --g-bg: #f8e2e2; --g-ink: #211113; --g-soft: #573d40; --g-dim: #82696b; --g-line: #ebd3d4; --g-acc: #ab2833; }
 :root[data-mode="light"] .g-herfst   { --g-bg: #f6edd8; --g-ink: #1d1a10; --g-soft: #4f4835; --g-dim: #78705b; --g-line: #e4dabf; --g-acc: #925614; }
-:root[data-mode="light"] .g-bos      { --g-bg: #ece5f3; --g-ink: #18151c; --g-soft: #4a4450; --g-dim: #746d7a; --g-line: #dcd6e2; --g-acc: #6e6427; }
 :root[data-mode="light"] .g-centraal { --g-bg: #e4eeee; --g-ink: #121a1b; --g-soft: #435456; --g-dim: #6a7b7d; --g-line: #d2dfdf; --g-acc: #2c6a6c; }
 :root[data-mode="light"] .g-gracht   { --g-bg: #e3f3ec; --g-ink: #121a17; --g-soft: #42514b; --g-dim: #6b7a74; --g-line: #d2e0da; --g-acc: #b23a5a; }
 :root[data-mode="light"] .g-urbex    { --g-bg: #e4e8f5; --g-ink: #131620; --g-soft: #444b5c; --g-dim: #6d7485; --g-line: #d6dae6; --g-acc: #a74221; }
@@ -500,7 +498,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* ---------- Kolommen ---------- */
 .cols-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
 .cols-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
-.cols-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 24px; }
 /* Wat me drijft: drie kaarten, met dezelfde marges als het raster van vier dat er eerst stond */
 .cols-3.drijf { gap: 28px; margin-top: 24px; }
 .pillar { border-top: 1px solid var(--g-line); padding-top: 16px; }
@@ -564,8 +561,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .row-split { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .row-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }
 .honour { font-size: .86rem; color: var(--g-acc); font-weight: 500; }
-.now-badge { display: inline-flex; align-items: center; gap: 6px; margin-left: 8px; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--g-acc); vertical-align: 2px; }
-.now-badge .pulse { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 /* Trefwoorden zijn labels, geen knoppen: bij hover springen tekst en rand
@@ -588,7 +583,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    Een rustige regel: links de uitleg, rechts een strookje van vier kleine
    beelden als voorproef en een pijltje. Open en dicht zonder animatie;
    enkel het pijltje draait, en het strookje verdwijnt zodra de galerij open is. */
-.fold { margin-top: 44px; border-top: 1px solid var(--g-line); border-bottom: 1px solid var(--g-line); }
+.fold { margin-top: 44px; border-top: 1px solid var(--g-line); }
 .fold-photos { margin-top: 0; }
 .fold > summary {
   display: flex; align-items: center; gap: 24px; padding: 16px 0;
@@ -689,9 +684,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   position: absolute; left: 50%; top: 5vh;
   width: min(880px, calc(100vw - 2 * var(--gutter))); height: calc((var(--scherm, 100vh) - 60px) * .72);
   margin-left: calc(min(880px, calc(100vw - 2 * var(--gutter))) / -2);
-  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  border-radius: var(--r-xl); overflow: hidden; transform-origin: 50% 0;
-  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .75), 0 0 0 1px color-mix(in srgb, var(--g-ink) 8%, transparent);
+  border-radius: var(--r-xl); transform-origin: 50% 0;
   will-change: transform;
 }
 .stack-card img { width: 100%; height: 100%; object-fit: cover; }
@@ -864,14 +857,14 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    breder wordt dan het scherm */
 .gal-rail { display: flex; gap: 4px; flex: 0 1 auto; min-width: 0; }
 .gal-btn { flex-shrink: 0; }
-.gal-seg { flex: 0 1 22px; min-width: 5px; width: 22px; height: 18px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
-.gal-seg::after { content: ""; position: absolute; left: 0; right: 0; top: 8px; height: 2px; background: color-mix(in srgb, var(--g-ink) 25%, transparent); transition: background .3s; }
+.gal-seg { flex: 0 1 22px; min-width: 5px; width: 22px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
+.gal-seg::after { content: ""; position: absolute; left: 0; right: 0; height: 2px; background: color-mix(in srgb, var(--g-ink) 25%, transparent); transition: background .3s; }
 .gal-seg[aria-current="true"]::after { background: var(--g-acc); }
 .gal-count { min-width: 64px; text-align: center; font-size: .84rem; color: var(--g-dim); font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) { .gal-seg { flex-basis: 14px; width: 14px; } .gal-rail { gap: 3px; } }
 
 /* ---------- Over mij ---------- */
-.langs div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--g-line); }
+.langs div { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--g-line); }
 .langs { margin-top: 12px; border-top: 1px solid var(--g-line); }
 .langs dt { font-weight: 600; }
 .langs dd { color: var(--g-soft); font-size: .92rem; text-align: right; }
@@ -905,7 +898,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    streepjes bij de bevindingen, de namen van de promotoren en de randen van de
    trefwoorden. De knop blijft zoals elders. */
 .thesis .numbers dt { color: var(--g-acc); }
-.thesis-meta b { color: var(--g-acc); }
 .thesis .tags span { border-color: color-mix(in srgb, var(--g-acc) 40%, transparent); }
 @media (hover: hover) { .thesis .tags span:hover { border-color: var(--g-acc); } }
 .thesis-grid { margin-top: 14px; }
@@ -1040,28 +1032,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .footer-links a { text-decoration: none; }
 .footer-links a:hover { text-decoration: underline; }
 
-/* ---------- Bel-knoppen bij het bonnetje ----------
-   Het pictogram slingert uit rond een punt bovenaan en dooft uit, twee
-   boogjes golven weg, en het label vloeit over (bonnetje.js). */
-.btn.bel { gap: 9px; transition: background .2s, color .2s, border-color .2s, width .35s cubic-bezier(.3, 1.3, .5, 1); white-space: nowrap; overflow: hidden; }
-.bel-ic { position: relative; display: inline-flex; transform-origin: 50% 16%; }
-.btn.belt .bel-ic { animation: bel-ring .82s ease-out; }
-@keyframes bel-ring {
-  0% { transform: rotate(0); } 12% { transform: rotate(17deg); } 26% { transform: rotate(-14deg); }
-  40% { transform: rotate(10deg); } 54% { transform: rotate(-7deg); } 68% { transform: rotate(4deg); }
-  82% { transform: rotate(-2deg); } 100% { transform: rotate(0); }
-}
-.bel-golf { position: absolute; top: 50%; width: 8px; height: 12px; margin-top: -6px; border: 1.5px solid currentColor; border-radius: 50%; opacity: 0; pointer-events: none; }
-.bel-golf.g1 { left: -7px; border-right-color: transparent; border-top-color: transparent; border-bottom-color: transparent; }
-.bel-golf.g2 { right: -7px; border-left-color: transparent; border-top-color: transparent; border-bottom-color: transparent; }
-.btn.belt .bel-golf { animation: bel-golf .7s ease-out; }
-.btn.belt .bel-golf.g2 { animation-delay: .06s; }
-@keyframes bel-golf { 0% { opacity: .9; transform: scale(.6); } 100% { opacity: 0; transform: scale(1.6); } }
-.bel-txt { display: inline-block; transition: opacity .16s, transform .16s; }
-.bel-txt.weg { opacity: 0; transform: translateY(4px); }
-@media (prefers-reduced-motion: reduce) { .btn.belt .bel-ic, .btn.belt .bel-golf { animation: none; } }
-:root[data-motion="reduce"] .btn.belt .bel-ic, :root[data-motion="reduce"] .btn.belt .bel-golf { animation: none; }
-
 /* ---------- Lightbox ---------- */
 .lightbox {
   position: fixed; inset: 0; z-index: 1000; display: none; align-items: center; justify-content: center;
@@ -1093,7 +1063,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @media (max-width: 1080px) {
   .gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .gallery-photos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
@@ -1126,7 +1095,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .brand { font-size: 1.15rem; }
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
   .gallery-photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .facts, .cols-4, .list-2, .numbers { grid-template-columns: minmax(0, 1fr); }
+  .facts, .list-2 { grid-template-columns: minmax(0, 1fr); }
   .numbers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .contact-list { grid-template-columns: minmax(0, 1fr); }
@@ -1203,7 +1172,6 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* Gebruikt door de klikgloed: in een kloon blijft alles behalve de naam
    ruimte innemen, maar onzichtbaar - haal je het weg, dan verschuift de
    regelval. */
-.intro-hidden { visibility: hidden; }
 
 /* wie minder beweging wil, krijgt geen intro; main.js haalt dan ook de
    klasse weg, maar deze regels vangen het op als het script niet loopt */
@@ -1446,7 +1414,6 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
 /* enkel in het uitklapmenu op gsm, waar de links een lijst met strepen zijn;
    in de menubalk op de pc nam dit Contact zijn lijntje af */
 @media (max-width: 900px) { .nav-links a:last-child { border-bottom: 0; } }
-.fold { border-bottom: 0; }
 @media (min-width: 561px) {
   .list-2 > li:nth-last-child(2):nth-child(odd),
   .contact-list > div:nth-last-child(2):nth-child(odd) { border-bottom: 0; }

@@ -285,8 +285,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   of omhoog te trekken (opzij draait het rond de hoek bij de gleuf, eigen ontwerp). De inhoud komt uit `.essentie .facts` en de contactgegevens in het
   script; wie de essentie aanpast, past dus ook het bonnetje aan. Het bonnetje
   rolt over de site erboven (het vak neemt geen plaats in), dus er verschuift niets. Eén knop print het
-  bonnetje en wordt daarna "Bewaar als afbeelding"; afscheuren zet hem terug. Hij
-  heeft een bel-animatie en wisselend label (`.bel`, labels als sjablonen). Lettertype:
+  bonnetje en wordt daarna "Bewaar als afbeelding"; afscheuren zet hem terug. De
+  labels staan als verborgen sjablonen in de html (de oude bel-animatie, `.bel`,
+  is met de schuifknop vervangen en uit de css gehaald). Lettertype:
   IBM Plex Mono. In de kast staat gegraveerd "CV Printer 9000" (`.snap-merk`). In de
   streepjescode zit een easter egg: "VVS" uitgespaard in een dicht blok balkjes. Afscheuren
   kan ook met toetsen: als de bewaarknop focus heeft, scheuren pijl links/rechts
