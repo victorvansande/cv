@@ -60,6 +60,13 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **"Weinig tijd? Lees de compacte versie"** (nov 2026, Victors vraag): een
+  stille tekstlink onder de twee knoppen in de hero, geen derde knop, zodat de
+  knoppen hun gewicht houden. Zelfde werking als de schakelaar in de instellingen.
+- **Foto in de hero** staat op `object-position: 50% 64%`: de sikkel zit onder
+  het midden van de foto. De hele zon past niet in het kader op de pc zonder in
+  te zoomen (Victor wil geen kwaliteitsverlies) of het kader hoger te maken.
+
 - **De printer met het bonnetje** (nov 2026) is op Victors vraag uit de site
   gehaald: de site eindigt met Contact. Het blok staat in `bewaard/bonnetje.md`,
   met de stappen om het terug te zetten; `bonnetje.js` en de css blijven staan.

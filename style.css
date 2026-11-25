@@ -352,7 +352,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 /* De hero-foto is lager dan de andere: de naam eronder moet bij het laden
    volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
    van 800 pixels hoog viel ze anders half onder de rand. */
-.frame-hero img { aspect-ratio: auto; height: clamp(180px, 34vh, 400px); }
+.frame-hero img { aspect-ratio: auto; height: clamp(180px, 34vh, 400px);
+  /* de sikkel zit onder het midden van de foto (rijen 429 tot 986 van 1200):
+     het kader schuift mee naar beneden, zodat de zon in het midden staat,
+     zonder in te zoomen */
+  object-position: 50% 64%; }
 
 /* De gradering valt weg bij hover. In rust staat elke grote foto licht gedempt
    (minder verzadiging en contrast), zoals een beeld dat nog in de kleurcorrectie
@@ -439,6 +443,22 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .hero-lead { font-size: 1.13rem; color: var(--g-soft); max-width: 46ch; }
 .hero-lead [data-i18n="hero_role"] { color: var(--g-ink); font-weight: 600; }
 .hero-meta { margin-top: 14px; font-size: .88rem; color: var(--g-dim); }
+/* "Weinig tijd? Lees de compacte versie": een stille tekstlink onder de
+   knoppen, geen derde knop. Bij hover schuift het pijltje iets op en wordt de
+   lijn eronder het accent. */
+.kort-knop {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 6px; padding: 0;
+  background: none; border: 0; font: inherit; font-size: .9rem; color: var(--g-soft); cursor: pointer;
+}
+.kort-knop > span:first-child { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--g-soft) 40%, transparent); text-underline-offset: 4px; text-decoration-thickness: 1px; transition: text-decoration-color .3s cubic-bezier(.2, 0, 0, 1), color .3s; }
+.kort-pijl { transition: transform .3s cubic-bezier(.2, 0, 0, 1); }
+@media (hover: hover) {
+  .kort-knop:hover > span:first-child { color: var(--g-ink); text-decoration-color: var(--g-acc); transition-duration: .14s; }
+  .kort-knop:hover .kort-pijl { transform: translateX(3px); transition-duration: .14s; }
+}
+.kort-knop:focus-visible { outline: 2px solid var(--g-acc); outline-offset: 3px; border-radius: var(--r-xs); }
+@media (prefers-reduced-motion: reduce) { .kort-pijl { transition: none; } }
+:root[data-motion="reduce"] .kort-pijl { transition: none; }
 
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
 .btn {

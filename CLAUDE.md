@@ -229,7 +229,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 - **Compacte weergave** (`stapel.js`, eigen bouw naar de Scroll Stack van React
   Bits Pro): de hele site als stapel kaarten, één per onderdeel, met de foto en
   het palet van dat onderdeel. Aan via de instellingen (`data-view="compact"` op
-  `<html>`, onthouden onder `cv-weergave`). De kaarten staan als gewone html in
+  `<html>`, onthouden onder `cv-weergave`), of via de tekstlink "Weinig tijd? Lees
+  de compacte versie" onder de knoppen in de hero (`.kort-knop`, `data-naar-compact`,
+  `hero_kort`; zonder script verborgen). De kaarten staan als gewone html in
   `#compact` en hergebruiken bestaande vertaalsleutels; wie een onderdeel
   toevoegt of hernoemt, past ook de kaart aan. "Lees verder" zet de gewone
   weergave terug en springt naar de sectie. Extra knoppen (cv, mail) staan als rond

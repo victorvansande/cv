@@ -318,6 +318,12 @@
     if (op) requestAnimationFrame(() => requestAnimationFrame(() => { if (aan()) wortel.classList.add("klikt"); }));
   };
   if (knop) knop.addEventListener("change", () => { zet(knop.checked, true); scrollTo(0, 0); });
+  /* "Weinig tijd? Lees de compacte versie" in de hero: zelfde als de
+     schakelaar in de instellingen, en de keuze wordt onthouden. */
+  document.querySelectorAll("[data-naar-compact]").forEach((b) => {
+    b.hidden = false;
+    b.addEventListener("click", () => { zet(true, true); scrollTo(0, 0); });
+  });
   zet(aan(), false);
 
   /* "Lees verder": terug naar de gewone weergave en naar het onderdeel. De

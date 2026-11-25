@@ -49,6 +49,7 @@ window.I18N = {
     ess_h: `At a glance`,
     hero_lead_2: `I approach communication analytically and scientifically, without losing sight of the person behind the message.`,
     hero_cta_work: `See my work`,
+    hero_kort: `Short on time? Read the compact version`,
     hero_cta_cv: `Download/print CV`,
 
     /* highlights */
