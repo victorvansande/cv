@@ -101,7 +101,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   beeld verandert. De cursor schuift achter de laatst getypte letter mee. Geen geluid: browsers laten dat pas toe na een eerste klik, dus het typen
   bleef voor de meeste bezoekers stil (bewust weggelaten). Het
   vel volgt de vinger 1-op-1 en gaat na het loslaten verder met de snelheid
-  van de veeg (gemeten over de laatste 80 ms). Onderaan staat de hint "veeg omhoog" als maatlat (`.vel-lat`: zeven streepjes die van onder naar boven oplichten, tekst in Special Elite). Rechtsboven op
+  van de veeg (gemeten over de laatste 80 ms). Onderaan staat enkel een dun pijltje naar boven dat traag op en neer deint (`.vel-pijl`, 2,8 s); de tekst "veeg omhoog" staat er enkel nog voor schermlezers (`.vel-hint-txt`, onzichtbaar). Op Victors vraag: suggereren, niet benoemen. Rechtsboven op
   het vel kies je meteen licht of donker (`.vel-keuze`: twee bolletjes zonder kader, naar de lintschakelaar van een typemachine; de naam verschijnt bij hover of focus): het vel volgt mee en de
   keuze geldt voor de hele site (`cv-modus`). Het papier heeft een fijne korrel
   en licht reliëf (`.vel::before`, feDiffuseLighting).
