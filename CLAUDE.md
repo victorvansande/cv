@@ -154,9 +154,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `--w`). Na het afscheuren groeit hij terug tot de schuif.
 - **Glaslens** (`glas.js`, naar de Liquid Glass van Aceternity UI, omgezet naar
   gewone javascript): boven een grote foto (`.frame img`) groeit de cursor uit
-  een punt tot een lens van 132 px die de foto breekt (verplaatsingskaart als
-  SVG-filter in een backdrop-filter). Enkel Chromium breekt echt; Safari en
-  Firefox krijgen mat glas (`.glas-mat`). Enkel met een muis, niet tijdens het
+  een punt tot een lens van 132 px die de foto vergroot (1,7x, een vergrote
+  kopie in `.glas-zoom`, rekening houdend met object-fit: cover) en breekt
+  (verplaatsingskaart als SVG-filter in een backdrop-filter op `.glas-breek`). Enkel Chromium breekt echt; Safari en
+  Firefox krijgen enkel de vergroting onder een glanzend glas (`.glas-mat`). Enkel met een muis, niet tijdens het
   vel of in de compacte weergave, niet bij `prefers-reduced-transparency`.
 - **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
   zonder hun code): de fotogalerij wordt een oneindige lenticulaire carrousel (kaart draait
