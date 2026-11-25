@@ -174,6 +174,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   laadt `style.css` met dezelfde `?v=N` als `index.html`: mee ophogen.
 - **Strepen**: geen lijn onder het laatste item van een opsomming (css onderaan
   "Geen streep na het laatste item"); wie een nieuwe lijst met lijnen toevoegt, volgt dat.
+- **Talen** (`.langs` bij Over mij): per taal een begroeting in die taal in de
+  titelletter (`.taal-groet`, aria-hidden; Hallo, Hi there, Bonjour) met de
+  taalnaam eronder, en een meetlat in zes stappen voor A1 tot C2 (`.taal-lat`,
+  `--n` = behaalde stappen).
 - **Trefwoorden** (`.tags span`) staan zonder hekje. Beide galerijen vervagen
   links en rechts (mask-image).
 - **Beschrijvingen voor schermlezers**: de Engelse alt-teksten staan per
