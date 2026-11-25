@@ -57,7 +57,11 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   zodat zoekmachines de `noindex` ook effectief lezen.
 - De sectie **Referenties** blijft uitgecommentarieerd (zoek op
   `referenties` in `index.html`) tot Victor bevestigt dat de betrokkenen
-  akkoord gaan. Geen contactgegevens van derden toevoegen.
+  akkoord gaan. Geen contactgegevens van derden toevoegen. Let op: ook
+  uitgecommentarieerd is de sectie leesbaar in de paginabron en op GitHub.
+  Er staan vijf referenties in: Sara Janssens (teamleider Gekkoo, zonder
+  contactgegevens, eerst) en vier professoren van UAntwerpen. De opmaak ervan
+  staat enkel nog in `v1/style.css`.
 - Nooit e-mails of berichten versturen zonder uitdrukkelijke toestemming.
 
 ## Hoe de code in elkaar zit (de valkuilen)

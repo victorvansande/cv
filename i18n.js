@@ -24,7 +24,11 @@ window.I18N = {
     /* references */
     ref_eyebrow: `References`,
     ref_h2: `Not on my word, <span class="grad-text em-serif">but on theirs</span>`,
-    ref_lead: `These people supervised me during my master's and speak freely about my work. Feel free to contact them directly.`,
+    ref_lead: `These people worked with me, at work or during my master's, and speak freely about my work.`,
+    ref_janssens_role: `Team leader, Gekkoo`,
+    ref_janssens_q1: `Victor is someone who gets things done. He integrates and learns new material very quickly. He picks things up easily and takes initiative. Within a team, too, Victor fits in smoothly and in a very pleasant way.`,
+    ref_janssens_q2: `Getting started and working together with the team and myself went very smoothly. He analyses the content with ease and communicates very clearly about positive points, challenges and successes.`,
+    ref_janssens_q3: `Victor is a great person to have on your team. An asset in terms of content, but also as a person.`,
     ref_bruijn_role: `Professor of Persuasive Technologies, University of Antwerp`,
     /* Vertaald citaat: de professor schreef dit in het Nederlands. Zie de
        toelichting bij deze wijziging - het origineel staat in index.html. */
