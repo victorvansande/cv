@@ -131,7 +131,8 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   Bits; main.js zet het omhulsel). Een kop binnen een sectie (`.sub-head >
   .sec-sub`, Wat me drijft) staat in de titelletter, kleiner dan de sectietitel.
   Knoppen hebben zachte hoeken (6 px), labels en trefwoorden 4 px; geen
-  volledig ronde pillen (enkel het portret).
+  volledig ronde pillen (ook het portret is een afgeronde rechthoek, hoeken 14 %
+  van de hoogte via `--pr`; ook in de PDF's en de linkafbeelding).
   Op gsm toont de fotogalerij een teller ("3 / 23") in plaats van de streepjes.
 - **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
   zonder hun code): de fotogalerij wordt een oneindige lenticulaire carrousel (kaart draait
