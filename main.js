@@ -453,6 +453,46 @@
   };
   const i18nEls = [...document.querySelectorAll("[data-i18n]")];
   i18nEls.forEach((el) => { el.dataset.nlHtml = el.innerHTML; });
+  /* Beschrijvingen voor schermlezers volgen de taal: de alt van elke foto
+     (per bestand, uit I18N.enAlt), de data-alt van de diplomaknoppen, en de
+     aria-labels van knoppen zonder zichtbare tekst (uit I18N.enAria). Het
+     Nederlands wordt één keer bewaard, zodat terugschakelen het exact herstelt.
+     Ook knoppen die later gebouwd worden (galerijen) krijgen dit mee, want
+     dit loopt bij elke wissel opnieuw over de hele pagina. */
+  const vertaalLabels = (en) => {
+    const altEn = (window.I18N && window.I18N.enAlt) || {}, ariaEn = (window.I18N && window.I18N.enAria) || {};
+    const bestand = (pad) => (pad || "").split("/").pop();
+    document.querySelectorAll("img[alt]").forEach((im) => {
+      if (im.dataset.nlAlt === undefined) im.dataset.nlAlt = im.getAttribute("alt");
+      const e = altEn[bestand(im.getAttribute("src"))];
+      if (im.dataset.nlAlt && e) im.setAttribute("alt", en ? e : im.dataset.nlAlt);
+    });
+    document.querySelectorAll("[data-alt]").forEach((b) => {
+      if (b.dataset.nlDataAlt === undefined) b.dataset.nlDataAlt = b.dataset.alt;
+      const e = altEn[bestand(b.dataset.full)];
+      if (e) b.dataset.alt = en ? e : b.dataset.nlDataAlt;
+    });
+    document.querySelectorAll("[aria-label]").forEach((el) => {
+      if (el === langBtn || el.classList.contains("mode-toggle")) return;  // die zetten hun eigen label
+      if (el.dataset.nlAria === undefined) {
+        // een knop die in het Engels gebouwd werd (galerij bij een Engelse start): terug naar zijn Nederlandse sleutel
+        let nl = el.getAttribute("aria-label");
+        const terug = Object.keys(ariaEn).find((k) => ariaEn[k] === nl);
+        if (terug) nl = terug;
+        const foto = /^Photo (\d+)$/.exec(nl);
+        if (foto) nl = "Foto " + foto[1];
+        el.dataset.nlAria = nl;
+      }
+      const nl = el.dataset.nlAria, foto = /^Foto (\d+)$/.exec(nl);
+      const e = ariaEn[nl] || (foto ? "Photo " + foto[1] : null);
+      if (e) el.setAttribute("aria-label", en ? e : nl);
+    });
+    document.querySelectorAll('[aria-roledescription="carrousel"], [aria-roledescription="carousel"]').forEach((el) =>
+      el.setAttribute("aria-roledescription", en ? "carousel" : "carrousel"));
+  };
+  // de galerijen bouwen hun knoppen pas na deze code: één keer opnieuw zodra alles staat
+  addEventListener("load", () => vertaalLabels(document.documentElement.lang === "en"));
+
   const applyLang = (lang) => {
     const en = lang === "en";
     document.documentElement.lang = en ? "en" : "nl";
@@ -464,6 +504,7 @@
     try { localStorage.setItem("cv-lang", lang); } catch (e) {}
     if (langBtn) langBtn.setAttribute("aria-label", en ? "Schakel naar Nederlands · Switch to Dutch" : "Switch to English · Schakel naar Engels");
     hertelGetallen();
+    vertaalLabels(en);
     // wie de site in het Engels leest, downloadt ook het Engelse cv
     document.querySelectorAll('a[href$="cv-victor-van-sande.pdf"], a[href$="cv-victor-van-sande-en.pdf"]').forEach((a) => {
       a.setAttribute("href", en ? "assets/cv-victor-van-sande-en.pdf" : "assets/cv-victor-van-sande.pdf");
