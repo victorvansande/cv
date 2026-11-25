@@ -197,7 +197,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   30 %) en de tekst eronder, met absolute posities: met rasterrijen liet WebKit
   de foto over de hele kaart lopen, onder de tekst. `pasTekst()` in `stapel.js`
   kapt de tekst af op hele regels (line-clamp) en verbergt ze als er geen
-  volledige regel past.
+  volledige regel past. De knoppen staan in elke kaart op dezelfde plek onderaan (op
+  gsm `margin-top: auto` op `.btn-row`; op de pc staat alles onderaan uitgelijnd
+  en is de rasterrij vastgezet op de kaarthoogte, anders rekte een staande foto
+  de kaart op en vielen de knoppen weg).
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij

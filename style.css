@@ -695,7 +695,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   background: var(--g-bg);
   box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .75), 0 0 0 1px color-mix(in srgb, var(--g-ink) 8%, transparent);
 }
-.stack-front { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+/* De rij staat vast op de hoogte van de kaart: anders nam ze de natuurlijke
+   hoogte van een staande foto over (Antwerpen-Centraal, het herfstbos), werd
+   de tekstkolom hoger dan de kaart en vielen de knoppen onderaan weg. */
+.stack-front { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+.stack-front img { min-height: 0; }
 .stack-back { transform: rotateY(180deg); display: flex; flex-direction: column; padding: clamp(20px, 2.6vw, 34px); gap: 14px; }
 .stack-back-kop { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 16px; row-gap: 4px; }
 .stack-back-kop .label { grid-column: 1 / -1; }
@@ -752,6 +756,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   .stack-back-inhoud .facts, .stack-back-inhoud .contact-list { grid-template-columns: minmax(0, 1fr); }
   .stack-back-inhoud .row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .stack-body { justify-content: flex-start; padding-top: 20px; }
+  /* de knoppen altijd onderaan, op dezelfde plek in elke kaart, hoe lang de
+     tekst erboven ook is */
+  .stack-body .btn-row { margin-top: auto; padding-top: 12px; }
   .stack-text { font-size: .9rem; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
 }
 /* lage gsm (iPhone SE en kleiner): de foto iets lager, anders bleef er onder de
