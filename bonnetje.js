@@ -402,28 +402,160 @@
     if (hint) hint.hidden = true;
     naarStaat("rust");
   };
+  /* ---- Prop maken na het afscheuren ----
+     Eigen bouw naar de Paper Crumple van React Bits (zonder hun code, want
+     deze site heeft geen React): het afgescheurde bonnetje wordt een raster
+     van driehoekjes met de bedrukte beeltenis erop, dat in ongeveer een halve
+     seconde samenvouwt tot een prop. De vouwen volgen een vloeiend ruisveld,
+     zodat er facetten ontstaan in plaats van losse snippers; elk facet krijgt
+     licht of schaduw van een lichtbron linksboven, en een omgeklapt facet toont
+     de blanco achterkant. Daarna valt de prop weg in de richting van de ruk,
+     draait en vervaagt. Afgestemd op de lange, smalle vorm van het bonnetje:
+     meer rijen dan kolommen, en een prop van ongeveer een derde van de breedte. */
+  const prop = (dir, klaar, naMeten) => {
+    // waar staat het bonnetje nu, ook als het nog scheef hangt van het trekken?
+    const cs = getComputedStyle(papier);
+    const M = cs.transform && cs.transform !== "none" ? new DOMMatrix(cs.transform) : new DOMMatrix();
+    const oorsprong = cs.transformOrigin.split(" ").map(parseFloat);
+    const bewaar = papier.style.transform;
+    papier.style.transition = "none"; papier.style.transform = "none";
+    const pr = papier.getBoundingClientRect(), cr = cv.getBoundingClientRect();
+    papier.style.transform = bewaar;
+    const lx0 = cr.left - pr.left, ly0 = cr.top - pr.top, w = cr.width, h = cr.height;
+    // pas na het meten de rest bijwerken: afgescheurd() verbergt de hint boven
+    // het bonnetje, en dan schuift alles op (de prop begon 33 px te hoog)
+    if (naMeten) naMeten();
+    if (!w || !h) { klaar(); return; }
+    const naarScherm = (lx, ly) => {
+      const x = lx - oorsprong[0], y = ly - oorsprong[1];
+      return [pr.left + oorsprong[0] + M.a * x + M.c * y + M.e, pr.top + oorsprong[1] + M.b * x + M.d * y + M.f];
+    };
+    // kopie van de beeltenis: het canvas zelf wordt bij een volgende print overschreven
+    const beeld = document.createElement("canvas");
+    beeld.width = cv.width; beeld.height = cv.height;
+    beeld.getContext("2d").drawImage(cv, 0, 0);
+    papier.style.opacity = "0";
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const doek = document.createElement("canvas");
+    doek.setAttribute("aria-hidden", "true");
+    doek.style.cssText = "position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9999";
+    doek.width = Math.round(innerWidth * dpr); doek.height = Math.round(innerHeight * dpr);
+    document.body.appendChild(doek);
+    const g = doek.getContext("2d");
+
+    const KOL = 7, RIJ = Math.max(10, Math.round(KOL * h / w));
+    // vloeiend ruisveld: willekeurige waarden op een grof rooster, zacht geïnterpoleerd
+    const veld = (gx, gy) => { const v = []; for (let i = 0; i <= gx; i++) { v[i] = []; for (let j = 0; j <= gy; j++) v[i][j] = Math.random() * 2 - 1; } return v; };
+    const zacht = (t) => t * t * (3 - 2 * t);
+    const lees = (v, gx, gy, u, w2) => {
+      const x = u * gx, y = w2 * gy, i = Math.min(gx - 1, Math.floor(x)), j = Math.min(gy - 1, Math.floor(y));
+      const fx = zacht(x - i), fy = zacht(y - j);
+      const a1 = v[i][j] + (v[i + 1][j] - v[i][j]) * fx, a2 = v[i][j + 1] + (v[i + 1][j + 1] - v[i][j + 1]) * fx;
+      return a1 + (a2 - a1) * fy;
+    };
+    const GX = 3, GY = 6, vx = veld(GX, GY), vy = veld(GX, GY), vz = veld(GX, GY);
+    const midden = naarScherm(lx0 + w / 2, ly0 + h / 2);
+    const R = Math.max(34, w * 0.19);
+    const doel = [midden[0] + dir * w * 0.06, midden[1] - h * 0.04];
+    const punten = [];
+    for (let j = 0; j <= RIJ; j++) for (let i = 0; i <= KOL; i++) {
+      const u = i / KOL, v = j / RIJ;
+      const [x0, y0] = naarScherm(lx0 + u * w, ly0 + v * h);
+      let dx = (u - 0.5) * w * 0.14 + R * 0.95 * lees(vx, GX, GY, u, v);
+      let dy = (v - 0.5) * h * 0.08 + R * 0.95 * lees(vy, GX, GY, u, v);
+      const l = Math.hypot(dx, dy); if (l > R) { dx *= R / l; dy *= R / l; }
+      const z = R * lees(vz, GX, GY, u, v) * (0.6 + 0.4 * Math.random());
+      // de randen vouwen iets later dan het midden
+      const vertraging = Math.min(1, Math.hypot(u - 0.5, (v - 0.5) * 0.6) * 1.6) * 0.22;
+      punten.push({ x0, y0, x1: doel[0] + dx, y1: doel[1] + dy, z1: z, sx: u * beeld.width, sy: v * beeld.height, d: vertraging });
+    }
+    const drie = [];
+    for (let j = 0; j < RIJ; j++) for (let i = 0; i < KOL; i++) {
+      const a1 = j * (KOL + 1) + i, b1 = a1 + 1, c1 = a1 + KOL + 1, d1 = c1 + 1;
+      drie.push([a1, b1, c1], [b1, d1, c1]);
+    }
+    const L = (() => { const x = Math.cos(-60 * Math.PI / 180), y = Math.sin(-60 * Math.PI / 180), z = 0.9, n = Math.hypot(x, y, z); return [x / n, y / n, z / n]; })();
+    const T_VOUW = 560, T_VAL = 950;
+    const tekenDriehoek = (p, q, r, zon, achter) => {
+      // iets groter dan nodig, anders zie je dunne naden tussen de facetten
+      const cx = (p[0] + q[0] + r[0]) / 3, cy = (p[1] + q[1] + r[1]) / 3;
+      const groei = (pt) => { const ex = pt[0] - cx, ey = pt[1] - cy, l = Math.hypot(ex, ey) || 1; return [pt[0] + ex / l * 0.7, pt[1] + ey / l * 0.7]; };
+      const P = groei(p), Q = groei(q), Rr = groei(r);
+      g.save();
+      g.beginPath(); g.moveTo(P[0] * dpr, P[1] * dpr); g.lineTo(Q[0] * dpr, Q[1] * dpr); g.lineTo(Rr[0] * dpr, Rr[1] * dpr); g.closePath();
+      g.clip();
+      if (achter) { g.fillStyle = PAPIER; g.fill(); }
+      else {
+        const [x0, y0] = [p[3], p[4]], [x1, y1] = [q[3], q[4]], [x2, y2] = [r[3], r[4]];
+        const [u0, v0, u1, v1, u2, v2] = [p[0] * dpr, p[1] * dpr, q[0] * dpr, q[1] * dpr, r[0] * dpr, r[1] * dpr];
+        const den = x0 * (y1 - y2) + x1 * (y2 - y0) + x2 * (y0 - y1);
+        if (Math.abs(den) > 1e-6) {
+          g.setTransform(
+            (u0 * (y1 - y2) + u1 * (y2 - y0) + u2 * (y0 - y1)) / den,
+            (v0 * (y1 - y2) + v1 * (y2 - y0) + v2 * (y0 - y1)) / den,
+            (u0 * (x2 - x1) + u1 * (x0 - x2) + u2 * (x1 - x0)) / den,
+            (v0 * (x2 - x1) + v1 * (x0 - x2) + v2 * (x1 - x0)) / den,
+            (u0 * (x1 * y2 - x2 * y1) + u1 * (x2 * y0 - x0 * y2) + u2 * (x0 * y1 - x1 * y0)) / den,
+            (v0 * (x1 * y2 - x2 * y1) + v1 * (x2 * y0 - x0 * y2) + v2 * (x0 * y1 - x1 * y0)) / den);
+          g.drawImage(beeld, 0, 0);
+          g.setTransform(1, 0, 0, 1, 0, 0);
+        }
+      }
+      // licht en schaduw van het facet
+      if (zon < 0) { g.fillStyle = "rgba(20,18,16," + (-zon * 0.55).toFixed(3) + ")"; g.fill(); }
+      else if (zon > 0) { g.fillStyle = "rgba(255,255,255," + (zon * 0.22).toFixed(3) + ")"; g.fill(); }
+      g.restore();
+    };
+    const vallen = { vx: dir * 260 + (dir ? 0 : (Math.random() - 0.5) * 80), vy: -140, rot: (dir || (Math.random() < 0.5 ? -1 : 1)) * 2.6 };
+    const start = performance.now();
+    const beeldje = (nu) => {
+      const t = nu - start;
+      const k = Math.min(1, t / T_VOUW), tv = Math.max(0, t - T_VOUW) / 1000;
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      g.clearRect(0, 0, doek.width, doek.height);
+      const ox = vallen.vx * tv, oy = vallen.vy * tv + 0.5 * 1500 * tv * tv;
+      const hoek = vallen.rot * tv, ch = Math.cos(hoek), sh = Math.sin(hoek);
+      const cx = doel[0], cy = doel[1];
+      const pos = punten.map((pt) => {
+        const e0 = Math.min(1, Math.max(0, (k - pt.d) / (1 - pt.d)));
+        const e = e0 < 0.5 ? 4 * e0 * e0 * e0 : 1 - Math.pow(-2 * e0 + 2, 3) / 2;
+        let x = pt.x0 + (pt.x1 - pt.x0) * e, y = pt.y0 + (pt.y1 - pt.y0) * e;
+        const z = pt.z1 * e;
+        if (tv > 0) { const rx = x - cx, ry = y - cy; x = cx + rx * ch - ry * sh + ox; y = cy + rx * sh + ry * ch + oy; }
+        return [x, y, z, pt.sx, pt.sy, e];
+      });
+      g.globalAlpha = tv > 0 ? Math.max(0, 1 - Math.max(0, tv - 0.25) / (T_VAL / 1000 - 0.25)) : 1;
+      const lijst = drie.map((d) => {
+        const p = pos[d[0]], q = pos[d[1]], r = pos[d[2]];
+        const ux = q[0] - p[0], uy = q[1] - p[1], uz = q[2] - p[2], wx = r[0] - p[0], wy = r[1] - p[1], wz = r[2] - p[2];
+        let nx = uy * wz - uz * wy, ny = uz * wx - ux * wz, nz = ux * wy - uy * wx;
+        const n = Math.hypot(nx, ny, nz) || 1;
+        const achter = nz < 0;
+        if (achter) { nx = -nx; ny = -ny; nz = -nz; }
+        const licht = (nx * L[0] + ny * L[1] + nz * L[2]) / n;
+        const e = (p[5] + q[5] + r[5]) / 3;
+        return { p, q, r, zon: (licht - 0.72) * 2.2 * e, achter, z: (p[2] + q[2] + r[2]) / 3 };
+      });
+      lijst.sort((a2, b2) => a2.z - b2.z);
+      lijst.forEach((f) => tekenDriehoek(f.p, f.q, f.r, Math.max(-1, Math.min(1, f.zon)), f.achter));
+      if (t < T_VOUW + T_VAL) requestAnimationFrame(beeldje);
+      else { doek.remove(); klaar(); }
+    };
+    requestAnimationFrame(beeldje);
+  };
+
   const scheurOpzij = (dir) => {
-    afgescheurd();
-    const w = papier.offsetWidth, h = papier.offsetHeight;
-    const van = sleep.hoek;
-    if (rustig()) { reset(); zetVak(); return; }
-    const a = papier.animate([
-      { transform: "rotate(" + van + "deg)", opacity: 1, offset: 0 },
-      { transform: "rotate(" + (dir * 24) + "deg)", opacity: 1, offset: 0.2, easing: "cubic-bezier(.5,0,.9,.5)" },
-      { transform: "translate(" + (dir * w * 0.35) + "px," + (-h * 0.04) + "px) rotate(" + (dir * 30) + "deg)", opacity: 1, offset: 0.42 },
-      { transform: "translate(" + (dir * w * 1.5) + "px," + (h * 0.22) + "px) rotate(" + (dir * 52) + "deg)", opacity: 0, offset: 1 },
-    ], { duration: 820, easing: "cubic-bezier(.3,.1,.6,1)", fill: "forwards" });
+    if (rustig()) { afgescheurd(); reset(); zetVak(); return; }
     // het moment van de ruk: de printer schokt even mee
-    setTimeout(() => printer.animate([
+    printer.animate([
       { transform: "none" }, { transform: "translate(" + (dir * 1.5) + "px, 1.5px)" }, { transform: "none" },
-    ], { duration: 160, easing: "ease-out" }), 150);
-    a.onfinish = () => { reset(); zetVak(); };
+    ], { duration: 160, easing: "ease-out" });
+    prop(dir, () => { reset(); zetVak(); }, afgescheurd);
   };
   const scheurOmhoog = () => {
-    afgescheurd();
-    papier.style.transition = "";
-    papier.classList.add("gescheurd");
-    setTimeout(() => { reset(); zetVak(); }, 650);
+    if (rustig()) { afgescheurd(); reset(); zetVak(); return; }
+    prop(0, () => { reset(); zetVak(); }, afgescheurd);
   };
   const terug = () => {
     const van = papier.style.transform || "none";

@@ -59,7 +59,8 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   drie knoppen bij de rol waar ze bij horen, die elk een `<dialog class="refbox">`
   openen (`data-ref`, script in `main.js` onder "Referenties"): "Referentie" bij
   Gekkoo (Sara Janssens), "Referenties (5)" bij de master (de vijf professoren van
-  UAntwerpen) en "Toon citaat" naast de promotor bij de masterproef. De vensters
+  UAntwerpen) en "Citaat van mijn promotor" naast "Lees de masterproef" (eerst stond
+  een klein knopje midden in de regel met de promotor, wat de regel brak). De vensters
   staan buiten `<main>` (ook bereikbaar vanuit de compacte weergave) en dragen zelf
   het palet van hun hoofdstuk. Wie een citaat heeft, krijgt in het venster een
   knop "Toon citaat". Victor koos uitdrukkelijk om de contactgegevens van alle
@@ -98,7 +99,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   je eerst even de site); de waas staat enkel aan terwijl het vel beweegt
   (`vel-los`), want een backdrop-filter onder een bewegend vel deed het typen
   haperen; ze heeft een vaste blur die uitfadet (opacity), geen blur die elk
-  beeld verandert. De cursor schuift achter de laatst getypte letter mee. Geen geluid: browsers laten dat pas toe na een eerste klik, dus het typen
+  beeld verandert. De cursor schuift achter de laatst getypte letter mee. Het schokje bij elke aanslag zit enkel op de getypte regel (`.vel-regel.schok-a/b`), niet op het hele vel: anders trilden de bolletjes en het pijltje mee. Geen geluid: browsers laten dat pas toe na een eerste klik, dus het typen
   bleef voor de meeste bezoekers stil (bewust weggelaten). Het
   vel volgt de vinger 1-op-1 en gaat na het loslaten verder met de snelheid
   van de veeg (gemeten over de laatste 80 ms). Onderaan staat enkel een dun pijltje naar boven dat traag op en neer deint (`.vel-pijl`, 2,8 s); de tekst "veeg omhoog" staat er enkel nog voor schermlezers (`.vel-hint-txt`, onzichtbaar). Op Victors vraag: suggereren, niet benoemen. Rechtsboven op
@@ -114,8 +115,8 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   zonsverduistering in de letters en krimpt dan naar zijn plaats; de rest van
   de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
   de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
-  `main.js`. Er wordt niets gekloond. Na de intro schuift er één lichtglans over de naam;
-  de naam staat zonder kerning (`font-kerning: none`), anders verspringt hij
+  `main.js`. Er wordt niets gekloond. Na de intro komt er geen lichtglans meer over de
+  naam (op Victors vraag weg); de naam staat zonder kerning (`font-kerning: none`), anders verspringt hij
   bij het opsplitsen. De portretpil wordt voor de intro al geplaatst
   (`__pilVoorIntro`) en ontvouwt zich naast "Victor" zodra de naam geland is.
   Daarna worden de letters opgesplitst en is de naam gewone tekst in de
@@ -164,7 +165,12 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).
   Sectietitels krimpen in main.js (`pasTitels`) tot er 36 px vrij blijft tot de
-  rechterkolom, zodat ook langere Engelse woorden passen. De grote foto's
+  rechterkolom, zodat ook langere Engelse woorden passen. Daarna lijnt `lijnKoppen`
+  de rechterkolom uit op de titel: de bovenkant van de hoofdletters van de
+  ondertitel (of het eerste tekstelement) op die van de titel, en is de tekst
+  korter, de laatste regel op de onderlijn van de titel (een paar pixels te lang:
+  de marge krimpt, tot 4 px). Gemeten met een meetpunt op de baseline en het canvas
+  voor de hoogte van een hoofdletter. Naast een titel mag de tekst 70 tekens breed zijn. De grote foto's
   hebben hoeken van 12 px; op gsm onder 700 px lopen ze van rand tot rand,
   zonder hoeken. De gekleurde lagen die er vroeger rechts onder uitschoven
   (naar de Staggered Menu) zijn op Victors vraag weg. Een kop binnen een sectie (`.sub-head >
@@ -250,7 +256,13 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   IBM Plex Mono. In de kast staat gegraveerd "CV Printer 9000" (`.snap-merk`). In de
   streepjescode zit een easter egg: "VVS" uitgespaard in een dicht blok balkjes. Afscheuren
   kan ook met toetsen: als de bewaarknop focus heeft, scheuren pijl links/rechts
-  het opzij af en pijl omhoog, Delete of Escape naar boven.
+  het opzij af en pijl omhoog, Delete of Escape naar boven. Na het afscheuren
+  vouwt het bonnetje tot een prop (`prop()` in `bonnetje.js`, eigen bouw naar de
+  Paper Crumple van React Bits): een raster van driehoekjes met de beeltenis van
+  het bonnetje vouwt in 560 ms samen volgens een vloeiend ruisveld, met licht en
+  schaduw per facet en de blanco achterkant waar het omklapt, en valt dan weg in
+  de richting van de ruk. Het meet de plaats van het bonnetje vóór `afgescheurd()`
+  de hint verbergt (anders begon de prop 33 px te hoog). Bij minder beweging geen prop.
 - **Halve vensters (901 tot 1180 px)**: de hero en het slot van Contact staan
   daar onder elkaar (titel, dan tekst op 8 kolommen), anders kreeg de titel
   naast de smalle, hoge tekstkolom een gat erboven. De naam blijft op twee

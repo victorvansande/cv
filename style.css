@@ -232,9 +232,11 @@ ul { padding: 0; list-style: none; }
 }
 @keyframes vel-knip { 50% { opacity: 0; } }
 /* het schokje bij elke aanslag wisselt tussen twee gelijke animaties, zodat
-   het opnieuw kan starten zonder de layout te forceren (geen offsetWidth) */
-.vel.schok-a { animation: vel-schok-a 90ms ease-out; }
-.vel.schok-b { animation: vel-schok-b 90ms ease-out; }
+   het opnieuw kan starten zonder de layout te forceren (geen offsetWidth).
+   Enkel op de getypte regel: op het hele vel trilden de bolletjes voor licht
+   en donker en het pijltje onderaan bij elke letter mee. */
+.vel-regel.schok-a { animation: vel-schok-a 90ms ease-out; }
+.vel-regel.schok-b { animation: vel-schok-b 90ms ease-out; }
 @keyframes vel-schok-a { 30% { translate: 0 1.2px; } }
 @keyframes vel-schok-b { 30% { translate: 0 1.2px; } }
 .vel-hint {
@@ -488,6 +490,9 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .sec-sub { font-family: var(--font); font-weight: 600; font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.2; letter-spacing: -.015em; }
 .sec-sub .em-serif { font-style: italic; font-weight: 500; }
 .sec-lead { margin-top: 12px; color: var(--g-soft); max-width: 62ch; }
+/* naast een sectietitel iets breder, zodat de tekst op minder regels breekt en
+   met de titel kan eindigen (main.js lijnt ze uit, "lijnKoppen") */
+.sec-head .sec-lead { max-width: 70ch; }
 .sec-lead-small { font-size: .9rem; }
 .sec-lead a, .org-head a, .row a { color: var(--g-acc); }
 
@@ -1203,30 +1208,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 :root[data-motion="reduce"].intro #home .essentie { animation: none; }
 :root[data-motion="reduce"].intro .hero-name .grad-text { background-image: var(--grad-ink); }
 
-/* ---------- Lichtglans over de naam ----------
-   Bij hover (of een tik) schuift er één zachte lichtband over de letters,
-   zoals licht dat over bedrukt papier strijkt. Het is een extra verlooplaag
-   bovenop de inktkleur, binnen dezelfde background-clip: text, dus de naam
-   zelf verandert niet van kleur. main.js zet de klasse .glans en haalt ze
-   weg als de band voorbij is. */
-.prism-host:not(.in-l) .grad-text {
-  background-image:
-    linear-gradient(105deg, transparent 38%, var(--glans-kleur) 50%, transparent 62%),
-    var(--grad-ink);
-  background-size: 260% 100%, auto;
-  background-repeat: no-repeat;
-  background-position: 130% 0, 0 0;
-}
-:root { --glans-kleur: rgba(255, 246, 232, .95); }
-:root[data-mode="light"] { --glans-kleur: rgba(255, 252, 244, .9); }
-.prism-host:not(.in-l) .grad-text.glans { animation: naam-glans 1.15s cubic-bezier(.4, 0, .2, 1) both; }
-@keyframes naam-glans {
-  from { background-position: 130% 0, 0 0; filter: drop-shadow(0 0 0 rgba(255, 240, 220, 0)); }
-  45%  { filter: drop-shadow(0 0 14px rgba(255, 236, 210, .22)); }
-  to   { background-position: -30% 0, 0 0; filter: drop-shadow(0 0 0 rgba(255, 240, 220, 0)); }
-}
-@media (prefers-reduced-motion: reduce) { .prism-host:not(.in-l) .grad-text.glans { animation: none; } }
-:root[data-motion="reduce"] .prism-host:not(.in-l) .grad-text.glans { animation: none; }
+/* ---------- De naam na de intro ----------
+   De naam staat in de inktkleur, binnen background-clip: text, tot main.js de
+   letters opsplitst. Er schoof hier eerst een witte lichtglans over; die is op
+   Victors vraag weg. */
+.prism-host:not(.in-l) .grad-text { background-image: var(--grad-ink); }
 
 /* ---------- Tech Text op de naam ----------
    main.js splitst de naam na de intro in letters. In de hover-modus (.tech)
@@ -1280,7 +1266,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .ref-ster { display: inline-flex; margin-right: 7px; color: #fff; opacity: .92; transform: translateY(var(--ster-y, 2px)); }
 :root[data-mode="light"] .ref-ster { color: var(--g-acc); opacity: 1; }
 @media (hover: hover) { .doc-btn:hover .ref-ster { color: #fff; opacity: 1; } }
-.thesis-meta .ref-meta { min-height: 28px; padding: 0 10px; margin-left: 10px; font-size: .78rem; vertical-align: 1px; }
+/* bij de masterproef: een omlijnde knop naast "Lees de masterproef", met het
+   aanhalingsteken van de citaatknoppen. Eerder stond er een klein blokje
+   midden in de regel met de promotor, wat de regel brak. */
+.ref-promotor-knop { gap: 8px; }
+.ref-promotor-knop .q { font-family: var(--font-head); font-weight: 800; font-size: 1.35rem; line-height: 1; margin-top: 7px; }
 .refbox { width: min(700px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; margin: auto;
   border: 1px solid var(--g-line); border-radius: var(--r-xl); background: var(--g-bg); color: var(--g-ink);
   box-shadow: 0 30px 80px -20px rgb(0 0 0 / .6); overflow: auto; overscroll-behavior: contain; }

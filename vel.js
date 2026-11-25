@@ -96,8 +96,10 @@
       regel.insertBefore(wagen, letters[i + 1] || null);
       if (c !== " ") {
         schok = !schok;
-        vel.classList.remove(schok ? "schok-b" : "schok-a");
-        vel.classList.add(schok ? "schok-a" : "schok-b");
+        // enkel de getypte regel schokt mee, niet het hele vel: anders trilden
+        // de keuze voor licht/donker en het pijltje bij elke letter mee
+        regel.classList.remove(schok ? "schok-b" : "schok-a");
+        regel.classList.add(schok ? "schok-a" : "schok-b");
       }
       i++;
       const n = TEKST[i];

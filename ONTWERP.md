@@ -100,6 +100,8 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 | Grote foto's, met muis | In rust licht gedempt; bij hover valt de gradering weg en zoomt de foto 2 % | Vervangt de glaslens, die te veel aandacht trok |
 | Grote foto's, zonder muis | Volle kleur in het midden van het scherm, geleidelijk gedempt naar de rand | Op een gsm is er geen hover |
 | Hint op het vel (typemachine) | Een dun pijltje naar boven dat traag op en neer deint, zonder tekst (de tekst blijft voor schermlezers) | Suggereert het vegen zonder het te benoemen; eerder stonden er een maatlat van streepjes en "veeg omhoog" |
+| Bonnetje na het afscheuren | Vouwt tot een prop met facetten, licht en schaduw, en valt weg (naar de Paper Crumple van React Bits) | Het afscheuren krijgt een tastbaar einde |
+| Naam na de intro | Geen lichtglans meer; de letters landen en blijven staan | De korte witte gloed op het einde was overbodig |
 | Knoppen naar de referenties | Gewone `.doc-btn` met een sterretje in lijn voor het woord "Referentie(s)": wit op donker, het accent op licht, verticaal op het midden van de kleine letters (2 px lager dan het tekstvak) | Subtiel, maar te herkennen als iets bijzonders |
 | Venster met referenties | Lijst met initialen, naam, functie en contact; bij wie een citaat heeft een gevulde knop "Toon citaat" die omklapt naar "Verberg citaat" | Alles te raadplegen zonder extra lengte op de pagina |
 | Compacte kaarten | Klikken vast in focus; klik naast de kaart draait haar om (naar die kant); eigen scrollbalk op de achterkant | Makkelijk scherp krijgen, minder knoppen nodig |
@@ -111,6 +113,10 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   vel: Enter en pijltjes; bonnetje: pijltjes, Delete, Escape; kaart: "Draai om").
 
 ## 5. Vormen en maten
+
+- **Sectiekoppen:** titel en tekst ernaast staan op elkaar uitgelijnd: de
+  bovenkant van de hoofdletters op dezelfde hoogte, en waar de tekst korter is,
+  de laatste regel op de onderlijn van de titel (Victors vraag, nov 2026).
 
 - Hoeken volgen één schaal (`--r-xs` 4 tot `--r-xl` 16 px). Geen volledig ronde
   pillen, ook het portret niet.

@@ -112,9 +112,52 @@
     const ruimte = naast.getBoundingClientRect().left - t.getBoundingClientRect().left - 36;
     if (breed > ruimte && breed > 0) t.style.fontSize = (parseFloat(getComputedStyle(t).fontSize) * ruimte / breed).toFixed(1) + "px";
   });
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(pasTitels);
-  addEventListener("resize", pasTitels);
-  addEventListener("cv-layout", pasTitels);
+  /* ---- Titel en tekst ernaast op elkaar uitgelijnd ----
+     De bovenkant van de hoofdletters in de ondertitel komt op dezelfde hoogte
+     als de bovenkant van de sectietitel, en is de tekst korter dan de titel,
+     dan valt de laatste regel op de onderlijn van de titel. Gemeten op de
+     letters zelf: een onzichtbaar meetpunt geeft de onderlijn (baseline) van
+     een regel, het canvas de hoogte van een hoofdletter. Enkel als titel en
+     tekst naast elkaar staan; anders blijft de gewone opmaak. */
+  const meetLijn = (el, aanBegin) => {
+    const p = document.createElement("span");
+    p.style.cssText = "display:inline-block;width:0;height:0;vertical-align:baseline";
+    if (aanBegin) el.insertBefore(p, el.firstChild); else el.appendChild(p);
+    const y = p.getBoundingClientRect().bottom;
+    p.remove();
+    return y;
+  };
+  const kapHoogte = (el) => {
+    const cs = getComputedStyle(el);
+    const c = kapHoogte.c || (kapHoogte.c = document.createElement("canvas").getContext("2d"));
+    c.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+    return c.measureText("H").actualBoundingBoxAscent;
+  };
+  const lijnKoppen = () => document.querySelectorAll(".sec-head").forEach((kop) => {
+    const titel = kop.querySelector(".sec-title"), naast = kop.lastElementChild;
+    if (!titel || !naast || naast === titel) return;
+    // de ondertitel, of bij gebrek daaraan het eerste tekstelement (bij KSA een label)
+    const sub = naast.querySelector(".sec-sub") || naast.firstElementChild, laatste = naast.lastElementChild;
+    naast.style.paddingTop = ""; naast.style.marginTop = "";
+    if (laatste && laatste !== sub) laatste.style.marginTop = "";
+    if (!sub || getComputedStyle(kop).gridTemplateColumns.split(" ").length < 2) return;
+    naast.style.paddingTop = "0px";
+    const titelTop = meetLijn(titel, true) - kapHoogte(titel);
+    const subTop = meetLijn(sub, true) - kapHoogte(sub);
+    naast.style.marginTop = (titelTop - subTop).toFixed(1) + "px";
+    if (laatste && laatste !== sub) {
+      // te kort: de tekst zakt tot op de onderlijn van de titel; een paar
+      // pixels te lang: de ruimte boven de tekst krimpt (tot minstens 4 px)
+      const tekort = meetLijn(titel, false) - meetLijn(laatste, false);
+      const marge = parseFloat(getComputedStyle(laatste).marginTop);
+      if (tekort > 1) laatste.style.marginTop = (marge + tekort).toFixed(1) + "px";
+      else if (tekort < -1 && marge + tekort >= 4) laatste.style.marginTop = (marge + tekort).toFixed(1) + "px";
+    }
+  });
+  const koppen = () => { pasTitels(); lijnKoppen(); };
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(koppen);
+  addEventListener("resize", koppen);
+  addEventListener("cv-layout", koppen);
 
   /* ---- Portret in een pil naast de naam ----
      Rechts van "Victor" staat een pil met het portret, even hoog als de
@@ -193,9 +236,9 @@
     new MutationObserver(plan).observe(wortel, { attributes: true, attributeFilter: ["class", "data-view"] });
   })();
 
-  /* ---- De naam na de intro: één lichtglans, daarna Tech Text bij hover ----
-     Zodra alle animaties gespeeld hebben (de klasse intro is weg), schuift er
-     één keer een lichtband over de naam. Daarna wordt de naam bij hover een
+  /* ---- De naam na de intro: Tech Text bij hover ----
+     Zodra alle animaties gespeeld hebben (de klasse intro is weg), wordt de
+     naam bij hover een
      "Tech Text", eigen bouw naar die van React Bits: de letter onder de cursor
      wordt een lijnletter, een dun kader glijdt van letter naar letter met de
      letter en zijn grootte als label, er knipperen kleine vierkantjes rond, en
@@ -209,27 +252,15 @@
   const geenBeweging = () => matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
   if (naamTekst && naamH1) {
     let klaar = false;
-    const glans = () => {
-      naamTekst.classList.remove("glans");
-      void naamTekst.offsetWidth;          // reflow, anders herstart de animatie niet
-      naamTekst.classList.add("glans");
-    };
-    naamTekst.addEventListener("animationend", (e) => { if (e.animationName === "naam-glans") naamTekst.classList.remove("glans"); });
-
-    /* Eerst de lichtglans over de hele naam, pas daarna de letters opsplitsen.
+    /* De letters opsplitsen zodra de intro gedaan is. Er schoof hier eerst
+       nog een witte lichtglans over de naam; die is op Victors vraag weg.
        Op iPhone en iPad (WebKit) tekent background-clip: text niet door in
        losse inline-block letters: de naam werd daar onzichtbaar. Na het
        opsplitsen is de naam daarom gewone tekst in de inktkleur (.gesplitst). */
     const zetKlaar = () => {
       if (klaar || wortel.classList.contains("intro")) return;
       klaar = true;
-      if (!geenBeweging()) {
-        glans();
-        let gedaan = false;
-        const verder = () => { if (gedaan) return; gedaan = true; splits(); };
-        naamTekst.addEventListener("animationend", verder, { once: true });
-        setTimeout(verder, 1500);
-      } else splits();
+      splits();
     };
     const splits = () => {
       // letters opsplitsen; woorden blijven bij elkaar, zodat de regels breken zoals voorheen
