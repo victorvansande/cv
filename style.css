@@ -247,6 +247,23 @@ ul { padding: 0; list-style: none; }
   background: var(--c-bar);
   border-bottom: 1px solid rgb(var(--c-edge) / .1);
 }
+/* Glas: de menubalk laat de site eronder vervaagd en iets voller van kleur
+   doorschijnen, met een fijne lichtrand bovenaan en een zachte, lichte lijn
+   onderaan. Zo krijgt de balk de kleur van de sectie waar je bent. Zonder
+   ondersteuning voor backdrop-filter blijft de bijna dekkende balk staan. */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .nav {
+    background: linear-gradient(to bottom, rgb(var(--c-edge) / .045), rgb(var(--c-edge) / 0)), color-mix(in srgb, var(--c-bg) 66%, transparent);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    backdrop-filter: blur(18px) saturate(1.6);
+    border-bottom-color: rgb(var(--c-edge) / .09);
+    box-shadow: inset 0 1px 0 rgb(var(--c-edge) / .07), 0 10px 30px -18px rgba(0, 0, 0, .45);
+  }
+  :root[data-mode="light"] .nav {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0)), color-mix(in srgb, var(--c-bg) 68%, transparent);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 10px 30px -20px rgba(60, 40, 20, .25);
+  }
+}
 .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
 .brand {
   font-family: var(--font-head); font-weight: 800; font-size: 1.35rem;
