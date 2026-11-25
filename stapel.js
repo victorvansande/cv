@@ -40,7 +40,7 @@
     "#home": [".essentie .facts"],
     "#werk": ["#werk .cols-3"],
     "#ervaring": ["#ervaring .org > .rows"],
-    "#ksa": ["#ksa > .wrap > .rows"],
+    "#ksa": ["#ksa > .grade > .wrap > .rows"],
     "#over": ["#over .prose", "#over .list-2"],
     "#opleiding": ["#opleiding .g-centraal .rows"],
     "#masterproef": ["#masterproef .numbers", "#masterproef .findings"],

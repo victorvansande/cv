@@ -347,27 +347,37 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 
 /* ---------- Het breedbeeld ---------- */
 .frame { position: relative; }
-.frame img { display: block; width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; border-radius: var(--r-l); }
+.frame img { --fr: var(--r-l); display: block; width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; border-radius: var(--fr); }
 /* De hero-foto is lager dan de andere: de naam eronder moet bij het laden
    volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
    van 800 pixels hoog viel ze anders half onder de rand. */
 .frame-hero img { aspect-ratio: auto; height: clamp(180px, 34vh, 400px); }
 
-/* Glaslens als cursor boven de grote foto's (glas.js). De buitenste laag volgt
-   de muis, de bol erin groeit bij het binnenkomen uit een punt ter grootte van
-   een cursor tot de lens, met een kleine overshoot, zoals een druppel. */
-.glas-lens { position: fixed; left: 0; top: 0; width: 132px; height: 132px; z-index: 60; pointer-events: none; will-change: transform; }
-.glas-bol { position: relative; width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
-  box-shadow: 0 12px 40px rgb(0 0 0 / .25), inset 0 1px 0 rgb(255 255 255 / .5);
-  transform: scale(.12); opacity: 0;
-  transition: transform .42s cubic-bezier(.34, 1.56, .64, 1), opacity .22s ease; }
-.glas-lens.aan .glas-bol { transform: scale(1); opacity: 1; }
-.glas-svg { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
-/* Safari en Firefox: geen breking, wel mat glas */
-.glas-bol.glas-mat { background: rgb(255 255 255 / .1); -webkit-backdrop-filter: blur(8px) saturate(1.5) brightness(1.06); backdrop-filter: blur(8px) saturate(1.5) brightness(1.06); }
-html.glas-actief .frame img { cursor: none; }
-@media (prefers-reduced-motion: reduce) { .glas-bol { transition: opacity .15s ease; transform: none; } }
-:root[data-motion="reduce"] .glas-bol { transition: opacity .15s ease; transform: none; }
+/* De gradering valt weg bij hover. In rust staat elke grote foto licht gedempt
+   (minder verzadiging en contrast), zoals een beeld dat nog in de kleurcorrectie
+   zit; met de muis erboven krijgt ze traag haar volle kleur terug en zoomt ze
+   2 % in. Dit vervangt de glaslens, die te veel aandacht trok.
+   De zoom blijft binnen de hoeken via een clip-path die mee krimpt: het pad
+   wordt samen met de foto geschaald, dus een inzet van (1 - 1/1,02) / 2 en een
+   hoek van r / 1,02 houden het zichtbare vlak exact op de oude maat. Beide
+   overgangen delen duur en easing, anders loopt de rand even scheef. */
+.frame img {
+  --gr: saturate(.8) contrast(.95) brightness(.93);
+  filter: var(--gr);
+  clip-path: inset(0 round var(--fr));
+  transition: filter .9s ease, transform 1.2s cubic-bezier(.2, .7, .2, 1), clip-path 1.2s cubic-bezier(.2, .7, .2, 1);
+}
+/* licht: niet donkerder maken maar iets bleker, zoals een vlakke log */
+:root[data-mode="light"] .frame img { --gr: saturate(.78) contrast(.92) brightness(1.03); }
+@media (hover: hover) and (pointer: fine) {
+  .frame:hover img {
+    filter: none; transform: scale(1.02);
+    clip-path: inset(.98% round calc(var(--fr) / 1.02));
+  }
+}
+/* minder beweging: enkel de kleur, geen zoom */
+@media (prefers-reduced-motion: reduce) { .frame:hover img { transform: none; clip-path: inset(0 round var(--fr)); } }
+:root[data-motion="reduce"] .frame:hover img { transform: none; clip-path: inset(0 round var(--fr)); }
 .frame figcaption {
   margin-top: 10px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim);
 }
@@ -1624,7 +1634,7 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
    de tekst. */
 @media (max-width: 700px) {
   .frame { margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); }
-  .frame img { border-radius: 0; }
+  .frame img { --fr: 0px; border-radius: 0; }
   .frame figcaption { padding: 0 var(--gutter); }
   /* de eerste foto (zonsverduistering) sluit meteen aan op de menubalk */
   #home > .wrap { padding-top: 0; }

@@ -109,6 +109,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
   even hoog is als de hoofdletters en eindigt waar "Sande" eindigt; de trefwoorden
   (`.tags span`) krijgen bij hover hetzelfde, in het accent van hun sectie.
+- **Volgorde van de secties** (sinds nov 2026, op feedback): Werk, Ervaring
+  (Gekkoo), Opleiding met de masterproef, KSA Herentals, Over mij, Contact.
+  KSA staat dus los van `#ervaring` in een eigen `div.sec#ksa`. De PDF's volgen:
+  Opleiding op blad 1, KSA op blad 2; in de ATS-versie KSA onder Vrijwilligerswerk na de masterproef.
 - **Ontwerp (sinds nov 2026, richting "Gegradeerd")**: elke sectie opent met een
   eigen foto in breedbeeld en haalt haar kleuren uit die foto, via de klassen
   `.g-*` bovenaan `style.css` (achtergrond = donkerste tint, accent = heldere
@@ -152,12 +156,12 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   timer, groen vinkje "Klaar in 2,4s"; css ongewijzigd uit de bron, markup in
   `bonnetje.js`). `bewaar`: de schuif krimpt tot de downloadknop (breedte via
   `--w`). Na het afscheuren groeit hij terug tot de schuif.
-- **Glaslens** (`glas.js`, naar de Liquid Glass van Aceternity UI, omgezet naar
-  gewone javascript): boven een grote foto (`.frame img`) groeit de cursor uit
-  een punt tot een lens van 132 px die de foto breekt (verplaatsingskaart als
-  SVG-filter in een backdrop-filter). Enkel Chromium breekt echt; Safari en
-  Firefox krijgen mat glas (`.glas-mat`). Enkel met een muis, niet tijdens het
-  vel of in de compacte weergave, niet bij `prefers-reduced-transparency`.
+- **Hover over de grote foto's** (sinds nov 2026, vervangt de glaslens, die
+  op feedback te veel aandacht trok): in rust staat elke `.frame img` licht
+  gedempt (`--gr`: minder verzadiging en contrast; in licht iets bleker in plaats
+  van donkerder). Bij hover valt die gradering traag weg en zoomt de foto 2 % in;
+  een meekrimpend `clip-path` houdt de zoom binnen de hoeken (`--fr`, op gsm 0).
+  Enkel css, enkel met een muis; bij minder beweging enkel de kleur.
 - **Galerijen** (`galerij.js`, eigen bouw, geïnspireerd op React Bits Pro maar
   zonder hun code): de fotogalerij wordt een oneindige lenticulaire carrousel (kaart draait
   strook per strook om bij hover; elke kaart staat op `--x`, rond gerekend over de reeks; achterkant met titel en bijschrift uit
