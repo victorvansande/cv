@@ -4,7 +4,7 @@ Een statische one-page portfolio. Elke sectie opent met een eigen foto in
 breedbeeld en neemt daar haar kleuren van over. Weinig beweging, alles staat
 open. Geen build-stap: pure HTML, CSS en JavaScript.
 
-Live: <https://victorvansande.github.io/cv/>
+Live: <https://victorvansande.be/> (eigen domein via `CNAME`; het oude adres victorvansande.github.io/cv stuurt door)
 
 ## Structuur
 

@@ -60,8 +60,8 @@
     r.push({ t: "rij", l: en() ? "PHONE" : "TEL", r: "0479 87 81 52" });
     r.push({ t: "rij", l: "LINKEDIN", r: "in/victorvansande" });
     r.push({ t: "lijn" });
-    r.push({ t: "streep", s: "victorvansande.github.io/cv" });
-    r.push({ t: "mid", s: "victorvansande.github.io/cv", dim: true });
+    r.push({ t: "streep", s: "victorvansande.be" });
+    r.push({ t: "mid", s: "victorvansande.be", dim: true });
     r.push({ t: "ruimte", h: 6 });
     r.push({ t: "mid", s: sjabloon("dank") });
     return r;

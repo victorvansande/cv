@@ -53,8 +53,18 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 
 - **Geen sollicitatie-specifieke cv's in deze repo.** Die horen niet in een
   publieke repo; ze gaan als los bestand naar Victor.
-- De `noindex`-metatags blijven staan. `robots.txt` laat crawlen bewust toe,
-  zodat zoekmachines de `noindex` ook effectief lezen.
+- **Domein** (sinds nov 2026): de site draait op `victorvansande.be` (bestand
+  `CNAME` in de root, door Victor op GitHub aangemaakt); het oude adres
+  `victorvansande.github.io/cv` stuurt door. Gebruik relatieve paden, behalve in
+  `404.html`: die pagina toont GitHub op elk foutief adres, ook diep (`/a/b`),
+  dus daar staan paden vanaf de root (`/style.css`). De QR-code in de PDF's wijst
+  nog naar het oude adres (werkt via de doorsturing); de tekst ernaast toont het
+  nieuwe. Een nieuwe QR-code vraagt een generator die hier niet geïnstalleerd is.
+- De `noindex`-metatags blijven staan, op elke html-pagina (ook `404.html`, de
+  PDF-bronnen en `assets/og-source.html`). `robots.txt` laat crawlen bewust toe,
+  zodat zoekmachines de `noindex` ook effectief lezen; enkel AI- en
+  archiefcrawlers zijn geblokkeerd. Victor vroeg eens "Disallow: /" voor alles en
+  koos na uitleg voor deze aanpak (nov 2026).
 - **Referenties** (sinds nov 2026, op Victors vraag): geen eigen sectie, wel
   drie knoppen bij de rol waar ze bij horen, die elk een `<dialog class="refbox">`
   openen (`data-ref`, script in `main.js` onder "Referenties"): "Referentie" bij
