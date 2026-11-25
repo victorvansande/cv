@@ -82,7 +82,7 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   bleef voor de meeste bezoekers stil (bewust weggelaten). Het
   vel volgt de vinger 1-op-1 en gaat na het loslaten verder met de snelheid
   van de veeg (gemeten over de laatste 80 ms). Onderaan staat de hint "veeg omhoog" als maatlat (`.vel-lat`: zeven streepjes die van onder naar boven oplichten, tekst in Special Elite). Rechtsboven op
-  het vel kies je meteen licht of donker (`.vel-keuze`): het vel volgt mee en de
+  het vel kies je meteen licht of donker (`.vel-keuze`: twee bolletjes zonder kader, naar de lintschakelaar van een typemachine; de naam verschijnt bij hover of focus): het vel volgt mee en de
   keuze geldt voor de hele site (`cv-modus`). Het papier heeft een fijne korrel
   en licht reliëf (`.vel::before`, feDiffuseLighting).
   `vel.js` laadt voor `main.js` en zet `window.__velWeg`; de Venster-intro
