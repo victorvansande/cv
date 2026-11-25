@@ -117,17 +117,27 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   keuze geldt voor de hele site (`cv-modus`). Zolang het vel er ligt, staat de
   scrollbalk uit (`scrollbar-width: none` op `:root.vel-open`): met
   `scrollbar-gutter: stable` bleef er rechts een effen strook naast het papier,
-  want vaste elementen liggen niet over die ruimte, ook niet met 100vw. Na het
-  vel verschuift de site daardoor een halve balkbreedte, net als de intro begint. Het papier heeft een fijne korrel
+  want vaste elementen liggen niet over die ruimte, ook niet met 100vw. Zolang
+  houdt de body rechts de breedte van een scrollbalk vrij (`--sbw`, gemeten in
+  `vel.js`; 0 bij zwevende scrollbalken), zodat de site niet opschuift als de
+  balk na het vel verschijnt. Het papier heeft een fijne korrel
   en licht reliëf (`.vel::before`, feDiffuseLighting).
-  `vel.js` laadt voor `main.js` en zet `window.__velWeg`; de Venster-intro
-  start pas als die belofte afgaat. Geen vel bij minder beweging, in de
+  `vel.js` laadt voor `main.js` en zet `window.__velWeg` en `window.__velBijna`;
+  de Venster-intro start al op `__velBijna`, zodra het vel voor de helft weg is
+  en zeker weggaat, zodat vel en naam in één beweging overlopen. Geen vel bij minder beweging, in de
   compacte weergave of bij een herbezoek in dezelfde sessie.
 - **Intro-animatie "Venster"** (sinds nov 2026, vervangt de regenboogintro):
   eenmaal per sessie (`sessionStorage` `vvs-intro-seen`, klasse `intro` op
   `<html>`). De echte `h1.hero-name` staat eerst groot over het scherm met de
-  zonsverduistering in de letters en krimpt dan naar zijn plaats; de rest van
-  de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
+  zonsverduistering in de letters en krimpt naar zijn plaats terwijl het vel nog
+  weggaat (1,15 s, geen stilstand vooraf). Alles overlapt (op Victors vraag, eerst
+  liep het na elkaar en voelde het stroef): de kleur vloeit over terwijl de naam
+  landt, de foto, de tekst ernaast en de essentie komen er in een lichte trap bij
+  (vanaf 0,25 s, 0,45 s en 0,6 s, met 14 px omhoog), en de pil opent als de naam
+  bijna geland is (0,75 s). Alles eindigt rond 1,45 s; main.js ruimt pas op als
+  de naam, de essentie en de pil klaar zijn (anders springen ze naar hun eindstand).
+  Voor het meten bij de start zet main.js de vergroting van de hero onder het vel
+  (`vel-los`) even uit. De css staat in `style.css` onder "Intro Venster",
   de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
   `main.js`. Er wordt niets gekloond. Na de intro komt er geen lichtglans meer over de
   naam (op Victors vraag weg); de naam staat zonder kerning (`font-kerning: none`), anders verspringt hij

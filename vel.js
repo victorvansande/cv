@@ -23,8 +23,12 @@
   const wortel = document.documentElement;
   const vel = document.getElementById("vel");
   const waas = document.querySelector(".vel-waas");
-  let klaarMelden;
+  let klaarMelden, bijnaMelden;
   window.__velWeg = new Promise((r) => { klaarMelden = r; });
+  /* __velBijna gaat af zodra het vel voor de helft weg is (en vast weggaat):
+     dan start de intro al, zodat het vel en de naam in één beweging
+     overlopen in plaats van na elkaar. */
+  window.__velBijna = new Promise((r) => { bijnaMelden = r; });
 
   const rustig = matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
   // geen vel bij een herbezoek in dezelfde sessie, in de compacte weergave of bij minder beweging
@@ -34,9 +38,19 @@
     wortel.classList.remove("vel-open");
     if (vel) vel.remove();
     if (waas) waas.remove();
-    klaarMelden();
+    klaarMelden(); bijnaMelden();
     return;
   }
+  /* Zolang het vel er ligt, staat de scrollbalk uit (zie style.css). Zonder
+     compensatie schoof de site een halve balkbreedte op zodra het vel weg was,
+     midden in de intro. De body krijgt daarom zolang rechts de breedte van een
+     scrollbalk als opvulling, zodat de inhoud even breed is als erna. Op
+     toestellen met zwevende scrollbalken (gsm, Mac) is dat 0. */
+  const proef = document.createElement("div");
+  proef.style.cssText = "position:absolute;top:-999px;width:100px;height:50px;overflow:scroll;visibility:hidden";
+  document.body.appendChild(proef);
+  wortel.style.setProperty("--sbw", (proef.offsetWidth - proef.clientWidth) + "px");
+  proef.remove();
 
   const regel = vel.querySelector(".vel-regel");
 
@@ -134,6 +148,7 @@
       ? "translate3d(0," + (-v * 108).toFixed(2) + "%,0) perspective(1600px) rotateX(" + (op * 9).toFixed(2) + "deg) scale(" + (1 - op * 0.035).toFixed(4) + ")"
       : "";
     wortel.style.setProperty("--vp", op.toFixed(4));
+    if (weg && op >= 0.5) bijnaMelden();
     // de waas eronder staat enkel aan terwijl het vel beweegt (zie style.css)
     wortel.classList.toggle("vel-los", v !== 0);
   };
@@ -157,7 +172,8 @@
     if (waas) waas.remove();
     wortel.classList.remove("vel-open", "vel-los");
     wortel.style.removeProperty("--vp");
-    klaarMelden();
+    wortel.style.removeProperty("--sbw");
+    bijnaMelden(); klaarMelden();
   };
   const opzij = (vaart) => {
     if (weg) return;

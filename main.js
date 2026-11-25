@@ -76,7 +76,15 @@
     if (document.fonts) document.fonts.ready.then(plaats);
     addEventListener("resize", plaats);
     const done = () => wortel.classList.remove("intro", "go");
-    if (naam) naam.addEventListener("animationend", (e) => { if (e.animationName === "v-name") done(); });
+    /* Opruimen pas als alles gespeeld heeft: de naam is eerst klaar, de
+       essentie en de pil eindigen samen het laatst. Wie de klasse te vroeg
+       weghaalt, breekt die animaties af en ze springen naar hun eindstand. */
+    const nogBezig = new Set(["v-name", "v-rest-essentie"]);
+    document.addEventListener("animationend", (e) => {
+      if (!wortel.classList.contains("go")) return;
+      const k = e.animationName === "v-rest" ? (e.target.classList.contains("essentie") ? "v-rest-essentie" : "") : e.animationName;
+      if (nogBezig.delete(k) && !nogBezig.size) done();
+    });
     /* vangnet als animationend uitblijft; het telt pas wanneer de intro
        loopt en de pagina zichtbaar is, want in een achtergrondtab staat de
        animatie stil */
@@ -91,10 +99,18 @@
     };
     /* De intro start pas als het vel papier weg is (vel.js) en het lettertype
        en de foto binnen zijn. Zonder vel is window.__velWeg al vervuld. */
-    Promise.all([klaar, window.__velWeg || Promise.resolve()]).then(() => {
+    /* Ze start al als het vel voor de helft weg is (window.__velBijna), zodat
+       vel en naam in elkaar overlopen. Op dat moment staat de hero nog licht
+       vergroot onder het vel (vel-los); voor het meten van de naam en de pil
+       gaat die vergroting even uit, anders kloppen de maten niet. */
+    Promise.all([klaar, window.__velBijna || window.__velWeg || Promise.resolve()]).then(() => {
+      const wrap = document.querySelector("#home > .wrap");
+      if (wrap) wrap.style.transform = "none";
       plaats();
       if (window.__pilVoorIntro) window.__pilVoorIntro();
-      requestAnimationFrame(() => requestAnimationFrame(() => { wortel.classList.add("go"); wapen(); }));
+      if (document.querySelector(".hero-pil.pil-intro")) nogBezig.add("pil-open");
+      if (wrap) wrap.style.transform = "";
+      requestAnimationFrame(() => { wortel.classList.add("go"); wapen(); });
     });
   }
 

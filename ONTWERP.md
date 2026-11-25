@@ -60,6 +60,11 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **Intro vloeiender** (nov 2026, Victors vraag: "actie A, dan B, dan C"): de
+  intro start al als het vel half weg is, zonder stilstand vooraf, en de
+  stappen overlappen (naam, kleur, rest van de hero in een trap, pil). Van
+  loslaten tot klaar duurt het nu ongeveer 1,8 s in plaats van bijna 3 s. De
+  site schuift niet meer op wanneer de scrollbalk na het vel verschijnt.
 - **Mailkeuze** (nov 2026, Victors vraag): mailto opende op zijn pc Edge. Elke
   mailto-link opent nu een klein menu (Gmail, Outlook, eigen mailprogramma,
   adres kopiëren) in de kleuren van zijn hoofdstuk.
