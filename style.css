@@ -336,24 +336,11 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 
 /* ---------- Het breedbeeld ---------- */
 .frame { position: relative; }
-.frame img { width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; border-radius: var(--r-l); }
+.frame img { display: block; width: 100%; height: auto; aspect-ratio: 2.39 / 1; object-fit: cover; border-radius: var(--r-l); }
 /* De hero-foto is lager dan de andere: de naam eronder moet bij het laden
    volledig in beeld staan, want daar speelt de intro zich af. Op een scherm
    van 800 pixels hoog viel ze anders half onder de rand. */
 .frame-hero img { aspect-ratio: auto; height: clamp(180px, 34vh, 400px); }
-/* Twee lagen in het accent achter de foto; bij hover schuiven ze na elkaar een
-   stukje rechts uit (de tweede iets later en verder), zoals de gekleurde
-   voorlagen van een Staggered Menu. Terug gaat het in omgekeerde volgorde. */
-.frame-lagen { position: relative; display: block; isolation: isolate; }
-.frame-lagen img { position: relative; z-index: 2; display: block; }
-.frame-lagen .laag { position: absolute; inset: 0; z-index: 0; border-radius: var(--r-l); transform: translateX(0);
-  transition: transform .55s cubic-bezier(.76, 0, .24, 1); }
-.frame-lagen .l1 { z-index: 1; background: color-mix(in srgb, var(--g-acc) 45%, var(--g-bg)); transition-delay: .06s; }
-.frame-lagen .l2 { background: var(--g-acc); transition-delay: 0s; }
-.frame:hover .frame-lagen .l1, .frame.lagen-uit .frame-lagen .l1 { transform: translateX(9px); transition-delay: 0s; }
-.frame:hover .frame-lagen .l2, .frame.lagen-uit .frame-lagen .l2 { transform: translateX(18px); transition-delay: .08s; }
-@media (prefers-reduced-motion: reduce) { .frame-lagen .laag { transition: none; } }
-:root[data-motion="reduce"] .frame-lagen .laag { transition: none; }
 
 /* Glaslens als cursor boven de grote foto's (glas.js). De buitenste laag volgt
    de muis, de bol erin groeit bij het binnenkomen uit een punt ter grootte van
@@ -616,6 +603,10 @@ html.glas-actief .frame img { cursor: none; }
 }
 @media (prefers-reduced-motion: reduce) { .peek-kaart { transition: none; } }
 .fold[open] .fold-peek { display: none; }
+/* tijdens het open- en dichtklappen (main.js) ligt de waaier los op zijn plaats */
+.fold > summary { position: relative; }
+.fold.fold-anim[open] .fold-peek { display: flex; position: absolute; pointer-events: none; }
+.fold.fold-sluit .fold-chev { transform: rotate(45deg); margin-bottom: 4px; }
 .fold-chev {
   flex: none; width: 10px; height: 10px; margin: 0 6px 4px 4px;
   border-right: 1.5px solid var(--g-acc); border-bottom: 1.5px solid var(--g-acc);
@@ -1275,6 +1266,31 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
 .snap-print .ic-bewaar, .snap-print.bewaren .ic-print { display: none; }
 .snap-print.bewaren .ic-bewaar { display: block; }
 
+/* Schuifknop om te printen (eigen bouw naar de Slide to Confirm van Kokonut UI).
+   Een spoor in de vorm van een knop; de greep sleep je naar rechts, het spoor
+   vult zich achter hem in het accent en het label vervaagt. Ver genoeg, dan
+   klikt de greep vast en begint de printer. Met het toetsenbord: Enter of
+   spatie op de greep. */
+.schuif { --g: 44px; --x: 0px; position: relative; display: inline-flex; align-items: center; width: 264px; max-width: 100%; height: 48px; padding: 2px;
+  border: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); border-radius: var(--r-s); overflow: hidden; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
+.schuif[hidden], .snap-print[hidden] { display: none; }
+.schuif-vul { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--x) + var(--g) + 3px); background: color-mix(in srgb, var(--g-acc) 22%, transparent); border-radius: inherit; }
+.schuif-txt { position: absolute; inset: 0 12px 0 calc(var(--g) + 12px); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: .92rem; white-space: nowrap; pointer-events: none;
+  color: var(--g-ink); opacity: calc(1 - var(--p, 0) * 1.6);
+  background: linear-gradient(100deg, var(--g-ink) 40%, var(--g-acc) 50%, var(--g-ink) 60%) 0 0 / 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: schuif-glans 2.8s linear infinite; }
+@keyframes schuif-glans { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+.schuif-greep { position: relative; z-index: 1; display: grid; place-items: center; width: var(--g); height: var(--g); padding: 0; border: 0; border-radius: calc(var(--r-s) - 2px);
+  background: var(--g-ink); color: var(--g-bg); cursor: grab; touch-action: none; transform: translateX(var(--x)); transition: background .2s; }
+.schuif-greep:active { cursor: grabbing; }
+.schuif-greep .ic-pijl { display: none; }
+@media (hover: hover) { .schuif-greep:hover { background: var(--g-acc); } .schuif-greep:hover .ic-print { display: none; } .schuif-greep:hover .ic-pijl { display: block; } }
+.schuif.terug .schuif-greep, .schuif.terug .schuif-vul, .schuif.terug .schuif-txt { transition: transform .45s cubic-bezier(.3, 1.4, .5, 1), width .45s cubic-bezier(.3, 1.4, .5, 1), opacity .3s; }
+.schuif.vast .schuif-greep { background: var(--g-acc); }
+@media (prefers-reduced-motion: reduce) { .schuif-txt { animation: none; -webkit-text-fill-color: currentColor; background: none; } .schuif.terug * { transition: none !important; } }
+:root[data-motion="reduce"] .schuif-txt { animation: none; -webkit-text-fill-color: currentColor; background: none; }
+:root[data-motion="reduce"] .schuif.terug * { transition: none !important; }
+
 /* ---------- Mobiel (audit) ----------
    Schermhoge delen gebruiken de kleine viewporthoogte (svh): op iOS en
    Android verandert 100vh mee met de adresbalk, en dan verspringt de stapel
@@ -1303,12 +1319,10 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
 
 /* Op gsm lopen de grote foto's van rand tot rand: geen afgeronde hoeken, en
    begin en einde gelijk met het scherm. Het bijschrift blijft uitgelijnd met
-   de tekst, en de gekleurde lagen erachter vallen weg (er is geen rand meer
-   waar ze onder uit kunnen schuiven). */
+   de tekst. */
 @media (max-width: 700px) {
   .frame { margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); }
-  .frame img, .frame-lagen .laag { border-radius: 0; }
-  .frame-lagen .laag { display: none; }
+  .frame img { border-radius: 0; }
   .frame figcaption { padding: 0 var(--gutter); }
   /* de eerste foto (zonsverduistering) sluit meteen aan op de menubalk */
   #home > .wrap { padding-top: 0; }

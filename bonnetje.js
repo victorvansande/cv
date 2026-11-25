@@ -17,6 +17,7 @@
   const blok = document.querySelector(".snap");
   if (!blok) return;
   const printKnop = blok.querySelector(".snap-print");
+  let schuifTerug = null;                          // gezet door de schuifknop hieronder
   const vak = blok.querySelector(".snap-area");
   const papier = blok.querySelector(".snap-sheet");  // wordt afgescheurd
   const cv = blok.querySelector(".snap-cv");
@@ -261,6 +262,68 @@
   });
   printKnop.querySelector(".bel-txt").textContent = sjabloon("print");
 
+  /* ---- Schuifknop om te printen (eigen bouw naar de Slide to Confirm van
+     Kokonut UI) ----
+     Printen gaat niet met een klik maar door de greep naar rechts te slepen,
+     zoals een hendel. Ver genoeg (90 %), dan klikt hij vast en verdwijnt de
+     schuif voor de bewaarknop; anders veert hij terug. Een gewone klik geeft
+     een duwtje als hint; met het toetsenbord (Enter, spatie) print hij meteen,
+     want slepen kan daar niet. Na het afscheuren komt de schuif terug. */
+  const schuif = blok.querySelector(".schuif");
+  if (schuif) {
+    const greep = schuif.querySelector(".schuif-greep");
+    const s = { actief: false, x0: 0, x: 0, max: 0, bewogen: false };
+    const zet = (x) => {
+      s.x = Math.max(0, Math.min(s.max, x));
+      schuif.style.setProperty("--x", s.x + "px");
+      schuif.style.setProperty("--p", s.max ? (s.x / s.max).toFixed(3) : 0);
+    };
+    const meet = () => { s.max = Math.max(0, schuif.clientWidth - 4 - greep.offsetWidth); };
+    const veer = (x) => {
+      schuif.classList.add("terug"); zet(x);
+      setTimeout(() => schuif.classList.remove("terug"), 460);
+    };
+    const bevestig = () => {
+      meet(); schuif.classList.add("vast"); veer(s.max);
+      setTimeout(() => {
+        schuif.hidden = true; schuif.classList.remove("vast"); zet(0);
+        printKnop.querySelector(".bel-txt").textContent = sjabloon("bezig");
+        printKnop.hidden = false;
+        bel(printKnop);
+        print();
+      }, rustig() ? 0 : 320);
+    };
+    greep.addEventListener("pointerdown", (e) => {
+      if (bezig || e.button > 0) return;
+      meet();
+      s.actief = true; s.bewogen = false; s.x0 = e.clientX - s.x;
+      greep.setPointerCapture(e.pointerId);
+      schuif.classList.remove("terug");
+    });
+    greep.addEventListener("pointermove", (e) => {
+      if (!s.actief) return;
+      const x = e.clientX - s.x0;
+      if (Math.abs(x - s.x) > 2) s.bewogen = true;
+      zet(x);
+    });
+    const los = () => {
+      if (!s.actief) return;
+      s.actief = false;
+      if (s.max && s.x / s.max > 0.9) bevestig(); else veer(0);
+    };
+    greep.addEventListener("pointerup", los);
+    greep.addEventListener("pointercancel", los);
+    greep.addEventListener("click", (e) => {
+      if (s.bewogen) { s.bewogen = false; return; }
+      if (e.detail === 0) { bevestig(); return; }        // toetsenbord
+      if (rustig()) return;
+      meet(); veer(Math.min(28, s.max));                 // duwtje: zo moet het
+      setTimeout(() => veer(0), 300);
+    });
+    printKnop.hidden = true;
+    schuifTerug = () => { printKnop.hidden = true; schuif.hidden = false; zet(0); };
+  }
+
   let bewaardTimer = null;
   const bewaar = () => {
     label(printKnop, sjabloon("bewaard"));
@@ -299,7 +362,7 @@
     clearTimeout(bewaardTimer);
     printKnop.classList.remove("bewaren");
     if (hint) hint.hidden = true;
-    label(printKnop, sjabloon("print"));
+    if (schuifTerug) schuifTerug(); else label(printKnop, sjabloon("print"));
   };
   const scheurOpzij = (dir) => {
     afgescheurd();
