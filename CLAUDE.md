@@ -32,6 +32,13 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   "van X tot Y", geen "niet X maar Y", geen aforismen. Zinnen hangen aan
   elkaar via `Dit`/`Deze`, voorbeelden openen met `Zo`, nuance via `doorgaans`,
   `al dan niet`, `vrij`. Feiten, cijfers en data blijven altijd ongewijzigd.
+- **De PDF's altijd mee bijwerken.** Elke aanpassing aan de inhoud of de stijl
+  van het cv (teksten, data, vertalingen, kleuren, vormen zoals de portretpil of
+  de hoeken) gaat ook naar `cv-print.html`, `cv-print-en.html` en, voor de
+  inhoud, `cv-print-ats.html`. Genereer daarna alle drie de PDF's opnieuw
+  (`tools/pdf.js`, zie onderaan) en controleer dat ze op 2 bladen blijven. Ook de
+  linkafbeelding (`assets/og-source.html`) volgt mee als naam, rol of stijl
+  verandert. Meld in de samenvatting welke PDF's opnieuw gemaakt zijn.
 - **Kleine, gerichte wijzigingen.** Victor vraagt doorgaans om fijnafstelling,
   geen herontwerp. Grotere ingrepen eerst voorstellen.
 
