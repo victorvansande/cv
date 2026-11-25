@@ -16,8 +16,7 @@
 
   const blok = document.querySelector(".snap");
   if (!blok) return;
-  const printKnop = blok.querySelector(".snap-print");
-  let schuifTerug = null;                          // gezet door de schuifknop hieronder
+  const schuif = blok.querySelector(".schuif");
   const vak = blok.querySelector(".snap-area");
   const papier = blok.querySelector(".snap-sheet");  // wordt afgescheurd
   const cv = blok.querySelector(".snap-cv");
@@ -193,7 +192,6 @@
   const print = () => {
     if (bezig) return;
     bezig = true;
-    printKnop.disabled = true;
     // eerst het lettertype van het bonnetje, anders tekent het canvas in een vervanglettertype
     const lt = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('400 11px "IBM Plex Mono"'), document.fonts.load('800 30px "Big Shoulders Display"')]).catch(() => {}) : Promise.resolve();
     Promise.race([lt, new Promise((r) => setTimeout(r, 1200))]).then(voeren);
@@ -206,129 +204,170 @@
     const klaar = () => {
       bezig = false; geprint = true;
       led.classList.remove("aan");
-      printKnop.disabled = false;
-      printKnop.classList.add("bewaren");
-      label(printKnop, sjabloon("bewaar"));
+      zetVoortgang(1);
+      loaderKlaar();
+      schuif.classList.add("klaar");
+      // eerst even het vinkje met de tijd, dan krimpt de schuif tot de bewaarknop
+      setTimeout(() => { if (geprint && schuif.dataset.staat === "print") naarStaat("bewaar"); }, rustig() ? 600 : 1100);
       if (hint) hint.hidden = false;
     };
     if (rustig()) { zetHoogte(hoogte); klaar(); return; }
-    // het papier komt gelijkmatig naar buiten, met een zachte aanloop en uitloop
+    // het papier komt gelijkmatig naar buiten, met een zachte aanloop en uitloop;
+    // de balk in de schuif loopt gelijk op
     const duur = Math.max(1600, hoogte * 4.2), t0 = performance.now();
     const glad = (t) => t * t * (3 - 2 * t);
     const stap = (nu) => {
       const p = Math.min(1, (nu - t0) / duur);
       zetHoogte(glad(p) * hoogte);
-      if (p < 1) requestAnimationFrame(stap); else klaar();
+      zetVoortgang(glad(p));
+      if (p < 1) requestAnimationFrame(stap); else setTimeout(klaar, 180);
     };
     requestAnimationFrame(stap);
   };
-  /* ---- Bel-knoppen (eigen bouw naar de Bell Toggle van React Bits) ----
-     Bij een klik "belt" het pictogram met twee geluidsgolfjes, vloeit het
-     label over in het nieuwe, en schuift de knop mee naar de nieuwe breedte:
-     de oude breedte wordt vastgezet, het label gewisseld, de nieuwe breedte
-     gemeten, en daartussen loopt een overgang. */
-  const bel = (knop) => {
-    if (rustig()) return;
-    knop.classList.remove("belt"); void knop.offsetWidth; knop.classList.add("belt");
-  };
-  const label = (knop, tekst) => {
-    const t = knop.querySelector(".bel-txt");
-    if (!t || t.textContent === tekst) return;
-    if (rustig()) { t.textContent = tekst; return; }
-    const oud = knop.getBoundingClientRect().width;
-    knop.style.width = oud + "px";
-    t.classList.add("weg");
-    setTimeout(() => {
-      t.textContent = tekst;
-      knop.style.width = "auto";
-      const nieuw = knop.getBoundingClientRect().width;
-      knop.style.width = oud + "px";
-      void knop.offsetWidth;
-      knop.style.width = nieuw + "px";
-      t.classList.remove("weg");
-      setTimeout(() => { knop.style.width = ""; }, 380);
-    }, 160);
-  };
-  /* Eén knop: zolang er geen bonnetje uit de printer hangt, print hij er een;
-     daarna bewaart hij het als afbeelding. Wie het bonnetje afscheurt, krijgt
-     weer de printknop. */
-  printKnop.addEventListener("animationend", (e) => { if (e.animationName === "bel-ring") printKnop.classList.remove("belt"); });
-  printKnop.addEventListener("click", () => {
-    if (bezig) return;
-    bel(printKnop);
-    if (geprint) { bewaar(); return; }
-    label(printKnop, sjabloon("bezig"));
-    print();
-  });
-  printKnop.querySelector(".bel-txt").textContent = sjabloon("print");
 
-  /* ---- Schuifknop om te printen (eigen bouw naar de Slide to Confirm van
-     Kokonut UI) ----
-     Printen gaat niet met een klik maar door de greep naar rechts te slepen,
-     zoals een hendel. Ver genoeg (90 %), dan klikt hij vast en verdwijnt de
-     schuif voor de bewaarknop; anders veert hij terug. Een gewone klik geeft
-     een duwtje als hint; met het toetsenbord (Enter, spatie) print hij meteen,
-     want slepen kan daar niet. Na het afscheuren komt de schuif terug. */
-  const schuif = blok.querySelector(".schuif");
-  if (schuif) {
-    const greep = schuif.querySelector(".schuif-greep");
-    const s = { actief: false, x0: 0, x: 0, max: 0, bewogen: false };
-    const zet = (x) => {
-      s.x = Math.max(0, Math.min(s.max, x));
-      schuif.style.setProperty("--x", s.x + "px");
-      schuif.style.setProperty("--p", s.max ? (s.x / s.max).toFixed(3) : 0);
-    };
-    const meet = () => { s.max = Math.max(0, schuif.clientWidth - 4 - greep.offsetWidth); };
-    const veer = (x) => {
-      schuif.classList.add("terug"); zet(x);
-      setTimeout(() => schuif.classList.remove("terug"), 460);
-    };
-    const bevestig = () => {
-      meet(); schuif.classList.add("vast"); veer(s.max);
-      setTimeout(() => {
-        schuif.hidden = true; schuif.classList.remove("vast"); zet(0);
-        printKnop.querySelector(".bel-txt").textContent = sjabloon("bezig");
-        printKnop.hidden = false;
-        bel(printKnop);
-        print();
-      }, rustig() ? 0 : 320);
-    };
-    greep.addEventListener("pointerdown", (e) => {
-      if (bezig || e.button > 0) return;
-      meet();
-      s.actief = true; s.bewogen = false; s.x0 = e.clientX - s.x;
-      greep.setPointerCapture(e.pointerId);
-      schuif.classList.remove("terug");
-    });
-    greep.addEventListener("pointermove", (e) => {
-      if (!s.actief) return;
-      const x = e.clientX - s.x0;
-      if (Math.abs(x - s.x) > 2) s.bewogen = true;
-      zet(x);
-    });
-    const los = () => {
-      if (!s.actief) return;
-      s.actief = false;
-      if (s.max && s.x / s.max > 0.9) bevestig(); else veer(0);
-    };
-    greep.addEventListener("pointerup", los);
-    greep.addEventListener("pointercancel", los);
-    greep.addEventListener("click", (e) => {
-      if (s.bewogen) { s.bewogen = false; return; }
-      if (e.detail === 0) { bevestig(); return; }        // toetsenbord
-      if (rustig()) return;
-      meet(); veer(Math.min(28, s.max));                 // duwtje: zo moet het
-      setTimeout(() => veer(0), 300);
-    });
-    printKnop.hidden = true;
-    schuifTerug = () => { printKnop.hidden = true; schuif.hidden = false; zet(0); };
-  }
+  /* ---- Schuifknop (eigen bouw naar de Slide to Confirm van Kokonut UI) ----
+     Eén element dat van vorm verandert, zie de css onder "Schuifknop om te
+     printen". De greep volgt de vinger 1-op-1 (gebundeld per beeld); voorbij
+     90 % klikt hij vast en begint de printer, anders veert hij terug. Een
+     gewone klik geeft een duwtje als hint; met het toetsenbord (Enter,
+     spatie) print hij meteen, want slepen kan daar niet. Na het printen krimpt
+     de schuif tot de bewaarknop: de breedte wordt gemeten en vastgezet, zodat
+     er een overgang tussen kan lopen. */
+  const greep = schuif.querySelector(".schuif-greep");
+  const bewaarKnop = schuif.querySelector(".schuif-bewaar");
+  const bewaarTxt = schuif.querySelector(".schuif-bewaar-txt");
+  const status = schuif.querySelector(".schuif-status");
+  const sch = { actief: false, x0: 0, x: 0, max: 0, bewogen: false, raf: 0, doel: 0 };
+  const zetX = (x) => {
+    sch.x = Math.max(0, Math.min(sch.max, x));
+    schuif.style.setProperty("--x", sch.x + "px");
+    schuif.style.setProperty("--p", sch.max ? (sch.x / sch.max).toFixed(3) : 0);
+  };
+  /* Lattice Loader (React Bits, variant JS-CSS), omgezet naar gewone
+     javascript met de instellingen van Victor: orbit, raster van 3, rond,
+     cel 6 px, tussenruimte 2, tekst 14 px, stap 90 ms, rust 0.15, geen gloed,
+     met timer. Wat de React-component per render uitrekent, staat hier vast:
+     orbit in 3 geeft d = 90 * 1.2 = 108 ms per stap en een cyclus van 864 ms. */
+  const LL = { cells: [0, 1, 2, 7, null, 3, 6, 5, 4], d: 108, cycle: 864, done: [2, 3, 5, 7] };
+  const tijd = (ds) => {
+    const t = ds < 600 ? (ds / 10).toFixed(1) + "s" : Math.floor(ds / 600) + "m " + ((ds % 600) / 10).toFixed(1) + "s";
+    return en() ? t : t.replace(".", ",");
+  };
+  const loader = { el: null, timer: null, id: 0, t0: 0, ds: 0 };
+  const maakLoader = () => {
+    const el = document.createElement("span");
+    el.className = "lattice-loader";
+    el.setAttribute("role", "status");
+    el.dataset.status = "working"; el.dataset.shape = "round";
+    Object.entries({ "--ll-n": 3, "--ll-cell": "6px", "--ll-gap": "2px", "--ll-font": "14px", "--ll-color": "currentColor", "--ll-mark": "#22c55e",
+      "--ll-idle": 0.15, "--ll-glow": "currentColor", "--ll-mark-glow": "#22c55e", "--ll-cycle": LL.cycle + "ms" }).forEach(([k, v]) => el.style.setProperty(k, v));
+    const run = LL.cells.map((u) => u == null ? '<span class="lattice-loader__cell" data-hole=""></span>'
+      : '<span class="lattice-loader__cell" style="animation-delay:' + Math.round(u * LL.d) + 'ms"></span>').join("");
+    const mark = LL.cells.map((_, i) => '<span class="lattice-loader__cell"' + (LL.done.includes(i) ? ' data-on=""' : "") + "></span>").join("");
+    el.innerHTML = '<span class="lattice-loader__grid" aria-hidden="true"><span class="lattice-loader__layer lattice-loader__run">' + run +
+      '</span><span class="lattice-loader__layer lattice-loader__mark">' + mark + "</span></span>" +
+      '<span class="lattice-loader__label" aria-hidden="true"><span class="lattice-loader__text" data-active=""></span><span class="lattice-loader__text"></span></span>' +
+      '<span class="lattice-loader__timer" aria-hidden="true">' + tijd(0) + '</span><span class="lattice-loader__sr"></span>';
+    return el;
+  };
+  const loaderTeksten = () => {
+    if (!loader.el) return;
+    const t = loader.el.querySelectorAll(".lattice-loader__text");
+    t[0].textContent = sjabloon("bezig").replace(/[.…]+$/, "");
+    t[1].textContent = sjabloon("klaar");
+    loader.el.querySelector(".lattice-loader__timer").textContent = tijd(loader.ds);
+  };
+  const startLoader = () => {
+    status.textContent = "";
+    loader.el = maakLoader(); status.appendChild(loader.el);
+    loader.ds = 0; loaderTeksten();
+    loader.el.querySelector(".lattice-loader__sr").textContent = sjabloon("bezig");
+    loader.t0 = performance.now();
+    clearInterval(loader.id);
+    loader.id = setInterval(() => {
+      loader.ds = Math.floor((performance.now() - loader.t0) / 100);
+      loader.el.querySelector(".lattice-loader__timer").textContent = tijd(loader.ds);
+    }, 100);
+  };
+  const loaderKlaar = () => {
+    clearInterval(loader.id);
+    if (!loader.el) return;
+    loader.el.dataset.status = "done";
+    const t = loader.el.querySelectorAll(".lattice-loader__text");
+    t[0].removeAttribute("data-active"); t[1].setAttribute("data-active", "");
+    loader.el.querySelector(".lattice-loader__sr").textContent = sjabloon("klaar") + " " + tijd(loader.ds);
+  };
+  const zetVoortgang = (v) => schuif.style.setProperty("--v", v.toFixed(4));
+  const meet = () => { sch.max = Math.max(0, schuif.clientWidth - 4 - greep.offsetWidth); };
+  const bewaarBreedte = () => Math.ceil(schuif.querySelector(".schuif-bewaar-in").scrollWidth + 44);
+  const naarStaat = (st) => {
+    schuif.dataset.staat = st;
+    if (st === "rust") {
+      schuif.style.removeProperty("--w"); zetVoortgang(0); zetX(0);
+      clearInterval(loader.id); loader.el = null; schuif.classList.remove("klaar");
+      bewaarKnop.tabIndex = -1; greep.tabIndex = 0; status.textContent = "";
+      if (document.activeElement === bewaarKnop) greep.focus({ preventScroll: true });
+    } else if (st === "print") {
+      schuif.classList.remove("klaar");
+      startLoader();
+      greep.tabIndex = -1;
+    } else if (st === "bewaar") {
+      bewaarTxt.textContent = sjabloon("bewaar");
+      schuif.style.setProperty("--w", bewaarBreedte() + "px");
+      bewaarKnop.tabIndex = 0;
+      if (document.activeElement === greep || document.activeElement === document.body) bewaarKnop.focus({ preventScroll: true });
+    }
+  };
+  const bevestig = () => {
+    meet(); zetX(sch.max);
+    naarStaat("print");
+    print();
+  };
+  greep.addEventListener("pointerdown", (e) => {
+    if (bezig || schuif.dataset.staat !== "rust" || e.button > 0) return;
+    meet();
+    sch.actief = true; sch.bewogen = false; sch.x0 = e.clientX - sch.x;
+    greep.setPointerCapture(e.pointerId);
+    schuif.classList.add("sleept");
+  });
+  greep.addEventListener("pointermove", (e) => {
+    if (!sch.actief) return;
+    sch.doel = e.clientX - sch.x0;
+    if (Math.abs(sch.doel - sch.x) > 2) sch.bewogen = true;
+    if (!sch.raf) sch.raf = requestAnimationFrame(() => { sch.raf = 0; zetX(sch.doel); });
+  });
+  const losGreep = () => {
+    if (!sch.actief) return;
+    sch.actief = false;
+    if (sch.raf) { cancelAnimationFrame(sch.raf); sch.raf = 0; zetX(sch.doel); }
+    schuif.classList.remove("sleept");
+    if (sch.max && sch.x / sch.max > 0.9) bevestig(); else zetX(0);
+  };
+  greep.addEventListener("pointerup", losGreep);
+  greep.addEventListener("pointercancel", losGreep);
+  greep.addEventListener("click", (e) => {
+    if (sch.bewogen) { sch.bewogen = false; return; }
+    if (schuif.dataset.staat !== "rust") return;
+    if (e.detail === 0) { bevestig(); return; }       // toetsenbord
+    if (rustig()) return;
+    meet(); zetX(Math.min(28, sch.max));               // duwtje: zo moet het
+    setTimeout(() => { if (schuif.dataset.staat === "rust") zetX(0); }, 260);
+  });
+  bewaarKnop.addEventListener("click", () => { if (schuif.dataset.staat === "bewaar") bewaar(); });
 
   let bewaardTimer = null;
+  const bewaarLabel = (t) => {
+    bewaarTxt.classList.add("weg");
+    setTimeout(() => {
+      bewaarTxt.textContent = t;
+      bewaarTxt.classList.remove("weg");
+      if (schuif.dataset.staat === "bewaar") schuif.style.setProperty("--w", bewaarBreedte() + "px");
+    }, 160);
+  };
   const bewaar = () => {
-    label(printKnop, sjabloon("bewaard"));
+    bewaarLabel(sjabloon("bewaard"));
     clearTimeout(bewaardTimer);
-    bewaardTimer = setTimeout(() => { if (geprint) label(printKnop, sjabloon("bewaar")); }, 1800);
+    bewaardTimer = setTimeout(() => { if (geprint) bewaarLabel(sjabloon("bewaar")); }, 1800);
     cv.toBlob((blob) => {
       if (!blob) return;
       const a = document.createElement("a");
@@ -360,9 +399,8 @@
   const afgescheurd = () => {
     geprint = false;
     clearTimeout(bewaardTimer);
-    printKnop.classList.remove("bewaren");
     if (hint) hint.hidden = true;
-    if (schuifTerug) schuifTerug(); else label(printKnop, sjabloon("print"));
+    naarStaat("rust");
   };
   const scheurOpzij = (dir) => {
     afgescheurd();
@@ -433,7 +471,8 @@
 
   // bij een taalwissel staat het bonnetje er in de vorige taal: opnieuw tekenen
   addEventListener("cv-layout", () => {
-    printKnop.querySelector(".bel-txt").textContent = sjabloon(bezig ? "bezig" : (geprint ? "bewaar" : "print"));
+    loaderTeksten();
+    if (schuif.dataset.staat === "bewaar") { bewaarTxt.textContent = sjabloon("bewaar"); schuif.style.setProperty("--w", bewaarBreedte() + "px"); }
     if (geprint && !bezig) { maak(); zetVak(); }
   });
   // het lettertype van het bonnetje alvast ophalen
