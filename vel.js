@@ -85,6 +85,43 @@
   /* Elke aanslag wordt pas gepland nadat de vorige gevallen is. Als de pagina
      eronder even bezig is, wordt het zo een korte pauze, zoals bij echt typen,
      in plaats van een paar letters die tegelijk verschijnen. */
+  /* ---- Een zacht typemachinegeluid bij elke aanslag ----
+     Geen geluidsbestand: elke aanslag wordt met Web Audio gemaakt, als een kort
+     tikje (gefilterde ruis) met een zachte, lage ondertoon, elke keer net iets
+     anders. Het volume staat laag, zodat het ook op vol volume rustig klinkt.
+     Browsers laten geluid pas toe na een eerste klik, tik of toets: tot dan
+     blijft het stil, daarna klinkt elke volgende aanslag. Geen geluid bij
+     minder beweging of als de bezoeker het geluid uitzette. */
+  let audio = null, ruis = null;
+  const klank = () => {
+    if (!audio) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      audio = new AC();
+      const n = Math.floor(audio.sampleRate * 0.05);
+      ruis = audio.createBuffer(1, n, audio.sampleRate);
+      const d = ruis.getChannelData(0);
+      for (let k = 0; k < n; k++) d[k] = (Math.random() * 2 - 1) * Math.pow(1 - k / n, 3);
+    }
+    return audio;
+  };
+  const ontgrendel = () => { const a = klank(); if (a && a.state === "suspended") a.resume().catch(() => {}); };
+  ["pointerdown", "keydown", "touchstart"].forEach((t) => addEventListener(t, ontgrendel, { once: true, passive: true, capture: true }));
+  const tik = (zacht) => {
+    const a = klank();
+    if (!a || a.state !== "running") return;
+    const nu = a.currentTime, vol = (zacht ? 0.5 : 1) * (0.85 + Math.random() * 0.3);
+    // het tikje van de letter op het papier
+    const bron = a.createBufferSource(); bron.buffer = ruis; bron.playbackRate.value = 0.85 + Math.random() * 0.3;
+    const band = a.createBiquadFilter(); band.type = "bandpass"; band.frequency.value = 2200 + Math.random() * 900; band.Q.value = 1.1;
+    const g1 = a.createGain(); g1.gain.setValueAtTime(0.0001, nu); g1.gain.exponentialRampToValueAtTime(0.05 * vol, nu + 0.002); g1.gain.exponentialRampToValueAtTime(0.0001, nu + 0.045);
+    bron.connect(band).connect(g1).connect(a.destination); bron.start(nu); bron.stop(nu + 0.06);
+    // de zachte, houten ondertoon van de aanslag
+    const toon = a.createOscillator(); toon.type = "sine"; toon.frequency.setValueAtTime(150 + Math.random() * 30, nu); toon.frequency.exponentialRampToValueAtTime(80, nu + 0.05);
+    const g2 = a.createGain(); g2.gain.setValueAtTime(0.0001, nu); g2.gain.exponentialRampToValueAtTime(0.035 * vol, nu + 0.003); g2.gain.exponentialRampToValueAtTime(0.0001, nu + 0.07);
+    toon.connect(g2).connect(a.destination); toon.start(nu); toon.stop(nu + 0.08);
+  };
+
   let schok = false;
   const typ = () => {
     let i = 0;
@@ -94,6 +131,7 @@
       const c = TEKST[i], l = letters[i];
       l.classList.add("aan");
       regel.insertBefore(wagen, letters[i + 1] || null);
+      tik(c === " ");
       if (c !== " ") {
         schok = !schok;
         vel.classList.remove(schok ? "schok-b" : "schok-a");
@@ -147,14 +185,9 @@
     };
     anim = requestAnimationFrame(stap);
   };
-  /* Wegvegen: eerst zakt het vel heel even, alsof je het vastneemt, en dan
-     gaat het in één beweging weg, traag op gang en vlot op het einde. Komt het
-     al van een sleepbeweging, dan valt dat aanzetje weg. */
-  const wegEase = (t, van) => {
-    const vloei = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    const aanzet = van > 0.02 ? 0 : 0.05 * Math.sin(Math.PI * Math.min(t / 0.3, 1));
-    return vloei - aanzet;
-  };
+  /* Wegvegen met toetsen, scrollen of de knop: in één vloeiende beweging, die
+     vlot vertrekt en zacht uitloopt. */
+  const wegEase = (t) => 1 - Math.pow(1 - t, 3.2);
   const opruimen = () => {
     vel.remove();
     if (waas) waas.remove();
@@ -162,36 +195,52 @@
     wortel.style.removeProperty("--vp");
     klaarMelden();
   };
-  const opzij = () => {
+  const opzij = (vaart) => {
     if (weg) return;
     weg = true;
     hint.classList.remove("toon");
-    naar(1, 1300, opruimen, wegEase);
+    /* Na een veeg gaat het vel verder met de snelheid van je vinger: de duur
+       volgt uit de afstand die nog rest en hoe snel je losliet, zodat het vel
+       niet afremt of versnelt op het moment dat je loslaat. */
+    if (vaart && vaart > 0) {
+      const rest = 1 - p;
+      const duur = Math.max(220, Math.min(900, 1.6 * rest / vaart * 1000));
+      naar(1, duur, opruimen, (t) => 1 - Math.pow(1 - t, 1.6));
+    } else naar(1, 820, opruimen, wegEase);
   };
 
-  let y0 = 0, dy = 0, t0 = 0, sleept = false;
+  /* Slepen: het vel volgt je vinger meteen, één keer per beeld. De snelheid
+     wordt gemeten over de laatste ~80 ms, zodat een snelle veeg op het einde
+     telt, ook na een trage aanzet. */
+  let y0 = 0, dy = 0, sleept = false, raf = 0, punten = [];
+  const teken = () => { raf = 0; zetP(dy < 0 ? -dy / innerHeight : -dy * 0.18 / innerHeight); };
   vel.addEventListener("pointerdown", (e) => {
     if (weg || e.target.closest(".vel-hint, .vel-keuze")) return;
     cancelAnimationFrame(anim);
-    sleept = true; y0 = e.clientY; dy = 0; t0 = performance.now();
+    sleept = true; y0 = e.clientY - (p > 0 ? -p * innerHeight : 0); dy = e.clientY - y0; punten = [[performance.now(), e.clientY]];
     vel.setPointerCapture(e.pointerId);
   });
   vel.addEventListener("pointermove", (e) => {
     if (!sleept) return;
     dy = e.clientY - y0;
-    // naar boven volgt het vel de vinger; naar beneden geeft het weerstand
-    zetP(dy < 0 ? -dy / innerHeight : -dy * 0.18 / innerHeight);
+    const nu = performance.now();
+    punten.push([nu, e.clientY]);
+    while (punten.length > 2 && nu - punten[0][0] > 80) punten.shift();
+    if (!raf) raf = requestAnimationFrame(teken);
   });
   const los = () => {
     if (!sleept) return;
     sleept = false;
-    const snel = dy / Math.max(1, performance.now() - t0);
-    if (dy < -innerHeight * 0.22 || snel < -0.6) opzij();
-    else naar(0, 450);
+    cancelAnimationFrame(raf); raf = 0; teken();
+    const a = punten[0], b = punten[punten.length - 1];
+    const vy = b && a && b[0] > a[0] ? (b[1] - a[1]) / (b[0] - a[0]) : 0;   // px per ms, negatief = omhoog
+    const vaart = -vy * 1000 / innerHeight;                                // fractie van het scherm per seconde
+    if (dy < -innerHeight * 0.18 || vaart > 0.9) opzij(Math.max(vaart, 1.2));
+    else naar(0, 420);
   };
   vel.addEventListener("pointerup", los);
   vel.addEventListener("pointercancel", los);
-  hint.addEventListener("click", opzij);
+  hint.addEventListener("click", () => opzij());
   addEventListener("wheel", (e) => { if (!weg && e.deltaY > 12) opzij(); }, { passive: true });
   addEventListener("keydown", (e) => {
     if (weg) return;

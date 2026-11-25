@@ -93,6 +93,7 @@
        en de foto binnen zijn. Zonder vel is window.__velWeg al vervuld. */
     Promise.all([klaar, window.__velWeg || Promise.resolve()]).then(() => {
       plaats();
+      if (window.__pilVoorIntro) window.__pilVoorIntro();
       requestAnimationFrame(() => requestAnimationFrame(() => { wortel.classList.add("go"); wapen(); }));
     });
   }
@@ -160,8 +161,13 @@
     const KOPX = 0.41, KOP = 0.33;          // plaats van het hoofd in de foto (0 tot 1)
     const ZOOM = 1;                         // zo ver mogelijk uitgezoomd: de foto vult net de breedte van de pil
     const meet = document.createElement("canvas").getContext("2d");
-    const zet = () => {
-      if (wortel.classList.contains("intro") || wortel.dataset.view === "compact") { pil.classList.remove("toon"); return; }
+    const zet = (voorIntro) => {
+      if (wortel.dataset.view === "compact") { pil.classList.remove("toon"); return; }
+      // tijdens de intro staat de naam elders: niets doen, behalve vlak voor de
+      // start, wanneer de naam nog stilstaat en gemeten kan worden zonder animatie
+      if (wortel.classList.contains("intro") && voorIntro !== true) return;
+      const anim = voorIntro === true ? h1.style.animation : null;
+      if (voorIntro === true) h1.style.animation = "none";
       const cs = getComputedStyle(h1);
       meet.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
       const m = meet.measureText("VICTOR");
@@ -181,12 +187,12 @@
         else regels.push({ top: q.top, left: q.left, right: q.right });
       });
       regels.sort((a, b) => a.top - b.top);
-      if (regels.length < 2 || !kap || !asc) { pil.classList.remove("toon"); return; }
+      if (regels.length < 2 || !kap || !asc) { if (voorIntro === true) h1.style.animation = anim; pil.classList.remove("toon"); return; }
       const fs = parseFloat(cs.fontSize);
       const hr = hero.getBoundingClientRect();
       const links = regels[0].right + fs * 0.14, rechts = Math.max(regels[1].right, regels[0].right);
       const breed = rechts - links, hoog = kap;
-      if (breed < hoog * 1.3) { pil.classList.remove("toon"); return; }
+      if (breed < hoog * 1.3) { if (voorIntro === true) h1.style.animation = anim; pil.classList.remove("toon"); return; }
       pil.style.left = (links - hr.left).toFixed(1) + "px";
       pil.style.top = (regels[0].top + asc - kap - hr.top).toFixed(1) + "px";
       pil.style.width = breed.toFixed(1) + "px";
@@ -197,8 +203,10 @@
       img.style.width = img.style.height = z.toFixed(1) + "px";
       img.style.left = kl(breed / 2 - KOPX * z, breed - z).toFixed(1) + "px";
       img.style.top = kl(hoog / 2 - KOP * z, hoog - z).toFixed(1) + "px";
+      if (voorIntro === true) { h1.style.animation = anim; pil.classList.add("pil-intro"); }
       pil.classList.add("toon");
     };
+    window.__pilVoorIntro = () => zet(true);
     const plan = () => requestAnimationFrame(zet);
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(plan);
     addEventListener("resize", plan);

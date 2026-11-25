@@ -70,7 +70,12 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   Het inlinescript in de head zet `vel-open` al voor de eerste paint (anders zie
   je eerst even de site); de waas staat enkel aan terwijl het vel beweegt
   (`vel-los`), want een backdrop-filter onder een bewegend vel deed het typen
-  haperen. De cursor schuift achter de laatst getypte letter mee. Rechtsboven op
+  haperen; ze heeft een vaste blur die uitfadet (opacity), geen blur die elk
+  beeld verandert. De cursor schuift achter de laatst getypte letter mee. Elke
+  aanslag geeft een zacht tikje via Web Audio (`tik()` in `vel.js`, geen
+  geluidsbestand); browsers laten dat pas toe na een eerste klik of toets. Het
+  vel volgt de vinger 1-op-1 en gaat na het loslaten verder met de snelheid
+  van de veeg (gemeten over de laatste 80 ms). Rechtsboven op
   het vel kies je meteen licht of donker (`.vel-keuze`): het vel volgt mee en de
   keuze geldt voor de hele site (`cv-modus`). Het papier heeft een fijne korrel
   en licht reliëf (`.vel::before`, feDiffuseLighting).
@@ -84,7 +89,10 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   de hero komt erbij. De css staat in `style.css` onder "Intro Venster",
   de startpoort en de beginstand per schermmaat (`--vs`, `--vtx`, `--vty`) in
   `main.js`. Er wordt niets gekloond. Na de intro schuift er één lichtglans over de naam;
-  daarna worden de letters opgesplitst en is de naam gewone tekst in de
+  de naam staat zonder kerning (`font-kerning: none`), anders verspringt hij
+  bij het opsplitsen. De portretpil wordt voor de intro al geplaatst
+  (`__pilVoorIntro`) en ontvouwt zich naast "Victor" zodra de naam geland is.
+  Daarna worden de letters opgesplitst en is de naam gewone tekst in de
   inktkleur (`.gesplitst`): WebKit (iPhone) tekent background-clip: text niet
   door in inline-block letters, en dan was de naam onzichtbaar. Daarna
   is de naam bij hover een Tech Text (eigen bouw naar React Bits): de
