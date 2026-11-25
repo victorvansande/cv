@@ -140,8 +140,11 @@ ul { padding: 0; list-style: none; }
 :root.vel-open:not(.vel-los)[data-mode="light"] { background: #f4f3ef; }
 :root.vel-open .vel-waas {
   display: block; position: fixed; inset: 0; z-index: 9990; pointer-events: none;
-  -webkit-backdrop-filter: blur(calc((1 - var(--vp, 0)) * 14px)) brightness(calc(.5 + var(--vp, 0) * .5));
-  backdrop-filter: blur(calc((1 - var(--vp, 0)) * 14px)) brightness(calc(.5 + var(--vp, 0) * .5));
+  /* een vaste vervaging die uitfadet: een blur waarvan de straal elk beeld
+     verandert, moet de gpu elk beeld opnieuw berekenen, en dat haperde */
+  -webkit-backdrop-filter: blur(12px) brightness(.55);
+  backdrop-filter: blur(12px) brightness(.55);
+  opacity: calc(1 - var(--vp, 0)); will-change: opacity;
 }
 /* Zolang het vel alles bedekt, staat de waas uit. Een backdrop-filter over
    het hele scherm wordt elk beeld opnieuw berekend zodra er iets boven
@@ -340,6 +343,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   align-items: end; padding-top: 24px;
 }
 .hero-name {
+  /* zonder kerning: na de intro worden de letters losse vakjes voor het
+     hovereffect, en dan valt kerning sowieso weg. Zo staat de naam van in het
+     begin op zijn uiteindelijke breedte en verspringt er niets. */
+  font-kerning: none; font-feature-settings: "kern" 0;
   grid-column: 1 / span 7;
   font-family: var(--font-head); font-weight: 800;
   font-size: clamp(4.2rem, 10.4vw, 9.6rem); line-height: .86; letter-spacing: .005em;
@@ -1013,6 +1020,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   position: relative; z-index: 2;
   transform-origin: 0 0;
   animation: v-name 1.9s cubic-bezier(.7, 0, .2, 1) .05s both;
+  will-change: transform;
 }
 :root.intro .hero-name .grad-text {
   background-image:
@@ -1027,7 +1035,7 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 :root.intro #home .frame,
 :root.intro #home .hero-side,
-:root.intro #home .essentie { animation: v-rest 1.9s ease-out .05s both; }
+:root.intro #home .essentie { animation: v-rest 1.9s ease-out .05s both; will-change: opacity; }
 :root.intro:not(.go) .hero-name,
 :root.intro:not(.go) .hero-name .grad-text,
 :root.intro:not(.go) #home .frame,
@@ -1249,3 +1257,12 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
   /* de eerste foto (zonsverduistering) sluit meteen aan op de menubalk */
   #home > .wrap { padding-top: 0; }
 }
+
+/* De pil met het portret hoort bij de intro: ze staat vooraf al op haar plaats
+   (main.js meet dat voor de intro start), en ontvouwt zich naast "Victor" net
+   wanneer de naam geland is, terwijl de foto erin licht uitzoomt. */
+:root.intro .hero-pil.pil-intro { opacity: 1; transform: none; transition: none; clip-path: inset(0 100% 0 0 round 999px); }
+:root.intro.go .hero-pil.pil-intro { animation: pil-open .75s cubic-bezier(.2, .7, .2, 1) 1.3s both; }
+:root.intro.go .hero-pil.pil-intro img { animation: pil-zoom 1.1s cubic-bezier(.2, .7, .2, 1) 1.3s both; }
+@keyframes pil-open { from { clip-path: inset(0 100% 0 0 round 999px); } to { clip-path: inset(0 0 0 0 round 999px); } }
+@keyframes pil-zoom { from { transform: scale(1.18); } to { transform: none; } }
