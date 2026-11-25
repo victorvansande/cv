@@ -22,6 +22,8 @@
   const kaarten = [...stapel.querySelectorAll(".stack-card")];
   const balk = stapel.querySelector(".stack-rail i");
   const teller = stapel.querySelector(".stack-count");
+  const ui = stapel.querySelector(".stack-ui");
+  const voet = stapel.querySelector(".stack-voet");
   const n = kaarten.length;
   const rustig = () =>
     matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
@@ -151,10 +153,15 @@
   new MutationObserver(() => { leesAccenten(); if (aan()) teken(); }).observe(wortel, { attributes: true, attributeFilter: ["data-mode"] });
 
   let huidig = 0, raf = null;
+  /* Het podium kleeft onder de menubalk (top: 60px in de css), dus de stapel
+     begint te bewegen zodra haar bovenrand die lijn haalt, niet de bovenrand
+     van het scherm. Eerder werd vanaf 0 gerekend: alles liep 60 px achter en
+     de laatste kaart was enkel volledig te bereiken dankzij de footer eronder. */
+  const plak = () => parseFloat(getComputedStyle(podium).top) || 0;
   const doelStand = () => {
     const r = stapel.getBoundingClientRect();
     const loop = stapel.offsetHeight - podium.offsetHeight;
-    return loop > 0 ? clamp(-r.top / loop, 0, 1) * (n - 1) : 0;
+    return loop > 0 ? clamp((plak() - r.top) / loop, 0, 1) * (n - 1) : 0;
   };
   const teken = () => {
     const h = podium.clientHeight;
@@ -189,6 +196,14 @@
       if (a && z) balk.style.background = f < 0.002 || a === z ? a : "color-mix(in oklab, " + a + " " + ((1 - f) * 100).toFixed(1) + "%, " + z + ")";
     }
     if (teller) teller.textContent = (Math.round(huidig) + 1) + " / " + n;
+    /* Op weg naar de laatste kaart maken balk en teller plaats voor de footer:
+       ze vloeien in elkaar over op dezelfde plek, mee met het scrollen. */
+    if (ui && voet) {
+      const e = clamp((huidig - (n - 1.6)) / 0.6, 0, 1);
+      ui.style.opacity = (1 - e).toFixed(3);
+      voet.style.opacity = e.toFixed(3);
+      voet.style.transform = "translate(-50%, " + ((1 - e) * 6).toFixed(1) + "px)";
+    }
   };
   const stap = () => {
     raf = null;
@@ -245,7 +260,7 @@
       if (i < 0) return;
       e.preventDefault();
       const loop = stapel.offsetHeight - podium.offsetHeight;
-      const top = stapel.getBoundingClientRect().top + scrollY + (n > 1 ? loop * i / (n - 1) : 0);
+      const top = stapel.getBoundingClientRect().top + scrollY - plak() + (n > 1 ? loop * i / (n - 1) : 0);
       scrollTo({ top, behavior: rustig() ? "auto" : "smooth" });
     }, true);
   });

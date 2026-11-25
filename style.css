@@ -659,6 +659,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    draagt een palet .g-*, dus ook de lichte versie werkt vanzelf. */
 .stack { display: none; }
 :root[data-view="compact"] .stack { display: block; height: calc((var(--n, 8) - 1) * var(--scherm, 100vh) + var(--scherm, 100vh) - 60px); }
+/* Geen losse footer onder de stapel: de inhoud ervan verschijnt op de laatste
+   kaart in de stapel zelf (.stack-voet). */
+
+:root[data-view="compact"] .footer { display: none; }
 :root[data-view="compact"] main > .sec { display: none; }
 /* Vastklikken: op elke kaartpositie staat een onzichtbaar snap-punt
    (.stack-snap, gemaakt in stapel.js), één schermhoogte uit elkaar, net zoals
@@ -666,13 +670,13 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    met één kaart scherp in focus in plaats van halverwege twee kaarten.
    Mandatory, want met proximity bleef je bij een halve kaart toch hangen; de
    footer krijgt ook een snap-punt, anders trekt de stapel je er weer van weg.
-   Geen scroll-padding hier: de stapel rekent vanaf de bovenrand. */
+   scroll-padding-top gelijk aan de top van .stack-stage (60 px): de stapel
+   rekent vanaf de lijn waar het podium kleeft. */
 /* stapel.js zet .klikt pas als de stapel klaarstaat: met de snap al aan bij de
    eerste opbouw koos Chrome de footer als doel en bleef hij daar hangen. */
-:root[data-view="compact"].klikt { scroll-snap-type: y mandatory; scroll-padding-top: 0; }
+:root[data-view="compact"].klikt { scroll-snap-type: y mandatory; scroll-padding-top: 60px; }
 :root[data-view="compact"] .stack { position: relative; }
 .stack-snap { position: absolute; left: 0; width: 1px; height: 1px; top: calc(var(--i) * var(--scherm, 100vh)); scroll-snap-align: start; pointer-events: none; }
-:root[data-view="compact"].klikt .footer { scroll-snap-align: end; }
 .stack-stage { position: sticky; top: 60px; height: calc(var(--scherm, 100vh) - 60px); overflow: hidden; }
 .stack-card {
   position: absolute; left: 50%; top: 5vh;
@@ -741,6 +745,10 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @media (prefers-reduced-motion: reduce) { .stack-hoek a, .stack-hoek a span { transition: none; } }
 .stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .84rem; font-variant-numeric: tabular-nums; z-index: 50; }
 .stack-ui { white-space: nowrap; }
+.stack-voet { position: absolute; left: 50%; bottom: calc(4vh - 6px); z-index: 50; width: max-content; max-width: calc(100vw - 2 * var(--gutter));
+  transform: translateX(-50%); text-align: center; color: var(--g-dim); font-size: .78rem; line-height: 1.5; opacity: 0; pointer-events: none; }
+.stack-voet p { margin: 0; }
+.stack-voet p span + span::before { content: "·"; margin: 0 8px; }
 .stack-rail { width: min(140px, 30vw); height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
 .stack-rail i { display: block; height: 100%; background: var(--g-acc); transform-origin: 0 50%; transform: scaleX(0); }
 @media (max-width: 700px) {

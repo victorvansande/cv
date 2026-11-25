@@ -189,10 +189,15 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   ("Draai om"); de achterkant is een kopie van de echte inhoud van dat
   onderdeel (`ACHTER` in `stapel.js`), opnieuw gekopieerd na een taalwissel. Geen intro in compacte weergave.
   De kaarten klikken vast in focus: `stapel.js` zet per kaart een onzichtbaar
-  snap-punt (`.stack-snap`, één schermhoogte uit elkaar) en de footer snapt op
-  zijn onderrand; `scroll-snap-type: y mandatory` staat pas aan zodra de klasse
+  snap-punt (`.stack-snap`, één schermhoogte uit elkaar, met `scroll-padding-top`
+  60 px); `scroll-snap-type: y mandatory` staat pas aan zodra de klasse
   `klikt` op `<html>` staat (een beeld na het aanzetten), anders koos Chrome bij
-  het laden de footer en bleef hij daar hangen.
+  het laden een verkeerd doel en bleef hij daar hangen. De voortgang rekent
+  vanaf de lijn waar het podium kleeft (`plak()`, de top van `.stack-stage`,
+  60 px), niet vanaf de bovenrand van het scherm.
+  Geen gewone footer in de compacte weergave: de inhoud staat als `.stack-voet`
+  in het podium en vloeit op weg naar de laatste kaart over met de
+  voortgangsbalk, op dezelfde plek. Wie de footer aanpast, past ook die aan.
   Op gsm (onder 700 px) staat de foto bovenaan (`--foto`: 40 %, op lage schermen
   30 %) en de tekst eronder, met absolute posities: met rasterrijen liet WebKit
   de foto over de hele kaart lopen, onder de tekst. `pasTekst()` in `stapel.js`
