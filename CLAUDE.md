@@ -55,16 +55,13 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   publieke repo; ze gaan als los bestand naar Victor.
 - De `noindex`-metatags blijven staan. `robots.txt` laat crawlen bewust toe,
   zodat zoekmachines de `noindex` ook effectief lezen.
-- De sectie **Referenties** blijft uitgecommentarieerd (zoek op
-  `referenties` in `index.html`) tot Victor bevestigt dat de betrokkenen
-  akkoord gaan. Geen contactgegevens van derden toevoegen. Let op: ook
-  uitgecommentarieerd is de sectie leesbaar in de paginabron en op GitHub.
-  Er staan zes referenties in: Sara Janssens (teamleider Gekkoo), Prof. dr.
-  Philippe De Vries (promotor; uit een brief voor een specifieke vacature, enkel
-  de zinnen over die vacature weggelaten, niets herschreven), beide zonder
-  contactgegevens, en daarna vier professoren van UAntwerpen. Een citaat wordt
-  nooit herschreven: inkorten mag, enkel met hele zinnen. De opmaak ervan
-  staat enkel nog in `v1/style.css`.
+- **Referenties staan niet in de repo**, ook niet uitgecommentarieerd: de
+  paginabron en GitHub zijn publiek. Victor heeft een privékopie van de teksten.
+  Voeg niets toe aan de site of de repo zonder dat Victor daar uitdrukkelijk om
+  vraagt, en bespreek eerst de plek (zie ONTWERP.md). Nooit contactgegevens van
+  derden. Een citaat wordt nooit herschreven: inkorten mag, enkel met hele zinnen.
+  De archiefversie `v1/index.html` bevat nog een oude, uitgecommentarieerde
+  sectie met vier referenties.
 - Nooit e-mails of berichten versturen zonder uitdrukkelijke toestemming.
 
 ## Hoe de code in elkaar zit (de valkuilen)

@@ -44,6 +44,11 @@ het ontwerp en over de stappen bij een wijziging.
   samenvatting bovenaan. "In één oogopslag" heeft nu zes vakjes in drie
   kolommen, "Wat me drijft" drie kaarten.
 
+- **Referenties** (nov 2026): uit de site gehaald. Ze kwamen terug als
+  uitgecommentarieerd blok, dat publiek leesbaar was, en dat had Victor niet
+  gevraagd. Een nieuwe plek wordt eerst besproken, met als voorwaarde: geen
+  extra lengte, wel duidelijk te raadplegen.
+
 ## 2. Volgorde van de hoofdstukken
 
 Werk, Ervaring (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals,

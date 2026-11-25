@@ -18,31 +18,11 @@ window.I18N = {
     nav_over: `About`,
     nav_opleiding: `Education`,
     nav_ervaring: `Experience`,
-    nav_referenties: `References`,
     nav_contact: `Contact`,
 
     /* references */
-    ref_eyebrow: `References`,
-    ref_h2: `Not on my word, <span class="grad-text em-serif">but on theirs</span>`,
-    ref_lead: `These people worked with me, at work or during my master's, and speak freely about my work.`,
-    ref_janssens_role: `Team leader, Gekkoo`,
-    ref_janssens_q1: `Victor is someone who gets things done. He integrates and learns new material very quickly. He picks things up easily and takes initiative. Within a team, too, Victor fits in smoothly and in a very pleasant way.`,
-    ref_janssens_q2: `Getting started and working together with the team and myself went very smoothly. He analyses the content with ease and communicates very clearly about positive points, challenges and successes.`,
-    ref_janssens_q3: `Victor is a great person to have on your team. An asset in terms of content, but also as a person.`,
-    ref_vries_role: `Supervisor of my master's thesis, Communication Studies, University of Antwerp`,
-    ref_vries_q1: `I got to know Victor during his master's programme in Communication Studies at the University of Antwerp, where I supervised him in writing his master's thesis. Throughout this process I came to know him as a motivated, meticulous and independent student. He approached his research with the necessary critical sense and analytical mindset, and showed that he can quickly process, structure and clearly communicate complex information.`,
-    ref_vries_q2: `What struck me in particular was his combination of intellectual maturity and strong interpersonal skills. Victor works carefully and purposefully, while also paying attention to the needs and perspectives of others. This also became clear in the courses he took with me.`,
-    ref_vries_q3: `He combines a scientific and analytical mindset with genuine involvement and warmth in his dealings with others. Moreover, he always works carefully, respectfully and with a focus on quality.`,
-    ref_bruijn_role: `Professor of Persuasive Technologies, University of Antwerp`,
     /* Vertaald citaat: de professor schreef dit in het Nederlands. Zie de
        toelichting bij deze wijziging - het origineel staat in index.html. */
-    ref_bruijn_quote: `Victor is a student who approaches academic material in a creative and critical way. His concept design for the ‘Struddy’ application (a system that persuasively coaches users based on HRV and biometrics) was methodologically sound and illustrates his capacity to conceptualise data-driven, persuasive technologies. Victor also made a very clear positive contribution to the literature discussions during our sessions.`,
-    ref_paulussen_role: `Professor of Journalism and Cross-media, University of Antwerp`,
-    ref_paulussen_role2: `Professor of News and Journalism`,
-    ref_maeseele_role: `Professor of Media & Democratic Debate, University of Antwerp`,
-    ref_maeseele_role2: `Professor of Contemporary Currents in Communication Studies`,
-    ref_hallam_role: `Professor, University of Antwerp`,
-    ref_hallam_role2: `Master's thesis supervisor`,
 
     /* hero */
     hero_eyebrow: `Available part-time`,
