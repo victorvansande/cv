@@ -439,14 +439,20 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   `assets/og-gen.ps1` (enkel Windows). In de cloud:
   `NODE_PATH=$(npm root -g) node tools/og.js` (getest, webfonts laden mee).
   Niet `chrome --screenshot` gebruiken: dat snijdt onderaan een strook af.
-- **Favicon en app-icoon** (sinds nov 2026): "VVS" in Big Shoulders Display 800,
-  gevuld met het verloop van de zonsverduistering, op bijna zwart (#0c0a0a). De
-  letters staan als paden in de svg (geen webfont nodig), het verloop zit op een
-  rechthoek met de letters als masker. Bronnen: `assets/icons/favicon.svg`
-  (afgeronde tegel) en `assets/icons/icon-full.svg` (vierkant, inhoud op 64 %
-  zodat Android er een cirkel uit kan knippen). De png's (32, 180, 192, 512)
-  zijn in de cloud met Playwright uit die svg's gerenderd; `assets/icon-gen.ps1`
-  doet hetzelfde op Windows.
+- **Favicon en app-icoon** (sinds nov 2026, vernieuwd op Victors keuze F): een
+  V in Big Shoulders Display 800 in de inktkleur (#ece8e2), met ernaast de pil uit
+  de hero (afgeronde rechthoek, even hoog als de V, hoeken 14 % van de hoogte),
+  gevuld met het verloop van de heroknoppen (karmijn naar goud), op bijna zwart
+  (#0c0a0a). De V staat als pad in de svg (geen webfont nodig). Bronnen:
+  `assets/icons/favicon.svg` (afgeronde tegel) en `assets/icons/icon-full.svg`
+  (vierkant, inhoud op 80 % zodat Android er een cirkel uit kan knippen). De png's
+  (32, 180, 192, 512) zijn in de cloud met Playwright uit die svg's gerenderd, via
+  de lokale server (een lege pagina mag geen `file://`-afbeeldingen laden);
+  `assets/icon-gen.ps1` doet hetzelfde op Windows. De links dragen `?v=N`
+  (favicons blijven anders lang in de cache): mee ophogen bij een nieuw icoon,
+  ook in `404.html` en `manifest.webmanifest`. Het vorige icoon ("VVS" gevuld met
+  de zonsverduistering) paste niet meer bij de site; op 16 px liepen de drie
+  letters dicht.
 
 ## Openstaande punten
 
