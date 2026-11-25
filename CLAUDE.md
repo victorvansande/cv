@@ -72,7 +72,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   UAntwerpen) en "Citaat van mijn promotor" naast "Lees de masterproef" (eerst stond
   een klein knopje midden in de regel met de promotor, wat de regel brak). De vensters
   staan buiten `<main>` (ook bereikbaar vanuit de compacte weergave) en dragen zelf
-  het palet van hun hoofdstuk. Wie een citaat heeft, krijgt in het venster een
+  het palet van hun hoofdstuk. De drie knoppen dragen het korrelige verloop al
+  in rust en worden bij hover effen in de inktkleur (die regel staat na het
+  verloop in `style.css`, want die is even sterk). Wie een citaat heeft, krijgt in het venster een
   knop "Toon citaat". Victor koos uitdrukkelijk om de contactgegevens van alle
   referenties te tonen. Voeg geen referentie toe en wijzig er geen zonder zijn
   vraag. Een citaat wordt nooit herschreven: inkorten mag, enkel met hele zinnen.
@@ -161,7 +163,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   karmijn (css onder "Hero: karmijn als tweede accent"). Niet de trefwoorden en niet de menubalk. Rechts van "Victor" staat een
   pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
-  even hoog is als de hoofdletters en eindigt waar "Sande" eindigt.
+  even hoog is als de hoofdletters en eindigt waar "Sande" eindigt. Laadt de
+  foto niet (gezien op een iPhone in de browser van Messenger: een leeg kader
+  met een vraagteken), dan volgt één nieuwe poging en anders verdwijnt de pil
+  (klasse `weg`).
 - **Volgorde van de secties** (sinds nov 2026, op feedback): Portfolio (`#werk`, heette eerst "Werk"), Ervaring
   (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals, Contact.
   KSA staat dus los van `#ervaring` in een eigen `div.sec#ksa`. De PDF's volgen:
@@ -272,8 +277,12 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   De achterkant heeft een eigen scrollbalk (`.stack-scroll`, `maakBalk()` in
   `stapel.js`): de systeembalk is verborgen, in de plaats een lijn met een
   kapsule in het accent, te slepen, een klik op de lijn springt een scherm
-  verder. Een klik naast de kaart (links of rechts, op haar hoogte) draait
-  haar om en terug; links draait ze naar links (klasse `links`).
+  verder. Een klik op de kaart, of ernaast op haar hoogte, draait haar om en
+  terug: in de linkerhelft (of links ernaast) naar links (klasse `links`), in
+  de rechterhelft naar rechts. Niet op een link, knop of de scrollbalk, en niet
+  als je net tekst selecteerde. De rondjes rechtsboven (`.stack-hoek`) zijn
+  glas zoals de menubalk (blur en saturate over een tint van de grondkleur),
+  zodat de kleuren van de foto erdoor schijnen.
 - **Lint onder Contact** (`lint.js`, sinds nov 2026, eigen bouw naar de TextLoop
   van React Bits): "Laten we samenwerken" op een golvende band in het accent
   van Contact, met de tekst in de grondkleur, over de volle breedte onderaan
@@ -350,8 +359,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   "Geen streep na het laatste item"); wie een nieuwe lijst met lijnen toevoegt, volgt dat.
 - **Talen** (`.langs` bij Over mij): per taal een begroeting in die taal in de
   titelletter (`.taal-groet`, aria-hidden; Hallo, Hi there, Bonjour) met de
-  taalnaam eronder, en een meetlat in zes stappen voor A1 tot C2 (`.taal-lat`,
-  `--n` = behaalde stappen).
+  taalnaam eronder, en zes blokjes voor A1 tot C2 (`.taal-lat` met zes `<i>`,
+  de behaalde met klasse `aan`): de behaalde vullen zich van een diepe naar een
+  heldere tint van het accent, de rest staat er enkel als omtrek (variant B4,
+  Victors keuze uit een reeks voorstellen; de dunne lat vond hij saai).
 - **Trefwoorden** (`.tags span`) staan zonder hekje. Bij hover enkel een
   toestand zonder overgang (tekst naar inkt, rand naar 55 % accent): het zijn
   labels, geen knoppen, dus geen beweging die een klik belooft. Beide galerijen vervagen

@@ -442,6 +442,8 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .hero-pil.toon { opacity: 1; transform: none; }
 .hero-pil img { position: absolute; display: block; max-width: none; }
 @media (prefers-reduced-motion: reduce) { .hero-pil { transition: none; transform: none; } }
+/* de foto laadde niet (main.js): geen leeg kader tonen */
+.hero-pil.weg { display: none !important; }
 :root[data-motion="reduce"] .hero-pil { transition: none; transform: none; }
 .hero-lead { font-size: 1.13rem; color: var(--g-soft); max-width: 46ch; }
 .hero-lead [data-i18n="hero_role"] { color: var(--g-ink); font-weight: 600; }
@@ -773,8 +775,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-hoek { position: absolute; top: 16px; right: 16px; z-index: 5; display: flex; gap: 8px; }
 .stack-hoek a {
   display: inline-flex; align-items: center; height: 44px; max-width: 44px; padding: 0 13px; overflow: hidden;
-  border-radius: var(--r-m); background: var(--g-acc); color: var(--g-bg); text-decoration: none;
-  font-weight: 600; font-size: .84rem; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .6);
+  border-radius: var(--r-m); color: var(--g-ink); text-decoration: none;
+  font-weight: 600; font-size: .84rem; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .45);
+  /* glas zoals de menubalk: de kleuren van de foto schijnen erdoor, met een
+   lichtrand bovenaan; zonder backdrop-filter een bijna dekkende tint */
+  background: linear-gradient(to bottom, rgb(255 255 255 / .16), rgb(255 255 255 / 0) 60%), color-mix(in srgb, var(--g-bg) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--g-ink) 18%, transparent);
   transition: max-width .4s cubic-bezier(.2, .7, .2, 1);
 }
 .stack-hoek a svg { flex-shrink: 0; }
@@ -784,6 +790,13 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-hoek a:focus-visible span { opacity: 1; margin-left: 8px; }
 @media (hover: hover) { .stack-hoek a:hover span { opacity: 1; margin-left: 8px; } }
 .stack-hoek a:focus-visible { outline: 2px solid var(--g-ink); outline-offset: 3px; }
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .stack-hoek a {
+    background: linear-gradient(to bottom, rgb(255 255 255 / .16), rgb(255 255 255 / 0) 60%), color-mix(in srgb, var(--g-bg) 42%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.6); backdrop-filter: blur(16px) saturate(1.6);
+  }
+  :root[data-mode="light"] .stack-hoek a { background: linear-gradient(to bottom, rgb(255 255 255 / .3), rgb(255 255 255 / 0) 60%), color-mix(in srgb, var(--g-bg) 66%, transparent); }
+}
 @media (prefers-reduced-motion: reduce) { .stack-hoek a, .stack-hoek a span { transition: none; } }
 .stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .84rem; font-variant-numeric: tabular-nums; z-index: 50; }
 .stack-ui { white-space: nowrap; }
@@ -896,20 +909,15 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .langs dt { display: flex; flex-direction: column; }
 .taal-groet { font-family: var(--font-head); font-weight: 700; font-size: 1.45rem; line-height: 1; text-transform: uppercase; letter-spacing: .01em; color: var(--g-ink); }
 .langs dt > [data-i18n] { font-weight: 400; font-size: .8rem; color: var(--g-dim); margin-top: 4px; }
-/* meetlat in zes stappen (A1 tot C2): het behaalde deel in het accent, met
-   fijne streepjes op de grenzen tussen de niveaus */
+/* zes blokjes voor A1 tot C2 (variant B4, Victors keuze): de behaalde vullen
+   zich van een diepe naar een heldere tint van het accent, de rest staat er
+   enkel als omtrek */
 .langs dd { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; }
-.taal-lat {
-  position: relative; display: block; width: 132px; height: 2px; border-radius: 2px;
-  background:
-    linear-gradient(var(--g-acc), var(--g-acc)) 0 0 / calc(var(--n) / 6 * 100%) 100% no-repeat,
-    color-mix(in srgb, var(--g-ink) 16%, transparent);
-}
-.taal-lat::after {
-  content: ""; position: absolute; left: 0; right: 0; top: -4px; height: 10px;
-  background: repeating-linear-gradient(90deg, transparent 0 calc(100% / 6 - 1px), color-mix(in srgb, var(--g-ink) 30%, transparent) calc(100% / 6 - 1px) calc(100% / 6));
-  -webkit-mask: linear-gradient(90deg, #000 0 calc(100% - 2px), transparent 0); mask: linear-gradient(90deg, #000 0 calc(100% - 2px), transparent 0);
-}
+.taal-lat { display: grid; grid-template-columns: repeat(6, 18px); gap: 4px; }
+.taal-lat i { height: 8px; border-radius: 2px; border: 1px solid color-mix(in srgb, var(--g-ink) 28%, transparent); }
+.taal-lat i.aan { border-color: transparent; background: color-mix(in oklab, var(--g-acc) calc(55% + var(--k, 0) * 9%), var(--g-bg)); }
+.taal-lat i:nth-child(2) { --k: 1; } .taal-lat i:nth-child(3) { --k: 2; } .taal-lat i:nth-child(4) { --k: 3; }
+.taal-lat i:nth-child(5) { --k: 4; } .taal-lat i:nth-child(6) { --k: 5; }
 .list-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; margin-top: 12px; border-top: 1px solid var(--g-line); }
 .list-2 li { padding: 10px 0; border-bottom: 1px solid var(--g-line); color: var(--g-soft); }
 
@@ -1405,6 +1413,13 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @keyframes grain-drijf { from { background-position: 0 0, 0 0, 0% 0%, 0% 50%; } to { background-position: 48px -32px, 0 0, 100% 100%, 100% 50%; } }
 @media (prefers-reduced-motion: reduce) { :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; } }
 :root[data-motion="reduce"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; }
+/* De referentieknoppen dragen het verloop al in rust (zie "Referenties"); bij
+   hover worden ze effen in de inktkleur (wit op donker, bijna zwart op licht).
+   Deze regel staat na het verloop, want die is even sterk en zou anders winnen. */
+@media (hover: hover) {
+  [data-ref]:is(.btn, .doc-btn):hover { background: var(--g-ink); border-color: var(--g-ink); color: var(--g-bg); }
+  [data-ref]:is(.btn, .doc-btn):hover::before { opacity: 0; }
+}
 
 /* ---------- Hero: karmijn als tweede accent ----------
    Victors lievelingskleur, naast het goud van de zonsverduistering (Victors

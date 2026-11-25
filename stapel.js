@@ -183,14 +183,21 @@
   addEventListener("resize", zetBalken);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(zetBalken);
 
-  /* ---- Draaien met een klik naast de kaart ----
-     Een klik in de lege ruimte links of rechts van de kaart in beeld draait
-     haar om, en een tweede klik terug. Rechts draait ze naar rechts om, links
-     naar links (klasse links), zoals je een kaart aan die kant zou omslaan.
-     Enkel naast de kaart, op haar hoogte, en de cursor toont dat het kan. */
+  /* ---- Draaien met een klik op of naast de kaart ----
+     Een klik op de kaart in beeld, of in de lege ruimte ernaast, draait haar
+     om, en een tweede klik terug. Rechts draait ze naar rechts om, links naar
+     links (klasse links), zoals je een kaart aan die kant zou omslaan. Op de
+     kaart zelf telt de helft waarin je klikt, behalve op een link, knop of de
+     scrollbalk, en niet als je net tekst selecteerde. */
   const naastKaart = (e) => {
     const k = kaarten[Math.round(huidig)];
-    if (!k || e.target.closest(".stack-card")) return null;
+    if (!k) return null;
+    const opKaart = e.target.closest(".stack-card");
+    if (opKaart) {
+      if (opKaart !== k || e.target.closest("a, button, input, label, select, textarea, summary, [data-ref], .stack-scroll, .stack-hoek")) return null;
+      const r = k.getBoundingClientRect();
+      return { k, kant: e.clientX < r.left + r.width / 2 ? "links" : "rechts" };
+    }
     const r = k.getBoundingClientRect();
     if (e.clientY < r.top || e.clientY > r.bottom) return null;
     if (e.clientX < r.left) return { k, kant: "links" };
@@ -199,7 +206,7 @@
   };
   podium.addEventListener("click", (e) => {
     const n = naastKaart(e);
-    if (!n) return;
+    if (!n || String(getSelection && getSelection()).trim()) return;
     const op = !n.k.classList.contains("gedraaid");
     if (op) n.k.classList.toggle("links", n.kant === "links");
     zetGedraaid(n.k, op);

@@ -60,6 +60,16 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **Taalniveaus: zes blokjes, variant B4** (nov 2026): de dunne lat met
+  streepjes vond Victor saai. Uit zes voorstellen en vijf varianten op de zes
+  blokjes koos hij B4: behaalde blokjes in een verloop van diep naar helder
+  accent, de rest als omtrek. Niet gekozen: letterladder, stippen, het niveau
+  groot, lat met label, trap, blokjes met niveaus, smalle reeks, per twee.
+- **Referentieknoppen bij hover effen in de inktkleur** (Victors voorstel, mijn
+  advies): terugkeren naar een lege knop zoals "Bekijk diploma" zou lezen alsof
+  de knop uitvalt; effen inkt is een duidelijke reactie en blijft opvallen.
+- **Compacte kaarten draaien ook bij een klik op de kaart zelf**, per helft
+  (links naar links, rechts naar rechts). De rondjes rechtsboven zijn glas.
 - **Intro vloeiender** (nov 2026, Victors vraag: "actie A, dan B, dan C"): de
   intro start al als het vel half weg is, zonder stilstand vooraf, en de
   stappen overlappen (naam, kleur, rest van de hero in een trap, pil). Van

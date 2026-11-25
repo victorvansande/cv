@@ -192,6 +192,15 @@
     pil.innerHTML = '<img src="assets/victor-profiel.jpg" alt="" width="400" height="400" decoding="async" />';
     hero.appendChild(pil);
     const img = pil.firstChild;
+    /* Op een iPhone (in de browser van Messenger) bleef de foto eens weg: dan
+       stond er een leeg kader met het vraagteken van een kapotte afbeelding.
+       Bij een fout één nieuwe poging; lukt ook die niet, dan verdwijnt de pil
+       helemaal (de klasse weg) in plaats van een leeg kader te tonen. */
+    let pogingen = 0;
+    img.addEventListener("error", () => {
+      if (pogingen++ === 0) { setTimeout(() => { img.src = "assets/victor-profiel.jpg?p=2"; }, 400); return; }
+      pil.classList.add("weg");
+    });
     const KOPX = 0.41, KOP = 0.33;          // plaats van het hoofd in de foto (0 tot 1)
     const ZOOM = 1;                         // zo ver mogelijk uitgezoomd: de foto vult net de breedte van de pil
     const meet = document.createElement("canvas").getContext("2d");
