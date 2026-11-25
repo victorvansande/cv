@@ -85,43 +85,6 @@
   /* Elke aanslag wordt pas gepland nadat de vorige gevallen is. Als de pagina
      eronder even bezig is, wordt het zo een korte pauze, zoals bij echt typen,
      in plaats van een paar letters die tegelijk verschijnen. */
-  /* ---- Een zacht typemachinegeluid bij elke aanslag ----
-     Geen geluidsbestand: elke aanslag wordt met Web Audio gemaakt, als een kort
-     tikje (gefilterde ruis) met een zachte, lage ondertoon, elke keer net iets
-     anders. Het volume staat laag, zodat het ook op vol volume rustig klinkt.
-     Browsers laten geluid pas toe na een eerste klik, tik of toets: tot dan
-     blijft het stil, daarna klinkt elke volgende aanslag. Geen geluid bij
-     minder beweging of als de bezoeker het geluid uitzette. */
-  let audio = null, ruis = null;
-  const klank = () => {
-    if (!audio) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return null;
-      audio = new AC();
-      const n = Math.floor(audio.sampleRate * 0.05);
-      ruis = audio.createBuffer(1, n, audio.sampleRate);
-      const d = ruis.getChannelData(0);
-      for (let k = 0; k < n; k++) d[k] = (Math.random() * 2 - 1) * Math.pow(1 - k / n, 3);
-    }
-    return audio;
-  };
-  const ontgrendel = () => { const a = klank(); if (a && a.state === "suspended") a.resume().catch(() => {}); };
-  ["pointerdown", "keydown", "touchstart"].forEach((t) => addEventListener(t, ontgrendel, { once: true, passive: true, capture: true }));
-  const tik = (zacht) => {
-    const a = klank();
-    if (!a || a.state !== "running") return;
-    const nu = a.currentTime, vol = (zacht ? 0.5 : 1) * (0.85 + Math.random() * 0.3);
-    // het tikje van de letter op het papier
-    const bron = a.createBufferSource(); bron.buffer = ruis; bron.playbackRate.value = 0.85 + Math.random() * 0.3;
-    const band = a.createBiquadFilter(); band.type = "bandpass"; band.frequency.value = 2200 + Math.random() * 900; band.Q.value = 1.1;
-    const g1 = a.createGain(); g1.gain.setValueAtTime(0.0001, nu); g1.gain.exponentialRampToValueAtTime(0.05 * vol, nu + 0.002); g1.gain.exponentialRampToValueAtTime(0.0001, nu + 0.045);
-    bron.connect(band).connect(g1).connect(a.destination); bron.start(nu); bron.stop(nu + 0.06);
-    // de zachte, houten ondertoon van de aanslag
-    const toon = a.createOscillator(); toon.type = "sine"; toon.frequency.setValueAtTime(150 + Math.random() * 30, nu); toon.frequency.exponentialRampToValueAtTime(80, nu + 0.05);
-    const g2 = a.createGain(); g2.gain.setValueAtTime(0.0001, nu); g2.gain.exponentialRampToValueAtTime(0.035 * vol, nu + 0.003); g2.gain.exponentialRampToValueAtTime(0.0001, nu + 0.07);
-    toon.connect(g2).connect(a.destination); toon.start(nu); toon.stop(nu + 0.08);
-  };
-
   let schok = false;
   const typ = () => {
     let i = 0;
@@ -131,7 +94,6 @@
       const c = TEKST[i], l = letters[i];
       l.classList.add("aan");
       regel.insertBefore(wagen, letters[i + 1] || null);
-      tik(c === " ");
       if (c !== " ") {
         schok = !schok;
         vel.classList.remove(schok ? "schok-b" : "schok-a");
