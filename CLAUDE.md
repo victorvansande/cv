@@ -118,7 +118,7 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).
   Sectietitels krimpen in main.js (`pasTitels`) tot er 36 px vrij blijft tot de
   rechterkolom, zodat ook langere Engelse woorden passen. Achter elke grote
-  foto (hoeken 12 px) liggen twee lagen in het accent die bij hover, en één keer
+  foto (hoeken 12 px; op gsm onder 700 px van rand tot rand, zonder hoeken en zonder lagen) liggen twee lagen in het accent die bij hover, en één keer
   bij het in beeld komen, na elkaar rechts uitschuiven (`.frame-lagen`, naar de Staggered Menu van React
   Bits; main.js zet het omhulsel). Een kop binnen een sectie (`.sub-head >
   .sec-sub`, Wat me drijft) staat in de titelletter, kleiner dan de sectietitel.

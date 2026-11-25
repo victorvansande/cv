@@ -1217,3 +1217,14 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
   .stack-body .btn-row { margin-top: 2px; }
   .stack-ui { bottom: 1.5vh; }
 }
+
+/* Op gsm lopen de grote foto's van rand tot rand: geen afgeronde hoeken, en
+   begin en einde gelijk met het scherm. Het bijschrift blijft uitgelijnd met
+   de tekst, en de gekleurde lagen erachter vallen weg (er is geen rand meer
+   waar ze onder uit kunnen schuiven). */
+@media (max-width: 700px) {
+  .frame { margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); }
+  .frame img, .frame-lagen .laag { border-radius: 0; }
+  .frame-lagen .laag { display: none; }
+  .frame figcaption { padding: 0 var(--gutter); }
+}
