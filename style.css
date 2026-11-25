@@ -292,10 +292,12 @@ ul { padding: 0; list-style: none; }
 .nav-links { display: flex; gap: 4px; }
 .nav-links a {
   padding: 8px 12px; font-size: .9rem; text-decoration: none; color: var(--c-soft);
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid transparent; transition: border-color .3s cubic-bezier(.2, 0, 0, 1);
 }
 .nav-links a:hover { color: var(--c-ink); }
-.nav-links a.active { color: var(--c-ink); border-bottom-color: currentColor; }
+/* het lijntje onder het hoofdstuk in beeld, in het accent van dat hoofdstuk
+   (--nav-acc, gezet door main.js) */
+.nav-links a.active { color: var(--c-ink); border-bottom-color: var(--nav-acc, currentColor); }
 .lang-toggle, .settings-toggle, .burger, .mode-toggle {
   height: 36px; min-width: 36px; padding: 0 10px;
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -1356,7 +1358,10 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
    vaardigheden en de contactgegevens geldt dat voor de laatste rij van beide
    kolommen, zolang ze naast elkaar staan. */
 .rows > :last-child, .langs > div:last-child, .list-2 > li:last-child,
-.findings li:last-child, .contact-list > div:last-child, .nav-links a:last-child { border-bottom: 0; }
+.findings li:last-child, .contact-list > div:last-child { border-bottom: 0; }
+/* enkel in het uitklapmenu op gsm, waar de links een lijst met strepen zijn;
+   in de menubalk op de pc nam dit Contact zijn lijntje af */
+@media (max-width: 900px) { .nav-links a:last-child { border-bottom: 0; } }
 .fold { border-bottom: 0; }
 @media (min-width: 561px) {
   .list-2 > li:nth-last-child(2):nth-child(odd),

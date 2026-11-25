@@ -705,9 +705,18 @@
       if (id === current) return;
       current = id;
       navAs.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + id));
+      /* het lijntje krijgt het accent van dat hoofdstuk: dat van zijn eerste
+         palet (.grade), dus bij Opleiding petrol, ook in de masterproef */
+      if (gekozen) {
+        const palet = gekozen.classList.contains("grade") ? gekozen : gekozen.querySelector(".grade");
+        if (palet) navLijst.style.setProperty("--nav-acc", getComputedStyle(palet).getPropertyValue("--g-acc").trim());
+      }
     };
+    const navLijst = document.querySelector(".nav-links");
     addEventListener("scroll", kies, { passive: true });
     addEventListener("resize", kies);
+    // na een wissel tussen licht en donker verandert elk accent: opnieuw kiezen
+    new MutationObserver(() => { current = ""; kies(); }).observe(wortel, { attributes: true, attributeFilter: ["data-mode"] });
     kies();
   }
 
