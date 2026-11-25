@@ -306,9 +306,6 @@ ul { padding: 0; list-style: none; }
   background: transparent; border: 1px solid rgb(var(--c-edge) / .22); border-radius: var(--r-s);
   cursor: pointer; font-size: .82rem; font-weight: 600; letter-spacing: .04em;
 }
-.lang-toggle span { color: var(--c-dim); }
-html[lang="nl"] .lang-toggle [data-lang="nl"],
-html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @media (hover: hover) { .lang-toggle:hover, .settings-toggle:hover, .burger:hover, .mode-toggle:hover { border-color: rgb(var(--c-edge) / .5); } }
 
 .settings-wrap { position: relative; }
@@ -332,6 +329,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .a11y-row input:checked + .sw { background: var(--c-acc); }
 .a11y-row input:checked + .sw::after { transform: translateX(16px); }
 .a11y-row input:focus-visible + .sw { outline: 2px solid var(--c-acc); outline-offset: 2px; }
+/* taalkeuze in de instellingen: twee knoppen naast elkaar, de gekozen gevuld */
+.taal-keuze { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; margin-bottom: 4px; border: 1px solid rgb(var(--c-edge) / .18); border-radius: var(--r-s); }
+.taal-keuze button { min-height: 36px; padding: 0 10px; border: 0; border-radius: var(--r-xs); background: none; color: var(--c-dim); font: inherit; font-size: .88rem; cursor: pointer; transition: background .2s, color .2s; }
+.taal-keuze button[aria-pressed="true"] { background: rgb(var(--c-edge) / .12); color: var(--c-ink); font-weight: 600; }
+@media (hover: hover) { .taal-keuze button:hover { color: var(--c-ink); } }
+.taal-keuze button:focus-visible { outline: 2px solid var(--c-acc); outline-offset: 1px; }
 .zoom-ctl { display: flex; align-items: center; gap: 8px; }
 .zoom-btn { width: 30px; height: 30px; border: 1px solid rgb(var(--c-edge) / .22); background: transparent; cursor: pointer; border-radius: var(--r-s); }
 .zoom-btn:disabled { opacity: .35; cursor: default; }
@@ -713,8 +716,13 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 :root[data-view="compact"] .stack { position: relative; }
 .stack-snap { position: absolute; left: 0; width: 1px; height: 1px; top: calc(var(--i) * var(--scherm, 100vh)); scroll-snap-align: start; pointer-events: none; }
 .stack-stage { position: sticky; top: 60px; height: calc(var(--scherm, 100vh) - 60px); overflow: hidden; }
+/* Op de pc staat de kaart wat lager (eerst 5vh): de ruimte erboven en eronder
+   is nu in evenwicht, en de vervaagde kaarten die al voorbij zijn krijgen
+   bovenaan meer plaats (--peek: hoeveel px elke vorige kaart uitsteekt,
+   gelezen door stapel.js). */
+.stack-stage { --peek: 38; }
 .stack-card {
-  position: absolute; left: 50%; top: 5vh;
+  position: absolute; left: 50%; top: 12vh;
   width: min(880px, calc(100vw - 2 * var(--gutter))); height: calc((var(--scherm, 100vh) - 60px) * .72);
   margin-left: calc(min(880px, calc(100vw - 2 * var(--gutter))) / -2);
   border-radius: var(--r-xl); transform-origin: 50% 0;
@@ -793,8 +801,8 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 }
 .stack-hoek a svg { flex-shrink: 0; }
 .stack-hoek a span { white-space: nowrap; margin-left: 0; opacity: 0; transition: opacity .3s, margin-left .3s; }
-.stack-hoek a:focus-visible { max-width: 280px; }
-@media (hover: hover) { .stack-hoek a:hover { max-width: 280px; } }
+.stack-hoek a:focus-visible { max-width: var(--vol, 280px); }
+@media (hover: hover) { .stack-hoek a:hover { max-width: var(--vol, 280px); } }
 .stack-hoek a:focus-visible span { opacity: 1; margin-left: 8px; }
 @media (hover: hover) { .stack-hoek a:hover span { opacity: 1; margin-left: 8px; } }
 .stack-hoek a:focus-visible { outline: 2px solid var(--g-ink); outline-offset: 3px; }
@@ -817,7 +825,8 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 .stack-rail { width: min(140px, 30vw); height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
 .stack-rail i { display: block; height: 100%; background: var(--g-acc); transform-origin: 0 50%; transform: scaleX(0); }
 @media (max-width: 700px) {
-  .stack-card { top: 3vh; height: calc((var(--scherm, 100vh) - 60px) * .8); }
+  .stack-card { top: 7vh; height: calc((var(--scherm, 100vh) - 60px) * .78); }
+  .stack-stage { --peek: 28; }
   /* Foto boven (40 %), tekst eronder. Met absolute posities en niet met
      rasterrijen: WebKit (elke browser op een iPhone) rekende height: 100% van
      de foto tegenover de hele kaart in plaats van tegenover haar rij van 40 %,
@@ -1438,6 +1447,21 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @keyframes grain-drijf { from { background-position: 0 0, 0 0, 0% 0%, 0% 50%; } to { background-position: 48px -32px, 0 0, 100% 100%, 100% 50%; } }
 @media (prefers-reduced-motion: reduce) { :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; } }
 :root[data-motion="reduce"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; }
+/* De hoekknoppen op de compacte kaarten bewegen in één rustig tempo (Victor
+   vond ze "bruut"): het vlak schuift open, het label komt een tikje later
+   binnen, het verloop vloeit zacht in en drijft niet, en de kleur van het
+   pictogram volgt mee. Dichtgaan zonder vertraging. Staat na het verloop,
+   want die regels zijn even sterk. */
+.stack-stage .stack-hoek a { transition: max-width .55s cubic-bezier(.35, .1, .15, 1), color .4s ease; }
+.stack-stage .stack-hoek a span { transition: opacity .25s ease, margin-left .55s cubic-bezier(.35, .1, .15, 1); }
+.stack-stage .stack-hoek a::before { transition: opacity .45s ease; animation: none; }
+@media (hover: hover) {
+  .stack-stage .stack-hoek a:hover { transition: max-width .55s cubic-bezier(.35, .1, .15, 1), color .4s ease; }
+  .stack-stage .stack-hoek a:hover span { transition: opacity .35s ease .12s, margin-left .55s cubic-bezier(.35, .1, .15, 1); }
+  .stack-stage .stack-hoek a:hover::before { transition: opacity .45s ease; }
+}
+@media (prefers-reduced-motion: reduce) { .stack-stage .stack-hoek a, .stack-stage .stack-hoek a span, .stack-stage .stack-hoek a::before { transition: none !important; } }
+
 /* De referentieknoppen dragen het verloop al in rust (zie "Referenties"); bij
    hover worden ze effen in de inktkleur (wit op donker, bijna zwart op licht).
    Deze regel staat na het verloop, want die is even sterk en zou anders winnen. */

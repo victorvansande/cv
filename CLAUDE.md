@@ -91,6 +91,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 
 ## Hoe de code in elkaar zit (de valkuilen)
 
+- **Taalkeuze** (sinds nov 2026, Victors vraag): bovenaan het instellingenpaneel,
+  twee knoppen "Nederlands" en "English" (`.taal-keuze`, `aria-pressed`, elke taal
+  in haar eigen taal). Enkel licht/donker staat nog los in de menubalk; de oude
+  knop "NL EN" (`.lang-toggle`) is weg.
 - **Vertalingen.** Nederlands staat inline in `index.html` met `data-i18n="sleutel"`.
   Engels staat in `window.I18N.en` in `i18n.js`, als template literals. Elke
   nieuwe zichtbare tekst krijgt dus een sleutel in beide bestanden, ook
@@ -257,6 +261,13 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   dat openschuift bij hover. Elke kaart is om te draaien
   ("Draai om"); de achterkant is een kopie van de echte inhoud van dat
   onderdeel (`ACHTER` in `stapel.js`), opnieuw gekopieerd na een taalwissel. Geen intro in compacte weergave.
+  De kaart staat op de pc op 12vh van de bovenrand (op gsm 7vh), zodat de ruimte
+  erboven en eronder in evenwicht is en de vervaagde vorige kaarten bovenaan
+  plaats krijgen; hoeveel elke vorige kaart uitsteekt staat in `--peek` op
+  `.stack-stage` (38 px op de pc, 28 op gsm), gelezen door `stapel.js`. De
+  hoekknoppen schuiven bij hover open tot precies de breedte van hun label
+  (`--vol`, gemeten in `stapel.js`), in één rustig tempo: label een tikje later,
+  verloop zacht en zonder drijven (Victor vond de eerste versie "bruut").
   De kaarten klikken vast in focus: `stapel.js` zet per kaart een onzichtbaar
   snap-punt (`.stack-snap`, één schermhoogte uit elkaar, met `scroll-padding-top`
   60 px); `scroll-snap-type: y mandatory` staat pas aan zodra de klasse
@@ -391,7 +402,8 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 - Lokaal serveren: `python3 -m http.server 4322` (werkt overal),
   `npx serve -l 4321 .` (zie `.claude/launch.json`) of op Windows
   `powershell -ExecutionPolicy Bypass -File serve.ps1` (poort 5180).
-- Controleer na een wijziging beide talen (knop `.lang-toggle`) en beide
+- Controleer na een wijziging beide talen (in de instellingen, `.taal-keuze
+  [data-lang]`) en beide
   versies (knop `.mode-toggle`), op 1280 en 375 pixels breed: geen horizontale overloop, geen fouten in de console.
 - In een headless browser laden afbeeldingen met `loading="lazy"` pas als je
   erlangs scrolt; een volledige screenshot zonder scrollen toont dus lege

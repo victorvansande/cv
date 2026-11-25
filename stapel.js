@@ -253,6 +253,24 @@
      van het scherm. Eerder werd vanaf 0 gerekend: alles liep 60 px achter en
      de laatste kaart was enkel volledig te bereiken dankzij de footer eronder. */
   const plak = () => parseFloat(getComputedStyle(podium).top) || 0;
+  // hoeveel elke vorige kaart bovenaan uitsteekt: uit de css (--peek), want op
+  // de pc staat de kaart lager en is er meer plaats dan op een gsm
+  const leesPeek = () => { S.peek = parseFloat(getComputedStyle(podium).getPropertyValue("--peek")) || 26; };
+  /* De hoekknoppen schuiven bij hover open tot precies de breedte van hun
+     label (--vol). Met een vaste bovengrens van 280 px stond het vlak al na
+     60 ms open en leek de beweging bruut. Opnieuw na een taalwissel. */
+  const meetHoeken = () => document.querySelectorAll(".stack-hoek a").forEach((a) => {
+    const span = a.querySelector("span");
+    a.style.transition = "none"; a.style.maxWidth = "none";
+    const w = a.scrollWidth + (span ? 8 : 0); // + de marge van het label bij hover
+    a.style.maxWidth = ""; a.style.transition = "";
+    if (w > 44) a.style.setProperty("--vol", Math.ceil(w) + "px");
+  });
+  meetHoeken();
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(meetHoeken);
+  addEventListener("cv-layout", meetHoeken);
+  leesPeek();
+  addEventListener("resize", leesPeek);
   const doelStand = () => {
     const r = stapel.getBoundingClientRect();
     const loop = stapel.offsetHeight - podium.offsetHeight;

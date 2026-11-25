@@ -640,7 +640,8 @@
 
   /* ---- Language switch (NL / EN) ---- */
   const I18N = (window.I18N && window.I18N.en) || {};
-  const langBtn = document.querySelector(".lang-toggle");
+  // de taalkeuze staat in de instellingen: twee knoppen, Nederlands en English
+  const taalKnoppen = document.querySelectorAll(".taal-keuze [data-lang]");
   /* De kop van het document volgt de taal mee. Dat gebeurde niet: schakelde je
      naar het Engels, dan bleef de tabtitel en de omschrijving Nederlands - en
      dat is precies wat een gedeelde link laat zien. De Nederlandse waarden
@@ -679,7 +680,7 @@
       if (e) b.dataset.alt = en ? e : b.dataset.nlDataAlt;
     });
     document.querySelectorAll("[aria-label]").forEach((el) => {
-      if (el === langBtn || el.classList.contains("mode-toggle")) return;  // die zetten hun eigen label
+      if (el.classList.contains("mode-toggle")) return;  // die zetten hun eigen label
       if (el.dataset.nlAria === undefined) {
         // een knop die in het Engels gebouwd werd (galerij bij een Engelse start): terug naar zijn Nederlandse sleutel
         let nl = el.getAttribute("aria-label");
@@ -708,7 +709,7 @@
       el.innerHTML = (en && I18N[key] != null) ? I18N[key] : el.dataset.nlHtml;
     });
     try { localStorage.setItem("cv-lang", lang); } catch (e) {}
-    if (langBtn) langBtn.setAttribute("aria-label", en ? "Schakel naar Nederlands · Switch to Dutch" : "Switch to English · Schakel naar Engels");
+    taalKnoppen.forEach((b) => b.setAttribute("aria-pressed", String((b.dataset.lang === "en") === en)));
     hertelGetallen();
     vertaalLabels(en);
     // wie de site in het Engels leest, downloadt ook het Engelse cv
@@ -718,8 +719,9 @@
     // het voorproefvenster vertaalt zijn eigen ingevulde zinnen mee
     window.dispatchEvent(new Event("cv-layout"));
   };
-  if (langBtn) langBtn.addEventListener("click", () =>
-    applyLang(document.documentElement.lang === "en" ? "nl" : "en"));
+  taalKnoppen.forEach((b) => b.addEventListener("click", () => {
+    if ((b.dataset.lang === "en") !== (document.documentElement.lang === "en")) applyLang(b.dataset.lang);
+  }));
   const savedLang = (() => { try { return localStorage.getItem("cv-lang"); } catch (e) { return null; } })();
   applyLang(savedLang === "en" ? "en" : "nl");
 

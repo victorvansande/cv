@@ -60,6 +60,12 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **Taal in de instellingen** (nov 2026, Victors vraag): "Nederlands" en
+  "English" bovenaan het instellingenpaneel; enkel licht/donker blijft los in
+  de menubalk.
+- **Compacte kaarten lager** (Victors vraag): minder lege ruimte onderaan, en de
+  vervaagde vorige kaarten bovenaan komen meer tot hun recht. De hoekknoppen
+  bewegen rustiger.
 - **Favicon: V met de pil** (nov 2026, Victors keuze F uit zes richtingen): de
   V in de inktkleur met de pil uit de hero, gevuld met karmijn en goud. Niet
   gekozen: het oude "VVS" in de zonsverduistering, V in verloop, de sikkel,

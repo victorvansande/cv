@@ -339,6 +339,7 @@ window.I18N = {
     tools_h: `Tools`,
 
     /* settings menu */
+    set_lang: `Language`,
     set_download: `Downloads`,
     set_cv_pdf: `CV as PDF`,
     set_cv_pdf_sub: `To email or print`,
