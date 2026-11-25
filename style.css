@@ -1361,6 +1361,28 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 @media (prefers-reduced-motion: reduce) { :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; } }
 :root[data-motion="reduce"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; }
 
+/* ---------- Hero: karmijn als tweede accent ----------
+   Victors lievelingskleur, naast het goud van de zonsverduistering (Victors
+   keuze uit drie, nov 2026). Een analoge harmonie: in OKLCH ligt karmijn op 16°
+   en het goud op 65°, beide warm; het rood is dieper (helderheid 0,62 tegenover
+   0,77), zodat het goud de hoofdkleur blijft. Het hoort bij het palet van de
+   hero, dus ook de eerste compacte kaart en de 404-pagina krijgen het. Op de
+   knoppen loopt het verloop van karmijn (links) via een mengtint naar goud
+   (rechts), met de lichte vlek bij de cursor; de nummers van "In één oogopslag"
+   staan in karmijn. */
+.g-eclipse { --g-acc2: #d75363; }
+:root[data-mode="light"] .g-eclipse { --g-acc2: #a3203a; }
+.g-eclipse .facts dt::before { color: var(--g-acc2); }
+.g-eclipse :is(.btn, .stack-hoek a)::before {
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.65'/%3E%3C/svg%3E"),
+    radial-gradient(circle at var(--mx, 70%) var(--my, 50%), var(--gr-licht) 0, transparent 42%),
+    radial-gradient(130% 170% at 0% 100%, color-mix(in oklab, var(--g-acc2) 85%, #000) 0, transparent 60%),
+    linear-gradient(100deg, var(--g-acc2) 0%, var(--g-acc2) 22%, color-mix(in oklab, var(--g-acc2) 50%, var(--g-acc)) 48%, var(--g-acc) 72%, var(--gr-licht) 100%);
+  background-size: 160px 160px, 100% 100%, 100% 100%, 100% 100%;
+}
+@media (hover: hover) { .g-eclipse :is(.btn, .stack-hoek a):hover { border-color: color-mix(in oklab, var(--g-acc2) 80%, #000); } }
+
 /* ---------- Zachte overgang tussen secties ----------
    main.js geeft elke sectie de achtergrondkleur van de sectie erboven mee
    (--vorige); bovenaan vloeit die over in de eigen kleur. */

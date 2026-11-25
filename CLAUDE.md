@@ -141,7 +141,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   gemengd in oklab), met grijze korrel als bovenste laag in soft-light, alles in
   één `::before` (de `::after` van `.doc-btn` en `.gal-btn` is hun raakvlak van
   44 px). Wie een nieuwe knop toevoegt, zet hem in die lijst (ook in main.js voor
-  de cursorvlek). Niet de trefwoorden en niet de menubalk. Rechts van "Victor" staat een
+  de cursorvlek). In het palet van de hero (`.g-eclipse`) loopt het verloop van
+  karmijn (`--g-acc2`) naar goud, en de nummers van "In één oogopslag" staan in
+  karmijn (css onder "Hero: karmijn als tweede accent"). Niet de trefwoorden en niet de menubalk. Rechts van "Victor" staat een
   pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
   even hoog is als de hoofdletters en eindigt waar "Sande" eindigt.

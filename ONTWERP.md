@@ -75,7 +75,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 
 | Hoofdstuk | Palet | Foto | Accent donker | Accent licht | PDF |
 |---|---|---|---|---|---|
-| Hero | `g-eclipse` | zonsverduistering | `#e0a870` goud | `#9b6026` | `#9a6430` |
+| Hero | `g-eclipse` | zonsverduistering | `#e0a870` goud, tweede accent `#d75363` karmijn | `#9b6026`, karmijn `#a3203a` | `#9a6430` |
 | Portfolio | `g-schelde` | antwerpen-skyline-schelde | `#a7bccd` staalblauw | `#3a546a` | `#3f5568` |
 | Ervaring (Gekkoo) | `g-theater` | theaterzaal-rood-licht | `#f56167` rood | `#ab2833` | `#a8323a` |
 | Opleiding | `g-centraal` | antwerpen-centraal-vensters | `#7fb8b8` petrol | `#2c6a6c` | `#2c6a6c` |
@@ -89,6 +89,14 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   in de foto, waardoor de foto gloeit. Geprobeerd en afgewezen: violet (botst),
   een gedempt grijslila "heide" (zelfde familie als violet), het oude steenbeige
   (saai, te dicht bij het roze van Over mij).
+- **Karmijn in de hero** (nov 2026): Victors lievelingskleur is rood. Als tweede
+  accent naast het goud (`--g-acc2`), in een analoge harmonie: in OKLCH karmijn op
+  16° en het goud op 65°, het rood dieper (helderheid 0,62 tegenover 0,77), zodat
+  het goud de hoofdkleur blijft. Gekozen uit drie: corona-rood (40°, uit de foto,
+  te oranje), granaat (28°) en karmijn (16°, Victors keuze, het dichtst bij zijn
+  rood-roze). Enkel in de heroknoppen (verloop van karmijn naar goud) en de nummers
+  van "In één oogopslag"; spaarzaam houden, anders verliest het zijn kracht. Niet
+  in de PDF's, omdat die knoppen en nummers daar niet staan.
 - `g-bos` staat nog in `style.css` maar wordt nergens gebruikt.
 - Een nieuw palet moet duidelijk verschillen van deze tabel, in tint en niet
   enkel in helderheid.
