@@ -1227,4 +1227,6 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
   .frame img, .frame-lagen .laag { border-radius: 0; }
   .frame-lagen .laag { display: none; }
   .frame figcaption { padding: 0 var(--gutter); }
+  /* de eerste foto (zonsverduistering) sluit meteen aan op de menubalk */
+  #home > .wrap { padding-top: 0; }
 }
