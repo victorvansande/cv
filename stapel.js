@@ -143,6 +143,13 @@
   addEventListener("resize", pasTekst);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(pasTekst);
 
+  /* Het accent van elke kaart, voor de kleur van de voortgangsbalk. Opnieuw
+     gelezen na een wissel tussen licht en donker, want dan verandert elk palet. */
+  let accenten = [];
+  const leesAccenten = () => { accenten = kaarten.map((k) => getComputedStyle(k).getPropertyValue("--g-acc").trim()); };
+  leesAccenten();
+  new MutationObserver(() => { leesAccenten(); if (aan()) teken(); }).observe(wortel, { attributes: true, attributeFilter: ["data-mode"] });
+
   let huidig = 0, raf = null;
   const doelStand = () => {
     const r = stapel.getBoundingClientRect();
@@ -174,7 +181,13 @@
       k.style.zIndex = z;
       k.toggleAttribute("inert", Math.round(huidig) !== i);
     });
-    if (balk) balk.style.transform = "scaleX(" + (n > 1 ? huidig / (n - 1) : 1).toFixed(4) + ")";
+    if (balk) {
+      balk.style.transform = "scaleX(" + (n > 1 ? huidig / (n - 1) : 1).toFixed(4) + ")";
+      // de kleur schuift mee: tussen twee kaarten een menging van hun accenten
+      const i = Math.floor(huidig), f = huidig - i;
+      const a = accenten[clamp(i, 0, n - 1)], z = accenten[clamp(i + 1, 0, n - 1)];
+      if (a && z) balk.style.background = f < 0.002 || a === z ? a : "color-mix(in oklab, " + a + " " + ((1 - f) * 100).toFixed(1) + "%, " + z + ")";
+    }
     if (teller) teller.textContent = (Math.round(huidig) + 1) + " / " + n;
   };
   const stap = () => {

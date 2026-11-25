@@ -200,7 +200,9 @@ de schrijfstijl gaat [SCHRIJFSTIJL.md](SCHRIJFSTIJL.md).
   volledige regel past. De knoppen staan in elke kaart op dezelfde plek onderaan (op
   gsm `margin-top: auto` op `.btn-row`; op de pc staat alles onderaan uitgelijnd
   en is de rasterrij vastgezet op de kaarthoogte, anders rekte een staande foto
-  de kaart op en vielen de knoppen weg).
+  de kaart op en vielen de knoppen weg). De voortgangsbalk onder de stapel neemt de kleur
+  van de kaart in beeld over en mengt tussen twee kaarten hun accenten in oklab
+  (`accenten` in `stapel.js`, opnieuw gelezen bij een wissel tussen licht en donker).
 - **Snapshot op een bonnetje** (`bonnetje.js`, eigen bouw naar de Receipt Printer
   van React Bits Pro): onderaan Contact print een printer de kern van het cv op
   een canvas-bonnetje, te bewaren als PNG of af te scheuren door het opzij
