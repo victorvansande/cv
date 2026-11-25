@@ -1269,6 +1269,55 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
 :root[data-motion="reduce"] .tch-kader { transition: none; }
 :root[data-motion="reduce"] .tch-specks i { animation: none; }
 
+/* ---------- Referenties (vensters achter een knop) ----------
+   Op Victors vraag geen eigen sectie: een knop bij de rol waar de referentie
+   bij hoort opent een venster (<dialog>) in het palet van dat hoofdstuk, met
+   per persoon naam, functie, contact en, bij wie er een heeft, een knop
+   "Toon citaat". Geen extra lengte op de pagina. */
+.ref-knop { margin-top: 14px; }
+.ref-ster { display: inline-flex; }
+.ref-ster:empty { display: none; }
+.thesis-meta .ref-meta { min-height: 28px; padding: 0 10px; margin-left: 10px; font-size: .78rem; vertical-align: 1px; }
+.refbox { width: min(700px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; margin: auto;
+  border: 1px solid var(--g-line); border-radius: var(--r-xl); background: var(--g-bg); color: var(--g-ink);
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / .6); overflow: auto; overscroll-behavior: contain; }
+.refbox::backdrop { background: rgb(0 0 0 / .55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.refbox[open] { animation: refbox-in .22s cubic-bezier(.2, 0, 0, 1); }
+@keyframes refbox-in { from { opacity: 0; transform: translateY(8px); } }
+:root:has(.refbox[open]) { overflow: hidden; }
+.refbox-in { position: relative; padding: clamp(22px, 4vw, 36px); }
+.refbox-lbl { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--g-acc); font-weight: 600; }
+.refbox h3 { font-family: var(--font-head); font-weight: 800; text-transform: uppercase; font-size: 1.9rem; line-height: 1; margin: 6px 0 4px; padding-right: 48px; }
+.refbox-intro { font-size: .86rem; color: var(--g-dim); margin-bottom: 8px; }
+.refbox-sluit { position: absolute; top: 18px; right: 18px; width: 36px; min-height: 36px; padding: 0; justify-content: center; color: var(--g-ink); }
+.ref-lijst { list-style: none; margin: 0; padding: 0; }
+.ref-lijst > li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; column-gap: 14px; align-items: start; padding: 18px 0; border-top: 1px solid var(--g-line); }
+.ref-ini { width: 44px; height: 44px; border-radius: var(--r-m); display: grid; place-items: center; font-family: var(--font-head); font-weight: 700;
+  background: color-mix(in oklab, var(--g-acc) 16%, transparent); color: var(--g-acc); }
+.ref-wie b { display: block; font-weight: 600; }
+.ref-wie > span { display: block; font-size: .84rem; color: var(--g-dim); line-height: 1.4; }
+.ref-contact { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: .84rem; margin-top: 8px; }
+.ref-contact a { color: var(--g-soft); text-decoration: none; display: inline-flex; gap: 6px; align-items: center; min-height: 28px; }
+.ref-contact a svg { color: var(--g-acc); flex: none; }
+@media (hover: hover) { .ref-contact a:hover { color: var(--g-ink); text-decoration: underline; text-underline-offset: 3px; } }
+.ref-citeer { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 12px; border-radius: var(--r-s); border: 1px solid var(--g-acc);
+  background: var(--g-acc); color: var(--g-bg); font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.ref-citeer .q { font-family: var(--font-head); font-weight: 800; font-size: 1.3rem; line-height: 1; margin-top: 6px; }
+.ref-citeer[aria-expanded="true"] { background: transparent; color: var(--g-acc); }
+.ref-citeer[aria-expanded="true"] .toon, .ref-citeer[aria-expanded="false"] .verberg { display: none; }
+.ref-lijst blockquote { grid-column: 2 / -1; margin: 14px 0 2px; padding: 4px 0 4px 16px; border-left: 2px solid var(--g-acc); display: grid; gap: 10px; font-size: .95rem; line-height: 1.65; color: var(--g-soft); }
+.ref-lijst blockquote[hidden] { display: none; }
+.ref-lijst blockquote p:first-child { color: var(--g-ink); }
+/* geen streep onder het venster: de eerste rij heeft er een als scheiding met de kop */
+@media (max-width: 560px) {
+  .ref-lijst > li { grid-template-columns: 40px minmax(0, 1fr); }
+  .ref-ini { width: 40px; height: 40px; }
+  .ref-citeer { grid-column: 2; justify-self: start; margin-top: 10px; }
+  .ref-lijst blockquote { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { .refbox[open] { animation: none; } }
+:root[data-motion="reduce"] .refbox[open] { animation: none; }
+
 /* ---------- Grainient op elke knop ----------
    Bij hover vloeit er een korrelig verloop onder de tekst, gemaakt uit enkel
    het accent van de sectie: een diepere tint, het accent zelf en een lichtere
@@ -1287,16 +1336,16 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
    met de korrel als bovenste achtergrond in soft-light: ::after is bij
    .doc-btn en .gal-btn het onzichtbare raakvlak van 44 px, en zonder
    overflow: hidden blijft dat raakvlak werken. */
-.btn, .doc-btn, .gal-btn, .stack-hoek a {
+.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer {
   position: relative; isolation: isolate;
   --gr-diep: color-mix(in oklab, var(--g-acc) 68%, #000);
   --gr-licht: color-mix(in oklab, var(--g-acc) 70%, #fff);
 }
-:root[data-mode="light"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a) {
+:root[data-mode="light"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer) {
   --gr-diep: color-mix(in oklab, var(--g-acc) 76%, #000);
   --gr-licht: color-mix(in oklab, var(--g-acc) 82%, #fff);
 }
-:is(.btn, .doc-btn, .gal-btn, .stack-hoek a)::before {
+:is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before {
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
   opacity: 0; transition: opacity .3s cubic-bezier(.2, 0, 0, 1);
   background:
@@ -1309,12 +1358,12 @@ html[lang="en"] .lang-toggle [data-lang="en"] { color: var(--c-ink); }
   animation: grain-drijf 7s ease-in-out infinite alternate paused;
 }
 @media (hover: hover) {
-  :is(.btn, .doc-btn, .gal-btn:not(:disabled), .stack-hoek a):hover { color: var(--g-bg); border-color: var(--gr-diep); transition-duration: .14s; }
-  :is(.btn, .doc-btn, .gal-btn:not(:disabled), .stack-hoek a):hover::before { opacity: 1; animation-play-state: running; transition-duration: .14s; }
+  :is(.btn, .doc-btn, .gal-btn:not(:disabled), .stack-hoek a, .ref-citeer):hover { color: var(--g-bg); border-color: var(--gr-diep); transition-duration: .14s; }
+  :is(.btn, .doc-btn, .gal-btn:not(:disabled), .stack-hoek a, .ref-citeer):hover::before { opacity: 1; animation-play-state: running; transition-duration: .14s; }
 }
 @keyframes grain-drijf { from { background-position: 0 0, 0 0, 0% 0%, 0% 50%; } to { background-position: 48px -32px, 0 0, 100% 100%, 100% 50%; } }
-@media (prefers-reduced-motion: reduce) { :is(.btn, .doc-btn, .gal-btn, .stack-hoek a)::before { animation: none; } }
-:root[data-motion="reduce"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a)::before { animation: none; }
+@media (prefers-reduced-motion: reduce) { :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; } }
+:root[data-motion="reduce"] :is(.btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer)::before { animation: none; }
 
 /* ---------- Zachte overgang tussen secties ----------
    main.js geeft elke sectie de achtergrondkleur van de sectie erboven mee

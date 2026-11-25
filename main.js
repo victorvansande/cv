@@ -319,7 +319,7 @@
      Eén luisteraar voor de hele pagina, zodat ook knoppen die stapel.js of
      bonnetje.js later maakt meedoen. */
   document.addEventListener("pointermove", (e) => {
-    const b = e.target.closest && e.target.closest(".btn, .doc-btn, .gal-btn, .stack-hoek a");
+    const b = e.target.closest && e.target.closest(".btn, .doc-btn, .gal-btn, .stack-hoek a, .ref-citeer");
     if (!b) return;
     const r = b.getBoundingClientRect();
     b.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
@@ -358,6 +358,30 @@
     addEventListener("scroll", planFocus, { passive: true });
     addEventListener("resize", planFocus);
   }
+
+  /* ---- Referenties ----
+     Een knop met data-ref opent het venster met die id (een <dialog>, dus
+     focus, Escape en schermlezers zitten ingebouwd). Eén luisteraar voor de
+     hele pagina, zodat ook de kopie van een knop op de achterkant van een
+     compacte kaart werkt. Een klik op de waas sluit; "Toon citaat" klapt het
+     citaat open en dicht. */
+  document.addEventListener("click", (e) => {
+    const knop = e.target.closest && e.target.closest("[data-ref]");
+    if (!knop) return;
+    const d = document.getElementById(knop.dataset.ref);
+    if (d && typeof d.showModal === "function" && !d.open) d.showModal();
+  });
+  document.querySelectorAll(".refbox").forEach((d) => {
+    d.addEventListener("click", (e) => { if (e.target === d) d.close(); });
+    const sluit = d.querySelector(".refbox-sluit");
+    if (sluit) sluit.addEventListener("click", () => d.close());
+    d.querySelectorAll(".ref-citeer").forEach((b) => b.addEventListener("click", () => {
+      const open = b.getAttribute("aria-expanded") !== "true";
+      b.setAttribute("aria-expanded", String(open));
+      const q = document.getElementById(b.getAttribute("aria-controls"));
+      if (q) q.hidden = !open;
+    }));
+  });
 
   /* ---- Zachte overgang tussen secties ----
      Elke sectie krijgt de achtergrondkleur van de sectie erboven mee, zodat
@@ -751,7 +775,9 @@
     // .doc-link is geen vergrootglas maar een echte link naar een volledig
     // document: die moet de lichtbak met rust laten, anders opent het beeld
     // van de titelpagina en gaat de link niet door.
-    document.querySelectorAll(".diploma-thumb:not(.doc-link), .doc-btn").forEach((t) => {
+    // Enkel knoppen met een beeld (data-full): de knoppen van de referenties
+    // dragen ook .doc-btn voor hun uiterlijk, maar openen een eigen venster.
+    document.querySelectorAll(".diploma-thumb:not(.doc-link), .doc-btn[data-full]").forEach((t) => {
       const img = t.querySelector("img");
       t.addEventListener("click", () =>
         open(t.dataset.full || (img && img.src), t.dataset.alt || (img && img.alt)));
