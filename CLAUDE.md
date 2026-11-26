@@ -210,6 +210,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   uitklappen"; klasse `.mp-dicht` op `#masterproef`). Een link naar `#masterproef`
   (ook "Lees verder" in de compacte weergave) opent ze; zonder script staat alles
   open. De titel op de strook is een aria-hidden kopie met dezelfde sleutels.
+  De knop is glas zoals de rondjes op de compacte kaarten (Victors vraag): geen
+  rand, geen Grainient, bij hover iets helderder glas (`.mp-frame .mp-beeld
+  .mp-knop`, dat gewicht is nodig tegen de algemene hoverregel van de knoppen).
   Geen secties die pas bij het scrollen verschijnen. De sectietitels vullen de linkerkolom
   (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).

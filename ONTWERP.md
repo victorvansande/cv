@@ -235,6 +235,9 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   kaartenbak in de typemachineletter; ingeklapt het hoogst). Het rimpelen van de
   weerspiegeling is, naast het lint en de referentieknoppen, een beweging die
   vanzelf loopt, maar enkel zolang de strook dicht is en niet bij minder beweging.
+  De knop op de foto is glas zoals de rondjes op de compacte kaarten (Victors
+  vraag): de Grainient verdrong er het glas, dus bij hover wordt het glas enkel
+  iets helderder. Een bewuste uitzondering op "elke knop krijgt de Grainient".
 - **Naam in de hero vult ook op gsm en tablet de volle breedte** (Victors
   vraag, nov 2026), zoals al op de halve vensters (variant D): "VAN SANDE" is een
   kwart van de kolom breed, de portretpil groeit mee. Eerst stond de naam op
