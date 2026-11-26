@@ -404,7 +404,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   tussen licht en donker.
 - **Duur bij periodes**: elke periode staat in een `.row-when` met
   `data-periode="2019-09/2026-09"` (of `/nu`, of enkel een jaartal). `zetDuur()`
-  in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder.
+  in `main.js` rekent daaruit de duur ("7 jaar", "2 mnd") en zet die eronder. Een schooljaar (vanaf augustus of september tot juni, juli of augustus) rondt af op hele jaren, met de grote vakantie erbij: "sep 2020 - jun 2023" is 3 jaar (Victors vraag, nov 2026).
   Wie een datum aanpast, past ook `data-periode` aan.
 - **Vorige versie**: de site van voor de herwerking staat ongewijzigd in `v1/`
   (niet meer gelinkt vanuit de site, wel bereikbaar via `v1/`). Niet meer aanpassen, enkel bewaren.

@@ -892,6 +892,9 @@
       } else {
         const [tj, tm] = tot === "nu" ? [nu.getFullYear(), nu.getMonth() + 1] : tot.split("-").map(Number);
         maanden = (tj - vj) * 12 + (tm - vm);
+        // een schooljaar (september tot juni) telt met de grote vakantie erbij:
+        // een opleiding van "sep 2020 - jun 2023" duurt 3 jaar, niet 2 jaar 9 mnd
+        if (tot !== "nu" && vm >= 8 && tm >= 6 && tm <= 8) maanden = Math.ceil(maanden / 12) * 12;
       }
       if (maanden < 1) maanden = 1;
       const j = Math.floor(maanden / 12), m = maanden % 12;
