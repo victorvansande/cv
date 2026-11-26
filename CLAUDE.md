@@ -310,7 +310,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   zodat de kleuren van de foto erdoor schijnen: een eenvoudig laagje mat glas
   (blur en saturate met een lichte witte tint), zonder rand, reflectie of
   schaduw (Victors vraag; een eerste versie met lichtrand vond hij te druk).
-  Op de pc staan ze boven het effen tekstvlak, op gsm boven de foto.
+  Op de pc staan ze boven het effen tekstvlak, op gsm boven de foto. Ze horen
+  enkel bij de voorkant: zodra de kaart gedraaid is, vervagen ze (`.gedraaid
+  .stack-hoek`). Door hun glas krijgen ze een eigen laag, en WebKit verborg die
+  niet mee met de voorkant: op de iPhone stonden ze gespiegeld op de achterkant.
 - **Lint onder Contact** (`lint.js`, sinds nov 2026, eigen bouw naar de TextLoop
   van React Bits): "Laten we samenwerken" op een golvende band in het accent
   van Contact, met de tekst in de grondkleur, over de volle breedte onderaan

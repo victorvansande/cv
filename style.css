@@ -799,7 +799,13 @@ ul { padding: 0; list-style: none; }
 /* Extra knoppen (cv, mail) staan als rond icoon rechtsboven op de kaart, in
    het accent van de kaart; het label schuift open bij hover of focus. Het
    label staat altijd in de html, dus een schermlezer leest het gewoon. */
-.stack-hoek { position: absolute; top: 16px; right: 16px; z-index: 5; display: flex; gap: 8px; }
+.stack-hoek { position: absolute; top: 16px; right: 16px; z-index: 5; display: flex; gap: 8px; transition: opacity .25s ease .35s, visibility 0s linear 0s; }
+/* De knopjes horen enkel bij de voorkant. Met hun glas (backdrop-filter)
+   krijgen ze een eigen laag, en WebKit verborg die niet mee met de voorkant:
+   op de iPhone stonden ze gespiegeld op de achterkant. Daarom vervagen ze
+   zodra de kaart draait, en komen ze pas terug als de voorkant weer in beeld is. */
+.stack-card.gedraaid .stack-hoek { opacity: 0; visibility: hidden; transition: opacity .15s ease, visibility 0s linear .15s; }
+.stack-hoek a { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 .stack-hoek a {
   display: inline-flex; align-items: center; height: 44px; max-width: 44px; padding: 0 13px; overflow: hidden;
   border-radius: var(--r-m); color: var(--g-ink); text-decoration: none;
