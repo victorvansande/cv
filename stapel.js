@@ -49,10 +49,10 @@
      behoudt haar maat; wat niet past, scrol je binnen de achterkant. */
   const ACHTER = {
     "#home": [".essentie .facts"],
-    "#werk": ["#werk .cols-3"],
+    "#portfolio": ["#portfolio .cols-3"],
     "#ervaring": ["#ervaring .org > .rows"],
     "#ksa": ["#ksa > .grade > .wrap > .rows"],
-    "#over": ["#over .prose", "#over .list-2"],
+    "#over-mij": ["#over-mij .prose", "#over-mij .list-2"],
     "#opleiding": ["#opleiding .g-centraal .rows"],
     "#masterproef": ["#masterproef .numbers", "#masterproef .findings"],
     "#contact": ["#contact .contact-list"],

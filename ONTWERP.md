@@ -142,7 +142,7 @@ Contact.
 - Over mij staat voor KSA (Victors keuze, nov 2026).
 - Het eerste hoofdstuk heet "Portfolio" (nov 2026). Eerst heette het "Werk", wat
   verwarde: Victors job bij Gekkoo staat onder "Ervaring". Het toont vakgebieden en
-  werkstukken; in het Engels heette het al "Portfolio". De id blijft `#werk`.
+  werkstukken; in het Engels heette het al "Portfolio". De id was eerst nog `#werk`; sinds nov 2026 is het `#portfolio` (Victors vraag: het adres moet de naam volgen), en `#over` werd `#over-mij`. Een inlinescript in de kop zet oude adressen om.
 - KSA staat niet in het menu en heeft een eigen blok (`div.sec#ksa`).
 - In de PDF's: Ervaring en Opleiding op blad 1, masterproef en Vrijwilligerswerk
   (KSA) op blad 2. In de ATS-versie staat KSA onder Vrijwilligerswerk, na de masterproef.

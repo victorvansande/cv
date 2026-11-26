@@ -180,7 +180,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   foto niet (gezien op een iPhone in de browser van Messenger: een leeg kader
   met een vraagteken), dan volgt één nieuwe poging en anders verdwijnt de pil
   (klasse `weg`).
-- **Volgorde van de secties** (sinds nov 2026, op feedback): Portfolio (`#werk`, heette eerst "Werk"), Ervaring
+- **Volgorde van de secties** (sinds nov 2026, op feedback): Portfolio (`#portfolio`; heette eerst "Werk" met id `#werk`, en Over mij is `#over-mij`; oude adressen zet een inlinescript in de kop om. Elk adres volgt de naam van zijn sectie: controleer dat bij elke hernoeming), Ervaring
   (Gekkoo), Opleiding met de masterproef, Over mij, KSA Herentals, Contact.
   KSA staat dus los van `#ervaring` in een eigen `div.sec#ksa`. De PDF's volgen:
   Opleiding op blad 1, KSA op blad 2; in de ATS-versie KSA onder Vrijwilligerswerk na de masterproef.

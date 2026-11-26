@@ -498,5 +498,5 @@
   }
 
   document.querySelectorAll(".gallery-photos").forEach(lenticulair);
-  document.querySelectorAll("#werk .gallery").forEach(ring);
+  document.querySelectorAll("#portfolio .gallery").forEach(ring);
 })();
