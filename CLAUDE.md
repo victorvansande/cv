@@ -388,7 +388,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   vervangingen met scripts rekening mee houden, en nooit bestanden in hun geheel
   van regeleinden laten wisselen.
 - **Menubalk**: glas (backdrop-filter blur en saturate over een halfdoorzichtige
-  tint, lichtrand bovenaan), met de bijna dekkende balk als terugval.
+  tint, enkel een dunne lijn onderaan), met de bijna dekkende balk als terugval.
+  Geen lichtverloop, lichtrand of schaduw: op zwart lazen die als een witte
+  gloed (Victors vraag, nov 2026).
 - **Raakvlakken**: kleine knoppen (menubalk, galerij, diploma's) krijgen een
   onzichtbare `::after` rond zich, zodat ze 44 px hoog zijn zonder er anders uit
   te zien (css onderaan "Toegankelijkheid zonder zichtbaar verschil"). `404.html`

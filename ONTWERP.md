@@ -224,6 +224,10 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Menubalk zonder gloed** (Victors vraag, nov 2026): het lichtverloop, de
+  lichtrand bovenaan en de schaduw zijn weg. Op een volledig zwart vlak lazen ze
+  als een witte gloed, terwijl Victor helder, doorschijnend glas bedoelt: enkel
+  vervaging en wat meer kleur van wat eronder ligt, met een dunne lijn onderaan.
 - **Grainient wordt een golf** (Victors keuze, nov 2026, uit een interactieve
   proefbank met drie varianten): het vorige verloop was 2,6 keer zo breed als de
   knop en dreef in 7 s heen en terug, waardoor het statisch en te ver ingezoomd
