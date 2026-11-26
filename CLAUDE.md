@@ -241,7 +241,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   bij elke wissel van `data-view`. Elke nieuwe meting volgt die regel. Ook de
   hero lijnt zo uit: de bovenkant van de hoofdletters van "Communicatiewetenschapper."
   op die van "VICTOR" (`heroLijn`, gemeten met offsetTop, dat transformaties
-  negeert, zodat het ook tijdens de intro klopt). Naast een titel mag de tekst 70 tekens breed zijn. De grote foto's
+  negeert, zodat het ook tijdens de intro klopt), en ook het slot van Contact: de eerste regel rechts op "STUUR" (`contactLijn`, enkel als ze naast elkaar staan, boven 1180 px). Naast een titel mag de tekst 70 tekens breed zijn. De grote foto's
   hebben hoeken van 12 px; op gsm onder 700 px lopen ze van rand tot rand,
   zonder hoeken. De gekleurde lagen die er vroeger rechts onder uitschoven
   (naar de Staggered Menu) zijn op Victors vraag weg. Een kop binnen een sectie (`.sub-head >

@@ -196,6 +196,19 @@
     const verschil = (basislijn(naam) - kapHoogte(naam)) - (basislijn(lead) - kapHoogte(lead));
     zij.style.marginTop = verschil.toFixed(1) + "px";
   };
+  /* Contact lijnt zoals de hero: de bovenkant van de hoofdletters van de
+     eerste regel rechts ("Ik sta open…") op die van de titel. Enkel als ze
+     naast elkaar staan (boven 1180 px); daaronder staan ze onder elkaar. */
+  const contactLijn = () => {
+    const titel = document.querySelector(".contact-title"), zij = document.querySelector(".contact > :last-child");
+    const lead = zij && zij.querySelector(".sec-lead");
+    if (!titel || !lead || zij === titel) return;
+    zij.style.alignSelf = ""; zij.style.marginTop = ""; titel.style.alignSelf = "";
+    if (zij.offsetLeft < titel.offsetLeft + titel.offsetWidth * 0.5) return; // onder elkaar
+    zij.style.alignSelf = "start"; titel.style.alignSelf = "start";
+    const verschil = (basislijn(titel) - kapHoogte(titel)) - (basislijn(lead) - kapHoogte(lead));
+    zij.style.marginTop = verschil.toFixed(1) + "px";
+  };
   /* Enkel meten wat zichtbaar is: in de compacte weergave staan de secties
      op display: none, en een meting gaf dan 0. Wie daarna terugkeerde naar de
      gewone weergave, kreeg overal een marge van -64 px (de tekst stond hoog
@@ -203,7 +216,7 @@
      opnieuw meten zodra de weergave wisselt. */
   const koppen = () => {
     if (wortel.dataset.view === "compact") return;
-    pasTitels(); lijnKoppen(); heroLijn();
+    pasTitels(); lijnKoppen(); heroLijn(); contactLijn();
   };
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(koppen);
   addEventListener("resize", koppen);
