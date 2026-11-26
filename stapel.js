@@ -7,8 +7,9 @@
    donkerder. Eigen bouw, geïnspireerd op de Scroll Stack van React Bits Pro
    (zonder hun code); de standaardwaarden staan hieronder.
 
-   Aan en uit via de instellingen; de keuze staat onder cv-weergave en wordt
-   al in de kop toegepast. Elke kaart krijgt één schermhoogte scrollruimte.
+   Aan en uit via de instellingen; de keuze staat onder cv-weergave in
+   sessionStorage (enkel voor dit bezoek: een gedeelde link start altijd op de
+   volledige site, Victors vraag nov 2026) en wordt al in de kop toegepast. Elke kaart krijgt één schermhoogte scrollruimte.
    ============================================================ */
 (() => {
   "use strict";
@@ -340,7 +341,7 @@
     if (op) wortel.dataset.view = "compact";
     else delete wortel.dataset.view;
     if (knop) knop.checked = op;
-    if (bewaar) { try { localStorage.setItem("cv-weergave", op ? "compact" : "normaal"); } catch (e) {} }
+    if (bewaar) { try { sessionStorage.setItem("cv-weergave", op ? "compact" : "normaal"); } catch (e) {} }
     if (op) { huidig = doelStand(); teken(); requestAnimationFrame(pasTekst); }
     // vastklikken pas na een beeld, op de stand waar je nu staat (css: .klikt)
     wortel.classList.remove("klikt");

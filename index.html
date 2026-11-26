@@ -44,7 +44,7 @@
           // het vel papier ligt er al vanaf de eerste paint, anders zie je
           // eerst kort de site; vel.js neemt het daarna over
           var rustig = matchMedia("(prefers-reduced-motion: reduce)").matches;
-          try { rustig = rustig || localStorage.getItem("cv-motion") === "reduce" || localStorage.getItem("cv-weergave") === "compact"; } catch (e) {}
+          try { rustig = rustig || localStorage.getItem("cv-motion") === "reduce" || sessionStorage.getItem("cv-weergave") === "compact"; } catch (e) {}
           if (!rustig) d.classList.add("vel-open");
         }
       } catch (e) { /* private mode: intro wordt gewoon overgeslagen */ }
@@ -55,13 +55,13 @@
   <script src="vel.js?v=8" defer></script>
   <script src="main.js?v=128" defer></script>
   <script src="galerij.js?v=4" defer></script>
-  <script src="stapel.js?v=15" defer></script>
+  <script src="stapel.js?v=16" defer></script>
   <script src="lint.js?v=4" defer></script>
   <!-- Voorkeuren al in de kop toepassen, zodat de pagina niet zichtbaar
        verspringt. Kleurthema en licht/donker zijn weg: elke sectie haalt haar
        kleuren nu uit haar eigen foto, en een vrij te kiezen thema zou dat
        systeem doorkruisen. -->
-  <script>(function(){var d=document.documentElement;try{if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';if(localStorage.getItem('cv-modus')==='light'){d.dataset.mode='light';var t=document.querySelector('meta[name=theme-color]');if(t)t.content='#f6f1ea';}if(localStorage.getItem('cv-weergave')==='compact')d.dataset.view='compact';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){}})();</script>
+  <script>(function(){var d=document.documentElement;try{if(localStorage.getItem('cv-motion')==='reduce')d.dataset.motion='reduce';if(localStorage.getItem('cv-contrast')==='high')d.dataset.contrast='high';var z=parseInt(localStorage.getItem('cv-zoom'),10);if(z>=80&&z<=130&&z!==100)d.style.fontSize=z+'%';if(localStorage.getItem('cv-modus')==='light'){d.dataset.mode='light';var t=document.querySelector('meta[name=theme-color]');if(t)t.content='#f6f1ea';}localStorage.removeItem('cv-weergave');if(sessionStorage.getItem('cv-weergave')==='compact')d.dataset.view='compact';var l=localStorage.getItem('cv-lang');d.lang=(l==='en')?'en':'nl';}catch(e){}})();</script>
 </head>
 <body>
   <a class="skip-link" href="#home" data-i18n="skip_link">Meteen naar de inhoud</a>
@@ -162,7 +162,10 @@
        Een samenvatting van de hele site als stapel kaarten, één per onderdeel,
        met de foto en de kleuren van dat onderdeel. Enkel zichtbaar wanneer
        data-view="compact" op <html> staat (instellingen, onthouden onder
-       cv-weergave); de gewone secties zijn dan verborgen. "Lees verder" zet de
+       cv-weergave in sessionStorage: enkel voor dit bezoek, zodat wie de link
+       later opnieuw opent altijd op het vel en de volledige site start; de
+       oude keuze in localStorage wordt in de kop gewist). De gewone secties
+       zijn dan verborgen. "Lees verder" zet de
        gewone weergave terug en springt naar het onderdeel. De beweging zit in
        stapel.js. Eigen bouw, geïnspireerd op de Scroll Stack van React Bits Pro. -->
   <section class="stack" id="compact" aria-label="Compacte weergave">

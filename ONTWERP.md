@@ -224,6 +224,10 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Compacte weergave enkel voor één bezoek** (Victors vraag, nov 2026): de keuze
+  staat in sessionStorage, niet meer in localStorage. Wie de compacte versie ooit
+  koos, kwam anders bij elk volgend bezoek (ook via een gedeelde link) zonder vel
+  in de compacte weergave terecht.
 - **Tellers van de masterproef op gsm** (Victors vraag, nov 2026): geen twee
   gelijke kolommen meer (de tweede begon op de helft van het scherm, niet links en
   niet gecentreerd), maar een groepje links met een dun lijntje ertussen.
