@@ -269,6 +269,8 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   broodletter ("241 respondenten · 18–65 jaar, Vlaanderen", `.mp-onder`, met de
   bestaande vertaalsleutels). De knipoog naar spiegeling zit nu enkel nog in de
   foto zelf. Geen gespiegelde of rimpelende tekst meer voorstellen.
+  Opengeklapt staat de titel van de masterproef (`.thesis .sec-sub`) in het accent,
+  zoals het label erboven (Victors vraag, nov 2026).
   In licht lag er eerst een verloop in de lichte grondkleur over de strook, wat een
   melkwitte sluier gaf (Victor vond het te fel). Nu een donkere waas in beide
   versies, met lichte titel (keuze A uit drie; niet gekozen: de grond die links

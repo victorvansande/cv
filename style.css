@@ -998,6 +998,8 @@ ul { padding: 0; list-style: none; }
    streepjes bij de bevindingen, de namen van de promotoren en de randen van de
    trefwoorden. De knop blijft zoals elders. */
 .thesis .numbers dt { color: var(--g-acc); }
+/* de titel van de masterproef in het accent, zoals het label erboven (Victors vraag, nov 2026) */
+.thesis .sec-sub { color: var(--g-acc); }
 .thesis .tags span { border-color: color-mix(in srgb, var(--g-acc) 40%, transparent); }
 @media (hover: hover) { .thesis .tags span:hover { border-color: var(--g-acc); } }
 .thesis-grid { margin-top: 14px; }
