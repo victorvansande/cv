@@ -224,6 +224,8 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- Onder 900 px geen lijn boven "Stages & studentenjobs" (Victors vraag, nov 2026):
+  het label staat daar boven de rijen, met al een lijn eronder.
 - Koppen slaan geen niveau over: h1 de naam, h2 de hoofdstukken, h3 daaronder.
 - Scrollbalken in eigen ontwerp: een fijne lijn met een kapsule in het accent,
   zonder pijltjes (achterkant van de compacte kaarten).

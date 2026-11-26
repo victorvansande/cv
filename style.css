@@ -1155,10 +1155,12 @@ ul { padding: 0; list-style: none; }
   .hero, .sec-head, .org, .contact { grid-template-columns: minmax(0, 1fr); }
   .hero > *, .sec-head > :first-child, .sec-head > :last-child, .org-head, .org > .rows,
   .contact > :first-child, .contact > :last-child { grid-column: 1 / -1; }
-  .org + .sub-block { display: block; }
+  /* geen lijn boven "Stages & studentenjobs": onder elkaar staat er al een
+     lijn onder het label, twee lijnen kort na elkaar oogden druk (Victors vraag) */
+  .org + .sub-block { display: block; border-top: 0; }
   .org-head { padding-right: 0; }
   .org > .rows, .org + .sub-block > .rows { border-top: 1px solid var(--g-line); }
-  .org + .sub-block > .label { padding-top: 22px; margin-bottom: 14px; }
+  .org + .sub-block > .label { padding-top: 0; margin-bottom: 14px; }
   .hero-name { font-size: clamp(3.6rem, 17vw, 6rem); }
   .sec-title { font-size: clamp(3.6rem, 19vw, 7rem); }
   .sec-title.sec-title-lang { font-size: clamp(3.2rem, 15vw, 5.6rem); }
