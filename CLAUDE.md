@@ -373,6 +373,8 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   tekst eronder in twee kolommen: links de inleiding, rechts de regel eronder,
   de knoppen en de link naar de compacte versie. Eerst stond de tekst op 8
   kolommen en bleef rechts een leeg vlak. Contact staat nog op 8 kolommen.
+  Onder 900 px vult de naam ook de volle breedte (nov 2026), met dezelfde
+  berekening; op een touchscherm zonder de 16 px speling (`pointer: coarse`).
 - **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de
   achtergrondkleur van de sectie erboven mee (`--vorige`, klasse `.vloeit`),
   zodat ze bovenaan zacht in elkaar overvloeien. Herberekend bij een wissel

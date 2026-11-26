@@ -224,6 +224,10 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Naam in de hero vult ook op gsm en tablet de volle breedte** (Victors
+  vraag, nov 2026), zoals al op de halve vensters (variant D): "VAN SANDE" is een
+  kwart van de kolom breed, de portretpil groeit mee. Eerst stond de naam op
+  17vw met een maximum van 6rem en bleef rechts een lege strook.
 - **Menubalk zonder gloed** (Victors vraag, nov 2026): het lichtverloop, de
   lichtrand bovenaan en de schaduw zijn weg. Op een volledig zwart vlak lazen ze
   als een witte gloed, terwijl Victor helder, doorschijnend glas bedoelt: enkel

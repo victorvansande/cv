@@ -1188,7 +1188,11 @@ ul { padding: 0; list-style: none; }
   .org-head { padding-right: 0; }
   .org > .rows, .org + .sub-block > .rows { border-top: 1px solid var(--g-line); }
   .org + .sub-block > .label { padding-top: 0; margin-bottom: 14px; }
-  .hero-name { font-size: clamp(3.6rem, 17vw, 6rem); }
+  /* De naam vult de volle breedte, zoals op de halve vensters (Victors vraag,
+     nov 2026): "VAN SANDE" is 3,96 keer zo breed als de lettergrootte, dus een
+     kwart van de kolom. 16 px speling voor een scrollbalk; op een touchscherm
+     (gsm, tablet) neemt de scrollbalk geen plaats in en valt die speling weg. */
+  .hero-name { font-size: calc((100vw - 2 * var(--gutter) - 16px) * .25); }
   .sec-title { font-size: clamp(3.6rem, 19vw, 7rem); }
   .sec-title.sec-title-lang { font-size: clamp(3.2rem, 15vw, 5.6rem); }
   /* "KSA Herentals" staat hier op één regel: de titel heeft de volle breedte en
@@ -1968,4 +1972,10 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
     flex: 1 1 auto; min-width: 0; justify-content: center; text-align: center;
     padding: 7px 12px; line-height: 1.2; font-size: .88rem;
   }
+}
+
+/* Op een touchscherm neemt de scrollbalk geen plaats in: daar vult de naam de
+   kolom zonder de 16 px speling (zie de regel onder 900 px). */
+@media (max-width: 900px) and (pointer: coarse) {
+  .hero-name { font-size: calc((100vw - 2 * var(--gutter)) * .248); }
 }
