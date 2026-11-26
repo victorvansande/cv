@@ -60,6 +60,10 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **Hero in halve vensters: variant D** (nov 2026): grote naam die de breedte
+  vult, tekst eronder in twee kolommen. Niet gekozen: A naast elkaar, B grote
+  naam met tekst op 8 kolommen, C naam zoals voorheen met tekst in twee
+  kolommen, E tekstblok rechts onder de naam, F naam op één regel zonder pil.
 - **Pauzeknop van het lint weggehaald** (Victors vraag): de richtlijn vraagt er
   een voor beweging langer dan 5 s, maar het lint staat al stil bij hover en bij
   minder beweging. Niet opnieuw voorstellen.

@@ -359,9 +359,13 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   de richting van de ruk. Het meet de plaats van het bonnetje vóór `afgescheurd()`
   de hint verbergt (anders begon de prop 33 px te hoog). Bij minder beweging geen prop.
 - **Halve vensters (901 tot 1180 px)**: de hero en het slot van Contact staan
-  daar onder elkaar (titel, dan tekst op 8 kolommen), anders kreeg de titel
-  naast de smalle, hoge tekstkolom een gat erboven. De naam blijft op twee
-  regels (12,5vw), want de portretpil hoort naast "Victor".
+  daar onder elkaar. De hero volgt variant D (Victors keuze, nov 2026): de naam
+  op twee regels (de portretpil hoort naast "Victor") en zo groot dat hij de
+  volle breedte vult (`font-size` berekend uit `100vw - 2 * --gutter`, met 16 px
+  speling voor een scrollbalk, anders brak "VAN SANDE" af op 901 px), en de
+  tekst eronder in twee kolommen: links de inleiding, rechts de regel eronder,
+  de knoppen en de link naar de compacte versie. Eerst stond de tekst op 8
+  kolommen en bleef rechts een leeg vlak. Contact staat nog op 8 kolommen.
 - **Overgang tussen secties**: `vloei()` in `main.js` geeft elke sectie de
   achtergrondkleur van de sectie erboven mee (`--vorige`, klasse `.vloeit`),
   zodat ze bovenaan zacht in elkaar overvloeien. Herberekend bij een wissel

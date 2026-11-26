@@ -1001,10 +1001,21 @@ ul { padding: 0; list-style: none; }
 @media (min-width: 901px) and (max-width: 1180px) {
   .hero, .contact { row-gap: 26px; }
   .contact > :first-child { grid-column: 1 / -1; }
-  /* de naam blijft op twee regels (de portretpil hoort naast "Victor"), maar
-     wordt groter dan naast de tekst */
-  .hero-name { grid-column: 1 / span 9; font-size: 12.5vw; }
-  .hero-side, .contact > :last-child { grid-column: 1 / span 8; }
+  /* Variant D (Victors keuze, nov 2026): de naam blijft op twee regels (de
+     portretpil hoort naast "Victor") en wordt zo groot dat hij de volle breedte
+     vult; de tekst eronder staat in twee kolommen: links de inleiding, rechts
+     de regel eronder, de knoppen en de link naar de compacte versie. Eerst stond
+     de tekst op 8 kolommen en bleef rechts een leeg vlak. */
+  .hero-name { grid-column: 1 / -1; font-size: calc((100vw - 2 * var(--gutter) - 16px) * .25); } /* 16 px speling voor een scrollbalk; zo vult "VAN SANDE" de breedte zonder af te breken */
+  .hero-side {
+    grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px; align-items: start;
+  }
+  .hero-side > .hero-lead { grid-column: 1 / span 6; grid-row: 1 / span 3; }
+  .hero-side > :not(.hero-lead) { grid-column: 7 / span 6; }
+  .hero-side > .hero-meta { margin-top: 4px; }
+  .hero-side > .btn-row { margin-top: 14px; }
+  .contact > :last-child { grid-column: 1 / span 8; }
 }
 /* Contactgegevens als rijen in twee kolommen: label links, gegeven rechts, en
    een pijl die bij hover een stukje opschuift */
