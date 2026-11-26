@@ -427,17 +427,24 @@
   if (!matchMedia("(hover: hover) and (pointer: fine)").matches && "IntersectionObserver" in window) {
     const inBeeld = new Set();
     let fRaf = null;
+    /* Eerst alle foto's meten, dan pas schrijven, en enkel een waarde die
+       verandert: meten en schrijven door elkaar dwong de browser per foto de
+       opmaak opnieuw te berekenen. In de compacte weergave zijn deze foto's
+       verborgen, dan doet dit niets. */
+    const vorigF = new WeakMap();
     const focus = () => {
       fRaf = null;
+      if (wortel.dataset.view === "compact") return;
       const h = innerHeight, mid = h / 2;
-      inBeeld.forEach((img) => {
-        const r = img.getBoundingClientRect();
+      const metingen = [...inBeeld].map((img) => [img, img.getBoundingClientRect()]);
+      metingen.forEach(([img, r]) => {
         const d = Math.abs(r.top + r.height / 2 - mid) / h;
         const t = Math.min(1, Math.max(0, (0.45 - d) / (0.45 - 0.12)));
-        img.style.setProperty("--f", (t * t * (3 - 2 * t)).toFixed(3));
+        const f = (t * t * (3 - 2 * t)).toFixed(3);
+        if (vorigF.get(img) !== f) { vorigF.set(img, f); img.style.setProperty("--f", f); }
       });
     };
-    const planFocus = () => { if (fRaf === null) fRaf = requestAnimationFrame(focus); };
+    const planFocus = () => { if (fRaf === null && wortel.dataset.view !== "compact") fRaf = requestAnimationFrame(focus); };
     const io = new IntersectionObserver((items) => {
       items.forEach((it) => {
         if (it.isIntersecting) inBeeld.add(it.target);
@@ -620,9 +627,16 @@
       return sp;
     });
   };
+  /* Elk omklappen speelt een korte animatie. Eerst gebeurde dat door de klasse
+     weg te halen, de opmaak te laten herberekenen (offsetWidth) en de klasse
+     terug te zetten: per cijfer, elke 70 ms, en dat kostte op een trage gsm
+     merkbaar rekentijd. Een Web Animation herstart zonder herberekening en
+     ziet er hetzelfde uit (de keyframes van tel-klap in style.css). */
+  const KLAP = [{ transform: "scaleY(.35)", opacity: .55 }, { transform: "none", opacity: 1 }];
   const klap = (sp, c) => {
     sp.textContent = c;
-    sp.classList.remove("klap"); void sp.offsetWidth; sp.classList.add("klap");
+    if (sp.animate) sp.animate(KLAP, { duration: 70, easing: "linear" });
+    else { sp.classList.remove("klap"); void sp.offsetWidth; sp.classList.add("klap"); }
   };
   const hertelGetallen = () => document.querySelectorAll("[data-count], [data-flap]").forEach((el) => {
     const t = telTekst(el);
@@ -924,8 +938,12 @@
       }
     };
     const navLijst = document.querySelector(".nav-links");
-    addEventListener("scroll", kies, { passive: true });
-    addEventListener("resize", kies);
+    // één keer per beeld (scroll vuurt vaker), en niet in de compacte weergave:
+    // daar zijn de secties verborgen en stuurt stapel.js het menu
+    let kiesRaf = 0;
+    const planKies = () => { if (!kiesRaf && wortel.dataset.view !== "compact") kiesRaf = requestAnimationFrame(() => { kiesRaf = 0; kies(); }); };
+    addEventListener("scroll", planKies, { passive: true });
+    addEventListener("resize", planKies);
     // na een wissel tussen licht en donker verandert elk accent: opnieuw kiezen
     new MutationObserver(() => { current = ""; kies(); }).observe(wortel, { attributes: true, attributeFilter: ["data-mode"] });
     kies();

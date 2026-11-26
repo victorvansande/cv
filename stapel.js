@@ -295,11 +295,15 @@
         // de bovenste kaart krijgt geen filter: een filter maakt de 3D-draai plat
         f = rel < 0.02 ? "none" : "brightness(" + (1 - S.dim * Math.min(rel, 1.6)).toFixed(3) + ")" + (vaag > 0.2 ? " blur(" + vaag.toFixed(2) + "px)" : "");
       }
-      k.style.visibility = zicht ? "visible" : "hidden";
-      k.style.transform = t;
-      k.style.filter = f;
-      k.style.zIndex = z;
-      k.toggleAttribute("inert", Math.round(huidig) !== i);
+      // enkel schrijven wat verandert: dit loopt elk beeld tijdens het
+      // scrollen, en elke schrijfactie (zeker inert) kost een herberekening
+      const v = k.__vorig || (k.__vorig = {});
+      const vis = zicht ? "visible" : "hidden", inert = Math.round(huidig) !== i;
+      if (v.vis !== vis) k.style.visibility = v.vis = vis;
+      if (v.t !== t) k.style.transform = v.t = t;
+      if (v.f !== f) k.style.filter = v.f = f;
+      if (v.z !== z) k.style.zIndex = v.z = z;
+      if (v.inert !== inert) k.toggleAttribute("inert", v.inert = inert);
     });
     if (balk) {
       balk.style.transform = "scaleX(" + (n > 1 ? huidig / (n - 1) : 1).toFixed(4) + ")";
