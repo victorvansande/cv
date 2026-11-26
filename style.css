@@ -592,6 +592,11 @@ ul { padding: 0; list-style: none; }
 .rows-tight .row { padding: 14px 0; }
 .rows-tight .row > div { color: var(--g-soft); }
 .rows-tight strong { color: var(--g-ink); font-weight: 600; }
+/* de studentenjobs elk op een eigen regel: met een bolletje ertussen las het
+   op gsm vreemd, en een komma botste met die in "POP Coffee, Herentals" */
+.job-regel { display: block; }
+.job-regel + .job-regel { margin-top: 4px; }
+.nb { white-space: nowrap; } /* jaartallen als "(2023–2024)" niet afbreken na het streepje */
 .row-split { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .row-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }
 .honour { font-size: .86rem; color: var(--g-acc); font-weight: 500; }

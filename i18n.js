@@ -295,7 +295,7 @@ window.I18N = {
     stage2_short: `Science teacher (internship)`,
     stage3_short: `Youth counsellor (internship) · Counselling`,
     jobstudent_label: `Student jobs`,
-    jobstudent_text: `Barista at POP Coffee, Herentals (2023–2024) · Sales assistant at Van Eccelpoel, Herentals (2016–2018)`,
+    jobstudent_text: `<span class="job-regel">Barista at POP Coffee, Herentals <span class="nb">(2023–2024)</span></span><span class="job-regel">Sales assistant at Van Eccelpoel, Herentals <span class="nb">(2016–2018)</span></span>`,
 
     /* tl;dr */
     tldr_edu_lbl: `Education`,
