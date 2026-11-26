@@ -607,7 +607,10 @@ ul { padding: 0; list-style: none; }
    (anders liep "Herentals" op een iPhone SE uit beeld) */
 .job-regel .row-place { margin-left: 0; }
 .nb { white-space: nowrap; } /* jaartallen als "(2023–2024)" niet afbreken na het streepje */
-.row-split { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+/* knop en tekst op dezelfde basislijn, niet op hetzelfde midden: de tekst is
+   groter dan het label van de knop, en gecentreerd stond dat label een paar
+   pixels hoger dan de tekst ernaast (Victors vraag, nov 2026) */
+.row-split { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .row-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }
 .honour { font-size: .86rem; color: var(--g-acc); font-weight: 500; }
 /* op gsm staat de vermelding altijd op een eigen regel en de knoppen eronder:
