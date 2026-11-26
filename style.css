@@ -1016,6 +1016,14 @@ ul { padding: 0; list-style: none; }
 .tel-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .tel-d { animation: none !important; } }
 .numbers dd { margin-top: 4px; font-size: .86rem; color: var(--g-soft); }
+/* Op gsm stonden de twee tellers in twee gelijke kolommen: de tweede begon op
+   de helft van het scherm, wat niet links en niet gecentreerd oogde (Victors
+   vraag, nov 2026). Daar staan ze nu als groepje links, zoals de tekst
+   eromheen, met een dun lijntje ertussen. */
+@media (max-width: 700px) {
+  .numbers { display: flex; flex-wrap: wrap; gap: 22px 0; }
+  .numbers > div + div { margin-left: 28px; padding-left: 28px; border-left: 1px solid var(--g-line); }
+}
 .thesis-meta { margin-top: 24px; font-size: .88rem; color: var(--g-soft); }
 .thesis-meta b { color: var(--g-ink); font-weight: 600; }
 
