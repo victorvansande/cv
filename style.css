@@ -1488,7 +1488,7 @@ ul { padding: 0; list-style: none; }
 /* de referentieknop naast de naam van de werkgever, rechts uitgelijnd op de
    rand van de foto eronder, zoals "Bekijk brevet" (Victors vraag, nov 2026) */
 .org-titel { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 8px 0 10px; }
-.org-titel h3 { margin: 0; }
+.org-titel h3 { margin: 0; color: var(--g-acc); } /* in het accent van het hoofdstuk, zoals de sectietitels (Victors vraag) */
 .org-titel .ref-knop { margin-top: 0; }
 /* Een subtiel sterretje voor het woord "Referentie(s)" (ster in lijn, Victors
    keuze): wit op donker, in het accent op licht, waar wit zou wegvallen. De
