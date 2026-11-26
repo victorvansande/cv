@@ -1918,3 +1918,16 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
 :root.intro.go .hero-pil.pil-intro img { animation: pil-zoom .7s cubic-bezier(.2, .7, .2, 1) .75s both; }
 @keyframes pil-open { from { clip-path: inset(0 100% 0 0 round var(--pr, 14px)); } to { clip-path: inset(0 0 0 0 round var(--pr, 14px)); } }
 @keyframes pil-zoom { from { transform: scale(1.18); } to { transform: none; } }
+
+/* Op gsm staan twee knoppen naast elkaar in plaats van onder elkaar (Victors
+   vraag, nov 2026: gestapeld oogde onaf). Ze delen de breedte naar hun tekst;
+   is die te lang, dan loopt het label over twee regels, gecentreerd, en blijven
+   beide knoppen even hoog. Enkel rijen met meer dan één knop (:has); de
+   compacte kaarten hebben hun eigen, kleinere knoppen en blijven zoals ze zijn. */
+@media (max-width: 700px) {
+  .btn-row:not(.stack-body .btn-row):has(> .btn + .btn) { flex-wrap: nowrap; gap: 8px; }
+  .btn-row:not(.stack-body .btn-row):has(> .btn + .btn) > .btn {
+    flex: 1 1 auto; min-width: 0; justify-content: center; text-align: center;
+    padding: 7px 12px; line-height: 1.2; font-size: .88rem;
+  }
+}

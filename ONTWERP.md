@@ -216,6 +216,12 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 - Hoeken volgen één schaal (`--r-xs` 4 tot `--r-xl` 16 px). Geen volledig ronde
   pillen, ook het portret niet.
 - Kleine knoppen hebben een onzichtbaar raakvlak van 44 px.
+- **Twee knoppen naast elkaar, ook op gsm** (Victors vraag, nov 2026): onder
+  elkaar oogde onaf. Onder 700 px delen ze de breedte naar hun tekst (letter
+  .88rem, opvulling 12 px); een te lang label loopt over twee regels en beide
+  knoppen blijven even hoog. Kleiner dan .88rem wordt het te priegelig, dus op
+  een heel smal scherm (iPhone SE) of bij lange labels ("Citaat van mijn
+  promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
 - Koppen slaan geen niveau over: h1 de naam, h2 de hoofdstukken, h3 daaronder.
