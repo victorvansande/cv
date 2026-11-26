@@ -606,6 +606,10 @@ ul { padding: 0; list-style: none; }
    kan de regel daar breken en begint een afgebroken plaats niet ingesprongen
    (anders liep "Herentals" op een iPhone SE uit beeld) */
 .job-regel .row-place { margin-left: 0; }
+/* op gsm staat de plaats bij elke job op een eigen regel: anders paste ze bij
+   de ene job er net naast en viel ze bij de andere alleen op een nieuwe regel,
+   wat los en toevallig oogde (Victors vraag, nov 2026) */
+@media (max-width: 700px) { .job-regel .row-place { display: block; margin-top: 1px; } }
 .nb { white-space: nowrap; } /* jaartallen als "(2023–2024)" niet afbreken na het streepje */
 /* knop en tekst op dezelfde basislijn, niet op hetzelfde midden: de tekst is
    groter dan het label van de knop, en gecentreerd stond dat label een paar
