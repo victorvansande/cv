@@ -1167,7 +1167,7 @@
 
   /* ---- Masterproef uitklappen ("Spiegeling") ----
      De masterproef staat eerst ingeklapt (Victors keuze, nov 2026): een strook
-     van de foto met de titel en zijn weerspiegeling. De knop laat de foto
+     van de foto met de titel en de kerncijfers. De knop laat de foto
      groeien tot haar volle hoogte en vouwt de inhoud eronder open; de css doet
      de inhoud (rasterrij van 0fr naar 1fr), hier enkel de hoogte van de foto,
      want een aspect-ratio laat zich niet overgaan. Wie via een link naar

@@ -1006,8 +1006,8 @@ ul { padding: 0; list-style: none; }
    Victors keuze uit drie voorstellen (nov 2026): niet elke recruiter wil de
    masterproef lezen, en open nam ze 1100 px op de pc en 1370 op gsm in. Main.js
    zet .mp-dicht op de sectie. Dan is de foto een strook (--mp-band) met de
-   titel en zijn weerspiegeling in het water, een knipoog naar het gespiegelde
-   MAS en naar misleiding: wat je eerst ziet, is maar de helft. De knop laat de
+   titel en de kerncijfers (de weerspiegeling van de titel is weg, zie
+   .mp-onder). De knop laat de
    foto groeien (main.js zet de hoogte, want een aspect-ratio laat zich niet
    overgaan) en vouwt de inhoud open via een rasterrij van 0fr naar 1fr. */
 .mp-beeld { position: relative; }
@@ -1029,7 +1029,7 @@ ul { padding: 0; list-style: none; }
 .mp-dicht .mp-frame img { aspect-ratio: auto; height: var(--mp-band); }
 .mp-frame img { object-position: 50% 50%; }
 
-/* titel en weerspiegeling over de strook, met een verloop in de grondkleur
+/* titel en kerncijfers over de strook, met een verloop in de grondkleur
    zodat de tekst leesbaar blijft. Het verloop bedekt altijd de hele foto, ook
    terwijl ze groeit of krimpt: eerst had het de vaste hoogte van de strook, en
    tijdens het uitklappen zag je er een blauwig vak met een harde onderrand van
@@ -1043,20 +1043,19 @@ ul { padding: 0; list-style: none; }
   transition: opacity .3s ease, visibility 0s linear .3s; }
 /* bij het sluiten komt de titel pas terug als de foto bijna een strook is */
 .mp-dicht .mp-kop { opacity: 1; visibility: visible; transition: opacity .45s ease .3s, visibility 0s; }
-/* bij het openen schuift de titel wat omhoog en trekt de weerspiegeling zich
-   terug in het water; bij het sluiten omgekeerd */
+/* bij het openen schuift de tekst wat omhoog en vervaagt; bij het sluiten omgekeerd */
 .mp-kop .label { color: #eb8762; }
 .mp-kop .mp-titel { color: #ebedf3; }
 .mp-kop-in { height: calc(var(--mp-band) + 1px); display: flex; flex-direction: column; justify-content: center; padding: 0 clamp(22px, 4vw, 48px) 26px; }
 .mp-kop-in > * { transition: transform .45s var(--mp-ease, ease); }
-.mp-kop-in > .label, .mp-kop-in > .mp-titel:not(.mp-spiegel) { transform: translateY(-10px); }
-.mp-dicht .mp-kop-in > .label, .mp-dicht .mp-kop-in > .mp-titel:not(.mp-spiegel) { transform: none; transition-delay: .3s; }
+.mp-kop-in > * { transform: translateY(-10px); }
+.mp-dicht .mp-kop-in > * { transform: none; transition-delay: .3s; }
 .mp-titel { font-family: var(--font-head); font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: .95; color: var(--g-ink); margin-top: 8px; text-wrap: balance; }
-.mp-spiegel { margin-top: 2px; opacity: 0; filter: blur(.6px); transform: scaleY(-.3); transition: transform .45s var(--mp-ease, ease), opacity .3s ease;
-  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, .9), transparent 75%); mask-image: linear-gradient(to top, rgba(0, 0, 0, .9), transparent 75%); }
-/* het water rimpelt traag, enkel zolang de strook zichtbaar is */
-.mp-dicht .mp-spiegel { opacity: .5; transform: scaleY(-1); transition-delay: .4s; animation: mp-rimpel 5s ease-in-out 1.2s infinite; }
-@keyframes mp-rimpel { 50% { transform: scaleY(-1) skewX(-4deg) translateX(3px); } }
+/* onder de titel de kerncijfers in de broodletter, rustig en gedempt. Eerst
+   stond hier de titel nog eens gespiegeld in het water, traag rimpelend, maar
+   dat effect was te modern naast de rest van de site (Victor, nov 2026). */
+.mp-onder { margin-top: 14px; font-size: 1rem; color: rgb(235 237 243 / .72); letter-spacing: .01em; }
+.mp-punt { margin: 0 .35em; color: #eb8762; }
 
 /* de knop staat rechtsonder op de foto, ook als die open is. Glas zoals de
    rondjes op de compacte kaarten (Victors vraag, nov 2026): een eenvoudig
@@ -1099,10 +1098,8 @@ ul { padding: 0; list-style: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .mp-vouw, .mp-vouw .thesis, .mp-kop, .mp-kop-in > *, .mp-knop svg, .mp-k-tekst > span { transition: none !important; }
-  .mp-dicht .mp-spiegel { animation: none; }
 }
 :root[data-motion="reduce"] :is(.mp-vouw, .mp-vouw .thesis, .mp-kop, .mp-kop-in > *, .mp-knop svg, .mp-k-tekst > span) { transition: none !important; }
-:root[data-motion="reduce"] .mp-dicht .mp-spiegel { animation: none; }
 @media print { .mp-dicht .mp-vouw { grid-template-rows: 1fr; } .mp-dicht .mp-vouw .thesis { opacity: 1; transform: none; } }
 .findings { margin-top: 22px; border-top: 1px solid var(--g-line); }
 .findings li { padding: 12px 0 12px 22px; border-bottom: 1px solid var(--g-line); position: relative; color: var(--g-soft); }

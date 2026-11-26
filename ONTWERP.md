@@ -262,9 +262,13 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   de foto groeien en de inhoud openvouwen. Niet gekozen: "Geredigeerd" (de
   kernbegrippen weggelakt als in een vertrouwelijk dossier; sterk idee, maar het
   kan lezen alsof er iets verborgen wordt) en "Fiche" (een catalogusfiche uit een
-  kaartenbak in de typemachineletter; ingeklapt het hoogst). Het rimpelen van de
-  weerspiegeling is, naast het lint en de referentieknoppen, een beweging die
-  vanzelf loopt, maar enkel zolang de strook dicht is en niet bij minder beweging.
+  kaartenbak in de typemachineletter; ingeklapt het hoogst). **De weerspiegeling
+  van de titel is weer weg** (Victor, nov 2026): een gespiegelde, rimpelende titel
+  is een modern effect dat niet past bij een site die verder strak, gedempt en
+  natuurlijk oogt. In de plaats staan onder de titel rustig de kerncijfers in de
+  broodletter ("241 respondenten · 18–65 jaar, Vlaanderen", `.mp-onder`, met de
+  bestaande vertaalsleutels). De knipoog naar spiegeling zit nu enkel nog in de
+  foto zelf. Geen gespiegelde of rimpelende tekst meer voorstellen.
   In licht lag er eerst een verloop in de lichte grondkleur over de strook, wat een
   melkwitte sluier gaf (Victor vond het te fel). Nu een donkere waas in beide
   versies, met lichte titel (keuze A uit drie; niet gekozen: de grond die links

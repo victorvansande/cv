@@ -208,7 +208,8 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   licht gedraaide kaartjes (`.peek-kaart`, `--i`), die bij hover verder openwaaiert.
   Ook de masterproef staat eerst ingeklapt (sinds nov 2026, Victors keuze
   "Spiegeling" uit drie voorstellen): een strook van de foto (`--mp-band`) met de
-  titel en zijn weerspiegeling in het water, die traag rimpelt; de knop `.mp-knop`
+  titel en daaronder de kerncijfers (`.mp-onder`; de gespiegelde, rimpelende titel
+  is op Victors vraag weg: te modern naast de rest); de knop `.mp-knop`
   op de foto laat ze groeien en vouwt `.mp-vouw` open (main.js, "Masterproef
   uitklappen"; klasse `.mp-dicht` op `#masterproef`). Een link naar `#masterproef`
   (ook "Lees verder" in de compacte weergave) opent ze; zonder script staat alles
