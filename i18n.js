@@ -199,7 +199,7 @@ window.I18N = {
     edu3_badge: `Title: psychologisch consulent`,
 
     /* thesis */
-    thesis_tag: `Master's thesis · Communication Studies · University of Antwerp`,
+    thesis_tag: `Master's thesis · University of Antwerp`,
     thesis_title: `The Power of Deception`,
     thesis_sub: `A quantitative analysis of epistemic trust, media trust and conspiracy thinking among Flemish people. The study examines how different forms of (dis)trust relate to susceptibility to conspiracy theories in a post-truth society.`,
     stat_respondents: `respondents`,
