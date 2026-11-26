@@ -71,7 +71,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
 - **Referenties** (sinds nov 2026, op Victors vraag): geen eigen sectie, wel
   drie knoppen bij de rol waar ze bij horen, die elk een `<dialog class="refbox">`
   openen (`data-ref`, script in `main.js` onder "Referenties"): "Referentie" bij
-  Gekkoo (Sara Janssens), "Referenties (5)" bij de master (de vijf professoren van
+  Gekkoo (Sara Janssens, naast de naam, rechts uitgelijnd: `.org-titel`), "Referenties (5)" bij de master (de vijf professoren van
   UAntwerpen) en "Citaat van mijn promotor" naast "Lees de masterproef" (eerst stond
   een klein knopje midden in de regel met de promotor, wat de regel brak). De vensters
   staan buiten `<main>` (ook bereikbaar vanuit de compacte weergave) en dragen zelf

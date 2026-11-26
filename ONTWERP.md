@@ -224,6 +224,11 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Referentieknop van Gekkoo naast de naam** (Victors vraag, nov 2026): op
+  dezelfde lijn als "GEKKOO", rechts uitgelijnd op de rand van de foto eronder,
+  zoals "Bekijk brevet". Zo hoort de referentie zichtbaar bij de werkgever en
+  niet bij de link gekkoo.be, en valt er een rij weg. Past omdat de naam kort
+  is; wordt het ooit te smal, dan schuift de knop onder de naam.
 - **Masterproef eerst ingeklapt, "Spiegeling"** (Victors keuze, nov 2026, uit drie
   voorstellen in een proefpagina). Niet elke recruiter wil de masterproef lezen,
   en open nam ze 1100 px in op de pc en 1370 op gsm; ingeklapt zo'n 400. Je ziet
