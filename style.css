@@ -995,6 +995,11 @@ ul { padding: 0; list-style: none; }
    foto groeien (main.js zet de hoogte, want een aspect-ratio laat zich niet
    overgaan) en vouwt de inhoud open via een rasterrij van 0fr naar 1fr. */
 .mp-beeld { position: relative; }
+/* foto en verloop worden samen afgeknipt, en het verloop loopt 1 px over de
+   rand: met elk een eigen afronding vielen ze op een scherm met schaalfactor
+   (125 % op Windows) net niet samen, en liep er links een fijne lichte rand van
+   de foto langs (Victor zag het) */
+.mp-dicht .mp-beeld { border-radius: var(--r-l); overflow: hidden; isolation: isolate; }
 .mp-frame { --mp-band: clamp(220px, 21vw, 280px); }
 .mp-vouw { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .6s cubic-bezier(.2, .7, .2, 1); }
 .mp-vouw > div { min-height: 0; overflow: hidden; }
@@ -1006,9 +1011,9 @@ ul { padding: 0; list-style: none; }
 
 /* titel en weerspiegeling over de strook, met een verloop in de grondkleur
    zodat de tekst leesbaar blijft */
-.mp-kop { position: absolute; left: 0; right: 0; top: 0; height: var(--mp-band); z-index: 1; pointer-events: none;
+.mp-kop { position: absolute; left: -1px; right: -1px; top: -1px; height: calc(var(--mp-band) + 2px); z-index: 1; pointer-events: none;
   display: flex; flex-direction: column; justify-content: center; padding: 0 clamp(22px, 4vw, 48px) 26px;
-  border-radius: var(--r-l); opacity: 0; visibility: hidden;
+  opacity: 0; visibility: hidden;
   background: linear-gradient(90deg, color-mix(in oklab, var(--g-bg) 90%, transparent) 0%, color-mix(in oklab, var(--g-bg) 55%, transparent) 55%, transparent 100%);
   transition: opacity .4s ease, visibility 0s linear .4s; }
 .mp-dicht .mp-kop { opacity: 1; visibility: visible; transition: opacity .5s ease .15s, visibility 0s; }
@@ -1049,7 +1054,8 @@ ul { padding: 0; list-style: none; }
 
 @media (max-width: 700px) {
   .mp-frame { --mp-band: 290px; }
-  .mp-kop { justify-content: flex-start; padding: 26px var(--gutter) 0; border-radius: 0; }
+  .mp-kop { justify-content: flex-start; padding: 26px var(--gutter) 0; }
+  .mp-dicht .mp-beeld { border-radius: 0; }
   .mp-beeld .mp-knop { left: var(--gutter); right: auto; bottom: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
