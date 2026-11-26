@@ -159,7 +159,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   letter onder de cursor wordt een lijnletter met een glijdend kader en label,
   een klik laat letters opspringen. Elke klikbare knop in een sectie (`.btn`,
   `.doc-btn` "Bekijk diploma/brevet" en de referentieknoppen, `.gal-btn` de galerijpijltjes, `.stack-hoek a`, `.ref-citeer` in de referentievensters)
-  krijgt bij hover een korrelig verloop ("Grainient", css onder die naam), enkel
+  krijgt bij hover een korrelig verloop ("Grainient", css onder die naam; sinds nov 2026 een
+  golf die schuin door de knop schuift, 6 s per lus, en enkel bij de drie
+  referentieknoppen ook in rust loopt), enkel
   uit tinten van het accent van zijn sectie (`--gr-diep`, `--g-acc`, `--gr-licht`,
   gemengd in oklab), met grijze korrel als bovenste laag in soft-light, alles in
   één `::before` (de `::after` van `.doc-btn` en `.gal-btn` is hun raakvlak van

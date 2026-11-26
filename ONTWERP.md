@@ -188,7 +188,7 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
 
 | Element | Gedrag | Waarom |
 |---|---|---|
-| Klikbare knoppen (`.btn`, `.doc-btn`, `.gal-btn`, `.stack-hoek a`, `.ref-citeer`) | Grainient bij hover: een korrelig verloop uit tinten van het accent van het hoofdstuk, de lichtste vlek volgt de cursor | Een knop mag tonen dat hij iets doet |
+| Klikbare knoppen (`.btn`, `.doc-btn`, `.gal-btn`, `.stack-hoek a`, `.ref-citeer`) | Grainient bij hover: een korrelige "golf" uit tinten van het accent van het hoofdstuk schuift schuin door de knop (6 s per lus), met een zachte lichte vlek bij de cursor. De drie referentieknoppen dragen ze altijd en lopen ook in rust | Een knop mag tonen dat hij iets doet |
 | Trefwoorden (`.tags span`) | "Stil": tekst naar inktkleur, rand naar 55 % accent, zonder overgang | Labels, geen knoppen; beweging zou een klik beloven |
 | Menubalk | Geen Grainient; het lijntje onder het hoofdstuk in beeld krijgt het accent van dat hoofdstuk | Hoort bij geen enkel hoofdstuk |
 | Grote foto's, met muis | In rust licht gedempt; bij hover valt de gradering weg en zoomt de foto 2 % | Vervangt de glaslens, die te veel aandacht trok |
@@ -224,6 +224,14 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Grainient wordt een golf** (Victors keuze, nov 2026, uit een interactieve
+  proefbank met drie varianten): het vorige verloop was 2,6 keer zo breed als de
+  knop en dreef in 7 s heen en terug, waardoor het statisch en te ver ingezoomd
+  oogde. Niet gekozen: "Zijde" (drie zwervende vlekken, het dichtst bij de
+  shader van React Bits). In rust lopen enkel de drie referentieknoppen (die het
+  verloop al altijd dragen); alle knoppen in rust laten lopen gaf te veel onrust
+  en nam hun signaal "ik reageer op jou" weg. De lichte vlek bij de cursor staat
+  op 32 %: op 75 % vond Victor ze te fel.
 - **Compacte weergave enkel voor één bezoek** (Victors vraag, nov 2026): de keuze
   staat in sessionStorage, niet meer in localStorage. Wie de compacte versie ooit
   koos, kwam anders bij elk volgend bezoek (ook via een gedeelde link) zonder vel
