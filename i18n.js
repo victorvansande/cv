@@ -200,6 +200,8 @@ window.I18N = {
 
     /* thesis */
     thesis_tag: `Master's thesis · University of Antwerp`,
+    mp_open: `View the master's thesis`,
+    mp_dicht: `Close the master's thesis`,
     thesis_title: `The Power of Deception`,
     thesis_sub: `A quantitative analysis of epistemic trust, media trust and conspiracy thinking among Flemish people. The study examines how different forms of (dis)trust relate to susceptibility to conspiracy theories in a post-truth society.`,
     stat_respondents: `respondents`,

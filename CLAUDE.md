@@ -203,6 +203,13 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   behalve de twee galerijen (werk en fotografie): die zijn op Victors vraag een
   `<details class="fold">` met als voorproef een waaier van zes overlappende,
   licht gedraaide kaartjes (`.peek-kaart`, `--i`), die bij hover verder openwaaiert.
+  Ook de masterproef staat eerst ingeklapt (sinds nov 2026, Victors keuze
+  "Spiegeling" uit drie voorstellen): een strook van de foto (`--mp-band`) met de
+  titel en zijn weerspiegeling in het water, die traag rimpelt; de knop `.mp-knop`
+  op de foto laat ze groeien en vouwt `.mp-vouw` open (main.js, "Masterproef
+  uitklappen"; klasse `.mp-dicht` op `#masterproef`). Een link naar `#masterproef`
+  (ook "Lees verder" in de compacte weergave) opent ze; zonder script staat alles
+  open. De titel op de strook is een aria-hidden kopie met dezelfde sleutels.
   Geen secties die pas bij het scrollen verschijnen. De sectietitels vullen de linkerkolom
   (`.sec-head`, 4 van de 12 kolommen); een titel van twee regels krijgt
   `.sec-title-lang` (kleiner, zodat hij ruim wegblijft van de tekst ernaast).

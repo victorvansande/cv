@@ -1144,4 +1144,51 @@
     });
   });
 
+  /* ---- Masterproef uitklappen ("Spiegeling") ----
+     De masterproef staat eerst ingeklapt (Victors keuze, nov 2026): een strook
+     van de foto met de titel en zijn weerspiegeling. De knop laat de foto
+     groeien tot haar volle hoogte en vouwt de inhoud eronder open; de css doet
+     de inhoud (rasterrij van 0fr naar 1fr), hier enkel de hoogte van de foto,
+     want een aspect-ratio laat zich niet overgaan. Wie via een link naar
+     #masterproef komt (het adres, of "Lees verder" in de compacte weergave),
+     krijgt ze meteen open. Zonder script staat alles open. */
+  (() => {
+    const sec = document.getElementById("masterproef");
+    const knop = sec && sec.querySelector(".mp-knop");
+    const vouw = sec && sec.querySelector(".mp-vouw");
+    const img = sec && sec.querySelector(".mp-frame img");
+    if (!sec || !knop || !vouw || !img) return;
+    const rustig = () => matchMedia("(prefers-reduced-motion: reduce)").matches || wortel.dataset.motion === "reduce";
+    const zet = (open) => {
+      sec.classList.toggle("mp-dicht", !open);
+      knop.setAttribute("aria-expanded", String(open));
+      if (open) vouw.removeAttribute("inert"); else vouw.setAttribute("inert", "");
+    };
+    const wissel = (open) => {
+      if (open === !sec.classList.contains("mp-dicht")) return;
+      const van = img.getBoundingClientRect().height;
+      zet(open);
+      if (rustig() || !img.animate) { if (!open) naarBoven(); return; }
+      const naar = img.getBoundingClientRect().height;
+      img.animate([{ height: van + "px" }, { height: naar + "px" }], { duration: 650, easing: "cubic-bezier(.2, .7, .2, 1)" });
+      if (!open) naarBoven();
+    };
+    /* bij het dichtklappen van onderaan: terug naar de strook, anders sta je
+       plots een heel eind verder in de site */
+    const naarBoven = () => {
+      const top = sec.getBoundingClientRect().top;
+      if (top < 0) sec.scrollIntoView({ behavior: rustig() ? "auto" : "smooth", block: "start" });
+    };
+    knop.hidden = false;
+    if (location.hash !== "#masterproef") zet(false);
+    knop.addEventListener("click", () => wissel(sec.classList.contains("mp-dicht")));
+    const openNaarLink = () => { if (location.hash === "#masterproef") zet(true); };
+    addEventListener("hashchange", openNaarLink);
+    /* capture: vóór stapel.js, dat bij "Lees verder" zelf naar de sectie springt */
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest && e.target.closest('a[href="#masterproef"]');
+      if (a) zet(true);
+    }, true);
+  })();
+
 })();

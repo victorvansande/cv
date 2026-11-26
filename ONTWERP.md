@@ -224,6 +224,17 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Masterproef eerst ingeklapt, "Spiegeling"** (Victors keuze, nov 2026, uit drie
+  voorstellen in een proefpagina). Niet elke recruiter wil de masterproef lezen,
+  en open nam ze 1100 px in op de pc en 1370 op gsm; ingeklapt zo'n 400. Je ziet
+  een strook van de foto met het MAS, met de titel en zijn weerspiegeling in het
+  water: een knipoog naar het gespiegelde MAS en naar misleiding. De knop laat
+  de foto groeien en de inhoud openvouwen. Niet gekozen: "Geredigeerd" (de
+  kernbegrippen weggelakt als in een vertrouwelijk dossier; sterk idee, maar het
+  kan lezen alsof er iets verborgen wordt) en "Fiche" (een catalogusfiche uit een
+  kaartenbak in de typemachineletter; ingeklapt het hoogst). Het rimpelen van de
+  weerspiegeling is, naast het lint en de referentieknoppen, een beweging die
+  vanzelf loopt, maar enkel zolang de strook dicht is en niet bij minder beweging.
 - **Naam in de hero vult ook op gsm en tablet de volle breedte** (Victors
   vraag, nov 2026), zoals al op de halve vensters (variant D): "VAN SANDE" is een
   kwart van de kolom breed, de portretpil groeit mee. Eerst stond de naam op
