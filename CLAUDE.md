@@ -76,8 +76,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   een klein knopje midden in de regel met de promotor, wat de regel brak). De vensters
   staan buiten `<main>` (ook bereikbaar vanuit de compacte weergave) en dragen zelf
   het palet van hun hoofdstuk. De drie knoppen dragen het korrelige verloop al
-  in rust en worden bij hover effen in de inktkleur (die regel staat na het
-  verloop in `style.css`, want die is even sterk). Wie een citaat heeft, krijgt in het venster een
+  in rust en worden bij hover meteen effen in de inktkleur, zonder overgang (met
+  een overgang zag je heel even de grond van de sectie tussen verloop en inkt;
+  die regel staat na het verloop in `style.css`, want die is even sterk). Wie een citaat heeft, krijgt in het venster een
   knop "Toon citaat". Victor koos uitdrukkelijk om de contactgegevens van alle
   referenties te tonen. Voeg geen referentie toe en wijzig er geen zonder zijn
   vraag. Een citaat wordt nooit herschreven: inkorten mag, enkel met hele zinnen.
@@ -212,6 +213,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   uitklappen"; klasse `.mp-dicht` op `#masterproef`). Een link naar `#masterproef`
   (ook "Lees verder" in de compacte weergave) opent ze; zonder script staat alles
   open. De titel op de strook is een aria-hidden kopie met dezelfde sleutels.
+  Hoogtes meten met `offsetHeight`, nooit `getBoundingClientRect`: de foto staat
+  bij hover 2 % ingezoomd, en dan schokte ze na de animatie terug. Het verloop
+  `.mp-kop` bedekt altijd de hele foto; de tekst staat in `.mp-kop-in` (hoogte
+  van de strook).
   Tempo: openen 700 ms, sluiten 500 ms, uitloop `cubic-bezier(.32, .72, 0, 1)` in css
   (`--mp-ease`) en in main.js gelijk houden. Sluiten van onderaan: eerst terug
   naar de foto scrollen (`scrollend`), dan pas dicht. De twee labels van de knop

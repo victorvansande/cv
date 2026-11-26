@@ -1176,10 +1176,13 @@
       if (bezig || open === !sec.classList.contains("mp-dicht")) return;
       const rust = rustig();
       const doe = () => {
-        const van = img.getBoundingClientRect().height;
+        /* offsetHeight, geen getBoundingClientRect: met de muis op de knop staat
+           de foto in haar hoverzoom (2 % groter), en dan eindigde de animatie
+           op een te grote maat en schokte de foto daarna naar haar echte maat */
+        const van = img.offsetHeight;
         zet(open);
         if (rust || !img.animate) return;
-        const naar = img.getBoundingClientRect().height;
+        const naar = img.offsetHeight;
         bezig = true;
         const a = img.animate([{ height: van + "px" }, { height: naar + "px" }], { duration: open ? 700 : 500, easing: EASE });
         a.onfinish = a.oncancel = () => { bezig = false; };
