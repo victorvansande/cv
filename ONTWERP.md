@@ -235,6 +235,10 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   Sofia Sans, Wix Madefor Text, Radio Canada, Commissioner, Proza Libre, Newsreader
   en Literata; afgevallen door gebreken: Golos Text (geen cursief), Alegreya Sans
   (geen gewicht 600).
+  Familjen is bij dezelfde grootte kleiner (x-hoogte 50 % tegenover 53 %,
+  hoofdletters 65 % tegenover 75 %). Daarom zijn enkel de kleinste teksten (onder
+  0,9rem) 6 % groter gezet; de lopende tekst bleef gelijk, want minder plaats vond
+  Victor goed.
 - **Portret op de eerste compacte kaart** (Victors keuze C uit drie, nov 2026): op
   de pc vult het de lege ruimte bovenaan het tekstvlak (4:3, hoeken l), op gsm
   staat het klein (56 px, hoeken m) naast de naam. Niet gekozen: A (de pil naast
@@ -261,6 +265,10 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   kaartenbak in de typemachineletter; ingeklapt het hoogst). Het rimpelen van de
   weerspiegeling is, naast het lint en de referentieknoppen, een beweging die
   vanzelf loopt, maar enkel zolang de strook dicht is en niet bij minder beweging.
+  In licht lag er eerst een verloop in de lichte grondkleur over de strook, wat een
+  melkwitte sluier gaf (Victor vond het te fel). Nu een donkere waas in beide
+  versies, met lichte titel (keuze A uit drie; niet gekozen: de grond die links
+  overloopt in de foto, en donker glas enkel achter de tekst).
   De knop op de foto is glas zoals de rondjes op de compacte kaarten (Victors
   vraag): de Grainient verdrong er het glas, dus bij hover wordt het glas enkel
   iets helderder. Een bewuste uitzondering op "elke knop krijgt de Grainient".

@@ -25,6 +25,10 @@
 :root {
   --font-head: "Big Shoulders Display", "Arial Narrow", sans-serif;
   /* broodtekst: Familjen Grotesk (Victors keuze uit elf, nov 2026), eerst Libre Franklin */
+  /* Familjen is bij dezelfde grootte kleiner dan Libre Franklin (x-hoogte 50 % tegenover
+     53 %, hoofdletters 65 % tegenover 75 %). De kleinste teksten (onder 0,9rem: datums,
+     trefwoorden, bijschriften, labels) zijn daarom 6 % groter gezet; de lopende tekst
+     bleef zoals hij was, want minder plaats vond Victor goed. */
   --font: "Familjen Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --wrap: 1320px;
@@ -303,7 +307,7 @@ ul { padding: 0; list-style: none; }
   height: 36px; min-width: 36px; padding: 0 10px;
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   background: transparent; border: 1px solid rgb(var(--c-edge) / .22); border-radius: var(--r-s);
-  cursor: pointer; font-size: .82rem; font-weight: 600; letter-spacing: .04em;
+  cursor: pointer; font-size: .87rem; font-weight: 600; letter-spacing: .04em;
 }
 @media (hover: hover) { .lang-toggle:hover, .settings-toggle:hover, .burger:hover, .mode-toggle:hover { border-color: rgb(var(--c-edge) / .5); } }
 
@@ -316,7 +320,7 @@ ul { padding: 0; list-style: none; }
 }
 .settings-pop.open { display: block; }
 .settings-pop h4 {
-  font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  font-size: .76rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
   color: var(--c-dim); margin: 0 0 10px;
 }
 .settings-pop h4:not(:first-child) { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgb(var(--c-edge) / .1); }
@@ -330,16 +334,16 @@ ul { padding: 0; list-style: none; }
 .a11y-row input:focus-visible + .sw { outline: 2px solid var(--c-acc); outline-offset: 2px; }
 /* taalkeuze in de instellingen: twee knoppen naast elkaar, de gekozen gevuld */
 .taal-keuze { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 3px; margin-bottom: 4px; border: 1px solid rgb(var(--c-edge) / .18); border-radius: var(--r-s); }
-.taal-keuze button { min-height: 36px; padding: 0 10px; border: 0; border-radius: var(--r-xs); background: none; color: var(--c-dim); font: inherit; font-size: .88rem; cursor: pointer; transition: background .2s, color .2s; }
+.taal-keuze button { min-height: 36px; padding: 0 10px; border: 0; border-radius: var(--r-xs); background: none; color: var(--c-dim); font: inherit; font-size: .93rem; cursor: pointer; transition: background .2s, color .2s; }
 .taal-keuze button[aria-pressed="true"] { background: rgb(var(--c-edge) / .12); color: var(--c-ink); font-weight: 600; }
 @media (hover: hover) { .taal-keuze button:hover { color: var(--c-ink); } }
 .taal-keuze button:focus-visible { outline: 2px solid var(--c-acc); outline-offset: 1px; }
 .zoom-ctl { display: flex; align-items: center; gap: 8px; }
 .zoom-btn { width: 30px; height: 30px; border: 1px solid rgb(var(--c-edge) / .22); background: transparent; cursor: pointer; border-radius: var(--r-s); }
 .zoom-btn:disabled { opacity: .35; cursor: default; }
-.zoom-val { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums; font-size: .85rem; }
+.zoom-val { min-width: 44px; text-align: center; font-variant-numeric: tabular-nums; font-size: .9rem; }
 .set-action { display: block; padding: 10px 12px; border: 1px solid rgb(var(--c-edge) / .18); text-decoration: none; font-size: .92rem; font-weight: 600; }
-.set-action-sub { display: block; font-weight: 400; font-size: .8rem; color: var(--c-dim); }
+.set-action-sub { display: block; font-weight: 400; font-size: .85rem; color: var(--c-dim); }
 
 /* knop voor de lichte versie: in de donkere versie staat er een zon, in de
    lichte een maan, dus het icoon toont waar je naartoe gaat */
@@ -404,7 +408,7 @@ ul { padding: 0; list-style: none; }
   }
 }
 .frame figcaption {
-  margin-top: 10px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim);
+  margin-top: 10px; font-size: .83rem; letter-spacing: .06em; color: var(--g-dim);
 }
 /* tussen twee secties: genoeg lucht om te ademen, maar geen lege vlakte
    (eerder 88 + 64 px tot de volgende foto) */
@@ -449,7 +453,7 @@ ul { padding: 0; list-style: none; }
 :root[data-motion="reduce"] .hero-pil { transition: none; transform: none; }
 .hero-lead { font-size: 1.13rem; color: var(--g-soft); max-width: 46ch; }
 .hero-lead [data-i18n="hero_role"] { color: var(--g-ink); font-weight: 600; }
-.hero-meta { margin-top: 14px; font-size: .88rem; color: var(--g-dim); }
+.hero-meta { margin-top: 14px; font-size: .93rem; color: var(--g-dim); }
 /* "Weinig tijd? Lees de compacte versie": een stille tekstlink onder de
    knoppen, geen derde knop. Bij hover schuift het pijltje iets op en wordt de
    lijn eronder het accent. */
@@ -480,7 +484,7 @@ ul { padding: 0; list-style: none; }
 /* ---------- Essentie ---------- */
 .essentie { margin-top: 56px; padding-top: 12px; }
 .label {
-  font-family: var(--font); font-size: .74rem; font-weight: 600; letter-spacing: .14em;
+  font-family: var(--font); font-size: .78rem; font-weight: 600; letter-spacing: .14em;
   text-transform: uppercase; color: var(--g-acc);
 }
 /* een label boven een lijst rijen krijgt wat lucht tot de lijn eronder, zoals
@@ -492,10 +496,10 @@ ul { padding: 0; list-style: none; }
    het accent (via css, zodat de tekst zelf en het bonnetje ongemoeid blijven) */
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; margin-top: 18px; counter-reset: feit; }
 .facts > div { counter-increment: feit; padding: 18px 0 20px; border-top: 1px solid var(--g-line); }
-.facts dt { display: flex; gap: 10px; align-items: baseline; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--g-dim); }
+.facts dt { display: flex; gap: 10px; align-items: baseline; font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; color: var(--g-dim); }
 .facts dt::before { content: counter(feit, decimal-leading-zero); font-family: var(--font-head); font-weight: 700; font-size: .95rem; letter-spacing: .02em; color: var(--g-acc); }
 .facts dd { font-weight: 500; line-height: 1.4; margin-top: 8px; font-size: 1.06rem; }
-.facts dd.sub { font-weight: 400; font-size: .84rem; color: var(--g-soft); margin-top: 4px; }
+.facts dd.sub { font-weight: 400; font-size: .89rem; color: var(--g-soft); margin-top: 4px; }
 
 /* ---------- Sectiekop ---------- */
 .sec-head {
@@ -553,7 +557,7 @@ ul { padding: 0; list-style: none; }
 .org-foto { margin: 20px 0 0; }
 .org-foto .diploma-thumb { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
 .org-foto .diploma-thumb img { display: block; width: 100%; height: auto; aspect-ratio: auto; border-radius: var(--r-m); }
-.org-foto figcaption { margin-top: 8px; font-size: .78rem; letter-spacing: .06em; color: var(--g-dim); }
+.org-foto figcaption { margin-top: 8px; font-size: .83rem; letter-spacing: .06em; color: var(--g-dim); }
 .org > .rows { grid-column: 5 / span 8; }
 /* Eén lijn bovenaan over beide kolommen, en links even veel ruimte als in een
    rij: zo starten het label en de eerste datum op dezelfde hoogte. Eerder
@@ -571,11 +575,11 @@ ul { padding: 0; list-style: none; }
   display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px;
   padding: 22px 0; border-bottom: 1px solid var(--g-line);
 }
-.row-date { font-size: .86rem; color: var(--g-dim); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.row-date { font-size: .91rem; color: var(--g-dim); padding-top: 3px; font-variant-numeric: tabular-nums; }
 .row-when .row-date { display: block; }
 /* de duur onder de periode: klein en in de gedempte tint, zodat het een
    bijkomstigheid blijft en de datum zelf het eerst gelezen wordt */
-.row-dur { display: block; margin-top: 2px; font-size: .74rem; color: var(--g-dim); opacity: .8; font-variant-numeric: tabular-nums; }
+.row-dur { display: block; margin-top: 2px; font-size: .78rem; color: var(--g-dim); opacity: .8; font-variant-numeric: tabular-nums; }
 .row :is(h3, h4) { font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
 .row :is(h3, h4) + p, .row p + p { margin-top: 8px; }
 .row p { color: var(--g-soft); }
@@ -584,10 +588,10 @@ ul { padding: 0; list-style: none; }
    gedempt en met minder ruimte, zodat ze niet leest als een functie. Geen duur
    eronder. */
 .row-quiet { padding: 12px 0 14px; }
-.row-quiet p { color: var(--g-dim); font-size: .84rem; line-height: 1.55; }
-.row-quiet .row-date { font-size: .78rem; padding-top: 1px; }
+.row-quiet p { color: var(--g-dim); font-size: .89rem; line-height: 1.55; }
+.row-quiet .row-date { font-size: .83rem; padding-top: 1px; }
 .row-quiet .row-dur { display: none; }
-.row-place { color: var(--g-dim); margin-left: 10px; font-size: .88rem; }
+.row-place { color: var(--g-dim); margin-left: 10px; font-size: .93rem; }
 .rows-tight .row { padding: 14px 0; }
 .rows-tight .row > div { color: var(--g-soft); }
 .rows-tight strong { color: var(--g-ink); font-weight: 600; }
@@ -599,7 +603,7 @@ ul { padding: 0; list-style: none; }
 .jobs { display: block; }
 .job-regel { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 12px; align-items: baseline; font-size: .94rem; }
 .job-regel + .job-regel { margin-top: 6px; }
-.job-jaar { font-size: .8rem; color: var(--g-dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.job-jaar { font-size: .85rem; color: var(--g-dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .rows-tight .job-regel strong { font-weight: 500; }
 /* voor de plaats staat een halve kastlijn (&ensp;) in plaats van de marge: zo
    kan de regel daar breken en begint een afgebroken plaats niet ingesprongen
@@ -615,7 +619,7 @@ ul { padding: 0; list-style: none; }
    pixels hoger dan de tekst ernaast (Victors vraag, nov 2026) */
 .row-split { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .row-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }
-.honour { font-size: .86rem; color: var(--g-acc); font-weight: 500; }
+.honour { font-size: .91rem; color: var(--g-acc); font-weight: 500; }
 /* op gsm staat de vermelding altijd op een eigen regel en de knoppen eronder:
    anders paste een korte vermelding ("Titel: psychologisch consulent") er net
    naast en een lange niet, en stond de knop telkens elders (Victors vraag) */
@@ -626,7 +630,7 @@ ul { padding: 0; list-style: none; }
    naar hun toestand en terug, zonder overgang. Elke beweging zou een klik
    beloven die er niet is. */
 .tags span {
-  font-size: .76rem; padding: 3px 9px; border: 1px solid var(--g-line); color: var(--g-soft);
+  font-size: .81rem; padding: 3px 9px; border: 1px solid var(--g-line); color: var(--g-soft);
   border-radius: var(--r-xs); cursor: default;
 }
 @media (hover: hover) { .tags span:hover { color: var(--g-ink); border-color: color-mix(in oklab, var(--g-acc) 55%, var(--g-line)); } }
@@ -635,7 +639,7 @@ ul { padding: 0; list-style: none; }
 .doc-btn {
   min-height: 34px; padding: 0 12px; background: transparent; cursor: pointer;
   border: 1px solid color-mix(in srgb, var(--g-ink) 30%, transparent); border-radius: var(--r-s);
-  font-size: .82rem; font-weight: 500;
+  font-size: .87rem; font-weight: 500;
 }
 
 /* ---------- Uitklapbare galerij ----------
@@ -651,7 +655,7 @@ ul { padding: 0; list-style: none; }
 .fold > summary::-webkit-details-marker { display: none; }
 .fold-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .fold-txt strong { font-weight: 600; font-size: 1.02rem; line-height: 1.35; }
-.fold-txt span { font-size: .84rem; color: var(--g-dim); }
+.fold-txt span { font-size: .89rem; color: var(--g-dim); }
 /* Voorproef als waaier: zes stukken die elkaar overlappen en licht gedraaid
    liggen, zoals foto's die je op tafel uitspreidt. Bij hover waaieren ze iets
    verder open. --i is de plaats in de waaier (0 tot 5). */
@@ -717,9 +721,9 @@ ul { padding: 0; list-style: none; }
 @media (hover: hover) { .diploma-thumb:hover img { opacity: .82; } }
 .doc-chip {
   position: absolute; left: 6px; bottom: 6px; padding: 2px 6px;
-  background: rgba(0, 0, 0, .72); color: #fff; font-size: .68rem; font-weight: 600; letter-spacing: .04em;
+  background: rgba(0, 0, 0, .72); color: #fff; font-size: .72rem; font-weight: 600; letter-spacing: .04em;
 }
-.design-cap { display: block; margin-top: 10px; font-size: .82rem; line-height: 1.4; }
+.design-cap { display: block; margin-top: 10px; font-size: .87rem; line-height: 1.4; }
 .design-cap-t { display: block; font-weight: 600; }
 .design-cap-s { display: block; color: var(--g-dim); margin-top: 2px; }
 
@@ -837,7 +841,7 @@ ul { padding: 0; list-style: none; }
 .stack-hoek a {
   display: inline-flex; align-items: center; height: 44px; max-width: 44px; padding: 0 13px; overflow: hidden;
   border-radius: var(--r-m); color: var(--g-ink); text-decoration: none;
-  font-weight: 600; font-size: .84rem;
+  font-weight: 600; font-size: .89rem;
   /* een eenvoudig laagje mat glas, zoals de menubalk: geen rand, geen
      reflectie, geen schaduw (Victors vraag). Zonder backdrop-filter een bijna
      dekkende tint. */
@@ -861,10 +865,10 @@ ul { padding: 0; list-style: none; }
   :root[data-mode="light"] .stack-hoek a { background: rgb(255 255 255 / .5); }
 }
 @media (prefers-reduced-motion: reduce) { .stack-hoek a, .stack-hoek a span { transition: none; } }
-.stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .84rem; font-variant-numeric: tabular-nums; z-index: 50; }
+.stack-ui { position: absolute; left: 50%; bottom: 4vh; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; color: var(--g-dim); font-size: .89rem; font-variant-numeric: tabular-nums; z-index: 50; }
 .stack-ui { white-space: nowrap; }
 .stack-voet { position: absolute; left: 50%; bottom: calc(4vh - 6px); z-index: 50; width: max-content; max-width: calc(100vw - 2 * var(--gutter));
-  transform: translateX(-50%); text-align: center; color: var(--g-dim); font-size: .78rem; line-height: 1.5; opacity: 0; pointer-events: none; }
+  transform: translateX(-50%); text-align: center; color: var(--g-dim); font-size: .83rem; line-height: 1.5; opacity: 0; pointer-events: none; }
 .stack-voet p { margin: 0; }
 .stack-voet p span + span::before { content: "·"; margin: 0 8px; }
 .stack-rail { width: min(140px, 30vw); height: 2px; background: color-mix(in srgb, var(--g-ink) 18%, transparent); }
@@ -948,7 +952,7 @@ ul { padding: 0; list-style: none; }
 .is-reel .doc-chip { left: 10px; bottom: 10px; }
 .reel-info { text-align: center; min-height: 3.4em; margin-top: 4px; }
 .reel-t { font-weight: 600; font-size: 1rem; }
-.reel-s { color: var(--g-dim); font-size: .86rem; margin-top: 2px; }
+.reel-s { color: var(--g-dim); font-size: .91rem; margin-top: 2px; }
 
 .gal-ui { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 14px; padding-bottom: 28px; }
 .gal-btn {
@@ -963,7 +967,7 @@ ul { padding: 0; list-style: none; }
 .gal-seg { flex: 0 1 22px; min-width: 5px; width: 22px; padding: 0; border: 0; background: transparent; cursor: pointer; position: relative; }
 .gal-seg::after { content: ""; position: absolute; left: 0; right: 0; height: 2px; background: color-mix(in srgb, var(--g-ink) 25%, transparent); transition: background .3s; }
 .gal-seg[aria-current="true"]::after { background: var(--g-acc); }
-.gal-count { min-width: 64px; text-align: center; font-size: .84rem; color: var(--g-dim); font-variant-numeric: tabular-nums; }
+.gal-count { min-width: 64px; text-align: center; font-size: .89rem; color: var(--g-dim); font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) { .gal-seg { flex-basis: 14px; width: 14px; } .gal-rail { gap: 3px; } }
 
 /* ---------- Over mij ---------- */
@@ -975,7 +979,7 @@ ul { padding: 0; list-style: none; }
 .langs div { align-items: center; padding: 14px 0; }
 .langs dt { display: flex; flex-direction: column; }
 .taal-groet { font-family: var(--font-head); font-weight: 700; font-size: 1.45rem; line-height: 1; text-transform: uppercase; letter-spacing: .01em; color: var(--g-ink); }
-.langs dt > [data-i18n] { font-weight: 400; font-size: .8rem; color: var(--g-dim); margin-top: 4px; }
+.langs dt > [data-i18n] { font-weight: 400; font-size: .85rem; color: var(--g-dim); margin-top: 4px; }
 /* zes blokjes voor A1 tot C2 (variant B4, Victors keuze): de behaalde vullen
    zich van een diepe naar een heldere tint van het accent, de rest staat er
    enkel als omtrek */
@@ -1032,12 +1036,17 @@ ul { padding: 0; list-style: none; }
    over de foto liggen (Victor zag het). De tekst zelf blijft in de strook. */
 .mp-kop { position: absolute; inset: -1px; z-index: 1; pointer-events: none;
   opacity: 0; visibility: hidden;
-  background: linear-gradient(90deg, color-mix(in oklab, var(--g-bg) 90%, transparent) 0%, color-mix(in oklab, var(--g-bg) 55%, transparent) 55%, transparent 100%);
+  /* een donkere waas in beide versies (Victors keuze A, nov 2026): het is een
+     avondfoto, en in licht gaf het verloop in de grondkleur een melkwitte sluier
+     over de foto. Titel en label staan daarom altijd licht. */
+  background: linear-gradient(90deg, rgb(10 12 20 / .82) 0%, rgb(10 12 20 / .5) 50%, rgb(10 12 20 / .1) 100%);
   transition: opacity .3s ease, visibility 0s linear .3s; }
 /* bij het sluiten komt de titel pas terug als de foto bijna een strook is */
 .mp-dicht .mp-kop { opacity: 1; visibility: visible; transition: opacity .45s ease .3s, visibility 0s; }
 /* bij het openen schuift de titel wat omhoog en trekt de weerspiegeling zich
    terug in het water; bij het sluiten omgekeerd */
+.mp-kop .label { color: #eb8762; }
+.mp-kop .mp-titel { color: #ebedf3; }
 .mp-kop-in { height: calc(var(--mp-band) + 1px); display: flex; flex-direction: column; justify-content: center; padding: 0 clamp(22px, 4vw, 48px) 26px; }
 .mp-kop-in > * { transition: transform .45s var(--mp-ease, ease); }
 .mp-kop-in > .label, .mp-kop-in > .mp-titel:not(.mp-spiegel) { transform: translateY(-10px); }
@@ -1062,10 +1071,11 @@ ul { padding: 0; list-style: none; }
 .mp-beeld .mp-knop::before { display: none; }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .mp-beeld .mp-knop { background: rgb(255 255 255 / .12); -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); }
-  :root[data-mode="light"] .mp-beeld .mp-knop { background: rgb(255 255 255 / .5); }
+  /* ook in licht staat de knop op een donkere foto: dus dezelfde knop als in donker */
+  :root[data-mode="light"] .mp-beeld .mp-knop { background: rgb(255 255 255 / .12); color: #ebedf3; }
   @media (hover: hover) {
     .mp-frame .mp-beeld .mp-knop:hover { background: rgb(255 255 255 / .2); }
-    :root[data-mode="light"] .mp-frame .mp-beeld .mp-knop:hover { background: rgb(255 255 255 / .68); }
+    :root[data-mode="light"] .mp-frame .mp-beeld .mp-knop:hover { background: rgb(255 255 255 / .2); color: #ebedf3; }
   }
 }
 /* .mp-frame ervoor: de algemene hoverregel van de knoppen (verderop) is even zwaar */
@@ -1126,7 +1136,7 @@ ul { padding: 0; list-style: none; }
 .stack-back .tel-maat { visibility: visible; }
 .tel-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .tel-d { animation: none !important; } }
-.numbers dd { margin-top: 4px; font-size: .86rem; color: var(--g-soft); }
+.numbers dd { margin-top: 4px; font-size: .91rem; color: var(--g-soft); }
 /* Op gsm stonden de twee tellers in twee gelijke kolommen: de tweede begon op
    de helft van het scherm, wat niet links en niet gecentreerd oogde (Victors
    vraag, nov 2026). Daar staan ze nu als groepje links, zoals de tekst
@@ -1135,7 +1145,7 @@ ul { padding: 0; list-style: none; }
   .numbers { display: flex; flex-wrap: wrap; gap: 22px 0; }
   .numbers > div + div { margin-left: 28px; padding-left: 28px; border-left: 1px solid var(--g-line); }
 }
-.thesis-meta { margin-top: 24px; font-size: .88rem; color: var(--g-soft); }
+.thesis-meta { margin-top: 24px; font-size: .93rem; color: var(--g-soft); }
 .thesis-meta b { color: var(--g-ink); font-weight: 600; }
 
 /* ---------- Contact en voet ---------- */
@@ -1174,7 +1184,7 @@ ul { padding: 0; list-style: none; }
    een pijl die bij hover een stukje opschuift */
 .contact-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin-top: 40px; border-top: 1px solid var(--g-line); }
 .contact-list > div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--g-line); }
-.contact-list dt { font-size: .78rem; color: var(--g-dim); flex-shrink: 0; }
+.contact-list dt { font-size: .83rem; color: var(--g-dim); flex-shrink: 0; }
 .contact-list dd { margin: 0; font-weight: 500; font-size: 1.15rem; text-align: right; overflow-wrap: anywhere; }
 .contact-list a { text-decoration: none; }
 .contact-list a::after { content: "\2192"; display: inline-block; margin-left: .35em; color: var(--g-acc); transition: transform .25s cubic-bezier(.2, .7, .2, 1); }
@@ -1188,7 +1198,7 @@ ul { padding: 0; list-style: none; }
 .snap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 28px; margin-top: 44px; padding-top: 16px; align-items: end; }
 .snap-txt { grid-column: 1 / span 6; }
 .snap-area { grid-column: 8 / span 5; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 20; }
-.snap-hint { margin-top: 12px; font-size: .82rem; color: var(--g-dim); }
+.snap-hint { margin-top: 12px; font-size: .87rem; color: var(--g-dim); }
 /* Het vak snijdt enkel onderaan af, bij de gleuf: zo blijft het papier dat
    nog in de printer zit onzichtbaar, terwijl de schaduw opzij vrij uitloopt. */
 /* enkel onderaan afsnijden (bij de gleuf); opzij nooit, anders verdwijnt een
@@ -1239,7 +1249,7 @@ ul { padding: 0; list-style: none; }
   .snap-area { order: -1; margin-top: 8px; }
 }
 
-.footer .footer-inner { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; padding-top: 22px; padding-bottom: 32px; border-top: 1px solid var(--g-line); font-size: .82rem; color: var(--g-dim); }
+.footer .footer-inner { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; padding-top: 22px; padding-bottom: 32px; border-top: 1px solid var(--g-line); font-size: .87rem; color: var(--g-dim); }
 .footer-meta span + span::before, .footer-links > * + *::before { content: "·"; margin: 0 8px; }
 .footer-links a { text-decoration: none; }
 .footer-links a:hover { text-decoration: underline; }
@@ -1262,13 +1272,13 @@ ul { padding: 0; list-style: none; }
 .docbox[hidden] { display: none; }
 .docbox-paneel { width: min(760px, 100%); max-height: 100%; display: flex; flex-direction: column; background: var(--c-pop); border: 1px solid rgb(var(--c-edge) / .14); }
 .docbox-kop { position: relative; padding: 18px 64px 14px 22px; border-bottom: 1px solid rgb(var(--c-edge) / .1); }
-.docbox-eyebrow { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--c-acc); }
+.docbox-eyebrow { font-size: .76rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--c-acc); }
 .docbox-kop h3 { font-size: 1.05rem; font-weight: 600; margin-top: 4px; }
 .docbox-sluit { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1px solid rgb(var(--c-edge) / .22); cursor: pointer; }
 .docbox-blad { overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; background: var(--c-bg); }
 .docbox-pagina { width: 100%; height: auto; background: #fff; }
 .docbox-voet { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 22px; border-top: 1px solid rgb(var(--c-edge) / .1); }
-.docbox-vraag { font-size: .86rem; color: var(--c-soft); }
+.docbox-vraag { font-size: .91rem; color: var(--c-soft); }
 .docbox-dl { --g-ink: var(--c-ink); --g-bg: var(--c-bg); --g-acc: var(--c-acc); gap: 8px; }
 
 /* ---------- Responsief ---------- */
@@ -1479,12 +1489,12 @@ ul { padding: 0; list-style: none; }
   animation: mailkeuze-in .18s cubic-bezier(.2, .8, .2, 1);
 }
 @keyframes mailkeuze-in { from { opacity: 0; transform: translateY(-4px); } }
-.mailkeuze-adres { padding: 8px 10px 9px; margin-bottom: 4px; border-bottom: 1px solid var(--g-line); font-size: .8rem; color: var(--g-dim); user-select: all; -webkit-user-select: all; }
+.mailkeuze-adres { padding: 8px 10px 9px; margin-bottom: 4px; border-bottom: 1px solid var(--g-line); font-size: .85rem; color: var(--g-dim); user-select: all; -webkit-user-select: all; }
 .mailkeuze > a, .mailkeuze > button {
   display: flex; align-items: baseline; justify-content: space-between; gap: 16px; min-height: 40px; padding: 9px 10px;
   border: 0; border-radius: var(--r-s); background: none; color: inherit; font: inherit; text-align: left; text-decoration: none; cursor: pointer;
 }
-.mailkeuze small { font-size: .74rem; color: var(--g-dim); }
+.mailkeuze small { font-size: .78rem; color: var(--g-dim); }
 .mailkeuze > a:hover, .mailkeuze > button:hover, .mailkeuze > :focus-visible { background: color-mix(in srgb, var(--g-acc) 16%, transparent); outline: none; }
 .mailkeuze > :focus-visible { box-shadow: inset 0 0 0 1px var(--g-acc); }
 .mailkeuze-kopie.ok { color: var(--g-acc); }
@@ -1529,9 +1539,9 @@ ul { padding: 0; list-style: none; }
 @keyframes refbox-in { from { opacity: 0; transform: translateY(8px); } }
 :root:has(.refbox[open]) { overflow: hidden; }
 .refbox-in { position: relative; padding: clamp(22px, 4vw, 36px); }
-.refbox-lbl { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--g-acc); font-weight: 600; }
+.refbox-lbl { font-size: .76rem; letter-spacing: .16em; text-transform: uppercase; color: var(--g-acc); font-weight: 600; }
 .refbox h3 { font-family: var(--font-head); font-weight: 800; text-transform: uppercase; font-size: 1.9rem; line-height: 1; margin: 6px 0 4px; padding-right: 48px; }
-.refbox-intro { font-size: .86rem; color: var(--g-dim); margin-bottom: 8px; }
+.refbox-intro { font-size: .91rem; color: var(--g-dim); margin-bottom: 8px; }
 /* .refbox-in > voor het gewicht: de Grainient zet .doc-btn op position:
    relative, en die regel staat verderop, waardoor het kruisje in de tekst zakte */
 .refbox-in > .refbox-sluit { position: absolute; top: 16px; right: 16px; width: 40px; min-height: 40px; padding: 0; display: grid; place-items: center; color: var(--g-ink); }
@@ -1543,13 +1553,13 @@ ul { padding: 0; list-style: none; }
 .ref-ini { width: 44px; height: 44px; border-radius: var(--r-m); display: grid; place-items: center; font-family: var(--font-head); font-weight: 700;
   background: color-mix(in oklab, var(--g-acc) 16%, transparent); color: var(--g-acc); }
 .ref-wie b { display: block; font-weight: 600; }
-.ref-wie > span { display: block; font-size: .84rem; color: var(--g-dim); line-height: 1.4; }
-.ref-contact { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: .84rem; margin-top: 8px; }
+.ref-wie > span { display: block; font-size: .89rem; color: var(--g-dim); line-height: 1.4; }
+.ref-contact { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: .89rem; margin-top: 8px; }
 .ref-contact a { color: var(--g-soft); text-decoration: none; display: inline-flex; gap: 6px; align-items: center; min-height: 28px; }
 .ref-contact a svg { color: var(--g-acc); flex: none; }
 @media (hover: hover) { .ref-contact a:hover { color: var(--g-ink); text-decoration: underline; text-underline-offset: 3px; } }
 .ref-citeer { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 12px; border-radius: var(--r-s); border: 1px solid var(--g-acc);
-  background: var(--g-acc); color: var(--g-bg); font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  background: var(--g-acc); color: var(--g-bg); font: inherit; font-size: .87rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
 .ref-citeer .q { font-family: var(--font-head); font-weight: 800; font-size: 1.3rem; line-height: 1; margin-top: 6px; }
 .ref-citeer[aria-expanded="true"] { background: transparent; color: var(--g-acc); }
 .ref-citeer[aria-expanded="true"] .toon, .ref-citeer[aria-expanded="false"] .verberg { display: none; }
@@ -2054,7 +2064,7 @@ a, button, summary, label { -webkit-tap-highlight-color: color-mix(in srgb, var(
   .stack-body { padding: 16px 20px; gap: 8px; }
   .stack-title { font-size: clamp(1.5rem, 4vw, 2.2rem); }
   .stack-title.stack-title-lang { font-size: clamp(1.35rem, 3.4vw, 1.9rem); }
-  .stack-text { font-size: .86rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .stack-text { font-size: .91rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .stack-body .btn-row { margin-top: 2px; }
   .stack-ui { bottom: 1.5vh; }
 }
