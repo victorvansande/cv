@@ -225,7 +225,12 @@
     pil.className = "hero-pil";
     pil.setAttribute("aria-hidden", "true");
     pil.innerHTML = '<img src="assets/victor-profiel.jpg" alt="" width="400" height="400" decoding="async" />';
-    hero.appendChild(pil);
+    /* De pil staat in de naam zelf, niet ernaast in de hero: zo beweegt ze
+       tijdens de intro mee met de naam (die krimpt via een transform). Eerst
+       stond ze al op haar eindplaats terwijl de naam nog groter was, en schoof
+       "Victor" bij het openen van de pil nog een eind onder haar door (op de pc
+       zo'n 130 px). Het opsplitsen van de letters raakt enkel .grad-text aan. */
+    h1.appendChild(pil);
     const img = pil.firstChild;
     /* Op een iPhone (in de browser van Messenger) bleef de foto eens weg: dan
        stond er een leeg kader met het vraagteken van een kapotte afbeelding.
@@ -267,7 +272,7 @@
       regels.sort((a, b) => a.top - b.top);
       if (regels.length < 2 || !kap || !asc) { if (voorIntro === true) h1.style.animation = anim; pil.classList.remove("toon"); return; }
       const fs = parseFloat(cs.fontSize);
-      const hr = hero.getBoundingClientRect();
+      const hr = h1.getBoundingClientRect();
       const links = regels[0].right + fs * 0.14, rechts = Math.max(regels[1].right, regels[0].right);
       const breed = rechts - links, hoog = kap;
       if (breed < hoog * 1.3) { if (voorIntro === true) h1.style.animation = anim; pil.classList.remove("toon"); return; }
@@ -1164,20 +1169,36 @@
       knop.setAttribute("aria-expanded", String(open));
       if (open) vouw.removeAttribute("inert"); else vouw.setAttribute("inert", "");
     };
+    /* zelfde tempo en uitloop als de css (.mp-vouw): openen 700 ms, sluiten 500 ms */
+    const EASE = "cubic-bezier(.32, .72, 0, 1)";
+    let bezig = false;
     const wissel = (open) => {
-      if (open === !sec.classList.contains("mp-dicht")) return;
-      const van = img.getBoundingClientRect().height;
-      zet(open);
-      if (rustig() || !img.animate) { if (!open) naarBoven(); return; }
-      const naar = img.getBoundingClientRect().height;
-      img.animate([{ height: van + "px" }, { height: naar + "px" }], { duration: 650, easing: "cubic-bezier(.2, .7, .2, 1)" });
-      if (!open) naarBoven();
-    };
-    /* bij het dichtklappen van onderaan: terug naar de strook, anders sta je
-       plots een heel eind verder in de site */
-    const naarBoven = () => {
+      if (bezig || open === !sec.classList.contains("mp-dicht")) return;
+      const rust = rustig();
+      const doe = () => {
+        const van = img.getBoundingClientRect().height;
+        zet(open);
+        if (rust || !img.animate) return;
+        const naar = img.getBoundingClientRect().height;
+        bezig = true;
+        const a = img.animate([{ height: van + "px" }, { height: naar + "px" }], { duration: open ? 700 : 500, easing: EASE });
+        a.onfinish = a.oncancel = () => { bezig = false; };
+      };
+      /* Dichtklappen van onderaan: eerst rustig terug naar de foto, dan pas
+         dicht. Tegelijk liep het scrollen en het krimpen door elkaar, en schoof
+         de pagina onder je door. */
       const top = sec.getBoundingClientRect().top;
-      if (top < 0) sec.scrollIntoView({ behavior: rustig() ? "auto" : "smooth", block: "start" });
+      const balk = (document.querySelector(".nav") || { offsetHeight: 0 }).offsetHeight;
+      if (!open && top < balk) {
+        bezig = true;
+        let klaar = false;
+        const verder = () => { if (klaar) return; klaar = true; removeEventListener("scrollend", verder); bezig = false; doe(); };
+        addEventListener("scrollend", verder);
+        setTimeout(verder, rust ? 0 : 700);
+        sec.scrollIntoView({ behavior: rust ? "auto" : "smooth", block: "start" });
+        return;
+      }
+      doe();
     };
     knop.hidden = false;
     if (location.hash !== "#masterproef") zet(false);

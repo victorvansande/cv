@@ -171,7 +171,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   karmijn (`--g-acc2`) naar goud, en de nummers van "In één oogopslag" en het
   kader, label en de vlekjes van de Tech Text op de naam staan in
   karmijn (css onder "Hero: karmijn als tweede accent"). Niet de trefwoorden en niet de menubalk. Rechts van "Victor" staat een
-  pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`): main.js meet de
+  pil met het portret (`.hero-pil`, `assets/victor-profiel.jpg`), die in de h1 zelf
+  staat zodat ze tijdens de intro mee krimpt met de naam (eerst stond ze in `.hero`
+  al op haar eindplaats en schoof "Victor" nog onder haar door): main.js meet de
   regels van de naam en de hoogte van een hoofdletter, en zet de pil zo dat ze
   even hoog is als de hoofdletters en eindigt waar "Sande" eindigt. Laadt de
   foto niet (gezien op een iPhone in de browser van Messenger: een leeg kader
@@ -210,6 +212,10 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   uitklappen"; klasse `.mp-dicht` op `#masterproef`). Een link naar `#masterproef`
   (ook "Lees verder" in de compacte weergave) opent ze; zonder script staat alles
   open. De titel op de strook is een aria-hidden kopie met dezelfde sleutels.
+  Tempo: openen 700 ms, sluiten 500 ms, uitloop `cubic-bezier(.32, .72, 0, 1)` in css
+  (`--mp-ease`) en in main.js gelijk houden. Sluiten van onderaan: eerst terug
+  naar de foto scrollen (`scrollend`), dan pas dicht. De twee labels van de knop
+  liggen op elkaar (`.mp-k-tekst`), zodat hij niet van breedte verspringt.
   De knop is glas zoals de rondjes op de compacte kaarten (Victors vraag): geen
   rand, geen Grainient, bij hover iets helderder glas (`.mp-frame .mp-beeld
   .mp-knop`, dat gewicht is nodig tegen de algemene hoverregel van de knoppen).

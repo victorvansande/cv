@@ -1000,12 +1000,16 @@ ul { padding: 0; list-style: none; }
    (125 % op Windows) net niet samen, en liep er links een fijne lichte rand van
    de foto langs (Victor zag het) */
 .mp-dicht .mp-beeld { border-radius: var(--r-l); overflow: hidden; isolation: isolate; }
+/* Tempo: openen 700 ms, dichtklappen 500 ms, met dezelfde zachte uitloop als
+   de foto (main.js gebruikt dezelfde waarden). Bij het openen komt de inhoud
+   iets later binnen dan de rij groeit; bij het sluiten verdwijnt ze meteen. */
+#masterproef { --mp-ease: cubic-bezier(.32, .72, 0, 1); }
 .mp-frame { --mp-band: clamp(220px, 21vw, 280px); }
-.mp-vouw { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .6s cubic-bezier(.2, .7, .2, 1); }
+.mp-vouw { display: grid; grid-template-rows: 1fr; transition: grid-template-rows .7s var(--mp-ease); }
 .mp-vouw > div { min-height: 0; overflow: hidden; }
-.mp-vouw .thesis { transition: opacity .35s ease .15s, transform .5s cubic-bezier(.2, .7, .2, 1) .15s; }
-.mp-dicht .mp-vouw { grid-template-rows: 0fr; }
-.mp-dicht .mp-vouw .thesis { opacity: 0; transform: translateY(10px); transition-delay: 0s; }
+.mp-vouw .thesis { transition: opacity .45s ease .2s, transform .7s var(--mp-ease) .2s; }
+.mp-dicht .mp-vouw { grid-template-rows: 0fr; transition-duration: .5s; }
+.mp-dicht .mp-vouw .thesis { opacity: 0; transform: translateY(14px); transition: opacity .2s ease, transform .3s ease; }
 .mp-dicht .mp-frame img { aspect-ratio: auto; height: var(--mp-band); }
 .mp-frame img { object-position: 50% 50%; }
 
@@ -1015,13 +1019,19 @@ ul { padding: 0; list-style: none; }
   display: flex; flex-direction: column; justify-content: center; padding: 0 clamp(22px, 4vw, 48px) 26px;
   opacity: 0; visibility: hidden;
   background: linear-gradient(90deg, color-mix(in oklab, var(--g-bg) 90%, transparent) 0%, color-mix(in oklab, var(--g-bg) 55%, transparent) 55%, transparent 100%);
-  transition: opacity .4s ease, visibility 0s linear .4s; }
-.mp-dicht .mp-kop { opacity: 1; visibility: visible; transition: opacity .5s ease .15s, visibility 0s; }
+  transition: opacity .3s ease, visibility 0s linear .3s; }
+/* bij het sluiten komt de titel pas terug als de foto bijna een strook is */
+.mp-dicht .mp-kop { opacity: 1; visibility: visible; transition: opacity .45s ease .3s, visibility 0s; }
+/* bij het openen schuift de titel wat omhoog en trekt de weerspiegeling zich
+   terug in het water; bij het sluiten omgekeerd */
+.mp-kop > * { transition: transform .45s var(--mp-ease, ease); }
+.mp-kop > .label, .mp-kop > .mp-titel:not(.mp-spiegel) { transform: translateY(-10px); }
+.mp-dicht .mp-kop > .label, .mp-dicht .mp-kop > .mp-titel:not(.mp-spiegel) { transform: none; transition-delay: .3s; }
 .mp-titel { font-family: var(--font-head); font-weight: 800; text-transform: uppercase; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: .95; color: var(--g-ink); margin-top: 8px; text-wrap: balance; }
-.mp-spiegel { margin-top: 2px; opacity: .5; filter: blur(.6px); transform: scaleY(-1);
+.mp-spiegel { margin-top: 2px; opacity: 0; filter: blur(.6px); transform: scaleY(-.3); transition: transform .45s var(--mp-ease, ease), opacity .3s ease;
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, .9), transparent 75%); mask-image: linear-gradient(to top, rgba(0, 0, 0, .9), transparent 75%); }
 /* het water rimpelt traag, enkel zolang de strook zichtbaar is */
-.mp-dicht .mp-spiegel { animation: mp-rimpel 5s ease-in-out infinite; }
+.mp-dicht .mp-spiegel { opacity: .5; transform: scaleY(-1); transition-delay: .4s; animation: mp-rimpel 5s ease-in-out 1.2s infinite; }
 @keyframes mp-rimpel { 50% { transform: scaleY(-1) skewX(-4deg) translateX(3px); } }
 
 /* de knop staat rechtsonder op de foto, ook als die open is. Glas zoals de
@@ -1046,11 +1056,15 @@ ul { padding: 0; list-style: none; }
 /* .mp-frame ervoor: de algemene hoverregel van de knoppen (verderop) is even zwaar */
 @media (hover: hover) { .mp-frame .mp-beeld .mp-knop:hover { color: var(--g-ink); } }
 .mp-beeld .mp-knop:focus-visible { outline: 2px solid var(--g-ink); outline-offset: 3px; }
-.mp-knop svg { transform: rotate(180deg); transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.mp-knop svg { transform: rotate(180deg); transition: transform .55s var(--mp-ease, ease); }
 .mp-dicht .mp-knop svg { transform: none; }
-.mp-k-open { display: none; }
-.mp-dicht .mp-k-open { display: inline; }
-.mp-dicht .mp-k-dicht { display: none; }
+/* beide labels liggen op elkaar en wisselen met een overvloeier: zo houdt de
+   knop één breedte en verspringt hij niet bij een klik */
+.mp-k-tekst { display: inline-grid; justify-items: center; }
+.mp-k-tekst > span { grid-area: 1 / 1; transition: opacity .25s ease; }
+.mp-k-open { opacity: 0; visibility: hidden; }
+.mp-dicht .mp-k-open { opacity: 1; visibility: visible; }
+.mp-dicht .mp-k-dicht { opacity: 0; visibility: hidden; }
 
 @media (max-width: 700px) {
   .mp-frame { --mp-band: 290px; }
@@ -1059,10 +1073,10 @@ ul { padding: 0; list-style: none; }
   .mp-beeld .mp-knop { left: var(--gutter); right: auto; bottom: 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .mp-vouw, .mp-vouw .thesis, .mp-kop, .mp-knop svg { transition: none !important; }
+  .mp-vouw, .mp-vouw .thesis, .mp-kop, .mp-kop > *, .mp-knop svg, .mp-k-tekst > span { transition: none !important; }
   .mp-dicht .mp-spiegel { animation: none; }
 }
-:root[data-motion="reduce"] :is(.mp-vouw, .mp-vouw .thesis, .mp-kop, .mp-knop svg) { transition: none !important; }
+:root[data-motion="reduce"] :is(.mp-vouw, .mp-vouw .thesis, .mp-kop, .mp-kop > *, .mp-knop svg, .mp-k-tekst > span) { transition: none !important; }
 :root[data-motion="reduce"] .mp-dicht .mp-spiegel { animation: none; }
 @media print { .mp-dicht .mp-vouw { grid-template-rows: 1fr; } .mp-dicht .mp-vouw .thesis { opacity: 1; transform: none; } }
 .findings { margin-top: 22px; border-top: 1px solid var(--g-line); }
