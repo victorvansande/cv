@@ -24,7 +24,8 @@
 }
 :root {
   --font-head: "Big Shoulders Display", "Arial Narrow", sans-serif;
-  --font: "Libre Franklin", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* broodtekst: Familjen Grotesk (Victors keuze uit elf, nov 2026), eerst Libre Franklin */
+  --font: "Familjen Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --wrap: 1320px;
   --gutter: 40px;

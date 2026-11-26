@@ -144,7 +144,7 @@
         woorden.forEach((w) => { const p = r ? r + " " + w : w; if (ctx.measureText(p).width > max && r) { uit.push(r); r = w; } else r = p; });
         if (r) uit.push(r); return uit;
       };
-      a.font = "400 " + Math.round(W * 0.05) + 'px "Libre Franklin", system-ui, sans-serif';
+      a.font = "400 " + Math.round(W * 0.05) + 'px "Familjen Grotesk", system-ui, sans-serif';
       const subR = regels(a, sub, W - 2 * pad).slice(0, 2);
       let y = H - pad - (subR.length - 1) * W * 0.065;
       a.globalAlpha = 0.82;

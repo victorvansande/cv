@@ -224,6 +224,17 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Broodtekst in Familjen Grotesk** (Victors keuze, nov 2026, uit elf kandidaten in
+  een proefpagina; eerst Libre Franklin). De wens: iets verfijnder dan de standaard,
+  zonder dat het opvalt, en geen lettertype dat vaak in AI-gebouwde sites opduikt
+  (dus geen Inter, Geist, DM Sans, Manrope, Plus Jakarta, Outfit, Sora, Space
+  Grotesk, Instrument, Bricolage, Figtree, Poppins of IBM Plex). Familjen is een
+  rustige Zweedse grotesk met warme details in de g, de y en de cijfers. Geldt voor
+  de site, de 404, beide PDF's en de linkafbeelding; de titels blijven in Big
+  Shoulders, de ATS-PDF in systeemletters. Ook overwogen: Schibsted Grotesk,
+  Sofia Sans, Wix Madefor Text, Radio Canada, Commissioner, Proza Libre, Newsreader
+  en Literata; afgevallen door gebreken: Golos Text (geen cursief), Alegreya Sans
+  (geen gewicht 600).
 - **Portret op de eerste compacte kaart** (Victors keuze C uit drie, nov 2026): op
   de pc vult het de lege ruimte bovenaan het tekstvlak (4:3, hoeken l), op gsm
   staat het klein (56 px, hoeken m) naast de naam. Niet gekozen: A (de pil naast

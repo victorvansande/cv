@@ -496,7 +496,7 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   - Cloud: `NODE_PATH=$(npm root -g) node tools/pdf.js [bron.html uit.pdf]`
     (zonder argumenten: `cv-print.html` naar `assets/cv-victor-van-sande.pdf`).
     Dat wacht op de webfonts; `chrome --print-to-pdf` doet dat niet, en sinds
-    `cv-print.html` Big Shoulders en Libre Franklin gebruikt is dat nodig.
+    `cv-print.html` Big Shoulders en Familjen Grotesk gebruikt is dat nodig.
     Controleer met `pdftotext`: `pdftotext <pdf> - | tr -cd '\f' | wc -c` moet
     `2` geven, en kijk of het laatste item van de zijkolom op blad 1 er nog staat
     (blad 1 heeft `overflow: hidden`, dus wat niet past valt stil weg).
