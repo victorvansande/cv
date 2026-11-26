@@ -224,6 +224,11 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Portret op de eerste compacte kaart** (Victors keuze C uit drie, nov 2026): op
+  de pc vult het de lege ruimte bovenaan het tekstvlak (4:3, hoeken l), op gsm
+  staat het klein (56 px, hoeken m) naast de naam. Niet gekozen: A (de pil naast
+  "Victor" zoals in de hero; op de kaart te klein) en B (een portret op de naad
+  tussen foto en tekst; dekte een stuk van de zonsverduistering af).
 - **Op elke compacte kaart één woord in de themakleur** (Victors vraag, nov 2026),
   zoals al bij Portfolio ("overlopen"), Over mij en Contact: Victor, Gekkoo,
   onderscheiding, Misleiding en KSA (`.stack-title .em-serif`). De titels van de

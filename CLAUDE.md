@@ -284,7 +284,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   andere in `index.html`.
 - **Compacte weergave** (`stapel.js`, eigen bouw naar de Scroll Stack van React
   Bits Pro): de hele site als stapel kaarten, één per onderdeel, met de foto en
-  het palet van dat onderdeel. Aan via de instellingen (`data-view="compact"` op
+  het palet van dat onderdeel. De eerste kaart draagt ook het portret (`.stack-portret`
+  in `.stack-naam`: op de pc `display: contents` en bovenaan het tekstvlak, op gsm
+  klein naast de naam). Aan via de instellingen (`data-view="compact"` op
   `<html>`, onthouden onder `cv-weergave` in sessionStorage, dus enkel voor dat
   bezoek: een nieuw bezoek start altijd op het vel en de volledige site, Victors
   vraag nov 2026; de kop wist een oude keuze in localStorage), of via de tekstlink "Weinig tijd? Lees
