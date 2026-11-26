@@ -610,6 +610,10 @@ ul { padding: 0; list-style: none; }
 .row-split { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .row-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }
 .honour { font-size: .86rem; color: var(--g-acc); font-weight: 500; }
+/* op gsm staat de vermelding altijd op een eigen regel en de knoppen eronder:
+   anders paste een korte vermelding ("Titel: psychologisch consulent") er net
+   naast en een lange niet, en stond de knop telkens elders (Victors vraag) */
+@media (max-width: 700px) { .row-foot .honour { flex-basis: 100%; } }
 
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 /* Trefwoorden zijn labels, geen knoppen: bij hover springen tekst en rand
