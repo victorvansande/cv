@@ -1191,6 +1191,10 @@ ul { padding: 0; list-style: none; }
   .hero-name { font-size: clamp(3.6rem, 17vw, 6rem); }
   .sec-title { font-size: clamp(3.6rem, 19vw, 7rem); }
   .sec-title.sec-title-lang { font-size: clamp(3.2rem, 15vw, 5.6rem); }
+  /* "KSA Herentals" staat hier op één regel: de titel heeft de volle breedte en
+     past op elke gsm (ook 320 px). De regelbreuk is er enkel voor de smalle
+     linkerkolom op de pc (Victors vraag, nov 2026). */
+  .br-breed { display: none; }
   .cols-2, .cols-3 { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
   .sec > .wrap, .sec > .grade > .wrap, section.grade > .wrap { padding-top: 32px; padding-bottom: 44px; }
