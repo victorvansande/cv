@@ -592,10 +592,20 @@ ul { padding: 0; list-style: none; }
 .rows-tight .row { padding: 14px 0; }
 .rows-tight .row > div { color: var(--g-soft); }
 .rows-tight strong { color: var(--g-ink); font-weight: 600; }
-/* de studentenjobs elk op een eigen regel: met een bolletje ertussen las het
-   op gsm vreemd, en een komma botste met die in "POP Coffee, Herentals" */
-.job-regel { display: block; }
-.job-regel + .job-regel { margin-top: 4px; }
+/* De studentenjobs elk op een eigen regel, als een klein tabelletje: links de
+   jaren in de letter van de datums, rechts zaak, functie en plaats zoals bij de
+   stages. Zo hebben ze dezelfde structuur, maar een maat kleiner en met de
+   naam van de zaak minder vet, zodat ze minder opvallen dan de stages (Victors
+   vraag, nov 2026: als losse zinnen oogden ze als een hoopje tekst). */
+.jobs { display: block; }
+.job-regel { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 12px; align-items: baseline; font-size: .94rem; }
+.job-regel + .job-regel { margin-top: 6px; }
+.job-jaar { font-size: .8rem; color: var(--g-dim); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rows-tight .job-regel strong { font-weight: 500; }
+/* voor de plaats staat een halve kastlijn (&ensp;) in plaats van de marge: zo
+   kan de regel daar breken en begint een afgebroken plaats niet ingesprongen
+   (anders liep "Herentals" op een iPhone SE uit beeld) */
+.job-regel .row-place { margin-left: 0; }
 .nb { white-space: nowrap; } /* jaartallen als "(2023–2024)" niet afbreken na het streepje */
 .row-split { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .row-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 12px; }

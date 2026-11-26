@@ -224,6 +224,9 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Studentenjobs als klein tabelletje** (Victors vraag, nov 2026): jaren links in
+  de letter van de datums, rechts zaak, functie en plaats zoals bij de stages, een
+  maat kleiner en de zaak minder vet. Als losse zinnen oogden ze als een hoopje tekst.
 - Onder 900 px geen lijn boven "Stages & studentenjobs" (Victors vraag, nov 2026):
   het label staat daar boven de rijen, met al een lijn eronder.
 - Koppen slaan geen niveau over: h1 de naam, h2 de hoofdstukken, h3 daaronder.
