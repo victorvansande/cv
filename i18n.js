@@ -305,6 +305,10 @@ window.I18N = {
     tldr_edu_sub: `Master in Communication Studies, University of Antwerp`,
     tldr_role_lbl: `Current role`,
     tldr_role_val: `Fundraiser at Gekkoo`,
+    /* titels van de compacte kaarten: één woord in de themakleur van de kaart */
+    stack_gekkoo: `Fundraiser at <span class="em-serif" translate="no">Gekkoo</span>`,
+    stack_edu: `3 degrees, 2 with <span class="em-serif">distinction</span>`,
+    stack_thesis: `The Power of <span class="em-serif">Deception</span>`,
     tldr_role_sub: `Since September 2026`,
     tldr_ksa_lbl: `Leadership`,
     tldr_ksa_val: `10+ years at KSA Herentals`,

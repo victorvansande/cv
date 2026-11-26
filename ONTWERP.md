@@ -224,6 +224,11 @@ met een dieper accent. In de PDF's staat het accent als `--a-*` in
   promotor") liever twee regels. De compacte kaarten hebben hun eigen knoppen.
 - Geen streep onder het laatste item van een lijst, behalve waar die streep een
   functie heeft (het lijntje onder Contact in de menubalk).
+- **Op elke compacte kaart één woord in de themakleur** (Victors vraag, nov 2026),
+  zoals al bij Portfolio ("overlopen"), Over mij en Contact: Victor, Gekkoo,
+  onderscheiding, Misleiding en KSA (`.stack-title .em-serif`). De titels van de
+  kaarten hebben daarvoor eigen vertaalsleutels (`stack_gekkoo`, `stack_edu`,
+  `stack_thesis`), zodat de gedeelde sleutels elders geen kleur krijgen.
 - **Referentieknop van Gekkoo naast de naam** (Victors vraag, nov 2026): op
   dezelfde lijn als "GEKKOO", rechts uitgelijnd op de rand van de foto eronder,
   zoals "Bekijk brevet". Zo hoort de referentie zichtbaar bij de werkgever en
