@@ -60,6 +60,9 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **De periode zonder werk** (sep 2025 tot mei 2026, bij Ervaring) staat er
+  enkel ter informatie (Victors vraag): kleinere, gedempte tekst, minder
+  ruimte en geen duur eronder, zodat ze niet leest als een functie.
 - **Hero in halve vensters: variant D** (nov 2026): grote naam die de breedte
   vult, tekst eronder in twee kolommen. Niet gekozen: A naast elkaar, B grote
   naam met tekst op 8 kolommen, C naam zoals voorheen met tekst in twee

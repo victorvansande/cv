@@ -581,7 +581,13 @@ ul { padding: 0; list-style: none; }
 .row :is(h3, h4) + p, .row p + p { margin-top: 8px; }
 .row p { color: var(--g-soft); }
 .row-org { display: block; font-weight: 400; font-size: .92rem; color: var(--g-dim); margin-top: 2px; }
-.row-quiet p { color: var(--g-dim); }
+/* De periode zonder werk staat er enkel ter informatie (Victors vraag): kleiner,
+   gedempt en met minder ruimte, zodat ze niet leest als een functie. Geen duur
+   eronder. */
+.row-quiet { padding: 12px 0 14px; }
+.row-quiet p { color: var(--g-dim); font-size: .84rem; line-height: 1.55; }
+.row-quiet .row-date { font-size: .78rem; padding-top: 1px; }
+.row-quiet .row-dur { display: none; }
 .row-place { color: var(--g-dim); margin-left: 10px; font-size: .88rem; }
 .rows-tight .row { padding: 14px 0; }
 .rows-tight .row > div { color: var(--g-soft); }
