@@ -21,6 +21,23 @@
    ============================================================ */
 (() => {
   "use strict";
+  /* Scrollen met het muiswiel in een carrousel (Victors vraag): zolang de muis
+     erin staat, draait het wiel de carrousel in plaats van de pagina. Eén stap
+     per klik van het wiel; een trackpad geeft veel kleine stapjes, die tellen
+     samen tot er genoeg is voor één stap. Een korte pauze na elke stap, anders
+     raast één veeg door de hele reeks. */
+  const wielStappen = (stap) => {
+    let som = 0, rust = 0;
+    return (e) => {
+      if (e.ctrlKey) return; // inzoomen met ctrl + wiel blijft werken
+      e.preventDefault();
+      const d = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
+      const nu = performance.now();
+      if (nu < rust) return;
+      som += d;
+      if (Math.abs(som) >= 40) { stap(som > 0 ? 1 : -1); som = 0; rust = nu + 260; }
+    };
+  };
 
   const rustig = () =>
     matchMedia("(prefers-reduced-motion: reduce)").matches ||
@@ -227,6 +244,8 @@
       loop();
     };
     const naar = (i) => { idx = ((i % n) + n) % n; dx = 0; zet(true); };
+    // scrollen met het wiel terwijl de muis in de carrousel staat: één foto per stap
+    view.addEventListener("wheel", wielStappen((r) => naar(idx + r)), { passive: false });
     vorige.addEventListener("click", () => naar(idx - 1));
     volgende.addEventListener("click", () => naar(idx + 1));
     view.addEventListener("keydown", (e) => {
@@ -431,8 +450,10 @@
       if (e.key === "ArrowRight") { e.preventDefault(); naar(Math.round(rot) + 1); }
     });
     // horizontaal scrollen met een touchpad draait de ring; verticaal scrollt gewoon de pagina
+    // horizontaal (trackpad): vrij draaien; verticaal (muiswiel): één werk per stap
+    const wielStap = wielStappen((r) => naar(Math.round(doel != null ? doel : rot) + r));
     view.addEventListener("wheel", (e) => {
-      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) { wielStap(e); return; }
       e.preventDefault();
       doel = null; vel += e.deltaX / (kw + R.gap) * 0.12; loop();
     }, { passive: false });

@@ -163,8 +163,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   uit tinten van het accent van zijn sectie (`--gr-diep`, `--g-acc`, `--gr-licht`,
   gemengd in oklab), met grijze korrel als bovenste laag in soft-light, alles in
   één `::before` (de `::after` van `.doc-btn` en `.gal-btn` is hun raakvlak van
-  44 px). Wie een nieuwe knop toevoegt, zet hem in die lijst (ook in main.js voor
-  de cursorvlek). In het palet van de hero (`.g-eclipse`) loopt het verloop van
+  44 px). Bij knoppen met een rand van 1 px bedekt het verloop de rand mee
+  (`inset: -1px`), anders bleef in elke hoek een donker sikkeltje over. Wie een
+  nieuwe knop toevoegt, zet hem in die lijst (ook in main.js voor de cursorvlek). In het palet van de hero (`.g-eclipse`) loopt het verloop van
   karmijn (`--g-acc2`) naar goud, en de nummers van "In één oogopslag" en het
   kader, label en de vlekjes van de Tech Text op de naam staan in
   karmijn (css onder "Hero: karmijn als tweede accent"). Niet de trefwoorden en niet de menubalk. Rechts van "Victor" staat een
@@ -209,7 +210,15 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   ondertitel (of het eerste tekstelement) op die van de titel, en is de tekst
   korter, de laatste regel op de onderlijn van de titel (een paar pixels te lang:
   de marge krimpt, tot 4 px). Gemeten met een meetpunt op de baseline en het canvas
-  voor de hoogte van een hoofdletter. Naast een titel mag de tekst 70 tekens breed zijn. De grote foto's
+  voor de hoogte van een hoofdletter. **Meet nooit een verborgen element**: in de
+  compacte weergave staan de secties op `display: none`, een meting gaf daar 0 en
+  na de terugkeer stond de tekst 64 px te hoog (nov 2026, op de site gezien; bij
+  het verkleinen van het venster herstelde het zich, want dan werd opnieuw
+  gemeten). `koppen()` slaat daarom de compacte weergave over en draait opnieuw
+  bij elke wissel van `data-view`. Elke nieuwe meting volgt die regel. Ook de
+  hero lijnt zo uit: de bovenkant van de hoofdletters van "Communicatiewetenschapper."
+  op die van "VICTOR" (`heroLijn`, gemeten met offsetTop, dat transformaties
+  negeert, zodat het ook tijdens de intro klopt). Naast een titel mag de tekst 70 tekens breed zijn. De grote foto's
   hebben hoeken van 12 px; op gsm onder 700 px lopen ze van rand tot rand,
   zonder hoeken. De gekleurde lagen die er vroeger rechts onder uitschoven
   (naar de Staggered Menu) zijn op Victors vraag weg. Een kop binnen een sectie (`.sub-head >
@@ -246,7 +255,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   `.design-cap`), de werkgalerij een draaiende ring met bewegingsonscherpte. Zonder
   script blijven de rasters staan. Een klik op een kaart opzij wordt in de
   capture-fase onderschept; de middelste kaart opent de lichtbak of het
-  voorproefvenster zoals voorheen. Cache-versie van `galerij.js` staat naast de
+  voorproefvenster zoals voorheen. Met de muis in een carrousel draait het
+  muiswiel de carrousel, één kaart per stap, in plaats van de pagina
+  (`wielStappen`, Victors vraag; ctrl + wiel blijft inzoomen). Cache-versie van `galerij.js` staat naast de
   andere in `index.html`.
 - **Compacte weergave** (`stapel.js`, eigen bouw naar de Scroll Stack van React
   Bits Pro): de hele site als stapel kaarten, één per onderdeel, met de foto en
@@ -309,10 +320,9 @@ soort wijziging) staat in [ONTWERP.md](ONTWERP.md).
   naar de mail met de verborgen tekst `.lint-txt` (`lint_txt` in `i18n.js`);
   de svg is aria-hidden en bouwt opnieuw na een taalwissel (`cv-layout`). Te
   slepen, stil bij hover, na slepen geen mail, stil bij minder beweging, en de
-  lus loopt enkel in beeld. Rechts onder het lint staat een klein pauzeknopje
-  (`.lint-pauze`, toegankelijkheid: beweging langer dan 5 s moet je kunnen
-  stilzetten; op gsm is er geen hover en een tik opent de mail); de keuze geldt
-  voor de sessie (`vvs-lint-pauze`), de tekst staat in een verborgen span. Onderaan padding in plaats van een marge: een marge
+  lus loopt enkel in beeld. Een pauzeknopje (toegankelijkheidsrichtlijn voor
+  beweging langer dan 5 s) is op Victors vraag weer weggehaald: het lint staat
+  stil bij hover en bij minder beweging, en dat volstaat voor hem. Onderaan padding in plaats van een marge: een marge
   liep door `#contact` heen en liet een strook in de kleur van de pagina staan.
   De enige beweging die blijft lopen zonder dat iemand iets doet.
 - **Mailkeuze** (main.js, "Mailkeuze", sinds nov 2026): elke `mailto:`-link op de

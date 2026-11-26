@@ -26,34 +26,6 @@
   const svg = mk("svg", { class: "lint-svg", "aria-hidden": "true", focusable: "false" });
   host.appendChild(svg);
 
-  /* Pauzeknop: beweging die langer dan vijf seconden loopt, moet je kunnen
-     stilzetten (richtlijn voor toegankelijkheid). Op een gsm is er geen hover,
-     en een tik op het lint opent de mail, dus een eigen knopje rechts onder het
-     lint. De tekst staat in een verborgen span (geen aria-label, dat zou de
-     taalwissel van main.js overschrijven). De keuze geldt voor de sessie. */
-  const TXT = { nl: ["Pauzeer het lint", "Laat het lint weer lopen"], en: ["Pause the banner", "Play the banner"] };
-  let gepauzeerd = false;
-  try { gepauzeerd = sessionStorage.getItem("vvs-lint-pauze") === "1"; } catch (_) {}
-  const bediening = document.createElement("div");
-  bediening.className = "wrap lint-bediening";
-  bediening.innerHTML = '<button type="button" class="lint-pauze">' +
-    '<svg class="ic-pauze" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="1.5" width="2.6" height="9" rx=".8"/><rect x="7.4" y="1.5" width="2.6" height="9" rx=".8"/></svg>' +
-    '<svg class="ic-speel" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.8v8.4c0 .5.5.8.9.5l6.4-4.2c.4-.3.4-.8 0-1L3.9 1.3c-.4-.3-.9 0-.9.5z"/></svg>' +
-    '<span class="lint-pauze-txt"></span></button>';
-  host.after(bediening);
-  const pauzeKnop = bediening.firstChild, pauzeTxt = pauzeKnop.querySelector(".lint-pauze-txt");
-  const zetKnop = () => {
-    const t = TXT[wortel.lang === "en" ? "en" : "nl"];
-    pauzeTxt.textContent = gepauzeerd ? t[1] : t[0];
-    pauzeKnop.setAttribute("aria-pressed", String(gepauzeerd));
-    pauzeKnop.classList.toggle("speelt-niet", gepauzeerd);
-    bediening.hidden = rustig(); // bij minder beweging staat het lint al stil
-  };
-  pauzeKnop.addEventListener("click", () => {
-    gepauzeerd = !gepauzeerd;
-    try { sessionStorage.setItem("vvs-lint-pauze", gepauzeerd ? "1" : "0"); } catch (_) {}
-    zetKnop(); start();
-  });
 
   // Een golf als reeks korte lijnstukjes, wat ruimer dan het scherm zodat
   // de band aan beide kanten buiten beeld begint.
@@ -130,12 +102,12 @@
   const stap = (nu) => {
     const dt = Math.min(0.05, (nu - vorige) / 1000); vorige = nu;
     if (!sleept) {
-      const doel = zweeft || gepauzeerd || rustig() ? 0 : SNELHEID;
-      v += (doel - v) * Math.min(1, dt * (zweeft || gepauzeerd ? 7 : 2.2));
+      const doel = zweeft || rustig() ? 0 : SNELHEID;
+      v += (doel - v) * Math.min(1, dt * (zweeft ? 7 : 2.2));
       off += v * dt;
       zet();
     }
-    const stil = !sleept && Math.abs(v) < 0.5 && (zweeft || gepauzeerd || rustig());
+    const stil = !sleept && Math.abs(v) < 0.5 && (zweeft || rustig());
     raf = inBeeld && !stil ? requestAnimationFrame(stap) : 0;
   };
   const start = () => { if (!raf && inBeeld) { vorige = performance.now(); raf = requestAnimationFrame(stap); } };
@@ -145,9 +117,6 @@
   new MutationObserver(start).observe(wortel, { attributes: true, attributeFilter: ["data-motion"] });
 
   new ResizeObserver(() => bouw()).observe(host);
-  addEventListener("cv-layout", () => { bouw(); zetKnop(); });
-  mq.addEventListener?.("change", zetKnop);
-  new MutationObserver(zetKnop).observe(wortel, { attributes: true, attributeFilter: ["data-motion"] });
-  zetKnop();
+  addEventListener("cv-layout", () => bouw());
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => bouw(true));
 })();

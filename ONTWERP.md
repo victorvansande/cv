@@ -60,6 +60,11 @@ het ontwerp en over de stappen bij een wijziging.
   animatie die vanzelf blijft lopen. Daarom traag (38 px/s), stil bij hover en
   bij minder beweging, en enkel actief in beeld.
 
+- **Pauzeknop van het lint weggehaald** (Victors vraag): de richtlijn vraagt er
+  een voor beweging langer dan 5 s, maar het lint staat al stil bij hover en bij
+  minder beweging. Niet opnieuw voorstellen.
+- **404**: enkel nog "Terug naar home" (de knop naar Contact is weg).
+- **Carrousels draaien met het muiswiel** zolang de muis erin staat.
 - **Taal in de instellingen** (nov 2026, Victors vraag): "Nederlands" en
   "English" bovenaan het instellingenpaneel; enkel licht/donker blijft los in
   de menubalk.

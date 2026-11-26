@@ -170,10 +170,45 @@
       else if (tekort < -1 && marge + tekort >= 4) laatste.style.marginTop = (marge + tekort).toFixed(1) + "px";
     }
   });
-  const koppen = () => { pasTitels(); lijnKoppen(); };
+  /* ---- Hero: de tekst ernaast bovenaan uitgelijnd op de naam ----
+     Zoals bij de sectietitels: de bovenkant van de hoofdletters van de eerste
+     regel ("Communicatiewetenschapper.") op die van "VICTOR". Gemeten met
+     offsetTop, dat transformaties negeert: tijdens de intro staat de naam
+     vergroot en schuift de tekst nog, en zo verspringt er achteraf niets.
+     Enkel als de tekst naast de naam staat (niet op gsm of in halve vensters). */
+  const absY = (el) => { let y = 0; for (let e = el; e; e = e.offsetParent) y += e.offsetTop; return y; };
+  const basislijn = (el) => {
+    const p = document.createElement("span");
+    p.style.cssText = "display:inline-block;width:0;height:0;vertical-align:baseline";
+    el.insertBefore(p, el.firstChild);
+    const y = absY(p); p.remove();
+    return y;
+  };
+  const heroLijn = () => {
+    const naam = document.querySelector(".hero-name"), zij = document.querySelector(".hero-side");
+    const lead = zij && zij.querySelector(".hero-lead");
+    if (!naam || !lead) return;
+    zij.style.alignSelf = ""; zij.style.marginTop = ""; naam.style.alignSelf = "";
+    if (zij.offsetLeft < naam.offsetLeft + naam.offsetWidth * 0.5) return; // onder elkaar
+    // beide bovenaan in hun rij: met de naam onderaan (align-items: end) groeide
+    // de rij mee met de marge en zakte de naam evenveel
+    zij.style.alignSelf = "start"; naam.style.alignSelf = "start";
+    const verschil = (basislijn(naam) - kapHoogte(naam)) - (basislijn(lead) - kapHoogte(lead));
+    zij.style.marginTop = verschil.toFixed(1) + "px";
+  };
+  /* Enkel meten wat zichtbaar is: in de compacte weergave staan de secties
+     op display: none, en een meting gaf dan 0. Wie daarna terugkeerde naar de
+     gewone weergave, kreeg overal een marge van -64 px (de tekst stond hoog
+     boven de titel). Daarom niets doen zolang de secties verborgen zijn, en
+     opnieuw meten zodra de weergave wisselt. */
+  const koppen = () => {
+    if (wortel.dataset.view === "compact") return;
+    pasTitels(); lijnKoppen(); heroLijn();
+  };
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(koppen);
   addEventListener("resize", koppen);
   addEventListener("cv-layout", koppen);
+  new MutationObserver(() => requestAnimationFrame(koppen)).observe(wortel, { attributes: true, attributeFilter: ["data-view"] });
 
   /* ---- Portret in een pil naast de naam ----
      Rechts van "Victor" staat een pil met het portret, even hoog als de
