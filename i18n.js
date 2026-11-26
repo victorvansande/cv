@@ -273,7 +273,7 @@ window.I18N = {
     tag_grants: `Grants &amp; project calls`,
     ksa_eyebrow: `10+ years of commitment`,
     ksa_lead: `A youth movement teaches you things no programme covers: working together in a very mixed team, taking responsibility, and improvising the moment the plan changes.`,
-    ksa_desc: `The youth movement with the blue shirts and orange scarves in the heart of Herentals. <a href="https://www.ksaherentals.be/" target="_blank" rel="noopener">ksaherentals.be&nbsp;↗</a>`,
+    ksa_desc: `The youth movement with the blue shirts and orange scarves in the heart of Herentals.`,
     ksa_role1_h: `Web designer`,
     ksa_role1_date: `2022 – present`,
     ksa_role1_p: `I independently set up <a href="https://ksaherentals.be" target="_blank" rel="noopener">ksaherentals.be&nbsp;↗</a> and manage it as the central platform for our entire operation: member planning, activities and a monthly blog I write and publish myself.`,
