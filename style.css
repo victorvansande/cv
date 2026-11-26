@@ -1468,6 +1468,9 @@ ul { padding: 0; list-style: none; }
    per persoon naam, functie, contact en, bij wie er een heeft, een knop
    "Toon citaat". Geen extra lengte op de pagina. */
 .ref-knop { margin-top: 14px; }
+.org-titel { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 8px 0 10px; }
+.org-titel h3 { margin: 0; }
+.org-titel .ref-knop { margin-top: 0; }
 /* Een subtiel sterretje voor het woord "Referentie(s)" (ster in lijn, Victors
    keuze): wit op donker, in het accent op licht, waar wit zou wegvallen. De
    ster schuift --ster-y omlaag, zodat haar midden op het midden van de kleine
